@@ -1,0 +1,12 @@
+# Blender MTL File: 'Empty.blend'
+# Material Count: 1
+
+newmtl SCROLL34
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.323137 0.250980 0.109804
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ITAR_SCROLLS.TGA

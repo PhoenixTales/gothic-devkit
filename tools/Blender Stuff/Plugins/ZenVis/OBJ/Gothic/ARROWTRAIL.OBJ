@@ -1,0 +1,14 @@
+# Blender v2.75 (sub 0) OBJ File: 'Empty.blend'
+# www.blender.org
+mtllib ARROWTRAIL.mtl
+o ARROWTRAIL
+v 0.000000 0.000000 -0.156250
+v 0.156250 0.000000 0.156250
+v -0.156250 0.000000 0.156250
+vt 0.000000 -0.000000
+vn 0.000000 1.000000 0.000000
+vn 0.000000 -1.000000 0.000000
+usemtl ARROWTRAIL
+s off
+f 3/1/1 2/1/1 1/1/1
+f 3/1/2 1/1/2 2/1/2

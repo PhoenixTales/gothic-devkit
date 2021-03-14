@@ -1,0 +1,12 @@
+# Blender v2.75 (sub 0) OBJ File: 'Empty.blend'
+# www.blender.org
+mtllib REPAIR_PLANK.mtl
+o REPAIR_PLANK
+v 0.324730 0.457140 -0.000000
+v -0.175270 0.457140 -0.000000
+v -0.050270 -1.030860 -0.000000
+vt 0.000000 1.000000
+vn 0.000000 0.000000 -1.000000
+usemtl (null)
+s off
+f 3/1/1 2/1/1 1/1/1

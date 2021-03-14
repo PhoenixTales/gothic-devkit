@@ -1,0 +1,14 @@
+V1.1
+-fixed crash for more than 100 pixel samples
+-colors for newly created materials are now imported from gothic materialfilters
+
+V1.2
+Assign Materials:
+-fixed crash when object had no UV map
+-fixed crash of "Only selected" was disabled and some objects were hidden, or the active object was hidden. Hidden objects are now exluded
+-fixed IndexError crash
+-works correctly now if the first material slot is empty but some of the following slots are not
+
+v1.3
+Calculate Colors:
+-fixed exporter crash when colors were too bright. Brightness is now limited to 1.

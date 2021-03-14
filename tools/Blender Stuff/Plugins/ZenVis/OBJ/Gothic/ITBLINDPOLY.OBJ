@@ -1,0 +1,12 @@
+# Blender v2.75 (sub 0) OBJ File: 'Empty.blend'
+# www.blender.org
+mtllib ITBLINDPOLY.mtl
+o ITBLINDPOLY
+v 0.001000 0.000000 0.001000
+v -0.001000 0.000000 0.001000
+v 0.000000 0.000000 -0.001000
+vt 0.000000 -0.000000
+vn 0.000000 1.000000 0.000000
+usemtl DEFAULT
+s off
+f 3/1/1 2/1/1 1/1/1

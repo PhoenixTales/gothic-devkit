@@ -1,0 +1,881 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: KrxImpExp\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-10-28 13:04+0500\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Vitaly Baranov <kerrax@mail.ru>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Russian\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: g:\\KrxImpExp\\src\n"
+
+#: g:\KrxImpExp\src/wxImpExpUI/3DSExporterDlg.cpp:184
+#: g:\KrxImpExp\src/wxImpExpUI/3DSImporterDlg.cpp:208
+msgid "Scale: %1"
+msgstr "Масштаб: %1"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:191
+msgid "Dynamic model"
+msgstr "Динамическая модель"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:197
+msgid "Static model"
+msgstr "Статическая модель"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:203
+msgid "Morph mesh"
+msgstr "Морфируемый меш"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:243
+msgid ""
+"Morph meshes can be used for modelling heads, bows, crossbows, flags, and so on. A morph mesh is represented by one MMS file and two or more ASC files. A compiled morph mesh is represented by one MMB file. Export of any morph mesh contains two steps: 1) export an initial mesh; and 2) export mesh'es animations.\n"
+"\n"
+msgstr ""
+"Морфируемые меши могут использоваться для моделирования голов, луков, арбалетов, флагов и тому подобного. Любой морфируемый меш всегда представлен одним MMS-файлом и двумя или более ASC-файлами. После компиляции морфируемого меша получается один MMB-файл. Экспорт морфируемого меша состоит из двух этапов: 1) экспорт исходного меша; 2) экспорт анимаций меша.\n"
+"\n"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:251
+msgid ""
+"Current mode: Export mesh.\n"
+"\n"
+"You should write the ASC file name to the \"morphRef\" section of your MMS file."
+msgstr ""
+"Текущий режим: экспорт меша.\n"
+"\n"
+"Полученный в результате ASC-файл должен быть записан в разделе \"morphRef\" соответствующего MMS-файла."
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:255
+msgid ""
+"Current mode: Export animation.\n"
+"\n"
+"You should write the ASC file name to the \"morphAni\" section of your MMS file."
+msgstr ""
+"Текущий режим: экспорт анимации.\n"
+"\n"
+"Полученный в результате ASC-файл должен быть записан в разделе \"morphAni\" соответствующего MMS-файла."
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:261
+msgid ""
+"Static models can be used for modelling beds, anvils, ladders, idols, chairs, and other objects, which can move only entirely (i.e. any part of an object is immovable relative to any other part of the same object). A static model is represented by one ASC file. A compiled static model is represented by one MDL file.\n"
+"\n"
+msgstr ""
+"Статические модели могут использоваться для моделирования кроватей, наковален, лестниц, статуй, стульев и других объектов, которые могут перемещаться только целиком (т.е. никакие части объекта не двигаются относительно друг друга). Любая статическая модель всегда представлена одним ASC-файлом. После компиляции статической модели получается один MDL-файл.\n"
+"\n"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:269
+msgid ""
+"Dynamic models can be used for modelling humans, orcs, monsters, their overlays, doors, chests, and other objects which have skeletons. A dynamic model is represented by one MDS file and two or more ASC files. A compiled dynamic model is represented by one MDH file, one or more MDM files, and one or more MAN files. Export of any dynamic model contains two steps: 1) export a model in initial pose; and 2) export model's animations.\n"
+"\n"
+msgstr ""
+"Динамическая модель может использоваться для моделирования людей, орков, монстров, их оверлеев, дверей, сундуков, и других объектов, которые имеют скелеты. Любая динамическая модель всегда представлена одним MDS-файлом и двумя или более ASC-файлами. После компиляции динамической модели получается один MDH-файл, один или более MDM-файлов, и один или более MAN-файлов. Экспорт динамической модели состоит из двух этапов: 1) экпорт модели в начальном положении; и 2) экспорт анимаций модели.\n"
+"\n"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:277
+msgid ""
+"Current mode: Export mesh.\n"
+"\n"
+"You should write the ASC file name to the \"meshAndTree\" or \"RegisterMesh\" section of your MDS file. There are two choices: you can press the \"All\" button to export the dynamic model entirely; or you can press \"None\" button to export bones and slots only (meshes aren't exported in this case). The last choice can be useful if you want to save an overlay's skeleton."
+msgstr ""
+"Текущий режим: экспорт меша.\n"
+"\n"
+"Полученный в результате ASC-файл должен быть записан в разделе \"meshAndTree\" или \"RegisterMesh\" соответствующего MDS-файла. Существуют две возможности: можно нажать кнопку \"Все\" для для экспорта динамической модели целиком; или можно нажать кнопку \"Ничего\" для экспорта только костей и слотов (меши не экспортируются в этом случае). Последний вариант может быть полезен, если нужно сохранить скелет для оверлея."
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:284
+msgid ""
+"Current mode: Export animation.\n"
+"\n"
+"You should write the ASC file name to the \"ani\" section of your MDS file. There are two choices: you can press the \"All\" button to export animation of all the bones and slots; or you can select bones and slots to export animation of some part of bones and slots. You should use the last choice if you want to save animation for the second layer. \n"
+"\n"
+"Here is a short explanation. Animations of different layers can be overlayed. For example, animation of sword's drawing is putted on animation of running man, and the result is sword's drawing while running. Therefore the animation of running man is at the first layer (export animation of all bones and slots) and the sword's drawing is at the second later (export animation of subtree starting with the \"Bip01 Spine1\" object)."
+msgstr ""
+"Текущий режим: экспорт анимации.\n"
+"\n"
+"Имя полученного в результате ASC-файл необходимо записать в разделе \"ani\" соответствующего MDS-файла. Здесь есть две возможности: можно нажать на кнопку \"Все\" для экспорта всех анимаций всех костей и слотов; или можно выбрать кости и слоты, чтобы экспортировать анимацию только их. Необходимо использовать именно второй вариант, когда необходимо сохранить анимацию для второго слоя.\n"
+"\n"
+"Здесь короткое пояснение. Анимации различных слоев могут быть наложены друг на друга. Например, анимация вынимания меча накладывается на анимацию бугущего человека, и в результате мы получаем анимацию вынимания меча на бегу. Таким образом, анимация бегущего человека пойдет в первый слой (нужно выбрать экспорт анимаций всего объектов, чтобы сохранить ее), а анимация вынимания меча пойдет во второй слой (нужно выбрать экспорт анимаций поддерева, начинающегося с объекта \"Bip01 Spine1\")."
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCExporterDlg.cpp:384
+#: g:\KrxImpExp\src/wxImpExpUI/ASCImporterDlg.cpp:701
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1165
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1645
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1855
+msgid "Frames: %1 -> %2, ..., %3 -> %4"
+msgstr "Кадры: %1 -> %2, ..., %3 -> %4"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ASCImporterDlg.cpp:651
+msgid "Choose a directory"
+msgstr "Выберите каталог"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:27
+msgid "Language"
+msgstr "Язык"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:44
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:619
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2275
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2416
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2506
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2568
+msgid "OK"
+msgstr "ОК"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:47
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:246
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:415
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:623
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:799
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1671
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1920
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2278
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2419
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2509
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2571
+msgid "Cancel"
+msgstr "Отмена"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:79
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:309
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:468
+msgid "File Properties"
+msgstr "Свойства файла"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:87
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:317
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:476
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:827
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:895
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1947
+msgid "File name:"
+msgstr "Имя файла:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:96
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:326
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:485
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:904
+msgid "File size:"
+msgstr "Размер файла:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:113
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:343
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:970
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1226
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1366
+msgid "What to do with current scene"
+msgstr "Что делать с текущей сценой"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:115
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:345
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:972
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1228
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1368
+msgid "Completely replace current scene"
+msgstr "Полностью заменить текущую сцену"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:118
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:348
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:975
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1231
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1371
+msgid "Merge imported objects with current scene"
+msgstr "Объединить импортированные объекты с текущей сценой"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:121
+msgid "Replace a slot with the first imported object"
+msgstr "Заменить слот первым импортированным объектом"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:127
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:984
+msgid "Choose a slot:"
+msgstr "Выберите слот:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:138
+msgid "Replace a bone with the first imported object"
+msgstr "Заменить кость первым импортированным объектом"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:144
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1001
+msgid "Choose a bone:"
+msgstr "Выберите кость:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:164
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:360
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:735
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1050
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1272
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1424
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1528
+msgid "Space Transformation"
+msgstr "Транформация пространства"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:172
+msgid "Post-Import Events"
+msgstr "Действия после импорта"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:174
+msgid "Weld vertices of all imported meshes"
+msgstr "Склеить близкие вершины всех импортированных мешей"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:184
+msgid "Threshold (cm):"
+msgstr "Допуск (см):"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:204
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:373
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:760
+msgid "Information Window"
+msgstr "Информационное окно"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:206
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:375
+msgid "The information window can be shown you after the import."
+msgstr "Информационное окно может быть показано после импорта"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:210
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:379
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:766
+msgid "Show information window"
+msgstr "Показывать информационное окно"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:214
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:383
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:770
+msgid "Close automatically"
+msgstr "Закрывать автоматически"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:221
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:390
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:777
+msgid "Time before close (seconds):"
+msgstr "Время перед закрытием (секунд):"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:242
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:411
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1667
+msgid "Import"
+msgstr "Импорт"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:249
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:418
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:804
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1674
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1923
+#: g:\KrxImpExp\src/wxImpExpUI/OptionsDlg.cpp:72
+msgid "Options"
+msgstr "Опции"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:252
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:421
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:809
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1677
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1926
+msgid "Help"
+msgstr "Справка"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:498
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:99
+msgid "Exported Objects"
+msgstr "Экспортированные объекты"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:503
+msgid ""
+"Some objects have not been saved because they contain too many vertices or faces. \n"
+"Number of vertices of one object must not exceed 65535, and number of faces must not exceed 65535 too.\n"
+"Try to split up objects colored red into several parts."
+msgstr ""
+"Некоторые объекты не были сохранены в файле, так как они содержат слишком много вершин или граней.\n"
+"Число вершин у одного объекта не должно превышать 65535, и число граней также не должно превышать 65535.\n"
+"Попробуйте разделить объекты, подсвеченные красным, на несколько частей."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:521
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2144
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:193
+msgid "Close"
+msgstr "Закрыть"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:525
+msgid "Stop timer"
+msgstr "Остановить таймер"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:558
+msgid "Materialfilter"
+msgstr "Фильтр материалов"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:563
+msgid "Path to \"matlib.ini\":"
+msgstr "Путь к файлу \"matlib.ini\":"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:572
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1294
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1455
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2082
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2093
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2104
+msgid "..."
+msgstr "..."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:577
+msgid "Hint: Look for the \"matlib.ini\" file in the \"<gothic>\\_work\\tools\\data\" folder."
+msgstr "Подсказка: Файл \"matlib.ini\" находится в папке \"<gothic>\\_work\\tools\\data\"."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:581
+msgid "Load Materialfilter"
+msgstr "Загрузить фильтр материалов"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:590
+msgid "Known Materials"
+msgstr "Известные материалы"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:601
+msgid "Unknown Materials"
+msgstr "Неизвестные материалы"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:603
+msgid "Name unknown materials by diffuse texture map's file name"
+msgstr "Называть материалы по имени файла диффузной карты"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:663
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1879
+msgid "Objects to Export"
+msgstr "Объекты для экспорта"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:672
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1887
+msgid "Selected:"
+msgstr "Выбрано:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:686
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1901
+msgid "All"
+msgstr "Все"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:689
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1904
+msgid "None"
+msgstr "Ничего"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:700
+msgid "Coordinate System"
+msgstr "Система координат"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:702
+msgid "Transform vertices into world coordinate system"
+msgstr "Трансформировать вершины в мировую систему координат"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:711
+msgid "Use this item for saving levels, and you will not need to attach all objects to one mesh before the export."
+msgstr "Рекомендуется использовать этот пункт для сохранения миров (levels). Тогда не нужно будет соединять все объекты в один меш перед экспортом."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:717
+msgid "Keep vertices in local coordinate system"
+msgstr "Сохранить вершины в локальной системе координат"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:726
+msgid "Use this item for saving items and mobs. Vertices of any object will be saved relative to the object's pivot. The old versions of the 3ds exporter doesn't allow you to select one of these two choices, and they used local coordinate system always."
+msgstr "Рекомендуется использовать этот пункт для сохранения предметов и MOB'ов. В этом случае вершины любого объекта сохраняются относительно его локальной системы координат (pivot). Старые версии 3ds-экспортера не позволяли выбрать между локальной и мировой системами координат, и всегда работали с локальной системой координат."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:743
+msgid "Material Autorenaming"
+msgstr "Автопереименование материалов"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:748
+msgid "Rename materials"
+msgstr "Переименовывать материалы"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:752
+msgid "Parameters..."
+msgstr "Параметры..."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:762
+msgid "The information window can be shown you after the export."
+msgstr "Информационное окно может быть показано после экспорта"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:793
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1916
+msgid "Export"
+msgstr "Экспорт"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:887
+msgid "File Information"
+msgstr "Информация о файле"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:923
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1179
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1314
+msgid "Model Information"
+msgstr "Информация о модели"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:935
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1191
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1326
+msgid "Num. Meshes:"
+msgstr "Число мешей:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:945
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1201
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1336
+msgid "Num. Slots:"
+msgstr "Число слотов:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:955
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1211
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1346
+msgid "Num. Bones:"
+msgstr "Число костей:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:978
+msgid "Link root of imported objects to a slot"
+msgstr "Привязать корневой импортированный объект к слоту"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:995
+msgid "Link root of imported objects to a bone"
+msgstr "Привязать корневой импортированный объект к кости"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1018
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1132
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1240
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1380
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1487
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1615
+msgid "Model prefix"
+msgstr "Префикс модели"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1020
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1242
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1382
+msgid "A model prefix is a string which is inserted before any object's name. By default the model prefix is an empty string. The model prefix can be used for importing and editing more than one model in the same scene."
+msgstr "Префикс модели - это строка, которая вставляется перед именем любого объекта. По умолчанию префикс модели - пустая строка. Префикс модели может быть использован для импортирования и редактирования более чем одной модели в одной и той же сцене."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1027
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1249
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1389
+msgid "Type a new model prefix:"
+msgstr "Введите новый префикс модели:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1036
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1258
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1398
+msgid "Auto"
+msgstr "Авто"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1065
+msgid "Morph Mesh"
+msgstr "Морфируемый меш"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1071
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1560
+msgid "Animation Information"
+msgstr "Информация об анимации"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1083
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1572
+msgid "First Frame:"
+msgstr "Первый кадр:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1093
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1582
+msgid "Last Frame:"
+msgstr "Последний кадр:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1103
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1592
+msgid "FPS:"
+msgstr "FPS:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1118
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1604
+msgid "What to do with current animation"
+msgstr "Что делать с текущей анимацией"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1120
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1606
+msgid "Completely replace current model's animation"
+msgstr "Полностью заменить текущую анимацию модели"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1123
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1609
+msgid "Merge an imported animation with current model's animation"
+msgstr "Объединить импортированную анимацию с текущей анимацией модели"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1134
+msgid "The following list contains prefixes of models which can be animated. These prefixes are listed for appropriate models only. An appropriate model is a model which has a mesh with the same number of vertices as in the animation imported from the file."
+msgstr "Следующий список содержит префиксы моделей, что могут быть анимированы. Этот список содержит только префиксы подходящих моделей. Подходящая модель - это модель, содержащая меш с тем же числом вершин, что содержится в импортируемой анимации."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1141
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1496
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1624
+msgid "Choose a model prefix:"
+msgstr "Выберите префикс модели:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1160
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1640
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1850
+msgid "Space and Time Transformation"
+msgstr "Транформация времени и пространства"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1173
+msgid "Morph Animation"
+msgstr "Анимация морфирования меша"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1280
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1437
+msgid "Bones and slots"
+msgstr "Кости и слоты"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1282
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1443
+msgid "Use sample meshes from folder:"
+msgstr "Использовать образцы мешей из папки:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1306
+msgid "Static Model"
+msgstr "Статическая модель"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1415
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1519
+msgid "Skinning method"
+msgstr "Способ скиннинга"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1439
+msgid "Try to connect bones"
+msgstr "Попробовать соединить кости"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1467
+msgid "Create a new model"
+msgstr "Создать новую модель"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1473
+msgid "What to do with the existing model"
+msgstr "Что делать с существующей моделью"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1475
+msgid "Replace current model's skin with an imported skin"
+msgstr "Заменить текущую шкуру импортируемой"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1478
+msgid "Merge current model's skin with an imported skin"
+msgstr "Объединить импортированную шкуру с текущей шкурой"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1489
+msgid "The following list contains prefixes of models which can be skinned with meshes imported from the file. These prefixes are listed for appropriate models only. An appropriate model is a model which has all the same bones' and slots' names as in the model imported from the file."
+msgstr "Следующий список содержит префиксы моделей, что могут быть покрыты шкурой, импортированной из файла. Этот список содержит только префиксы подходящих моделей. Подходящая модель - это модель, которая содержит те же имена костей и слотов, что и импортируемая модель."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1545
+msgid "Merge with an existing model"
+msgstr "Объединить с существующей моделью"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1552
+msgid "Dynamic Model"
+msgstr "Динамическая модель"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1617
+msgid "The following list contains prefixes of models which can be animated. These prefixes are listed for appropriate models only. An appropriate model is a model which has all the same bones' and slots' names as in the animation imported from the file."
+msgstr "Следующий список содержит префиксы моделей, что могут быть анимированы. Этот список содержит только префиксы подходящих моделей. Подходящая модель - это такая модель, что имеет те же имена костей и слотов, что и импортируемая модель."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1653
+msgid "Dynamic Model Animation"
+msgstr "Анимация динамической модели"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1793
+msgid "Model to Export"
+msgstr "Экспортируемая модель"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1800
+msgid "Model prefix:"
+msgstr "Префикс модели:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1809
+msgid "Model type:"
+msgstr "Тип модели:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1826
+msgid "Type of Export"
+msgstr "Тип экспорта"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1834
+msgid "Export mesh"
+msgstr "Экспорт меша"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1837
+msgid "Export animation"
+msgstr "Экспорт анимации"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:1864
+msgid "Information"
+msgstr "Информация"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2028
+msgid "Release Date: %1"
+msgstr "Дата выпуска: %1"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2038
+msgid ""
+"Open Source Import/Export Plugins\n"
+"for games \"Gothic\" and \"Gothic II\""
+msgstr ""
+"Плагины импорта/экспорта с открытым\n"
+" исходным кодом для игр \"Готика\" и \"Готика II\""
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2052
+msgid "Developed by:"
+msgstr "Автор:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2058
+msgid "Vitaly Baranov (Kerrax)"
+msgstr "Виталий Баранов (Kerrax)"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2064
+msgid "Translated to Language by:"
+msgstr ""
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2070
+msgid "TranslatorName"
+msgstr ""
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2076
+msgid "Home page:"
+msgstr "Домашняя страница:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2087
+msgid "English support forum:"
+msgstr "Английский форум поддержки:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2098
+msgid "Russian support forum:"
+msgstr "Русский форум поддержки:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2117
+msgid "Used free components:"
+msgstr "Используемые свободные компоненты"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2175
+msgid "Mapping of the File Frames' Indices to the Scene Frames' Indices"
+msgstr "Соответствие между номерами кадров в файле и в сцене"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2183
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2328
+msgid "Frame's Index In File"
+msgstr "Номер кадра в файле"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2187
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2324
+msgid "Frame's Index In Scene"
+msgstr "Номер кадра в сцене"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2191
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2332
+msgid "First processing frame:"
+msgstr "Первый обрабатываемый кадр:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2198
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2214
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2232
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2252
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2339
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2355
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2373
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2393
+msgid "--->"
+msgstr "--->"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2205
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2346
+msgid "Second processing frame:"
+msgstr "Второй обрабатываемый кадр:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2223
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2364
+msgid "Third processing frame:"
+msgstr "Третий обрабатываемый кадр:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2241
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2382
+msgid ""
+".\n"
+".\n"
+"."
+msgstr ""
+".\n"
+".\n"
+"."
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2245
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2386
+msgid "Last processing frame:"
+msgstr "Последний обрабатываемый кадр:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2316
+msgid "Mapping of the Scene Frames' Indices to the File Frames' Indices"
+msgstr "Соответствие между номерами кадров в сцене и в файле"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2457
+msgid "System unit"
+msgstr "Единица измерения"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2459
+msgid "Keep current settings"
+msgstr "Сохранить текущие установки"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2462
+msgid "Setup system unit"
+msgstr "Установить системную единицу измерения"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2468
+msgid "Select system unit:"
+msgstr "Выберите единицу измерения:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2485
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2547
+msgid "Scale coefficient"
+msgstr "Коэффициент масштабирования"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2487
+msgid "Number of system units per 1 file unit:"
+msgstr "Количество системных единиц в одной файловой единице:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.cpp:2549
+msgid "Number of file units per 1 system unit:"
+msgstr "Количество файловых единиц в одной системной единице:"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ImpExpHelpMenu.cpp:23
+msgid "Contents"
+msgstr "Содержание"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ImpExpHelpMenu.cpp:28
+msgid "About these plugins"
+msgstr "Об этих плагинах"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ImpExpUITools.cpp:230
+msgid "The specified prefix \"%1\" is not unique."
+msgstr "Указанный префикс \"%1\" не уникален."
+
+#: g:\KrxImpExp\src/wxImpExpUI/MatRenParamsDlg.cpp:54
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:105
+msgid "#"
+msgstr "№"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MatRenParamsDlg.cpp:55
+msgid "Material"
+msgstr "Материал"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MatRenParamsDlg.cpp:56
+msgid "Texture"
+msgstr "Текстура"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MatRenParamsDlg.cpp:88
+msgid "Specify \"matlib.ini\""
+msgstr "Укажите файл \"matlib.ini\""
+
+#: g:\KrxImpExp\src/wxImpExpUI/MatRenParamsDlg.cpp:100
+msgid "Specify path to the \"matlib.ini\" file at first."
+msgstr "Вначале укажите путь к файлу matlib.ini."
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:87
+msgid "Mesh Export Information"
+msgstr "Информация об экспорте меша"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:89
+msgid "Mesh Import Information"
+msgstr "Информация об импорте меша"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:101
+msgid "Imported Objects"
+msgstr "Импортированные объекты"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:106
+msgid "Name in file"
+msgstr "Имя в файле"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:107
+msgid "Name in scene"
+msgstr "Имя в сцене"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:108
+msgid "Materials"
+msgstr "Материалов"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:109
+msgid "Faces"
+msgstr "Граней"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:113
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:119
+msgid "Verts in scene"
+msgstr "Вершин в сцене"
+
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:114
+#: g:\KrxImpExp\src/wxImpExpUI/MeshInfoDlg.cpp:118
+msgid "Verts in file"
+msgstr "Вершин в файле"
+
+#: g:\KrxImpExp\src/wxImpExpUI/OptionsDlg.cpp:72
+msgid "The changes will take effect next time you run one of the plugins."
+msgstr "Изменения вступят в силу при следующем запуске одного из плагинов."
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformExpDlg.cpp:60
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformImpDlg.cpp:84
+msgid "A positive floating-point number expected."
+msgstr "Ожидается положительное вещественное число."
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformExpDlg.cpp:60
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformImpDlg.cpp:84
+msgid "Error"
+msgstr "Ошибка"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:22
+msgid "inch"
+msgstr "дюйм"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:23
+msgid "foot"
+msgstr "фут"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:24
+msgid "mile"
+msgstr "миля"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:25
+msgid "millimeter"
+msgstr "миллиметр"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:26
+msgid "centimeter"
+msgstr "сантиметр"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:27
+msgid "meter"
+msgstr "метр"
+
+#: g:\KrxImpExp\src/wxImpExpUI/SpaceTransformTools.cpp:28
+msgid "kilometer"
+msgstr "километр"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.h:245
+msgid "Material Renaming Parameters"
+msgstr "Параметры переименования материалов"
+
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.h:605
+#: g:\KrxImpExp\src/wxImpExpUI/FB_ImpExpUI.h:652
+msgid "Time Transformation"
+msgstr "Трансформация времени"
+
+#: g:\KrxImpExp\src/wxImpExpUI/ImpExpUITools.h:60
+msgid "(empty)"
+msgstr "(пустой)"
+
+#~ msgid "Download page:"
+#~ msgstr "Страница для скачивания:"
+#~ msgid "Use the \"Skin\" modifier"
+#~ msgstr "Использовать модификатор \"Skin\""
+#~ msgid "Use the \"Physique\" modifier"
+#~ msgstr "Использовать модификатор \"Physique\""
+#~ msgid "Use the \"Armature\" modifier"
+#~ msgstr "Использовать модификатор \"Armature\""
+#~ msgid "Use the \"Claude Bonet\" tool"
+#~ msgstr "Использовать инструмент \"Claude Bonet\"."
+

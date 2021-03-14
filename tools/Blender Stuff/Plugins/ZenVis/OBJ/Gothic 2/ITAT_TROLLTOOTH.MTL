@@ -1,0 +1,12 @@
+# Blender MTL File: 'Empty.blend'
+# Material Count: 1
+
+newmtl TROLL
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.250980 0.207059 0.166275
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd TRO_BODY_V0.TGA

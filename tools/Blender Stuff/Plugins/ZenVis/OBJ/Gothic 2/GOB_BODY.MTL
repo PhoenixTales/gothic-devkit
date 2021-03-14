@@ -1,0 +1,12 @@
+# Blender MTL File: 'Empty.blend'
+# Material Count: 1
+
+newmtl BODY01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.225882 0.238431 0.194510
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd GOB_BODY_V0.TGA

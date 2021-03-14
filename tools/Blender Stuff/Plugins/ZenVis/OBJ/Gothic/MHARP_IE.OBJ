@@ -1,0 +1,12 @@
+# Blender v2.75 (sub 0) OBJ File: 'Empty.blend'
+# www.blender.org
+mtllib MHARP_IE.mtl
+o MHARP_IE
+v 0.025000 0.000000 -0.016667
+v 0.000000 0.000000 0.033333
+v -0.025000 0.000000 -0.016667
+vt 0.000000 1.000000
+vn 0.000000 1.000000 0.000000
+usemtl (null)
+s off
+f 3/1/1 2/1/1 1/1/1

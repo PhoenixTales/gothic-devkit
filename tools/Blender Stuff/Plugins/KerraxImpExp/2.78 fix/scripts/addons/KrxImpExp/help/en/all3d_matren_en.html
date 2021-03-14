@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>KrxImpExp Help</title>
+<meta name="Generator" content="Alleycode HTML Editor">
+<meta http-equiv="Content-Language" content="en">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+</head>
+
+<body>
+<h3>Material Autorenaming</h3>
+<p>To allow Spacer to work with materials correctly the materials must have names which are known to Spacer. You can set your materials to correct names by yourself (in 3D Editor) or you can use an autorenaming tool. I mean the 3ds file exporter will set materials' names according to diffuse texture map. For example, if a material uses diffuse map "ow_icedragon_lake_01.tga" then it probably must have name "lake_env_map_and_lookthrough_01". The autorenaming will give the material this name. To activate autorenaming, check the "Rename materials" checkbox, as shown at the picture below.
+<p><img src="../_files/en_exp_matren.png" width="676" height="555" alt=""></p>
+Probably you should also click the "Parameters" button to setup the autorenaming tool.
+<p><img src="../_files/en_exp_matrenparams.png" width="638" height="460" alt=""></p>
+Click button "..." and specify path to the "matlib.ini" file. This file contains information about pml files which contain description of all materials known to Spacer. Then click button "Load materialfilter". And click button "OK" to apply changes.
+<p><b>Note 1.</b> The autorenaming doesn't change names of materials which are without diffuse texture map. The autorenaming doesn't change materials' names beginning with "P:".
+<p><b>Note 2.</b> The autorenaming sets names of materials which are exported to 3ds file. It doesn't change names of materials in the current 3D scene.
+
+
+<hr>
+<p><a href="index_en.html">Table of contents</a></p>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Blender MTL File: 'Empty.blend'
+# Material Count: 1
+
+newmtl ARMOREBRH_2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.138039 0.106667 0.094118
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd HUM_EBRS_ARMOR_V1.TGA

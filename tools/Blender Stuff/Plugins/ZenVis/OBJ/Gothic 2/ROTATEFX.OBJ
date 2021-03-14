@@ -1,0 +1,14 @@
+# Blender v2.75 (sub 0) OBJ File: 'Empty.blend'
+# www.blender.org
+mtllib ROTATEFX.mtl
+o ROTATEFX
+v 0.071429 2.629185 0.320489
+v -0.020147 2.629185 0.320489
+v 0.071429 2.629185 0.415727
+v -0.020147 2.629185 0.415727
+vt 0.000000 -0.000000
+vn 0.000000 1.000000 0.000000
+usemtl PLANE
+s off
+f 3/1/1 1/1/1 4/1/1
+f 2/1/1 4/1/1 1/1/1

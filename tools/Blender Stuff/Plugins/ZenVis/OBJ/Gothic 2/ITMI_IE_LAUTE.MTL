@@ -1,0 +1,12 @@
+# Blender MTL File: 'Empty.blend'
+# Material Count: 1
+
+newmtl MATERIAL_#7
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.241569 0.213333 0.191373
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd ITMILAUTE.TGA

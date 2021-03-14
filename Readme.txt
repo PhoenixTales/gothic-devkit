@@ -80,8 +80,8 @@ Um diese Daten benutzen zu können, müssen sie komplett mit der Verzeichnisstru
     \ZEN CONVERT                  Programm zum Konvertieren von ZEN-Dateien von Gothic 2 zu Gothic 1 und vice versa
     \ZSLANG                       Skriptsprache zur Lösung von mechanischen Aufgaben im Zusammenhang mit ZEN Dateien
     \ZTEXTOOLS                    Tools, die eine Konvertierung ohne die Engine ermöglichen
-    Releases.txt                  Auflistung aller Tools und ihrer Veröffentlichungstermine  
-    WorldofGothicLinks.txt        Linkliste zu den Tools auf World of Gothic  
+    copryrights.txt               Auflistung aller Tools und Veröffentlichungen mit Nennung der Urheber
+    wog-release-topics.txt        Linkliste zu den Tools auf World of Gothic  
 
     
 -------------------------------------------------------------------------- 

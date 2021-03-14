@@ -1,0 +1,129 @@
+Reset   ^R;57600
+Open ZEN ...   ^O;57601
+Open Mesh ...;32931
+Merge ZEN ...   ^M;32847
+Merge Mesh ...;32932
+Save ZEN ...   ^S;32938
+Save Mesh ...;32939
+Quick Save To tmp ...   Alt+S;32973
+Quick Open From tmp   Alt+O;32972
+Exit;57665
+Recent File;57616
+Console   ^F1;32904
+View Textoutput   ALT+O;33035
+View Informations   ALT+I;33036
+Toggle Sound;32990
+Toggle Invisible Vobs   I;32837
+Boundingboxes   B;33016
+Waynet   W;32991
+Cam-Splines;33032
+Wireframe;32850
+Fogging   F;32833
+Bilinear Filtering   L;33018
+Remember Position;33066
+Toggle Camera-Position;33065
+Fullscreen/Freelook   F3 or TAB;32903
+Compile World ...;32800
+Compile Light ...;32801
+Reparse Script ...;32815
+Call Startupscript;33054
+Reload ParticleFX;33028
+PresetLib version update;32889
+Manipulate Sounds;33082
+Information ...   ALT+^I;32943
+Analyse World ...;33019
+Analyse Waynet;33033
+Play the game;33097
+Macros ...   ALT+^M;32902
+Position ...   ALT+^P;32907
+Goto Origin   ALT+^O;32928
+Settings: General ...;32828
+Settings: View ...;32799
+Save Configuration;32835
+Save materialfilter;32840
+Load a materialfilter ...;32841
+Bind Toolwindows;33005
+Align Toolwindows At Spacer;33006
+Align Toolwindows On Screen;33056
+Toggle Toolwindows   TAB;33055
+Information-Window;33007
+Vobcontainer   ^F2;33069
+Cutscene-Sequencer   ^F8;32859
+About this Spacer ...;57664
+Insert   ^I;32816
+Create New Preset ...;32979
+Copy   ^C;32941
+Paste   ^V;32942
+Vobname   F2;33050
+View all properties   F4;33052
+Insert to Container   ALT+F9;33072
+Insert Vobtree ...;32843
+Save Vobtree ...;32842
+Move here;33064
+Let fall down (apply physic);32971
+Play;32944
+Initiates Events;33013
+Declare as Player;32901
+Reset Boundingbox;33029
+Test;33034
+5 meters;32955
+2 meters;32956
+1 meter;32957
+0.5 meter;32958
+up:;33058
+down:;33059
+Move/Copy  TO  Cutscene;32895
+Copy  FROM  Cutscene;33026
+Deselect All;32876
+Apply;32808
+Apply And Deselect;32877
+Make Planar;32896
+Delete Preset;33012
+Update All Objects;33010
+Update Selected Object;33011
+Convert Selected Object;33014
+Move to Begin;33060
+Remove;33063
+Toggle Sync;33062
+Custom;33071
+Collect 1m;33070
+Collect 10m;33081
+Collect 20m;33094
+Collect 30m;33095
+Collect 100m;33083
+Collect all;33096
+All;33085
+Lights;33086
+Waypoints;33087
+Items;33088
+NPCs;33089
+Mobs;33090
+zCVob\'s only;33091
+Sounds;33092
+Illegal Vobs;33084
+Remove from world;33074
+Convert: Detailvob;33078
+Save voblist;33076
+Load voblist;33077
+Clear All;33075
+Clear Selected;33080
+Activate and Goto;32827
+Activate;32824
+Goto;32823
+Remove   BACKSPACE;32826
+New;32870
+Load ...;32865
+Save;32863
+Save as ...;32869
+Properties;32887
+First;16000
+Add Track;32890
+Add Role;32871
+variable mainrole;33023
+the player;33025
+Add Syncblock;32883
+Insert Syncblock;32886
+Remove Role;32884
+Remove Block;32880
+Remove SyncBlock;32898
+Role Properties;32900

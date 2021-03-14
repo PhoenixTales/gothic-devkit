@@ -1,0 +1,2389 @@
+var void null;
+
+
+
+
+
+
+
+
+func template sqr(ref template t) {
+    return t*t;
+}
+
+func selection CVT_ArrToSel(ref object objs[]) {
+    var selection res;
+    foreach obj in objs {
+        res += obj;
+    }
+    return res;
+}
+
+func object[] CVT_SelToArr(ref selection sel) {
+    var object res[];
+    foreach obj in sel {
+        res |= obj;
+    }
+    return res;
+}
+
+
+
+
+
+func  int  isNan(var float x) {
+    return x != x;
+}
+
+func  int  isInfinity(var float x) {
+    return x > 0 && (x - x != x - x);
+}
+
+func  int  isNegInfinity(var float x) {
+    return x < 0 && (x - x != x - x);
+}
+var float infinity = 1.0E999;
+var float negInfinity = -infinity;
+var float nan = infinity - infinity;
+
+
+
+
+
+
+
+struct Predicate {
+    var function fun;
+    var template data;
+}
+
+func Predicate pred(var function fun, ref template data = null) {
+    var Predicate pred;
+    pred.fun = fun;
+    pred.data = data;
+
+    var int numParams = fun.numParams -  (! (TPL_TypeOf(data) == "void") ) ;
+    ((numParams > 0) || Fatal("Assertion Failed: " + ("Cannot construct predicate of nullary function (function must have at least one parameter)"))) ;
+
+    ((numParams <= 5 ) || Fatal("Assertion Failed: " + ("Currently only predicates with up to " + 5 + " parameters are supported. Consider accepting a struct or vector as an argument."))) ;
+
+    return pred;
+}
+
+func  int  eval(var Predicate pred, var template params) {
+    var int numParams = pred.fun.numParams -  (! (TPL_TypeOf(pred.data) == "void") ) ;
+
+    if (numParams > 1) {
+        ((params.size == numParams) || Fatal("Assertion Failed: " + ("Predicate expects " + numParams + " params but " + params.size + " are given."))) ;
+    }
+
+    if ( (TPL_TypeOf(pred.data) == "void") ) {
+        if (numParams == 1) {
+            return pred.fun(params);
+        } else if (numParams == 2) { return pred.fun(params[0], params[1]); }
+          else if (numParams == 3) { return pred.fun(params[0], params[1], params[2]); }
+          else if (numParams == 4) { return pred.fun(params[0], params[1], params[2], params[3]); }
+          else if (numParams == 5) { return pred.fun(params[0], params[1], params[2], params[3], params[4]);
+        }
+    } else {
+        if (numParams == 1) {
+            return pred.fun(params, pred.data);
+        } else if (numParams == 2) { return pred.fun(params[0], params[1], pred.data); }
+          else if (numParams == 3) { return pred.fun(params[0], params[1], params[2], pred.data); }
+          else if (numParams == 4) { return pred.fun(params[0], params[1], params[2], params[3], pred.data); }
+          else if (numParams == 5) { return pred.fun(params[0], params[1], params[2], params[3], params[4], pred.data);
+        }
+    }
+    (( 0 ) || Fatal("Assertion Failed: " + ("eval: Should never be here."))) ;
+}
+
+
+
+func  int  _less (var template val1, var template val2) { return val1 < val2; }
+func  int  _lessEq (var template val1, var template val2) { return val1 <= val2; }
+func  int  _greater (var template val1, var template val2) { return val1 > val2; }
+func  int  _greaterEq(var template val1, var template val2) { return val1 >= val2; }
+
+func  int  lexLess(var template arr1, var template arr2) {
+    ((arr1.size == arr2.size) || Fatal("Assertion Failed: " + ("lexLess: The arrays have different sizes."))) ;
+    for(var int i = 0; i < arr1.size; i += 1) {
+        if (arr1[i] < arr2[i]) {
+            return  1 ;
+        } else if (arr2[i] < arr1[i]) {
+            return  0 ;
+        }
+    }
+    return  0 ;
+}
+
+func  int  _coordLess(var template arr1, var template arr2, var int coord) {
+    return arr1[coord] < arr2[coord];
+}
+
+var Predicate predLess = pred(_less);
+var Predicate predLessEq = pred(_lessEq);
+var Predicate predGreater = pred(_greater);
+var Predicate predGreaterEq = pred(_greaterEq);
+var Predicate predLexLess = pred(lexLess);
+func Predicate predCoordLess(var int coord) { return pred(_coordLess, coord); }
+
+
+
+
+
+func template sum(ref template arr, var template def = arr.defaultValue) {
+    for (var int i = 0; i < arr.size; i += 1) {
+        def += arr[i];
+    }
+
+    return def;
+}
+
+
+
+
+
+
+func int minIndex(ref template arr, ref Predicate operatorLower = predLess) {
+    if(TPL_TypeOf(arr) != "array" || arr.size == 0) {
+        Fatal("stdlib::tools::min: No array or array of size 0 given.");
+    }
+
+    var int minIndex = 0;
+
+    for (var int i = 1; i < arr.size; i += 1) {
+        if (eval(operatorLower, {arr[i], arr[minIndex]})) {
+            minIndex = i;
+        }
+    }
+    return minIndex;
+}
+
+func template min(ref template arr, ref Predicate operatorLower = predLess) {
+    return arr[minIndex(arr, operatorLower)];
+}
+
+
+
+
+
+func int maxIndex(ref template arr, ref Predicate operatorLower = predLess) {
+    if(TPL_TypeOf(arr) != "array" || arr.size == 0) {
+        Fatal("stdlib::tools::min: No array or array of size 0 given.");
+    }
+
+    var int maxIndex = 0;
+
+    for (var int i = 1; i < arr.size; i += 1) {
+        if (eval(operatorLower, {arr[maxIndex], arr[i]})) {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+func template max(ref template arr, ref Predicate operatorLower = predLess) {
+    return arr[maxIndex(arr, operatorLower)];
+}
+
+
+
+
+
+func int find(ref template arr, ref template val) {
+    for(var int i = 0; i < arr.size; ++i) {
+        if (arr[i] == val) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+
+
+
+func template filter(var template arr, var Predicate pred) {
+    if (TPL_TypeOf(arr) == "selection") {
+        var selection result;
+        foreach obj in arr {
+            if (eval(pred, obj)) {
+                result += obj;
+            }
+        }
+        return result;
+    } else if (TPL_TypeOf(arr) == "array") {
+        var int readWalker = 0;
+        var int writeWalker = 0;
+
+        while(readWalker < arr.size) {
+            if (eval(pred, arr[readWalker])) {
+                arr[writeWalker] = arr[readWalker];
+                writeWalker += 1;
+            }
+            readWalker += 1;
+        }
+
+        ARR_resize(arr, writeWalker);
+    } else {
+        Fatal("stdlib::tools::filter: The supplied set is neither a selection nor an array.");
+    }
+}
+
+
+
+
+
+func template subArr(ref template arr, var int start, var int count) {
+    if (start < 0 || count < 0 || arr.size < start + count) {
+        Fatal("invalid use of subArr: (arr.size, start, count) = (" + arr.size + ", " + start + ", " + count + ")");
+    }
+
+    if (arr.size == 0) {
+        return { };
+    }
+
+    var template res = { arr[start]};
+
+    for(var int i = 1; i < count; i += 1) {
+        res |= arr[start + i];
+    }
+    return res;
+}
+func template extract(ref template arr, ref Predicate p) {
+    if (arr.size == 0) {
+        return { };
+    }
+
+    var template result = { arr[0] }.nullVal;
+
+    var int writeWalker = 0;
+    for(var int walker = 0; walker < arr.size; walker += 1) {
+        if (eval(p, arr[walker])) {
+            result |= arr[walker];
+        } else {
+            arr[writeWalker] = arr[walker];
+            writeWalker += 1;
+        }
+    }
+    ARR_Resize(arr, writeWalker);
+    return result;
+}
+
+
+
+
+
+func void unique(ref template arr) {
+    if (arr.size == 0) {
+        return;
+    }
+
+    var int writeIndex = 1;
+    for(var int i = 1; i < arr.size; i += 1) {
+        if (arr[i] != arr[i-1]) {
+            arr[writeIndex] = arr[i];
+            writeIndex += 1;
+        }
+    }
+
+    ARR_Resize(arr, writeIndex);
+}
+
+
+
+
+
+
+func int[] unique_count(ref template arr) {
+    var int res[];
+    if (arr.size == 0) {
+        return res;
+    }
+
+    res |= 1 ;
+
+    var int writeIndex = 1;
+    for(var int i = 1; i < arr.size; i += 1) {
+        if (arr[i] != arr[i-1]) {
+            arr[writeIndex] = arr[i];
+            writeIndex += 1;
+            res |= 1;
+        } else {
+            res[writeIndex -1] += 1;
+        }
+    }
+
+    ARR_Resize(arr, writeIndex);
+    return res;
+}
+func void sort(ref template arr,
+                   ref Predicate operatorLower = predLess,
+                   var int start = 0, var int end = arr.size) {
+    if (start >= end) {
+        return;
+    }
+    var template pivot = arr[start + rand() % (end - start)];
+    var int borderLeft = start; var int borderRight = end -1;
+
+    var int walker = start;
+    while(walker <= borderRight) {
+        var template tmp = arr[walker];
+        if (eval(operatorLower, {tmp, pivot})) {
+            arr[walker] = arr[borderLeft];
+            arr[borderLeft] = tmp;
+            borderLeft += 1;
+            walker += 1;
+        } else if (eval(operatorLower, {pivot, tmp})) {
+            arr[walker] = arr[borderRight];
+            arr[borderRight] = tmp;
+            borderRight -= 1;
+        } else {
+
+            walker += 1;
+        }
+    }
+
+
+    sort(arr, operatorLower, start, borderLeft);
+    sort(arr, operatorLower, borderRight+1, end);
+}
+
+
+
+
+
+func void stableSort(ref template arr,
+                     ref Predicate operatorLower = predLess) {
+    if (arr.size <= 1) {
+        return;
+    }
+    var template pivot = arr[rand() % arr.size];
+    var template smallerArr = { pivot }.nullVal;
+    var template biggerArr = smallerArr;
+    var template pivotArr = smallerArr;
+    for (var int i = 0; i < arr.size; i += 1) {
+        if(eval(operatorLower, {arr[i], pivot})) {
+            smallerArr |= arr[i];
+        } else if (eval(operatorLower, {pivot, arr[i]})) {
+            biggerArr |= arr[i];
+        } else {
+            pivotArr |= arr[i];
+        }
+    }
+
+    stableSort(smallerArr, operatorLower);
+    stableSort(biggerArr, operatorLower);
+    arr = smallerArr || pivotArr || biggerArr;
+}
+
+
+
+
+
+
+
+func int findSorted(ref template arr, ref template val, ref Predicate less = predLess, var int start = 0, var int end = arr.size) {
+    ((start <= end) || Fatal("Assertion Failed: " + ("findSorted: Called with start > end"))) ;
+    if (end == start) {
+
+        if (start < arr.size && arr[start] == val) {
+            return start;
+        }
+        return -1;
+    }
+
+    var int midIndex = (start + end) / 2;
+
+    if (eval(less, {arr[midIndex], val})) {
+
+        return findSorted(arr, val, less, midIndex + 1, end);
+    } else {
+        return findSorted(arr, val, less, start, midIndex);
+    }
+}
+
+
+
+
+
+func string toString(var template val, var int alignment = 0) {
+    if (TPL_TypeOf(val) == "array") {
+        if (val.size == 0) {
+            return "";
+        }
+
+        if (TPL_TypeOf(val[0]) == "array") {
+            var string res;
+
+            for (var int i = 0; i < val.size; i += 1) {
+                res += toString(val[i], alignment);
+
+                if (i < val.size - 1) {
+                    res += endl;
+                }
+            }
+            return res;
+        }
+
+
+        var string res = "(";
+        for (var int i = 0; i < val.size; i += 1) {
+            var string tmp;
+            tmp = toString(val[i]);
+
+            var int j = max({alignment - tmp.length, 1});
+            while(j > 2) {
+                res += " ";
+                j -= 1;
+            }
+
+            res += tmp;
+
+            if (i < val.size -1) {
+                res += ", ";
+            } else {
+                res += ")";
+            }
+        }
+        return res;
+    }
+    return "" + val;
+}
+
+var float EPS = 0.00000000001;
+
+func template ALG_Gauss(var float mat[][], var template vec) {
+    var int n = mat.size;
+    if (n == 0 || mat[0].size != n) {
+        Fatal("ALG_Gauss: mat has to be a non-empty square matrix.");
+    }
+    if (n != vec.size) {
+        Fatal("ALG_Gauss: Matrix and vector sizes mismatch.");
+    }
+
+    for(var int i = 0; i < n; i += 1) {
+
+        var int maxArg = i;
+        for (var int j = i + 1; j < n; j += 1) {
+            if (fabs(mat[j][i]) > fabs(mat[maxArg][i])) {
+                maxArg = j;
+            }
+        }
+        if (maxArg != i) {
+            var float tmp[] = mat[i];
+            var template tmpVec = vec[i];
+
+            mat[i] = mat[maxArg];
+            vec[i] = vec[maxArg];
+
+            mat[maxArg] = tmp;
+            vec[maxArg] = tmpVec;
+        }
+
+        if(fabs(mat[i][i]) < EPS) {
+            Warn("ALG_Gauss: Matrix is singular or nearly singular and very possibly numerically unstable.");
+        }
+
+        vec[i] /= mat[i][i];
+        mat[i] /= +mat[i][i];
+
+        for (var int j = 0; j < n; j += 1) {
+            if (j != i) {
+                vec[j] -= vec[i] * mat[j][i];
+                mat[j] -= mat[i] * mat[j][i];
+            }
+        }
+    }
+
+    return vec;
+}
+
+func float[][] ALG_Identity(var int dim) {
+    var float mat[dim][dim];
+    for(var int i = 0; i < dim; i += 1) {
+        mat[i][i] = 1;
+    }
+    return mat;
+}
+
+func float[][] ALG_Invert(ref float mat[][]) {
+    if (mat.size == 0 || mat.size != mat[0].size) {
+        Fatal("ALG_Invert: The matrix is not square!");
+    }
+
+    return ALG_Gauss(mat, ALG_Identity(mat.size));
+}
+
+func float ALG_VecLen(ref float vec[]) {
+    return sqrt(vec*vec);
+}
+
+func float ALG_Dist(ref float v1[], ref float v2[v1.size]) {
+    return ALG_VecLen(v1 - v2);
+}
+
+func void ALG_NormalizeVec(ref float vec[]) {
+    vec /= ALG_VecLen(vec);
+}
+
+func void ALG_NormalizeMat(ref float mat[][]) {
+    var int n = mat.size;
+    if (n == 0 || mat[0].size != n) {
+        Fatal("ALG_NormalizeMat: mat has to be a non-empty square matrix.");
+    }
+
+    for(var int i = 0; i < n; i += 1) {
+        for(var int j = 0; j < i; j += 1) {
+            mat[i] = mat[i] - (mat[i] * mat[j]) * mat[j];
+        }
+         ALG_NormalizeVec(mat[i]);
+    }
+}
+
+
+
+
+
+func float[3] ALG_CrossProd(ref float vl[3], ref float vr[3]) {
+    var float res[3];
+    res[0] = vl[1] * vr[2] - vr[1] * vl[2];
+    res[1] = vl[2] * vr[0] - vr[2] * vl[0];
+    res[2] = vl[0] * vr[1] - vr[0] * vl[1];
+    return res;
+}
+
+struct Plane {
+    var float normal[3];
+    var float pos[3];
+
+
+
+    var float _pointsOnPlane[][3];
+}
+
+func float[3] ALG_UnitNormal(ref float v1[3], ref float v2[3]) {
+    var float res[3] = ALG_CrossProd(v1, v2);
+    ALG_NormalizeVec(res);
+    return res;
+}
+
+func Plane ALG_PlaneFromPoints(ref float points[3][3]) {
+    var Plane p;
+    p.normal = ALG_UnitNormal(points[1] - points[0], points[2] - points[0]);
+    p.pos = points[0];
+    p._pointsOnPlane = points;
+    return p;
+}
+
+func float ALG_DistToPlane(ref Plane p, ref float v[3]) {
+    for(var int i = 0; i < p._pointsOnPlane.size; i += 1) {
+        if (p._pointsOnPlane[i] == v) {
+            return 0;
+        }
+    }
+
+    return p.normal * (v - p.pos);
+}
+
+func float ALG_DistToPlaneAbs(ref Plane p, ref float v[3]) {
+    return abs(ALG_DistToPlane(p, v));
+}
+
+func float ALG_DistToLine(var float l1[], var float l2[l1.size], var float p[l1.size]) {
+    if (l1 == p || l2 == p) {
+        return 0;
+    }
+
+
+    p -= l1;
+    l2 -= l1;
+
+    ALG_NormalizeVec(l2);
+
+
+    p -= l2 * (p * l2);
+    return ALG_VecLen(p);
+}
+
+var float PI = 3.14159265;
+
+
+
+
+
+
+func float GEO_Angle(var float v[2], var float w[2]) {
+    var float tmp = atan2(v[0], v[1]) - atan2(w[0], w[1]);
+
+
+
+    if (tmp <= -PI) {
+        return tmp + 2*PI;
+    } else if (tmp > PI) {
+        return tmp - 2*PI;
+    }
+
+    return tmp;
+}
+
+func float GEO_TriangleHeight(var float a[2], var float b[2], var float c[2]) {
+    if (c == a || c == b) {
+        return 0;
+    }
+
+    b -= a;
+    c -= a;
+    ALG_NormalizeVec(b);
+
+    return b[0] * c[1] - b[1] * c[0];
+}
+func void ALG_Transpose(ref float mat[][]) {
+    if (mat.size == 0 || mat.size != mat[0].size) {
+        Fatal("ALG_Transpose: The matrix is not square!");
+    }
+
+    var float tmp;
+    for(var int i = 0; i < n; i += 1) {
+        for (var int j = 0; j < i; j += 1) {
+            tmp = mat[i][j];
+            mat[i][j] = mat[j][i];
+            mat[j][i] = tmp;
+        }
+    }
+}
+
+
+
+func float[2] GEO_IntersectionCoefficients(var float p1[2], var float p2[2], var float q1[2], var float q2[2]) {
+
+    var float mat[2][2] = { p2 - p1, q1 - q2 };
+    ALG_Transpose(mat);
+
+    return ALG_Gauss(mat, q1 - p1);
+}
+
+func float[2] GEO_Intersection(var float p1[2], var float p2[2], var float q1[2], var float q2[2]) {
+    var float coefficients[2] = ALG_IntersectionCoefficients(p1, p2, q1, q2);
+    return p1 + coefficients[0] * (p2 - p1);
+}
+
+
+
+
+
+func selection HULL_SelectByHull(ref template theHull, var float eps = EPS) {
+    var selection res;
+    foreach o in WLD_GetAll() {
+        if (theHull.isInChecker(theHull, o, eps)) {
+            res += o;
+        }
+    }
+    return res;
+}
+func  int  HULL_IsInHull(ref template theHull, var template obj) {
+    return theHull.isInChecker(theHull, obj);
+}
+struct _CHullNode2D {
+    var float pos[2];
+    var int nextLeft;
+
+    var int nextRight;
+}
+
+struct CHull2D {
+    var _CHullNode2D nodes[];
+    var function isInChecker = HULL_IsInCHull2D;
+}
+
+
+func  int  _CH2D_aboveFilter(var float p[2], var float line[2][2]) {
+    return GEO_TriangleHeight(line[0], line[1], p) > 0;
+}
+
+func float[][2] _CH2D_extractAbove(var float left[2], var float right[2], ref float arr[][2]) {
+    return extract(arr, pred(_CH2D_aboveFilter, { left, right }));
+}
+
+
+
+func  int  _CH2D_heightLess(var float p1[2], var float p2[2],
+                           var float line[2][2]) {
+    return GEO_TriangleHeight(line[0], line[1], p1)
+         < GEO_TriangleHeight(line[0], line[1], p2);
+}
+func int _HULL_CHull2D_Sub(ref CHull2D hull, ref float points[][2],
+                              var float left[2], var float right[2]) {
+    if (points.size == 0) {
+        return -1;
+    }
+
+    var _CHullNode2D newNode;
+    newNode.pos = max(points, pred(_CH2D_heightLess, { left, right }));
+
+    var float leftPart[][2] = _CH2D_extractAbove(left, newNode.pos , points);
+    var float rightPart[][2] = _CH2D_extractAbove(newNode.pos, right, points);
+
+    newNode.nextLeft = _HULL_CHull2D_Sub(hull, leftPart, left, newNode.pos);
+    newNode.nextRight = _HULL_CHull2D_Sub(hull, rightPart, newNode.pos, right);
+
+    hull.nodes |= newNode;
+    return hull.nodes.size - 1;
+}
+func CHull2D HULL_CHull2D(ref template t) {
+    var float points[][2]; if (TPL_TypeOf(t) == "selection" || TPL_BaseTypeOf(t) == "object") { foreach obj in t { points |= obj.pos2D; } } else { points = t; } ;
+
+    sort(points, predLexLess);
+    unique(points);
+
+    var CHull2D hull;
+
+    if (points.size <= 1) {
+        Warn("HULL_CHull2D was called with degenerated set of " + points.size + " distinct nodes.");
+        if (points.size == 0) {
+            return hull;
+        }
+        var _CHullNode2D theNode;
+        theNode.pos = points[0];
+        theNode.nextLeft = theNode.nextRight = -1;
+        hull.nodes |= theNode;
+        return hull;
+    };
+
+
+    var _CHullNode2D tmp;
+    tmp.pos = points[0];
+    tmp.nextLeft = tmp.nextRight = -1;
+    hull.nodes |= tmp;
+
+    tmp.pos = points[points.size - 1];
+    hull.nodes |= tmp;
+
+    var float upper[][2] = _CH2D_extractAbove(hull.nodes[0].pos, hull.nodes[1].pos, points);
+    var float lower[][2] = _CH2D_extractAbove(hull.nodes[1].pos, hull.nodes[0].pos, points);
+
+    hull.nodes[0].nextLeft = _HULL_CHull2D_Sub(hull, lower, hull.nodes[1].pos, hull.nodes[0].pos);
+    hull.nodes[0].nextRight = _HULL_CHull2D_Sub(hull, upper, hull.nodes[0].pos, hull.nodes[1].pos);
+    return hull;
+}
+var float _HULL_EPS;
+func  int  _HULL_IsInCHull2D_Sub(ref CHull2D hull, var float p[2],
+                                   var int leftIndex, var int rightIndex,
+                                   var  int  leftNodeIsNew) {
+    var float left[2] = hull.nodes[leftIndex].pos;
+    var float right[2] = hull.nodes[rightIndex].pos;
+    if (GEO_TriangleHeight(left, right, p) < _HULL_EPS) {
+        return  1 ;
+    }
+
+    var int nextIndex;
+    if(leftNodeIsNew) {
+        nextIndex = hull.nodes[leftIndex].nextRight;
+    } else {
+        nextIndex = hull.nodes[rightIndex].nextLeft;
+    }
+
+    if (nextIndex == -1) {
+
+        return  0 ;
+    }
+
+    return _HULL_IsInCHull2D_Sub(hull, p, leftIndex, nextIndex,  0 )
+        && _HULL_IsInCHull2D_Sub(hull, p, nextIndex, rightIndex,  1 );
+}
+
+func  int  HULL_IsInCHull2D(ref CHull2D hull, var template t, var float eps = EPS) {
+    _HULL_EPS = eps;
+
+    var float point[2]; if (TPL_TypeOf(t) == "object") { point = t.pos2D; } else { point = t; } ;
+
+    if (hull.nodes.size == 0) {
+        return  0 ;
+    }
+    if (hull.nodes.size == 1) {
+        return ALG_Dist(hull.nodes[0].pos, point) < _HULL_EPS;
+    }
+
+
+    return _HULL_IsInCHull2D_Sub(hull, point, 0, 1, 1)
+        && _HULL_IsInCHull2D_Sub(hull, point, 1, 0, 0);
+}
+struct _HullNode3D {
+    var float pos[3];
+    var int faceIndices[];
+}
+
+struct _Hull3D_Constructor {
+    var _HullNode3D nodes[];
+    var int faces[][3];
+    var  int  isColinear;
+}
+
+struct CHull3D {
+
+    var Plane planes[];
+
+    var  int  specialCase;
+    var float specialCasePoints[][3];
+    var function isInChecker = HULL_IsInCHull3D;
+}
+
+func  int  _HULL3D_FaceExists(ref _Hull3D_Constructor hull, var int first, var int second) {
+
+    foreach faceIndex in hull.nodes[first].faceIndices {
+        var int face[3] = hull.faces[faceIndex];
+        if (face[0] == first && face[1] == second)
+        || (face[1] == first && face[2] == second)
+        || (face[2] == first && face[0] == second) {
+            return  1 ;
+        }
+    }
+    return  0 ;
+}
+func int _HULL3D_FindThird(ref _Hull3D_Constructor hull, var float first[3], var float second[3], ref float normal[3]) {
+
+    var float qual[hull.nodes.size];
+    var float third[3];
+    for(var int i = 0; i < hull.nodes.size; i += 1) {
+        third = hull.nodes[i].pos;
+        if(ALG_DistToLine(first, second, third) < EPS) {
+            qual[i] = -2;
+        } else {
+            qual[i] = ALG_PlaneFromPoints({first, second, third}).normal * normal;
+        }
+    }
+
+    var int thirdIndex = maxIndex(qual);
+    var int maxQual = qual[thirdIndex];
+
+    if (maxQual == -2) {
+        Warn("HULL_CHull3D: All given points are (roughly) colinear.");
+        hull.isColinear =  1 ;
+        return -1;
+    }
+
+    normal = ALG_PlaneFromPoints({first, second, hull.nodes[thirdIndex].pos}).normal;
+    return thirdIndex;
+}
+
+func void _HULL3D_Process(ref _Hull3D_Constructor hull, var int first, var int second, var float normal[3]) {
+    if (_HULL3D_FaceExists(hull, first, second) || hull.isColinear) {
+        return;
+    }
+
+    var int third = _HULL3D_FindThird(hull, hull.nodes[first].pos, hull.nodes[second].pos, normal);
+
+    if (hull.isColinear) {
+
+        return;
+    }
+
+
+    var int faceIndex = hull.faces.size;
+    hull.faces |= {first, second, third};
+    hull.nodes[first] .faceIndices |= faceIndex;
+    hull.nodes[second].faceIndices |= faceIndex;
+    hull.nodes[third] .faceIndices |= faceIndex;
+
+
+    _HULL3D_Process(hull, third, second, normal);
+    _HULL3D_Process(hull, first, third, normal);
+}
+
+func void _HULL3D_DistLess(ref float p1[3], ref float p2[3], ref float refPoint[3]) {
+    return ALG_Dist(p1, refPoint) < ALG_Dist(p2, refPoint);
+}
+
+func CHull3D HULL_CHull3D(ref template t) {
+    var float points[][3]; if (TPL_TypeOf(t) == "selection" || TPL_BaseTypeOf(t) == "object") { foreach obj in t { points |= obj.pos; } } else { points = t; } ;
+
+    sort(points, predLexLess);
+    unique(points);
+
+
+    var CHull3D result;
+    result.specialCase =  0 ;
+
+    if (points.size < 2) {
+        result.specialCase =  1 ;
+
+        Warn("HULL_CHull3D was called with degenerated set of only " + objs.size + " distinct points.");
+
+        if (points == 0) {
+            return result;
+        } else {
+            result.specialCasePoints = { points[0] };
+            return result;
+        }
+    }
+
+
+    var _Hull3D_Constructor hull;
+    var _HullNode3D node;
+    foreach point in points {
+        node.pos = point;
+        hull.nodes |= node;
+    }
+    var int A_Index = 0;
+    var float A[3] = points[A_Index];
+    var float B[3] = points[0] + {0, -1, 0};
+    var float normal[3] = {-1, 0, 0};
+    ALG_NormalizeVec(normal);
+
+    var int C_Index = _HULL3D_FindThird(hull, points[0], points[0] + {0, -1, 0}, normal);
+    var float C[3] = points[C_Index];
+    _HULL3D_Process(hull, A_Index, C_Index, normal);
+    _HULL3D_Process(hull, C_Index, A_Index, normal);
+
+    if (hull.isColinear) {
+        result.specialCase =  1 ;
+
+
+
+        var float p1[3] = max(points, pred(_HULL3D_DistLess, points[0]));
+
+        var float p2[3] = max(points, pred(_HULL3D_DistLess, p1));
+
+        result.specialCasePoints = { p1, p2 };
+    }
+    foreach face in hull.faces {
+        result.planes |= ALG_PlaneFromPoints({hull.nodes[face[0]].pos,
+                                              hull.nodes[face[1]].pos,
+                                              hull.nodes[face[2]].pos});
+    }
+    return result;
+}
+
+func  int  HULL_IsInCHull3D(ref CHull3D hull, var template t, var float eps = EPS) {
+    var float point[3]; if (TPL_TypeOf(t) == "object") { point = t.pos; } else { point = t; } ;
+
+
+    if (hull.specialCase) {
+        var int numPoints = hull.specialCasePoints.size;
+
+        if (numPoints == 0) {
+            return  0 ;
+        } else if (numPoints == 1) {
+            return ALG_Dist(hull.specialCasePoints[0], point) < eps;
+        }
+
+        ((numPoints == 2) || Fatal("Assertion Failed: " + ("HULL_IsInCHull3D: What special case?!"))) ;
+        var float p1[3] = hull.specialCasePoints[0];
+        var float p2[3] = hull.specialCasePoints[1];
+        if (ALG_DistToLine(p1, p2, point) >= eps) {
+
+            return  0 ;
+        }
+        if ((p1 - point)*(p2-point) < 0) {
+
+            return  1 ;
+        }
+        return ALG_Dist(p1,point) < EPS || ALG_Dist(p2,point) < EPS;
+    }
+
+
+    foreach plane in hull.planes {
+        if (ALG_DistToPlane(plane, point) > eps) {
+            return  0 ;
+        }
+    }
+    return  1 ;
+}
+struct Polygon {
+    var CHull2D hull;
+    var _Cavity cavityPool[];
+
+
+    var int cavities[];
+    var function isInChecker = HULL_IsInPoly;
+}
+
+struct _Cavity {
+    var float opening[2][2];
+    var CHull2D hull;
+    var int cavities[];
+}
+
+
+
+func Polygon HULL_Polygon(var template t) {
+    if (TPL_TypeOf(t) == "selection") {
+        Fatal("HULL_Polygon cannot be called with a selection, because selections do not provide a natural ordering of the objects which is needed to construct a polygon.");
+    }
+
+    var float points[][2]; if (TPL_TypeOf(t) == "selection" || TPL_BaseTypeOf(t) == "object") { foreach obj in t { points |= obj.pos2D; } } else { points = t; } ;
+    unique(points);
+
+    var Polygon poly;
+    poly.hull = HULL_CHull2D(points);
+
+    if (points.size <= 2) {
+        return poly;
+    }
+
+
+
+
+
+    var int first = minIndex(points, predLexLess);
+
+
+    var float rotPoints[points.size+1][2];
+
+    for(var int i = 0; i < points.size; i += 1) {
+        rotPoints[i] = points[(first + i) % points.size];
+    }
+    rotPoints[points.size] = rotPoints[0];
+
+
+
+
+
+    _HULL_Polygon_FindCavities(poly, rotPoints, 0, points.size, {0, -1}, poly.cavities);
+    return poly;
+}
+func void _HULL_Polygon_FindCavities(ref Polygon poly, ref float points[][2],
+                                  var int from, var int to, var float lastStep[2], ref int cavityArr[]) {
+    var int dir = 1;
+    if (from > to) {
+        dir = -1;
+    }
+
+    while(abs(from - to) > 1) {
+
+        var int bestI = -1;
+        var float best = PI + EPS;
+        for(var int i = from + dir; i != to; i += dir) {
+            if (points[i] == points[from]) { continue; }
+
+            var float angle = GEO_Angle(lastStep, points[i] - points[from]);
+
+            if(-PI <= angle && angle < -PI + EPS) {
+                angle += 2*PI;
+            }
+
+            if (angle < best) {
+                best = angle;
+                bestI = i;
+            }
+        }
+
+        if (best < -EPS) {
+
+            Fatal("_HULL_Polygon_FindCavities: Major inconsistency detected. Are you sure the polygon does not intersect itself and the points are given in counterclockwise order?");
+        }
+
+        if (best > PI - EPS) {
+            Warn("Detected a U-Turn in the Polygon (angle ~= PI). The Polygon is either pretty weird or the points are not given in counterclockwise order.");
+        }
+
+
+        lastStep = points[bestI] - points[from];
+
+
+        if (abs(from - bestI) > 1) {
+            var _Cavity cav;
+            var int count = abs(bestI - from) + 1;
+            cav.hull = HULL_CHull2D(subArr(points, min({from, bestI}), count));
+            cav.opening = {points[from], points[bestI]};
+
+
+            _HULL_Polygon_FindCavities(poly, points, bestI, from, lastStep, cav.cavities);
+
+            poly.cavityPool |= cav;
+            cavityArr |= poly.cavityPool.size - 1;
+        }
+
+        from = bestI;
+    }
+}
+
+
+
+func  int  HULL_IsInPoly(ref Polygon poly, ref template t, var float eps = EPS) {
+    var float point[2]; if (TPL_TypeOf(t) == "object") { point = t.pos2D; } else { point = t; } ;
+
+    if (!HULL_IsInCHull2D(poly.hull, point, eps)) {
+        return  0 ;
+    }
+
+    for(var int c = 0; c < poly.cavities.size; c += 1) {
+        if (_HULL_IsInCavity(poly, poly.cavityPool[poly.cavities[c]], point, eps)) {
+            return  0 ;
+        }
+    }
+
+    return  1 ;
+}
+
+func  int  _HULL_IsInCavity(ref Polygon poly, ref _Cavity cav, var float point[2], var float eps) {
+    var  int  inCav = HULL_IsInCHull2D(cav.hull, point, -eps);
+
+    if (eps > 0 && !inCav) {
+
+
+
+        if (ALG_DistToLine(cav.opening[0], cav.opening[1], point) > eps) {
+            return  0 ;
+        }
+
+
+        if ((cav.opening[0] - point)*(cav.opening[1]-point) > 0) {
+            return  0 ;
+        }
+
+
+        if (ALG_Dist(cav.opening[0],point) > eps && ALG_Dist(cav.opening[1], point) > eps) {
+            inCav =  1 ;
+        }
+    }
+
+    if (!inCav) {
+        return  0 ;
+    }
+    for(var int c = 0; inCav && c < cav.cavities.size; c += 1) {
+        if (_HULL_IsInCavity(poly, poly.cavityPool[cav.cavities[c]], point, -eps)) {
+            return  0 ;
+        }
+    }
+
+    return  1 ;
+}
+
+
+
+
+
+struct Ball2D {
+    var float center[2];
+    var float radQuad;
+    var function isInChecker = HULL_IsInBall2D;
+}
+
+struct Ball3D {
+    var float center[3];
+    var float radQuad;
+    var function isInChecker = HULL_IsInBall3D;
+}
+
+func Ball2D HULL_Ball2D(var template t, var float rad) {
+    var Ball2D ball;
+    var float point[2]; if (TPL_TypeOf(t) == "object") { point = t.pos2D; } else { point = t; } ;
+    ball.center = point;
+    ball.radQuad = sqr(rad);
+    return ball;
+}
+
+func Ball3D HULL_Ball3D(var template t, var float rad) {
+    var Ball3D ball;
+    var float point[3]; if (TPL_TypeOf(t) == "object") { point = t.pos; } else { point = t; } ;
+    ball.center = point;
+    ball.radQuad = sqr(rad);
+    return ball;
+}
+
+func  int  HULL_IsInBall2D(ref Ball2D ball, var template t) {
+    var float point[2]; if (TPL_TypeOf(t) == "object") { point = t.pos2D; } else { point = t; } ;
+    var float diff[2] = point - ball.center;
+    return diff * diff <= ball.radQuad;
+}
+
+func  int  HULL_IsInBall3D(ref Ball3D ball, var template t) {
+    var float point[3]; if (TPL_TypeOf(t) == "object") { point = t.pos; } else { point = t; } ;
+    var float diff[3] = point - ball.center;
+    return diff * diff <= ball.radQuad;
+}
+func selection WLD_GetNone() {
+    var selection sel;
+    return sel;
+}
+
+func void _WLD_AssertVob(var object vob) {
+    if(!WLD_IsVob(vob)) {
+        Fatal("The parameter is not a valid vob (it is null or a wp)!");
+    }
+}
+
+func void _WLD_AssertWP(var object vob) {
+    if(!WLD_IsVob(vob)) {
+        Fatal("The parameter is not a valid vob (it is null or a wp)!");
+    }
+}
+
+func void WLD_FlattenVobtreeAt(var object vob) {
+    _WLD_AssertVob(vob);
+
+    foreach child in vob.childs {
+        WLD_MoveToParent(child, vob.parent);
+    }
+}
+
+func void WLD_ReplaceWithVobtree(ref object o, var string vobtree) {
+    var float pos[3] = o.pos;
+    var float trafo[3][3] = POS_GetRotMat(o);
+
+    WLD_Delete(o);
+    var selection tree = WLD_Merge(vobtree);
+    var object root = CVT_SelToArr(tree)[0];
+    while(root.parent && root.parent < tree) {
+        root = root.parent;
+    }
+
+    if (root.pos != {0, 0, 0}) {
+        var float shift[3] = root.pos;
+
+        foreach vob in tree {
+            vob.pos -= shift;
+        }
+    }
+
+    trafo *= ALG_Invert(POS_GetRotMat(root));
+
+    foreach vob in tree {
+        POS_SetRotMat(vob, trafo * POS_GetRotMat(vob));
+        vob.pos = trafo * vob.pos + pos;
+    }
+}
+
+func selection WLD_GetDescendants(var object o) {
+    var selection result;
+    var selection thisLevel = o;
+    var selection nextLevel;
+
+    while (thisLevel.size) {
+        foreach vob in thisLevel {
+            nextLevel += vob.childs;
+        }
+
+        result += nextLevel;
+        thisLevel = nextLevel;
+        nextLevel = WLD_GetNone();
+    }
+
+    return result;
+}
+
+func void _WLD_AddChildrenOf(ref selection sel, var object o) {
+    foreach obj in o.childs {
+        if !(obj < sel) {
+            sel += obj;
+            _WLD_AddChildrenOf(sel, obj);
+        }
+    }
+}
+
+func void WLD_SpreadToVobtree(ref selection sel) {
+    var selection toCheck = sel;
+    var selection checked;
+
+    while(toCheck.size) {
+        foreach vob in toCheck {
+            toCheck -= vob;
+            checked += vob;
+
+            if (vob.className == "zCVobLevelCompo") {
+                continue;
+            } else {
+
+                sel += vob;
+
+
+                foreach child in vob.childs {
+                    if !(vob.childs < checked) {
+                        toCheck += child;
+                    }
+                }
+
+
+                if !(vob.parent < checked) {
+                    toCheck += vob.parent;
+                }
+            }
+        }
+    }
+}
+
+func void WLD_CollectOrphans(var object root) {
+    var selection moved = root;
+
+    foreach vob in WLD_GetVobs() {
+        if (vob < moved) {
+            continue;
+        }
+
+        while !(vob < moved) {
+            if (!vob.parent || vob.parent.className == "zCVobLevelCompo") {
+
+                WLD_MoveToParent(vob, root);
+                moved += vob;
+            } else {
+
+                moved += vob;
+                vob = vob.parent;
+            }
+        }
+    }
+}
+
+func void WLD_MergeWaypoints() {
+    var string duplicates[];
+
+    foreach wp in WLD_GetWPs() {
+        if (WLD_GetWPsByName(wp.name).size > 1) {
+            duplicates |= wp.name;
+        }
+    }
+
+
+    sort(duplicates);
+    unique(duplicates);
+
+    if (!duplicates.size) {
+        return;
+    }
+
+    var string msg = "Merging WPs:";
+    foreach str in duplicates {
+        msg += endl + str;
+
+        var selection mergeSet = WLD_GetWPsByName(str);
+        var selection connected;
+        var object someWP;
+        var float newCenter[3];
+
+        foreach wp in mergeSet {
+            connected += WLD_GetConnectedWPs(wp);
+            someWP = wp;
+            newCenter += wp.pos;
+        }
+        newCenter /= mergeSet.size;
+        ((someWP) || Fatal("Assertion Failed: " + ("Where did those WPs go?!"))) ;
+
+        someWP.pos = newCenter;
+        connected -= WLD_GetConnectedWPs(someWP);
+
+        foreach wp in connected {
+            WLD_ConnectWPs(someWP, wp);
+        }
+
+        WLD_Delete(mergeSet - someWP);
+    }
+
+    Info(msg);
+}
+func void _WLD_IsolateSelection(ref selection selected) {
+    var selection critical;
+    foreach vob in selected {
+        critical += vob.childs;
+    }
+    critical -= selected;
+    foreach vob in critical {
+        var object parent = vob.parent;
+        while (parent && parent < selected) {
+            parent = parent.parent;
+        }
+
+        WLD_MoveToParent(vob, parent);
+    }
+}
+
+func void WLD_Delete(ref template t) {
+    if (TPL_TypeOf(t) == "object") {
+        WLD_DeleteObject(t);
+        t = 0;
+        return;
+    }
+
+    if (TPL_TypeOf(t) != "selection") {
+        Fatal("WLD_DeleteGentle: Parameter must be object or selection.");
+    }
+
+
+    var selection deletionRoots;
+    var object parent;
+    foreach vob in t {
+        parent = vob.parent;
+
+        while(parent) {
+            if(parent < t) {
+                break;
+            }
+            parent = parent.parent;
+        }
+
+        if (!parent) {
+
+            deletionRoots += vob;
+        }
+    }
+
+    foreach vob in deletionRoots {
+        WLD_DeleteObject(vob);
+    }
+
+
+    t = WLD_GetNone();
+}
+
+func void WLD_DeleteGentle(ref template t) {
+    if (TPL_TypeOf(t) == "object") {
+        WLD_FlattenVobtreeAt(t);
+        WLD_DeleteObject(t);
+        t = 0;
+        return;
+    }
+
+    if (TPL_TypeOf(t) != "selection") {
+        Fatal("WLD_DeleteGentle: Parameter must be object or selection.");
+    }
+
+    _WLD_IsolateSelection(t);
+    WLD_Delete(t);
+}
+
+func void WLD_LoadWithoutMesh(var string path) {
+
+    WLD_Load("EMPTY.ZEN");
+    WLD_Merge(path);
+}
+
+func void WLD_LoadMesh(var string path) {
+    WLD_Load(path);
+    WLD_Delete(WLD_GetAll());
+}
+
+func object WLD_NewWP (var string name = "", var float pos[3] = {0, 0, 0}) {
+    var object theWP = CVT_SelToArr(WLD_Merge("WAYPOINT.ZEN"))[0];
+    theWP.name = name;
+    theWP.pos = pos;
+    return theWP;
+}
+
+func object WLD_NewVobOfClass(var string vobClass, var string name = "", var float pos[3] = {0, 0, 0}) {
+    var object theVob = CVT_SelToArr(WLD_Merge("vobclasses" + backslash + vobClass + ".ZEN"))[0];
+    theVob.name = name;
+    theVob.pos = pos;
+    return theVob;
+}
+
+func object WLD_NewVob(var string name = "", var float pos[3] = {0, 0, 0}) {
+    return WLD_NewVobOfClass("zCVob", name, pos);
+}
+
+func object WLD_NewItem(var string itemInst, var float pos[3] = {0, 0, 0}) {
+    var object theItem = WLD_NewVobOfClass("oCItem", itemInst, pos);
+    theItem.itemInstance = itemInst;
+    return theItem;
+}
+
+func object WLD_GetVob(var string name, var  int  warnIfAmbiguous =  1 ) {
+    var selection allOfThatName = WLD_GetVobsByName(name);
+    if (allOfThatName.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetVob: Request for vob with name " + name + " is ambiguous."
+             + "There are " + allOfThatName.size + " vobs with that name.");
+    }
+
+    if(allOfThatName.size) {
+        return CVT_SelToArr(allOfThatName)[0];
+    }
+
+    var object null;
+    return null;
+}
+
+func object WLD_GetWP(var string name, var  int  warnIfAmbiguous =  1 ) {
+    var selection allOfThatName = WLD_GetWPsByName(name);
+
+    if (allOfThatName.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetWP: Request for waypoint with name " + name + " is ambiguous."
+             + "There are " + allOfThatName.size + " waypoints with that name.");
+    }
+
+    if (allOfThatName.size) {
+        return CVT_SelToArr(allOfThatName)[0];
+    }
+
+    var object null;
+    return null;
+}
+
+func object WLD_GetObject(var string name, var  int  warnIfAmbiguous =  1 ) {
+    var selection allOfThatName = WLD_GetByName(name);
+
+    if (allOfThatName.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetObject: Request for object with name " + name + " is ambiguous."
+             + "There are " + allOfThatName.size + " objects with that name.");
+    }
+
+    if (allOfThatName.size) {
+        return CVT_SelToArr(allOfThatName)[0];
+    }
+
+    var object null;
+    return null;
+}
+
+func object WLD_GetVobByVisual(var string visual, var  int  warnIfAmbigous =  1 ) {
+    var selection allWithThatVisual = WLD_GetVobsByVisual(name);
+
+    if (allWithThatVisual.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetVobByVisual: Request for vob with visual " + visual + " is ambiguous."
+             + "There are " + allWithThatVisual.size + " vobs with that visual.");
+    }
+
+    if (allWithThatVisual.size) {
+        return CVT_SelToArr(allWithThatVisual)[0];
+    }
+
+    var object null;
+    return null;
+}
+
+func selection WLD_GetVobsOfClass(var string className) {
+    var selection res;
+    foreach vob in WLD_GetAll() {
+        if (vob.className == className) {
+            res += vob;
+        }
+    }
+    return res;
+}
+
+func void WLD_FixItems() {
+    foreach item in WLD_GetVobsOfClass("oCItem") {
+        item.itemInstance = item.vobName;
+    }
+}
+
+func  int  WLD_IsChildOfMover(var object o) {
+    while(o) {
+        if (o.className == "zCMover") {
+            return  1 ;
+        }
+        o = o.parent;
+    }
+    return  0 ;
+}
+
+func void WLD_SplitWorld(var selection sel_1, var string name_1, var string name_2) {
+    var selection sel_2 = WLD_GetAll() - sel_1;
+    var selection add_1;
+    var selection add_2;
+
+    foreach wp in WLD_GetWPs() {
+        foreach other in WLD_GetConnectedWPs(wp) {
+            if (wp < sel_1 && other < sel_2) {
+                add_2 += wp;
+                add_1 += other;
+            }
+        }
+    }
+
+    sel_1 += add_1;
+    sel_2 += add_2;
+
+    WLD_SaveSelection(name_1, sel_1);
+    WLD_SaveSelection(name_2, sel_2);
+}
+var int COLLSPEC_affect_staticVob = 1;
+var int COLLSPEC_affect_cdDyn = 1;
+var int COLLSPEC_affect_cdStatic = 0;
+func int COLLSPEC_HandleVob(var object vob) {
+
+
+    if (vob.visual == "") {
+        return COLL_IGNORE;
+    }
+
+    if (WLD_IsChildOfMover(vob)) {
+        return COLL_IGNORE;
+    }
+
+    if (vob.presetName ~= "IGNORECOLL") {
+        return COLL_IGNORE;
+    }
+
+
+    if (vob.className == "oCItem")
+    || (vob.className == "oCNpc")
+    || (vob.className == "zCVobLevelCompo") {
+        return COLL_IGNORE;
+    }
+
+
+    return COLL_BY_RULES;
+}
+
+
+
+
+
+
+func void COLLSPEC_Rules() {
+    COLL_MatchingSection(COLL_SECT_CERTAIN);
+    COLL_False(".*\.PFX$");
+    COLL_False(".*\.pfx$");
+    COLL_False(".*\.TGA$");
+    COLL_Ignore(".*\.MMS$");
+
+
+
+
+
+    COLL_MatchingSection(COLL_SECT_GUESS);
+
+
+    COLL_True("^ITAM_");
+    COLL_True("^ITAR_");
+    COLL_True("^ITAT_");
+    COLL_True("^ITFO_");
+    COLL_True("^ITKE_");
+    COLL_True("^ITMI_");
+    COLL_True("^ITMW_");
+    COLL_True("^ITSC_");
+    COLL_True("^ITPO_");
+    COLL_True("^ITRI_");
+    COLL_True("^ITRU_");
+    COLL_True("^ITRW_");
+    COLL_True("^ITWR_");
+    COLL_False("^ITPL_");
+    COLL_True("_MISC_");
+    COLL_True("_LOB_");
+    COLL_True("_CITY_");
+    COLL_True("_HARBOUR_");
+    COLL_True("^OW_");
+    COLL_True("^OC_");
+    COLL_True("_OC.MDS");
+    COLL_True("^PC_");
+    COLL_True("^NC_");
+    COLL_True("^OM_");
+    COLL_True("^ORC_");
+    COLL_True("^TPL_");
+    COLL_True("^EVT_");
+    COLL_False("PLANT");
+    COLL_MatchingSection(COLL_SECT_LOWER);
+    COLL_True("STONE");
+    COLL_True("ROCK");
+    COLL_True("TREE");
+    COLL_False("GRAS");
+    COLL_False("WEED");
+    COLL_True("WOOD");
+    COLL_True("HOLZ");
+    COLL_True("DOOR");
+    COLL_True("BEAM");
+    COLL_True("BAUM");
+    COLL_True("PLANK");
+    COLL_MatchingSection(COLL_SECT_NORMAL);
+    COLL_True("_ORC_");
+    COLL_True("_ORCS_");
+    COLL_True("OREHEAP");
+    COLL_True("SKELETON");
+    COLL_False("CHAIN");
+    COLL_True("ORE_.*\.ASC");
+
+
+    COLL_True("PILLAR");
+    COLL_True("BRIDGE");
+    COLL_False("SPIKE");
+    COLL_True("PALISSADE");
+    COLL_True("STATUE");
+    COLL_True("STAIRS");
+    COLL_True("FENCE");
+    COLL_True("LADDER_.*\.ASC");
+
+
+    COLL_True("TORTURE");
+    COLL_True("SHELF");
+    COLL_True("TABLE");
+    COLL_True("CUPBOARD");
+    COLL_True("LIGHTER");
+    COLL_True("FIREPLACE");
+    COLL_True("FIREWOOD");
+    COLL_True("_SACK_");
+    COLL_True("_SAECKE_");
+    COLL_True("_FLAG_");
+    COLL_True("CRATE");
+    COLL_True("KISTE");
+    COLL_True("CHEST");
+    COLL_True("CHAIR");
+    COLL_True("THRONE");
+    COLL_True("BENCH");
+    COLL_True("CAULDRON");
+    COLL_True("BEDHIGH");
+    COLL_True("BOOK");
+    COLL_True("TORCH");
+    COLL_True("CARPET");
+    COLL_True("PICTURE");
+    COLL_True("BS.*\.MDS");
+
+
+    COLL_False("BUSHES");
+    COLL_False("_BUSH_");
+    COLL_True("CACTUS");
+    COLL_True("_PALM_");
+    COLL_True("BIGTREE");
+    COLL_True("DEADTREE");
+    COLL_True("TREE_ROOT");
+    COLL_True("OLDTREE");
+    COLL_False("LIANA");
+    COLL_False("_FARN_");
+    COLL_False("FARNTEPPICH");
+    COLL_False("HANGPLANTS");
+    COLL_True("SMALLPALM");
+    COLL_True("HOHETANNE");
+    COLL_True("_TANNE_");
+    COLL_True("BAUMSTUMPF");
+    COLL_True("BAUMSTAMM");
+    COLL_False("WALLFERN");
+    COLL_False("DUCKWEED");
+    COLL_False("WATERLILI");
+    COLL_False("RICEPLANT");
+    COLL_False("MUSHROOM");
+    COLL_False("CAVEWEBS");
+
+    COLL_True("_PINE_");
+    COLL_False("BLUME");
+
+
+    COLL_True("SCROLLS");
+    COLL_True("_BODY.ASC");
+    COLL_True("STALAG_");
+    COLL_True("INNOS_.*\.ASC");
+    COLL_False("SPIDERWEBS");
+
+
+
+
+
+    COLL_MatchingSection(COLL_SECT_HIGHER);
+
+    COLL_True("SMOKE_WATERPIPE");
+    COLL_False("EVT_TPL_METALTHORNS");
+
+
+
+
+
+
+
+    COLL_ExplicitSection();
+
+
+    COLL_True("BAUMSAEGE_1.ASC");
+    COLL_True("BARBQ_SCAV.MDS");
+    COLL_True("LAB_PSI.ASC");
+    COLL_True("HERB_PSI.MDS");
+    COLL_True("RMAKER_1.MDS");
+    COLL_True("BARBQ_SCAV.ASC");
+    COLL_False("TREASURE_ADDON_01.ASC");
+    COLL_False("REPAIR_PLANK.ASC");
+    COLL_False("NW_MISC_STRAW_GROUP_01.3DS");
+
+
+    COLL_True("CR_DI_OPENEGG.3DS");
+    COLL_True("NW_EVT_CEMENTARYCOFFIN_01.3DS");
+    COLL_True("NW_MONASTERY_ALTAR_01.3DS");
+    COLL_True("OSTA_AXE2.3DS");
+    COLL_True("DT_CHAINBOX.3DS");
+    COLL_True("ADDON_DUNGEON_SCHUTT_01.3DS");
+    COLL_True("ADDON_MAYA_SNAKE_01.3DS");
+    COLL_False("CR_DI_SLIME.3DS");
+
+
+    COLL_True("DT_2ND_FLOOR_GEWOELBE.3DS");
+    COLL_True("DT_3RD_FLOOR_GEWOELBE.3DS");
+    COLL_False("DT_2ND_FLOOR_BANNKREIS_02.3DS");
+
+
+    COLL_False("NW_NATURE_SMALL_ROOTS_30P.3DS");
+    COLL_False("OC_KITCHENSTUFF_V01.3DS");
+
+
+    COLL_Ignore("INVISIBLE_VOBBOX.3DS");
+    COLL_Ignore("INVISIBLE_ZCVOBSTARTPOINT.3DS");
+
+
+    COLL_False("ADDON_CANYONOBJECT_SIGN_01.3DS");
+    COLL_True("ADDON_CANYONOBJECT_CAR_01.3DS");
+}
+func int COLLSPEC_IsStaticVob(var object o) {
+    if (o.visual == "") {
+        return COLL_IGNORE;
+    }
+
+
+    if (WLD_IsChildOfMover(o)) {
+        return COLL_FALSE;
+    }
+
+    if (o.className == "oCItem")
+    || (o.className == "oCNpc")
+    || (o.className == "zCVobLevelCompo") {
+        return COLL_IGNORE;
+    }
+
+    return COLL_TRUE;
+}
+
+
+var int COLL_IGNORE = 0;
+var int COLL_TRUE = 1;
+var int COLL_FALSE = 2;
+var int COLL_BY_RULES = 3;
+var int COLL_SECT_CERTAIN = 10000;
+var int COLL_SECT_HIGHER = 5000;
+var int COLL_SECT_NORMAL = 2000;
+var int COLL_SECT_LOWER = 1000;
+var int COLL_SECT_GUESS = 0;
+
+
+struct _CollisionRule {
+    var int priority;
+    var int action;
+    var string regEx;
+}
+
+
+var  int  COLL_STATICVOB = 1;
+var  int  COLL_CDDYN = 2;
+var  int  COLL_CDSTATIC = 4;
+var  int  COLL_COLLISION = COLL_CDDYN + COLL_CDSTATIC;
+var  int  COLL_ALL = COLL_CDDYN + COLL_CDSTATIC + COLL_STATICVOB;
+
+
+
+
+
+struct _CollisionWizard {
+    var object affectVobs[];
+
+
+    var string explicitlyTrue[];
+    var string explicitlyFalse[];
+    var string explicitlyIgnored[];
+
+
+    var _CollisionRule rules[];
+
+
+    var  int  whatIfMode;
+    var string whatIf_Log[];
+    var  int  whatIf_ChangesOnly;
+
+
+    var string unmatchableTrue[];
+    var string unmatchableFalse[];
+
+
+    var  int  inExplicitSection;
+    var int currMatchingPrio;
+}
+
+
+var _CollisionWizard _COLL_theWizard;
+
+func void _COLL_ClearWizard() {
+    _COLL_theWizard.explicitlyTrue = _COLL_theWizard.explicitlyFalse = _COLL_theWizard.explicitlyIgnored = { };
+    _COLL_theWizard.rules = _COLL_theWizard.whatIf_Log = { };
+    _COLL_theWizard.affectVobs = {};
+    _COLL_theWizard.inExplicitSection =  1 ;
+    _COLL_theWizard.unmatchableTrue = {};
+    _COLL_theWizard.unmatchableFalse = {};
+}
+
+
+
+
+
+func void COLL_True(var string str) {
+    if(_COLL_theWizard.inExplicitSection) {
+        _COLL_theWizard.explicitlyTrue |= str;
+    } else {
+        var _CollisionRule rule;
+        rule.action = COLL_TRUE;
+        rule.regEx = str;
+        rule.priority = _COLL_theWizard.currMatchingPrio;
+        _COLL_theWizard.rules |= rule;
+    }
+}
+
+func void COLL_False(var string str) {
+    if(_COLL_theWizard.inExplicitSection) {
+        _COLL_theWizard.explicitlyFalse |= str;
+    } else {
+        var _CollisionRule rule;
+        rule.action = COLL_FALSE;
+        rule.regEx = str;
+        rule.priority = _COLL_theWizard.currMatchingPrio;
+        _COLL_theWizard.rules |= rule;
+    }
+}
+
+func void COLL_Ignore(var string str) {
+    if(_COLL_theWizard.inExplicitSection) {
+        _COLL_theWizard.explicitlyIgnored |= str;
+    } else {
+        var _CollisionRule rule;
+        rule.action = COLL_IGNORE;
+        rule.regEx = str;
+        rule.priority = _COLL_theWizard.currMatchingPrio;
+        _COLL_theWizard.rules |= rule;
+    }
+}
+
+
+
+
+
+func void COLL_ExplicitSection() {
+    _COLL_theWizard.inExplicitSection =  1 ;
+}
+
+func void COLL_MatchingSection(var int priority) {
+    _COLL_theWizard.inExplicitSection =  0 ;
+    _COLL_theWizard.currMatchingPrio = priority;
+}
+
+
+
+
+
+func  int  _COLL_PrioGreater(ref _CollisionRule r1, ref _CollisionRule r2) {
+    return r1.priority > r2.priority;
+}
+
+func  int  _COLL_visualLess(var object o1, var object o2) {
+    return o1.visual < o2.visual;
+}
+
+func void _COLL_InvokeWizard(ref _CollisionWizard wizard) {
+
+    COLLSPEC_Rules();
+
+
+    sort(wizard.explicitlyTrue);
+    sort(wizard.explicitlyFalse);
+    sort(wizard.explicitlyIgnored);
+
+    sort(wizard.rules, pred(_COLL_PrioGreater));
+    sort(wizard.affectVobs, pred(_COLL_visualLess));
+
+    var int actionCache = -1;
+    var string cachedFor;
+
+    foreach vob in wizard.affectVobs {
+        var int action = COLLSPEC_HandleVob(vob);
+        var string vis = vob.visual;
+        if (action == COLL_BY_RULES && actionCache >= 0 && cachedFor == vis) {
+            action = actionCache;
+        } else if (action == COLL_BY_RULES) {
+            var int found = 0;
+            if (findSorted(wizard.explicitlyTrue, vis) >= 0) {
+                found += 1;
+                action = COLL_TRUE;
+            }
+            if (findSorted(wizard.explicitlyFalse, vis) >= 0) {
+                found += 1;
+                action = COLL_FALSE;
+            }
+            if (findSorted(wizard.explicitlyIgnored, vis) >= 0) {
+                found += 1;
+                action = COLL_IGNORE;
+            }
+
+            if (found) {
+                if (found > 1) {
+                    WARN("Collision Wizard: Contradicting explicit rules for visual " + vis + " found!");
+                    continue;
+                }
+            } else {
+
+                var  int  matched =  0 ;
+                var int matchedWithPrio;
+
+                for(var int i = 0; i < wizard.rules.size; i += 1) {
+                    if (matched && wizard.rules[i].priority < matchedWithPrio) {
+                        break;
+
+                    }
+
+                    if (vis ~= wizard.rules[i].regEx) {
+                        if (matched && wizard.rules[i].action != action) {
+                            WARN("Collision Wizard: Several rules with equally high priority match the visual "
+                                 + vis + " and request different actions for it.");
+                        }
+                        matched =  1 ;
+                        matchedWithPrio = wizard.rules[i].priority;
+                        action = wizard.rules[i].action;
+                    }
+                }
+            }
+
+            actionCache = action;
+            cachedFor = vis;
+        }
+
+
+        if (action == COLL_BY_RULES) {
+            action = COLL_IGNORE;
+
+            if (vob.cdDyn) {
+                wizard.unmatchableTrue |= vis;
+            } else {
+                wizard.unmatchableFalse |= vis;
+            }
+
+
+        }
+
+
+        if (action == COLL_TRUE || action == COLL_FALSE) {
+            var  int  b = action == COLL_TRUE;
+            var  int  affectStatic = COLLSPEC_affect_cdStatic && (vob.cdStatic != b || !wizard.whatIf_ChangesOnly);
+            var  int  affectDyn = COLLSPEC_affect_cdDyn && (vob.cdDyn != b || !wizard.whatIf_ChangesOnly);
+
+            if (wizard.whatIfMode) {
+                if (affectStatic || affectDyn || !wizard.whatIf_ChangesOnly) {
+                    var string message;
+
+                    if (affectStatic && affectDyn) {
+                        message = "cdDyn/cdStatic = ";
+                    } else if (affectDyn) {
+                        message = "cdDyn          = ";
+                    } else {
+                        message = "cdStatic       = ";
+                    }
+
+                    message += b + " on " + quotes + vob.visual + quotes;
+
+                    _COLL_theWizard.whatIf_Log |= message;
+                }
+            } else {
+                if (affectStatic) {
+                    vob.cdStatic = b;
+                }
+                if (affectDyn) {
+                    vob.cdDyn = b;
+                }
+            }
+        }
+
+
+        if (COLLSPEC_affect_staticVob) {
+            var int staticVobAction = COLLSPEC_IsStaticVob(vob);
+            if (staticVobAction == COLL_TRUE || staticVobAction == COLL_FALSE) {
+                var  int  b = staticVobAction == COLL_TRUE;
+                if (wizard.whatIfMode) {
+                    if(!wizard.whatIf_ChangesOnly || vob.staticVob != b) {
+                        _COLL_theWizard.whatIf_Log |= "staticVob      = " + b + " on " + quotes + vob.visual + quotes;
+                    }
+                } else {
+                    vob.staticVob = b;
+                }
+            }
+        }
+    }
+
+    sort(wizard.unmatchableTrue);
+    var int unmatchableTrue_Count[] = unique_count(wizard.unmatchableTrue);
+    sort(wizard.unmatchableFalse);
+    var int unmatchableFalse_Count[] = unique_count(wizard.unmatchableFalse);
+
+    if (wizard.unmatchableTrue.size || wizard.unmatchableFalse.size) {
+        var string warn = "Collision Wizard: Could not match some of the visuals. Here is a list:" + endl;
+        if (wizard.unmatchableTrue.size) {
+            warn += "   Unmatchable visuals that occured with enabled (dynamic) collision: " + endl;
+            for(var int i = 0; i < wizard.unmatchableTrue.size; i += 1) {
+                warn += "        " + wizard.unmatchableTrue[i] + " (" + unmatchableTrue_Count[i] + " times)" + endl;
+            }
+        }
+        if (wizard.unmatchableFalse.size) {
+            warn += "   Unmatchable visuals that occured with disabled (dynamic) collision: " + endl;
+            for(var int i = 0; i < wizard.unmatchableFalse.size; i += 1) {
+                warn += "        " + wizard.unmatchableFalse[i] + " (" + unmatchableFalse_Count[i] + " times)" + endl;
+            }
+        }
+        Warn(warn);
+    }
+}
+
+func void COLL_InvokeWizard(ref selection affectVobs = WLD_GetVobs()) {
+
+    _COLL_ClearWizard();
+    _COLL_theWizard.affectVobs = CVT_SelToArr(affectVobs);
+    _COLL_theWizard.whatIfMode =  0 ;
+    _COLL_InvokeWizard(_COLL_theWizard);
+}
+
+func void COLL_InvokeWizard_WhatIf(var  int  logChangesOnly =  1 , ref selection affectVobs = WLD_GetVobs()) {
+    _COLL_ClearWizard();
+    _COLL_theWizard.affectVobs = CVT_SelToArr(affectVobs);
+    _COLL_theWizard.whatIfMode =  1 ;
+    _COLL_theWizard.whatIf_ChangesOnly = logChangesOnly;
+    _COLL_InvokeWizard(_COLL_theWizard);
+
+    sort(_COLL_theWizard.whatIf_Log);
+    var int actionCount[] = unique_count(_COLL_theWizard.whatIf_Log);
+
+    var string msg;
+    msg += "###############################################" + endl;
+    msg += "# BEGIN collision wizard what if log" + endl;
+    msg += "###############################################" + endl;
+    for(var int i = 0; i < _COLL_theWizard.whatIf_Log.size; i += 1) {
+        msg += _COLL_theWizard.whatIf_Log[i] + " (" + actionCount[i] + ")" + endl;
+    }
+    msg += "###############################################" + endl;
+    msg += "# END collision wizard what if log" + endl;
+    msg += "###############################################";
+
+    Info(msg);
+}
+
+func float[3][3] POS_GetRotMat(var object o) {
+    var float mat[3][3];
+
+    if (!WLD_IsVob(o)) {
+
+        ((o.direction[1] == 0) || Fatal("Assertion Failed: " + ("WP direction has y-component?"))) ;
+        mat[0][0] = o.direction[2];
+        mat[1][0] = 0;
+        mat[2][0] = -o.direction[0];
+
+        mat[1][0] = 0;
+        mat[1][1] = 1;
+        mat[1][2] = 0;
+
+        mat[0][2] = o.direction[0];
+        mat[1][2] = 0;
+        mat[2][2] = o.direction[2];
+        return mat;
+    }
+
+    var float floats[9] = CVT_RawToFloats(o.trafoOSToWSRot);
+
+    var int i; var int j;
+    for(; i < 3; i += 1) {
+        j = 0;
+        for(; j < 3; j += 1) {
+            mat[i][j] = floats[3*i + j];
+        }
+    }
+    return mat;
+}
+
+func void POS_SetRotMat(var object o, ref float mat[3][3]) {
+    if (!WLD_IsVob(o)) {
+
+        o.direction[0] = mat[0][2];
+        o.direction[1] = 0;
+        o.direction[2] = mat[2][2];
+
+        if (ALG_VecLen(o.direction) == 0.0) {
+            o.direction[2] = 1;
+        } else {
+            o.direction /= ALG_VecLen(o.direction);
+        }
+        return;
+    }
+
+    var float err;
+    for(var int i = 0; i < 3; i += 1) {
+        for(var int j = 0; j < 3; j += 1) {
+            err += fabs(mat[i] * mat[j] - (i == j));
+        }
+    }
+
+    if (err > 0.0001) {
+        if (err > 0.1) {
+            Error("POS_SetRotMat: The given matrix is probably not a rotation matrix. It is far from being orthogonal (Error = " + err + "). Your vobs might disappear.");
+        } else {
+            Warn("POS_SetRotMat: The given matrix has slight errors (Error = " + err + "). This may be due to rounding errors and probably no problem. Use ALG_NormalizeMat to resolve the problem.");
+        }
+    }
+
+    var float floats[9];
+
+    var int i; var int j;
+    for(; i < 3; i += 1) {
+        j = 0;
+        for(; j < 3; j += 1) {
+            floats[3*i + j] = mat[i][j];
+        }
+    }
+
+    o.trafoOSToWSRot = CVT_FloatsToRaw(floats);
+}
+
+func void POS_MoveFromTo(var object from, var object to, ref selection sel = WLD_GetAll()) {
+    var float fromVec[3] = from.pos;
+    var float toVec[3] = to.pos;
+    var float fromMatInv[3][3] = ALG_Invert(POS_GetRotMat(from));
+    var float toMat[3][3] = POS_GetRotMat(to);
+
+    var float trafo[3][3] = toMat * fromMatInv;
+
+    foreach o in sel {
+        if (o.className == "zCVobLevelCompo") {
+            continue;
+        }
+
+        var float dboxmin[];
+        var float dboxmax[];
+
+        if(WLD_IsVob(o)) {
+             dboxmin = subArr(o.bbox3DWS, 0, 3) - o.pos;
+             dboxmax = subArr(o.bbox3DWS, 3, 3) - o.pos;
+        }
+
+        var float rotMat[3][3] = trafo * POS_GetRotMat(o);
+        ALG_NormalizeMat(rotMat);
+        POS_SetRotMat(o, rotMat);
+        o.pos = trafo * (o.pos - fromVec) + toVec;
+
+        if(WLD_IsVob(o)) {
+            dboxmin += o.pos;
+            dboxmax += o.pos;
+
+            o.bbox3DWS = dboxmin || dboxmax;
+        }
+    }
+}
+var int POS_AutoMove_Good_Accuracy = 7;
+var int POS_AutoMove_Warn_Accuracy = 20;
+var int POS_AutoMove_Poor_Accuracy = 50;
+var int POS_AutoMove_PlainlyWrong = 1000;
+
+
+func void POS_AutoMove(var template o1, var template n1, var template o2, var template n2, ref selection sel = WLD_GetAll()) {
+
+    var float vob1Old[3];  if(TPL_TypeOf(o1) == "object") { vob1Old = o1.pos; } else { vob1Old = o1; } ;
+    var float vob1New[3];  if(TPL_TypeOf(n1) == "object") { vob1New = n1.pos; } else { vob1New = n1; } ;
+    var float vob2Old[3];  if(TPL_TypeOf(o2) == "object") { vob2Old = o2.pos; } else { vob2Old = o2; } ;
+    var float vob2New[3];  if(TPL_TypeOf(n2) == "object") { vob2New = n2.pos; } else { vob2New = n2; } ;
+
+
+
+    if(vob1Old == vob2Old || vob1New == vob2New) {
+        Fatal("POS_AutoMove: I can't work with this. You need to specify the movement for two different points. The points you specified are identical before or after the movement.");
+    }
+
+
+    var float inaccuracy;
+
+    var float dy1 = vob1New[2] - vob1Old[2];
+    var float dy2 = vob1New[2] - vob1Old[2];
+
+    inaccuracy = fabs(dy2 - dy1);
+    var float distDiff = ALG_Dist(vob1Old, vob2Old) - ALG_Dist(vob1New, vob2New);
+    inaccuracy = max({inaccuracy, fabs(distDiff)});
+
+    var string whatsWrong = "The shift of the y-coordinate differs between the two objects or the distance of the two Vobs to each other has changed after the transformation. Read the documentation for details.";
+
+    if (inaccuracy > POS_AutoMove_PlainlyWrong) {
+        Error("POS_AutoMove: The given data is either extremely inaccurate or (more likely) its plainly wrong. " + whatsWrong + " (algorithm will continue anyway).");
+    }
+    else if (inaccuracy > POS_AutoMove_Poor_Accuracy) {
+        Warn("POS_AutoMove: The given data is wrong or of poor accuracy. " + whatsWrong + " Double check your data! It's off by more than " + POS_AutoMove_Poor_Accuracy + "cm.");
+    } else if (inaccuracy > POS_AutoMove_Warn_Accuracy) {
+        Warn("POS_AutoMove: The given data seems a little bit inaccurate. " + whatsWrong + " Consider to improve the data and you will receive better results. It's off by more than " + POS_AutoMove_Poor_Accuracy + "cm.");
+    } else if (inaccuracy > POS_AutoMove_Good_Accuracy) {
+        Info("POS_AutoMove: Data seems to be consistent (< " + POS_AutoMove_Warn_Accuracy + "cm of detectable errors).");
+    } else {
+        Info("POS_AutoMove: Data seems to be of high precision.");
+    }
+    var float v1[2] =  {(vob2Old - vob1Old)[0], (vob2Old - vob1Old)[2]} ;
+    var float v2[2] =  {(vob2New - vob1New)[0], (vob2New - vob1New)[2]} ;
+    ALG_NormalizeVec(v1);
+    ALG_NormalizeVec(v2);
+
+
+    var float c = v1 * v2;
+    var float s = v1[0]*v2[1] - v1[1]*v2[0];
+
+    var float mat[3][3] = { { c, 0, -s },
+                            { 0, 1, 0 },
+                            { s, 0, c } };
+
+    var float trans[3] = (vob1New - mat*vob1Old + vob2New - mat*vob2Old) / 2;
+
+    foreach obj in sel {
+        if (obj.className == "zCVobLevelCompo") {
+            continue;
+        }
+
+        var float rotMat[3][3] = mat * POS_GetRotMat(obj);
+        ALG_NormalizeMat(rotMat);
+        POS_SetRotMat(obj, rotMat);
+
+        var float oldPos[3] = obj.pos;
+        obj.pos = mat * obj.pos + trans;
+
+        if(WLD_IsVob(obj)) {
+            var float dboxmin[];
+            var float dboxmax[];
+            dboxmin = subArr(obj.bbox3DWS, 0, 3) - obj.pos;
+            dboxmax = subArr(obj.bbox3DWS, 3, 3) - obj.pos;
+
+            dboxmin = dboxmin - oldPos + obj.pos;
+            dboxmax = dboxmax - oldPos + obj.pos;
+
+            obj.bbox3DWS = dboxmin || dboxmax;
+        }
+    }
+}
+func  int  posLess(var object o1, var object o2) {
+    return lexLess(o1.pos, o2.pos);
+}
+
+func void main() {
+
+    Info("Loading broken world.");
+    WLD_Load("../exodus/Valsum/EX_HAUPTSTADT_BROKENPFX.ZEN");
+
+    var object brokenVobs[] = CVT_SelToArr(WLD_GetVobs());
+
+
+    Info("Loading old world.");
+    var selection oldZEN = WLD_Merge("../exodus/Valsum/EX_HAUPTSTADT.ZEN");
+    var object oldVobs[] = CVT_SelToArr(oldZEN * WLD_GetVobs());
+
+
+    Info("Sorting.");
+    sort(brokenVobs, pred(posLess));
+    sort(oldVobs, pred(posLess));
+    Info("Sorted.");
+
+    var int brokenWalker = 0; var int oldWalker = 0;
+    while(brokenWalker < brokenVobs.size) {
+        if (brokenVobs[brokenWalker].visual) {
+            brokenWalker += 1;
+        } else {
+            var float here[3];
+            here = brokenVobs[brokenWalker].pos;
+
+            if (brokenWalker > 0 && brokenVobs[brokenWalker-1].pos == here)
+            || (brokenWalker < brokenVobs.size - 1 && brokenVobs[brokenWalker+1].pos == here) {
+                brokenWalker += 1;
+                continue;
+            }
+
+
+            while(oldWalker < oldVobs.size && posLess(oldVobs[oldWalker], brokenVobs[brokenWalker])) {
+                oldWalker += 1;
+            }
+
+
+            if (oldWalker < oldVobs.size && here == oldVobs[oldWalker].pos && oldVobs[oldWalker].visual) {
+
+                brokenVobs[brokenWalker].visual = oldVobs[oldWalker].visual;
+                Warn("Restoring visual: " + oldVobs[oldWalker].visual);
+            }
+
+            brokenWalker += 1;
+        }
+    }
+
+
+    WLD_Delete(oldZEN);
+    WLD_Save("../exodus/Valsum/EX_HAUPTSTADT_REPAIREDPFX.ZEN");
+}

@@ -1,0 +1,49 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 23.7.2011 18:10:19
+user Sekti
+END
+objects 2        
+END
+
+[% oCWorld:zCWorld 36865 0]
+	[VobTree % 0 0]
+		childs0=int:1
+		[% oCZoneMusic:zCVob 0 1]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:0 0 0 0 0 0 
+			trafoOSToWSRot=raw:0000803f0000008000000000000000000000803f0000000000000080000000800000803f
+			trafoOSToWSPos=vec3:0 0 0
+			vobName=string:
+			visual=string:
+			showVisual=bool:1
+			visualCamAlign=enum:0
+			visualAniMode=enum:0
+			visualAniModeStrength=float:0
+			vobFarClipZScale=float:1
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			zbias=int:1
+			isAmbient=bool:0
+			[visual % 0 0]
+			[]
+			[ai % 0 0]
+			[]
+			enabled=bool:1
+			priority=int:1
+			ellipsoid=bool:0
+			reverbLevel=float:-3.2190001
+			volumeLevel=float:1
+			loop=bool:1
+		[]
+		childs1=int:0
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

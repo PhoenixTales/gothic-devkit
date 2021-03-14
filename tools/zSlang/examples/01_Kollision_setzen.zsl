@@ -1,0 +1,11 @@
+#include<stdlib.zsl>
+
+/* Das Skript aus zSlang Tutorial 3: Kollisionsflags setzen.
+ * Es ist denkbar einfach und neben Laden und Speichern wird
+ * lediglich der Kollisionsassistent aufgerufen. */
+
+func void main() {
+    WLD_Load("LANDSITZ_FERTIG.ZEN");
+    COLL_InvokeWizard();
+    WLD_Save("LANDSITZ_FERTIG_COLLISION.ZEN");
+}

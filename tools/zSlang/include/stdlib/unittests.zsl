@@ -1,0 +1,138 @@
+#ifndef UNITTESTS_ZSL
+#define UNITTESTS_ZSL
+
+//#################################################
+//
+//    unittests.zsl
+//
+//    tests whether everything works as expected
+//
+//#################################################
+
+#include<stdlib.zsl>
+
+struct _TestStruct {
+    var string name;
+    var int errorCode;
+}
+
+var _TestStruct _Tests[];
+
+#define _Test(testName, code)                          \
+                                                       \
+func int _dotest_##testName() {                        \
+    var int checkCounter;                              \
+    code                                               \
+    return 0;                                          \
+}                                                      \
+func void _test_##testName() {                         \
+    var _TestStruct test;                              \
+    test.name = #testName;                             \
+    test.errorCode = _dotest_##testName();             \
+    _Tests |= test;                                    \
+}                                                      \
+var void _test_##testName##_invoke = _test_##testName();
+
+#define _check(b) checkCounter += 1; if (!(b)) { return checkCounter; }
+
+//************************************************
+//   Test whether basic loading
+//    saving and merging works
+//************************************************
+
+_Test(LoadMergeSave,
+    WLD_Load("D:\Jowood\Gothic II\_work\Data\Worlds\transformerPlayground\_TEST\TEST_ONE.ZEN");
+    
+    _check(WLD_GetObject("ONE")) //should be there
+    _check(!WLD_GetObject("TWO")) //should not be there
+    
+    WLD_Merge("_TEST\TEST_TWO.ZEN");
+    
+    _check(WLD_GetObject("ONE")) //now both should be there
+    _check(WLD_GetObject("TWO"))
+    
+    WLD_Save("_TEST\TEST_OUT.ZEN");
+    WLD_Destroy();
+    
+    _check(!WLD_GetObject("ONE"))//now world should be empty
+    _check(!WLD_GetObject("TWO"))
+    
+    WLD_Load("_TEST\TEST_OUT.ZEN");
+    
+    _check(WLD_GetObject("ONE")) //now both should be there
+    _check(WLD_GetObject("TWO")) //now both should be there
+    
+    _check(WLD_GetObject("ONE") < WLD_GetAll())
+    _check(WLD_GetObject("TWO") < WLD_GetAll())
+    
+    WLD_Destroy();
+)
+
+_Test(TestTree,
+    WLD_Load("_TEST\TEST_TREE.ZEN");
+    
+    //Info(WLD_GetByName("CHILD2CHILD0").size);
+    Info(WLD_GetVobsByName("CHILD2CHILD0").size);
+    
+    var object level = WLD_GetObject("LEVEL-VOB");
+    var object c0c0 = WLD_GetObject("CHILD0CHILD0");
+    var object r = WLD_GetObject("ROOT");
+    var object c0 = WLD_GetObject("CHILD0");
+    var object c1 = WLD_GetObject("CHILD1");
+    
+    
+    //see whether the build in commands work
+    _check(r && c0 && c1 && c0c0)
+    _check(c0.parent == r && c1.parent == r && c0c0.parent == c0 && r.parent == level && !level.parent)
+    _check(r.childs.size == 2 && c0.childs.size == 1 && !c1.childs.size && !c0c0.childs.size)
+    _check(r.childs == c0 + c1)
+    
+    WLD_MoveToParent(c0c0, r);
+    
+    _check(r.childs == c0 + c1 + c0c0)
+    _check(!c0.childs.size)
+    
+    WLD_MoveToParent(c0c0, 0); //move to top level
+    _check(r.childs == c0 + c1)
+    _check(!c0c0.parent)
+    
+    //move back
+    WLD_MoveToParent(c0c0, c0);
+    
+    _check(c0.childs == c0c0 + c0c0)
+    
+    WLD_SaveSelection("_TEST\TEST_TREE_OUT1.ZEN", c0 + c1);
+    WLD_SaveSelection("_TEST\TEST_TREE_OUT2.ZEN", r + c0c0);
+    
+    WLD_Load("_TEST\TEST_TREE_OUT1.ZEN");
+    
+    c0 = WLD_GetObject("CHILD0");
+    c1 = WLD_GetObject("CHILD1");
+    _check(WLD_GetAll() == c0 + c1)
+    _check(!c0.parent && !c1.parent)
+    
+    WLD_Load("_TEST\TEST_TREE_OUT2.ZEN");
+    
+    r = WLD_GetObject("ROOT");
+    c0c0 = WLD_GetObject("CHILD0CHILD0");
+    
+    _check(WLD_GetAll() == r + c0c0)
+    _check(c0c0.parent == r)
+    _check(!r.parent)
+    
+    WLD_Destroy();
+)
+
+func bool _evalTests() {
+    var bool success = true;
+    foreach test in _Tests {
+        if (test.errorCode) {
+            Error("The test " + test.name + " failed at check number: " + test.errorCode);
+            success = false;
+        }
+    }
+    return success;
+}
+var bool _AllTestsSuccessful = _evalTests();
+
+#endif //UNITTESTS_ZSL

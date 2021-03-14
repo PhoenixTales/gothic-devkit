@@ -1,0 +1,2 @@
+Ich habe mal ein Plugin für den Output-Commander geschrieben, das einem die Arbeit abnimmt .
+Einfach die DLL in den Unterordner "plugins" des Output-Commanders kopieren und unter Plugins auf "Unrecorded List Exporter" klicken. - Lubo

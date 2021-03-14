@@ -1,0 +1,11 @@
+[BEGINVDF]
+Comment=Gothic - Texture Data (%%D)%%N(C) 1999, 2002 Piranha Bytes Software GmbH%%N
+BaseDir=..\..\..\..
+VDFName=..\..\..\..\Data\Textures.vdf
+[FILES]
+_work\Data\Textures\_compiled\*-C.TEX
+_work\Data\Textures\_compiled\*.FNT
+[EXCLUDE]
+[INCLUDE]
+_work\Data\Textures\Desktop\*.TGA -r
+[ENDVDF]

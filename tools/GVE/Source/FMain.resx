@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="MMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>0, 0</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="LoadNewestMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="LoadNewestMenu.Text" xml:space="preserve">
+    <value>&amp;Aktuellstes laden</value>
+  </data>
+  <data name="LoadMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="LoadMenu.Text" xml:space="preserve">
+    <value>&amp;Manuell laden</value>
+  </data>
+  <data name="ListAllMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="ListAllMenu.Text" xml:space="preserve">
+    <value>Alle &amp;Savegames auflisten</value>
+  </data>
+  <data name="savegameMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 20</value>
+  </data>
+  <data name="savegameMenu.Text" xml:space="preserve">
+    <value>&amp;Savegame</value>
+  </data>
+  <data name="OptionsMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 20</value>
+  </data>
+  <data name="OptionsMenu.Text" xml:space="preserve">
+    <value>&amp;Einstellungen</value>
+  </data>
+  <data name="HelpM.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="HelpM.Text" xml:space="preserve">
+    <value>&amp;Hilfe</value>
+  </data>
+  <data name="Info.Size" type="System.Drawing.Size, System.Drawing">
+    <value>99, 22</value>
+  </data>
+  <data name="Info.Text" xml:space="preserve">
+    <value>&amp;Info</value>
+  </data>
+  <data name="HelpMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>24, 20</value>
+  </data>
+  <data name="HelpMenu.Text" xml:space="preserve">
+    <value>&amp;?</value>
+  </data>
+  <data name="MMenu.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="MMenu.Size" type="System.Drawing.Size, System.Drawing">
+    <value>507, 24</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="MMenu.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;MMenu.Name" xml:space="preserve">
+    <value>MMenu</value>
+  </data>
+  <data name="&gt;&gt;MMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;MMenu.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;MMenu.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <metadata name="OFDOpen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>111, 17</value>
+  </metadata>
+  <data name="OFDOpen.Filter" xml:space="preserve">
+    <value>Gothic Savegames|SAVEDAT.SAV</value>
+  </data>
+  <data name="BtBackup.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 3</value>
+  </data>
+  <data name="BtBackup.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 35</value>
+  </data>
+  <data name="BtBackup.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="BtBackup.Text" xml:space="preserve">
+    <value>Backup anlegen</value>
+  </data>
+  <data name="&gt;&gt;BtBackup.Name" xml:space="preserve">
+    <value>BtBackup</value>
+  </data>
+  <data name="&gt;&gt;BtBackup.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtBackup.Parent" xml:space="preserve">
+    <value>PButtons</value>
+  </data>
+  <data name="&gt;&gt;BtBackup.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BtSave.Location" type="System.Drawing.Point, System.Drawing">
+    <value>339, 3</value>
+  </data>
+  <data name="BtSave.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 35</value>
+  </data>
+  <data name="BtSave.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="BtSave.Text" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="&gt;&gt;BtSave.Name" xml:space="preserve">
+    <value>BtSave</value>
+  </data>
+  <data name="&gt;&gt;BtSave.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtSave.Parent" xml:space="preserve">
+    <value>PButtons</value>
+  </data>
+  <data name="&gt;&gt;BtSave.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="TSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 27</value>
+  </data>
+  <data name="TSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 20</value>
+  </data>
+  <data name="TSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;TSearch.Name" xml:space="preserve">
+    <value>TSearch</value>
+  </data>
+  <data name="&gt;&gt;TSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;TSearch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;TSearch.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="BtSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>239, 27</value>
+  </data>
+  <data name="BtSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>55, 20</value>
+  </data>
+  <data name="BtSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="BtSearch.Text" xml:space="preserve">
+    <value>Suchen</value>
+  </data>
+  <data name="&gt;&gt;BtSearch.Name" xml:space="preserve">
+    <value>BtSearch</value>
+  </data>
+  <data name="&gt;&gt;BtSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtSearch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtSearch.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="CKBAusblenden.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CKBAusblenden.Location" type="System.Drawing.Point, System.Drawing">
+    <value>414, 29</value>
+  </data>
+  <data name="CKBAusblenden.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 17</value>
+  </data>
+  <data name="CKBAusblenden.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="CKBAusblenden.Text" xml:space="preserve">
+    <value>ausblenden</value>
+  </data>
+  <data name="&gt;&gt;CKBAusblenden.Name" xml:space="preserve">
+    <value>CKBAusblenden</value>
+  </data>
+  <data name="&gt;&gt;CKBAusblenden.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CKBAusblenden.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CKBAusblenden.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="BtPrev.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="BtPrev.Location" type="System.Drawing.Point, System.Drawing">
+    <value>300, 27</value>
+  </data>
+  <data name="BtPrev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 19</value>
+  </data>
+  <data name="BtPrev.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="BtPrev.Text" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="&gt;&gt;BtPrev.Name" xml:space="preserve">
+    <value>BtPrev</value>
+  </data>
+  <data name="&gt;&gt;BtPrev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtPrev.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtPrev.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="BtNext.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="BtNext.Location" type="System.Drawing.Point, System.Drawing">
+    <value>335, 27</value>
+  </data>
+  <data name="BtNext.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 19</value>
+  </data>
+  <data name="BtNext.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="BtNext.Text" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="&gt;&gt;BtNext.Name" xml:space="preserve">
+    <value>BtNext</value>
+  </data>
+  <data name="&gt;&gt;BtNext.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtNext.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;BtNext.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="Variable.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Variable.HeaderText" xml:space="preserve">
+    <value>Variable</value>
+  </data>
+  <metadata name="Wert.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="Wert.HeaderText" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="Data.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 53</value>
+  </data>
+  <data name="Data.Size" type="System.Drawing.Size, System.Drawing">
+    <value>483, 344</value>
+  </data>
+  <data name="Data.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;Data.Name" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="&gt;&gt;Data.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Data.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;Data.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="BtRestore.Location" type="System.Drawing.Point, System.Drawing">
+    <value>130, 3</value>
+  </data>
+  <data name="BtRestore.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 35</value>
+  </data>
+  <data name="BtRestore.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="BtRestore.Text" xml:space="preserve">
+    <value>Backup einspielen</value>
+  </data>
+  <data name="&gt;&gt;BtRestore.Name" xml:space="preserve">
+    <value>BtRestore</value>
+  </data>
+  <data name="&gt;&gt;BtRestore.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;BtRestore.Parent" xml:space="preserve">
+    <value>PButtons</value>
+  </data>
+  <data name="&gt;&gt;BtRestore.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="PButtons.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 403</value>
+  </data>
+  <data name="PButtons.Size" type="System.Drawing.Size, System.Drawing">
+    <value>507, 44</value>
+  </data>
+  <data name="PButtons.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;PButtons.Name" xml:space="preserve">
+    <value>PButtons</value>
+  </data>
+  <data name="&gt;&gt;PButtons.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PButtons.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;PButtons.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CKBAutoSearch.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="CKBAutoSearch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>335, 7</value>
+  </data>
+  <data name="CKBAutoSearch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>159, 17</value>
+  </data>
+  <data name="CKBAutoSearch.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="CKBAutoSearch.Text" xml:space="preserve">
+    <value>Automatische Aktualisierung</value>
+  </data>
+  <data name="&gt;&gt;CKBAutoSearch.Name" xml:space="preserve">
+    <value>CKBAutoSearch</value>
+  </data>
+  <data name="&gt;&gt;CKBAutoSearch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;CKBAutoSearch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;CKBAutoSearch.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="WaitTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>217, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>507, 448</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAICAAAAEACACoCAAAFgAAACgAAAAgAAAAQAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAwMDAAUFBQAJCQkACQoJAAsLCwALDAwADg0NAA0ODgASEhEAFBQUABUWFQAVFhYAGhkaABka
+        GgAdHBwAHh0dACIiIgAlJCUAJCUlACYmJgAqKioALS0uAC4uLQAuLi4ALi8uADIyMgA2NjUANjY2ADc2
+        NgA6OjsAPz4+AD8+PwA+Pz8AQ0JCAENDQwBGRkYARkdGAEdHRwBKS0sAS0tLAE9PTwBPUE8AU1NTAFdX
+        VwBYV1gAWFhYAFtbWwBbXFwAX19fAF9fYABgYGAAYWBgAGNjZABkY2QAaGhnAGhoaABpaGgAaWlpAGtr
+        awBsa2wAcG9vAHBwbwBxcXEAcXFyAHRzcwBzdHQAd3h4AHh4eAB6enoAe3x8AHx8fAB/gIAAgICAAIKC
+        ggCEhIQAhIWFAIiIiACIiYgAiouLAIuLiwCMjI0AkJCQAJCRkACTk5MAlJOTAJSUlACVlZUAmJmYAJmZ
+        mQCcm5wAnJycAJydnACdnZ0AoJ+fAKChoQChoaEApKSkAKWkpQCkpaUApaWlAKmpqACpqakAra2tALGx
+        sQC0tLQAtbW1ALW1tgC1trUAubm6ALq6uQC7u7sAvb2+AL69vgC9vr0Avr6+AMHCwQDCwsEAwsLCAMXF
+        xQDGxcYAxsbGAMfGxgDIyMgAysrJAMnKygDOzc4Azc7OAM7PzgDPz88A0tLSANbW1gDX19cA2traANva
+        2gDe3t4A4ODgAOLi4gDi4uMA5+bmAOjo6ADr6uoA6+vqAO7v7wDv7+8A8PHwAPHx8ADz8/MA9/f3APn5
+        +QD7+/sA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAS0hGQ0E+Ozc1MS8sKykoJSIhHhwaGBUUERANDAkIAwJNAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAABFEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHUgAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAlWAAAAAAAAAAAAAABFSk9UWmFnanF5gISIjJGVAAAAC1gAAAAAAAAAAAAAAD8A
+        AAAAAAAAAAAAAAAAAJIAAAAOXAAAAAAAAAAAAAAAOQAAAAAAAAAAAAAAAAAAjAAAABBfAAAAAAAAAAAA
+        AAAzAAAAAAAAAAAAAAAAAACIAAAAEWIAAAAAAAAAAAAAAC4AAAAAAAAAAAAAAAAAAIQAAAAUZQAAAAAA
+        AAAAAAAAKQAAAAAAAAAAAAAAAAAAgQAAABVnAAAAAAAAAAAAAAAmAAAAAAAAAAAAAAAAAAB6AAAAGWgA
+        AAAAAAAAAAAAAB8AAAAAAAAAAAAAAAAAAHMAAAAaawAAAEVKT1RaYWdqG3mAhIiMdHsAAAAAAAAAbAAA
+        AB1tAAAAPwAAAAAAAAAXAAAAAAAAdQAAAAAAAABnAAAAHnIAAAA5AAAAAAAAABMAAAAAAABvAAAAAAAA
+        AGMAAAAgdgAAADMAAAAAAAAADwAAAAAAAGkAAAAAAAAAWwAAACN4AAAALgAAAAAAAAAKAAAAAAAAZwAA
+        AAAAAABVAAAAJHwAAAApAAAAAAAAAAUAAAAAAACBAAAAAAAAAFAAAAAnfgAAACYAAAAAAAAAAQAAAAAA
+        AF4AAAAAAAAASgAAACmCAAAAHwAAAAAAAAAAAQYKDxIWHCEmKi00OkBFAAAAK4MAAAAbAAAAAAAAAAAA
+        AAAAAABsAAAAAAAAAAAAAAAshgAAABcAAAAAAAAAAAAAAAAAAGcAAAAAAAAAAAAAADCHAAAAEwAAAAAA
+        AAAAAAAAAAAAYwAAAAAAAAAAAAAAMooAAAAPAAAAAAAAAAAAAAAAAABbAAAAAAAAAAAAAAA2iwAAAAoA
+        AAAAAAAAAAAAAAAAAFUAAAAAAAAAAAAAADiNAAAABQAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAAPJAA
+        AAABAAAAAAAAAAAAAAAAAABKAAAAAAAAAAAAAAA9kwAAAAABBgoPEhYcISYqLTQ6QEUAAAAAAAAAAAAA
+        AEKUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARJYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAABHlwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEmXl5aUk4+Oi4mHhYOCf313dXBua2hn
+        ZmRgXVlXU1FOTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA
+</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>523, 484</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>GVE - Gothic Variablen Editor</value>
+  </data>
+  <data name="&gt;&gt;savegameMenu.Name" xml:space="preserve">
+    <value>savegameMenu</value>
+  </data>
+  <data name="&gt;&gt;savegameMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LoadNewestMenu.Name" xml:space="preserve">
+    <value>LoadNewestMenu</value>
+  </data>
+  <data name="&gt;&gt;LoadNewestMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;LoadMenu.Name" xml:space="preserve">
+    <value>LoadMenu</value>
+  </data>
+  <data name="&gt;&gt;LoadMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ListAllMenu.Name" xml:space="preserve">
+    <value>ListAllMenu</value>
+  </data>
+  <data name="&gt;&gt;ListAllMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OptionsMenu.Name" xml:space="preserve">
+    <value>OptionsMenu</value>
+  </data>
+  <data name="&gt;&gt;OptionsMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HelpMenu.Name" xml:space="preserve">
+    <value>HelpMenu</value>
+  </data>
+  <data name="&gt;&gt;HelpMenu.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;HelpM.Name" xml:space="preserve">
+    <value>HelpM</value>
+  </data>
+  <data name="&gt;&gt;HelpM.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Info.Name" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="&gt;&gt;Info.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OFDOpen.Name" xml:space="preserve">
+    <value>OFDOpen</value>
+  </data>
+  <data name="&gt;&gt;OFDOpen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Variable.Name" xml:space="preserve">
+    <value>Variable</value>
+  </data>
+  <data name="&gt;&gt;Variable.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;Wert.Name" xml:space="preserve">
+    <value>Wert</value>
+  </data>
+  <data name="&gt;&gt;Wert.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridViewTextBoxColumn, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WaitTimer.Name" xml:space="preserve">
+    <value>WaitTimer</value>
+  </data>
+  <data name="&gt;&gt;WaitTimer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FMain</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

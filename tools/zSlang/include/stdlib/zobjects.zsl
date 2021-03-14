@@ -1,0 +1,429 @@
+#ifndef ZOBJECTS_ZSL
+#define ZOBJECTS_ZSL
+
+//#################################################
+//
+//    zobjects.zsl
+//
+//    Work with the World and the Vobtree
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+
+/* Vieles hier ist kaum oder gar nicht kommentiert
+ * Das liegt auch daran, dass die meisten Funktion sehr einfach
+ * sind und keines Kommentars bedürfen.
+ * Die Funktionsweise ist in der Dokumentation erklärt. */
+
+func selection WLD_GetNone() {
+    var selection sel;
+    return sel;
+}
+
+func void _WLD_AssertVob(var object vob) {
+    if(!WLD_IsVob(vob)) {
+        Fatal("The parameter is not a valid vob (it is null or a wp)!");
+    }
+}
+
+func void _WLD_AssertWP(var object vob) {
+    if(!WLD_IsVob(vob)) {
+        Fatal("The parameter is not a valid vob (it is null or a wp)!");
+    }
+}
+
+func void WLD_FlattenVobtreeAt(var object vob) {
+    _WLD_AssertVob(vob);
+    
+    foreach child in vob.childs {
+        WLD_MoveToParent(child, vob.parent);
+    }
+}
+
+func void WLD_ReplaceWithVobtree(ref object o, var string vobtree) {
+    var float pos[3] = o.pos;
+    var float trafo[3][3] = POS_GetRotMat(o);
+    
+    WLD_Delete(o);
+    var selection tree = WLD_Merge(vobtree);
+    var object root = CVT_SelToArr(tree)[0];
+    while(root.parent && root.parent < tree) {
+        root = root.parent;
+    }
+    
+    if (root.pos != {0, 0, 0}) {
+        var float shift[3] = root.pos;
+        
+        foreach vob in tree {
+            vob.pos -= shift;
+        }
+    }
+    
+    trafo *= ALG_Invert(POS_GetRotMat(root));
+    
+    foreach vob in tree {
+        POS_SetRotMat(vob, trafo * POS_GetRotMat(vob));
+        vob.pos = trafo * vob.pos + pos;
+    }
+}
+
+func selection WLD_GetDescendants(var object o) {
+    var selection result;
+    var selection thisLevel = o;
+    var selection nextLevel;
+    
+    while (thisLevel.size) {
+        foreach vob in thisLevel {
+            nextLevel += vob.childs;
+        }
+        
+        result += nextLevel;
+        thisLevel = nextLevel;
+        nextLevel = WLD_GetNone();
+    }
+    
+    return result;
+}
+
+func void _WLD_AddChildrenOf(ref selection sel, var object o) {
+    foreach obj in o.childs {
+        if !(obj < sel) {
+            sel += obj;
+            _WLD_AddChildrenOf(sel, obj);
+        }
+    }
+}
+
+func void WLD_SpreadToVobtree(ref selection sel) {
+    var selection toCheck = sel;
+    var selection checked;
+    
+    while(toCheck.size) {
+        foreach vob in toCheck {
+            toCheck -= vob; //checked this
+            checked += vob; //dont check it again
+            
+            if (vob.className == "zCVobLevelCompo") {
+                continue; //dont propagate through these
+            } else {
+                //I got here via normal vobs. Count me in.
+                sel += vob;
+                
+                //Check all my unchecked childs.
+                foreach child in vob.childs {
+                    if !(vob.childs < checked) {
+                        toCheck += child;
+                    }
+                }
+                
+                //and my parent
+                if !(vob.parent < checked) {
+                    toCheck += vob.parent;
+                }
+            }
+        }
+    }
+}
+
+func void WLD_CollectOrphans(var object root) {
+    var selection moved = root;
+    
+    foreach vob in WLD_GetVobs() {
+        if (vob < moved) {
+            continue;
+        }
+        
+        while !(vob < moved) {
+            if (!vob.parent || vob.parent.className == "zCVobLevelCompo") {
+                //I got no real vob parent
+                WLD_MoveToParent(vob, root);
+                moved += vob; //directly moved
+            } else {
+                //I got a parent. He will move, too and take me with him.
+                moved += vob;
+                vob = vob.parent;
+            }
+        }
+    }
+}
+
+func void WLD_MergeWaypoints() {
+    /* careful... dont iterate over destroyed wps!
+     * collect first, delete afterwards */
+    var string duplicates[];
+    
+    foreach wp in WLD_GetWPs() {
+        if (WLD_GetWPsByName(wp.name).size > 1) {
+            duplicates |= wp.name;
+        }
+    }
+    
+    //should not be a lot.
+    sort(duplicates);
+    unique(duplicates);
+    
+    if (!duplicates.size) {
+        return;
+    }
+    
+    var string msg = "Merging WPs:";
+    foreach str in duplicates {
+        msg += endl + str;
+        
+        var selection mergeSet = WLD_GetWPsByName(str);
+        var selection connected;
+        var object someWP;
+        var float newCenter[3];
+        
+        foreach wp in mergeSet {
+            connected += WLD_GetConnectedWPs(wp);
+            someWP = wp; //not important which one
+            newCenter += wp.pos;
+        }
+        newCenter /= mergeSet.size;
+        assert(someWP, "Where did those WPs go?!");
+        
+        someWP.pos = newCenter;
+        connected -= WLD_GetConnectedWPs(someWP); //avoid unnessesary warnings
+        
+        foreach wp in connected {
+            WLD_ConnectWPs(someWP, wp);
+        }
+        
+        WLD_Delete(mergeSet - someWP);
+    }
+    
+    Info(msg);
+}
+
+/* Underlying problem: When deleting a vob, all childs are
+ * deleted too. This may not be intended. This function
+ * takes all the unselected vobs that have a selected
+ * parent and move them upwards in the tree.
+ * The result will be a vobtree where the selected vobs are at
+ * the bottom. When deleting them, no other vob will be affected. */
+ 
+func void _WLD_IsolateSelection(ref selection selected) {
+    var selection critical;
+    foreach vob in selected {
+        critical += vob.childs;
+    }
+    critical -= selected;
+    
+    /* critical now contains exactly those vobs that are
+     * a direct child of a vob is selected but is not selected itself */
+    foreach vob in critical {
+        var object parent = vob.parent;
+        while (parent && parent < selected) {
+            parent = parent.parent;
+        }
+        
+        WLD_MoveToParent(vob, parent); //to the vobtree or an unselected vob
+    }
+    
+    /* now every vob is either selected, or not a direct child of a selected vob
+     * or was moved to an unselected parent.
+     * ==> No unselected vob is child of a selected vob. */
+}
+
+func void WLD_Delete(ref template t) {
+    if (TPL_TypeOf(t) == "object") {
+        WLD_DeleteObject(t);
+        t = 0;
+        return;
+    }
+    
+    if (TPL_TypeOf(t) != "selection") {
+        Fatal("WLD_DeleteGentle: Parameter must be object or selection.");
+    }
+    
+    /* careful: just deleting everything will try to delete children more than once. */
+    var selection deletionRoots;
+    var object parent;
+    foreach vob in t {
+        parent = vob.parent;
+        
+        while(parent) {
+            if(parent < t) {
+                break; //vob is deleted through this parent
+            }
+            parent = parent.parent;
+        }
+        
+        if (!parent) {
+            //I quit because there is no parent anymore
+            deletionRoots += vob;
+        }
+    }
+    
+    foreach vob in deletionRoots {
+        WLD_DeleteObject(vob);
+    }
+    
+    //Contains invalid vobs now. I might as well clear it for the user.
+    t = WLD_GetNone();
+}
+
+func void WLD_DeleteGentle(ref template t) {
+    if (TPL_TypeOf(t) == "object") {
+        WLD_FlattenVobtreeAt(t);
+        WLD_DeleteObject(t);
+        t = 0;
+        return;
+    }
+    
+    if (TPL_TypeOf(t) != "selection") {
+        Fatal("WLD_DeleteGentle: Parameter must be object or selection.");
+    }
+    
+    _WLD_IsolateSelection(t);
+    WLD_Delete(t);
+}
+
+func void WLD_LoadWithoutMesh(var string path) {
+    //more or less dirty trick
+    WLD_Load("EMPTY.ZEN");
+    WLD_Merge(path); //merging will discard compiled meshes in the loaded world.
+}
+
+func void WLD_LoadMesh(var string path) {
+    WLD_Load(path);
+    WLD_Delete(WLD_GetAll());
+}
+
+func object WLD_NewWP (var string name = "", var float pos[3] = {0, 0, 0}) {
+    var object theWP = CVT_SelToArr(WLD_Merge("WAYPOINT.ZEN"))[0];
+    theWP.name = name;
+    theWP.pos  = pos;
+    return theWP;
+}
+
+func object WLD_NewVobOfClass(var string vobClass, var string name = "", var float pos[3] = {0, 0, 0}) {
+    var object theVob = CVT_SelToArr(WLD_Merge("vobclasses" + backslash + vobClass + ".ZEN"))[0];
+    theVob.name = name;
+    theVob.pos  = pos;
+    return theVob;
+}
+
+func object WLD_NewVob(var string name = "", var float pos[3] = {0, 0, 0}) {
+    return WLD_NewVobOfClass("zCVob", name, pos);
+}
+
+func object WLD_NewItem(var string itemInst, var float pos[3] = {0, 0, 0}) {
+    var object theItem = WLD_NewVobOfClass("oCItem", itemInst, pos);
+    theItem.itemInstance = itemInst;
+    return theItem;
+}
+
+func object WLD_GetVob(var string name, var bool warnIfAmbiguous = true) {
+    var selection allOfThatName = WLD_GetVobsByName(name);
+    if (allOfThatName.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetVob: Request for vob with name " + name + " is ambiguous."
+             + "There are " + allOfThatName.size + " vobs with that name.");
+    }
+    
+    if(allOfThatName.size) {
+        return CVT_SelToArr(allOfThatName)[0];
+    }
+    
+    var object null;
+    return null;
+}
+
+func object WLD_GetWP(var string name, var bool warnIfAmbiguous = true) {
+    var selection allOfThatName = WLD_GetWPsByName(name);
+    
+    if (allOfThatName.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetWP: Request for waypoint with name " + name + " is ambiguous."
+             + "There are " + allOfThatName.size + " waypoints with that name.");
+    }
+    
+    if (allOfThatName.size) {
+        return CVT_SelToArr(allOfThatName)[0];
+    }
+    
+    var object null;
+    return null;
+}
+
+func object WLD_GetObject(var string name, var bool warnIfAmbiguous = true) {
+    var selection allOfThatName = WLD_GetByName(name);
+    
+    if (allOfThatName.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetObject: Request for object with name " + name + " is ambiguous."
+             + "There are " + allOfThatName.size + " objects with that name.");
+    }
+    
+    if (allOfThatName.size) {
+        return CVT_SelToArr(allOfThatName)[0];
+    }
+    
+    var object null;
+    return null;
+}
+
+func object WLD_GetVobByVisual(var string visual, var bool warnIfAmbigous = true) {
+    var selection allWithThatVisual = WLD_GetVobsByVisual(name);
+    
+    if (allWithThatVisual.size > 1 && warnIfAmbiguous) {
+        Warn("WLD_GetVobByVisual: Request for vob with visual " + visual + " is ambiguous."
+             + "There are " + allWithThatVisual.size + " vobs with that visual.");
+    }
+    
+    if (allWithThatVisual.size) {
+        return CVT_SelToArr(allWithThatVisual)[0];
+    }
+    
+    var object null;
+    return null;
+}
+
+func selection WLD_GetVobsOfClass(var string className) {
+    var selection res;
+    foreach vob in WLD_GetAll() {
+        if (vob.className == className) {
+            res += vob;
+        }
+    }
+    return res;
+}
+
+func void WLD_FixItems() {
+    foreach item in WLD_GetVobsOfClass("oCItem") {
+        item.itemInstance = item.vobName;
+    }
+}
+
+func bool WLD_IsChildOfMover(var object o) {
+    while(o) {
+        if (o.className == "zCMover") {
+            return true;
+        }
+        o = o.parent;
+    }
+    return false;
+}
+
+func void WLD_SplitWorld(var selection sel_1, var string name_1, var string name_2) {
+    var selection sel_2 = WLD_GetAll() - sel_1;
+    var selection add_1;
+    var selection add_2;
+   
+    foreach wp in WLD_GetWPs() {
+        foreach other in WLD_GetConnectedWPs(wp) {
+            if (wp < sel_1 && other < sel_2) {
+                add_2 += wp;
+                add_1 += other;
+            }
+        }
+    }
+    
+    sel_1 += add_1;
+    sel_2 += add_2;
+    
+    WLD_SaveSelection(name_1, sel_1);
+    WLD_SaveSelection(name_2, sel_2);
+}
+
+#endif //ZOBJECTS_ZSL

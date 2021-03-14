@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<Root>
+  <TITLE>GVE - Gothic Variable Editor</TITLE>
+  <SAVEGAMEMENU>&amp;Savegame</SAVEGAMEMENU>
+  <HELPMENU>&amp;?</HELPMENU>
+  <OPTIONSMENU>&amp;Options</OPTIONSMENU>
+  <BTSEARCH>Search</BTSEARCH>
+  <BTPREV> &lt;</BTPREV>
+  <BTNEXT>&gt;</BTNEXT>
+  <CKBAUSBLENDEN>Hide</CKBAUSBLENDEN>
+  <DATAVAR>Variable</DATAVAR>
+  <DATAVAL>Value</DATAVAL>
+  <BTBACKUP>Create backup</BTBACKUP>
+  <BTRESTORE>Load backup</BTRESTORE>
+  <BTSAVE>Save</BTSAVE>
+  <LOADNEWESTMENU>Load &amp;current</LOADNEWESTMENU>
+  <LOADMENU>Load &amp;manually</LOADMENU>
+  <LISTALLMENU>List &amp;savegames</LISTALLMENU>
+  <HELPM>&amp;Help</HELPM>
+  <INFO>&amp;Info</INFO>
+    <GBPATH>Path to the Gothic-folder</GBPATH>
+    <CKBBACKUP>Create backup before saving</CKBBACKUP>
+    <CKBAUTOLOAD>Load current savegame after start</CKBAUTOLOAD>
+    <LBLANGUAGE>Language</LBLANGUAGE>
+    <BTOK>Apply</BTOK>
+    <FOPTIONSTITLE>Options</FOPTIONSTITLE>
+    <MBTINPUTERROR>Input-error</MBTINPUTERROR>
+    <MBINPUTERROR>Invalid input.
+The input must be a value between −2.147.483.648 and 2.147.483.647.</MBINPUTERROR>
+    <MBTFILEERROR>File-error</MBTFILEERROR>
+    <MBFILENOTFOUND>File not found!</MBFILENOTFOUND>
+    <MBFILENOTREAD>File was not able to be read!</MBFILENOTREAD>
+    <MBFOLDERERROR>Invalid path!
+Change the path to the Gothic-folder in the options-menu.</MBFOLDERERROR>
+    <MBNOTHINGFOUND>No savegames foundn!
+Make sure that the path leads to the Gothic-folder.</MBNOTHINGFOUND>
+    <MBNOACCESS>No Access to the files!
+Make sure, that the savegames can be accessed.</MBNOACCESS>
+    <MBREGISTRY>Either there is no path-entry in the config-file 
+or the path does not exist.\nThis program will try to find the Gothic 2  folder via the registry.</MBREGISTRY>
+    <MBREGISTRYFOUND>A path was found. Please check,
+whether this path is correct and change it, if necessary.</MBREGISTRYFOUND>
+    <MBREGISTRYNOTFOUND>There was no registry entry for the path.
+Please enter the path manually.</MBREGISTRYNOTFOUND>
+    <MBWRONGINPUT>Invalid Input.</MBWRONGINPUT>
+    <MBVARNOTFOUND>Variable not found.</MBVARNOTFOUND>
+    <MBTNOTFOUND>Not found</MBTNOTFOUND>
+    <MBBACKUPCREATEERROR>The program was not able to create a backup-file.</MBBACKUPCREATEERROR>
+    <MBLOADBACKUP>Do you really want do load this backup? Your changes on the current-loaded savegame will disapear.</MBLOADBACKUP>
+    <MBBACKUPLOADERROR>The program was not able to load the backup-file.</MBBACKUPLOADERROR>
+    <MBBACKUPNOTFOUND>Backup-file not found. Maybe there is no backup for this savegame.</MBBACKUPNOTFOUND>
+    <MBSAVEERROR>The program was not able to save the current savegame. Maybe there is no authorisazion for writing .</MBSAVEERROR>
+    <MBHELPNOTFOUND>Help-file not found!</MBHELPNOTFOUND>
+	<CKBAUTOSEARCH>Auto-Update</CKBAUTOSEARCH>
+
+
+  </Root>

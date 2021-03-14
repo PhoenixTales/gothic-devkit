@@ -1,0 +1,12 @@
+Changelog v1.0.1:
+
+bessere Komprimierung (minimale Auswirkungen)
+Installer hat ein eigenes Icon
+Installation auf englisch verfügbar
+VDF Manager kann gleichzeitig für Gothic und Gothic II installiert werden
+
+
+Changelog v1.0.2:
+
+Link zur Deinstallation hat ein anderes Icon
+korrektes und automatisches Auslesen der Installationspfade (zumindestens sollte es nun gehen)

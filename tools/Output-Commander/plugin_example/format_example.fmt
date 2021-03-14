@@ -1,0 +1,8 @@
+name=Binary GOF
+extension=bing
+format=%s\a001%s\a001%s\a002%s\a001%s\0
+s1=npc
+s2=outputid
+s3=file
+s4=voice
+s5=outputtext

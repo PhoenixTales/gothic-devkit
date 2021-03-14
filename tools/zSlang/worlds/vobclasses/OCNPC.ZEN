@@ -1,0 +1,44 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 23.7.2011 17:52:8
+user Sekti
+END
+objects 3        
+END
+
+[% oCWorld:zCWorld 36865 0]
+	[VobTree % 0 0]
+		childs0=int:1
+		[% oCNpc:zCVob 29697 1]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:0 0 0 0 0 0 
+			trafoOSToWSRot=raw:0000803f0000008000000000000000000000803f0000000000000080000000800000803f
+			trafoOSToWSPos=vec3:0 0 0
+			vobName=string:
+			visual=string:
+			showVisual=bool:0
+			visualCamAlign=enum:0
+			visualAniMode=enum:0
+			visualAniModeStrength=float:0
+			vobFarClipZScale=float:1
+			cdStatic=bool:1
+			cdDyn=bool:1
+			staticVob=bool:0
+			dynShadow=enum:1
+			zbias=int:0
+			isAmbient=bool:0
+			[visual % 0 0]
+			[]
+			[ai oCAIHuman_Stand 0 2]
+			[]
+			npcInstance=string:
+		[]
+		childs1=int:0
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

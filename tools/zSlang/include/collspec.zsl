@@ -1,0 +1,352 @@
+//#################################################
+//
+//    User defined functions for
+//    automatically setting collision detection
+//
+//#################################################
+
+/* The concept is the following:
+ * There are user defined rules that help to decide for each visual
+ * whether the collision should be enabled or disabled.
+ * There are two types of rules: Explicit rules and matching rules.
+ *
+ * An explicit rule is something like:
+ *       COLL_True("MY_FUNNY_MESH.3DS");
+ * and specifies that all vobs with the visual MY_FUNNY_MESH.3DS
+ * should have collision enabled.
+ * 
+ * A matching rule does not refer to a specific visual name but
+ * to all visuals matching a certain regular expression. For example:
+ *       COLL_True("STONE");
+ *       COLL_True("^ITMW_");
+ * The first one says that all visuals that match the regular expression
+ * "STONE" (that would be all visuals containing the string "STONE") should
+ * have collision enabled. The second one says that all visuals that match
+ * the regular expression "^ITMW_" (all the strings that start with "ITMW_")
+ * should have collision enabled. How regular expressions work will not be
+ * discussed here. There is a lot of material about those available on the internet.
+ *
+ * Of cause, there may be cases where the regular expression "STONE" matches
+ * something that is not really a stone. Lets assume that enabling collision
+ * for visuals matching "STONE" is a good choice in most cases but there
+ * exists a visual "MYMOD_STONEWEED_01.3DS" that is some grass-like plant
+ * and should not have collision enabled. In order to tell the collision
+ * wizard that "MYMOD_STONEWEED_01.3DS" should have collision disabled
+ * (although it matches "STONE") we have two choices:
+ * Either we declare an explicit rule:
+ *       COLL_False("MYMOD_STONEWEED_01.3DS");
+ * Explicit rules always override matching rules.
+ * Another possibility would be to declare a rule of higher priority:
+ *       COLL_False("STONEWEED");
+ * This has the advantage that if we also create a second "MYMOD_STONEWEED_02.3DS"
+ * this will also be handled correctly without additional fiddling in the rules.
+ *
+ * To tell the wizard what kind of rules you are declaring and what
+ * priority they have, there are two functions:
+ *      COLL_ExplicitSection()
+ *      COLL_MatchingSection(var int priority)
+ * The first functions specifies that the rules following are explicit rules
+ * the second specifies that the rules following are matching rules of the
+ * given priority (note that explicit rules dont have priorities).
+ *
+ * For more details (in German) refer to the documentation. */
+ 
+/* Control which flags are consider by the system: */
+var int COLLSPEC_affect_staticVob = 1;
+var int COLLSPEC_affect_cdDyn     = 1;
+var int COLLSPEC_affect_cdStatic  = 0;
+ 
+//************************************************
+//   Handle some special cases here that should
+//   not be passed to the collision wizard.
+//************************************************
+
+/* May return:
+ * COLL_TRUE     -> set cdDyn and cdStatic to true
+ * COLL_FALSE    -> set cdDyn and cdStatic to false
+ * COLL_IGNORE   -> skip this vob and leave cdDyn and cdStatic as it is
+ * COLL_BY_RULES -> let the Collision Wizard decide
+ */
+
+func int COLLSPEC_HandleVob(var object vob) {
+    //exceptions:
+    
+    if (vob.visual == "") {
+        return COLL_IGNORE; /* optimisation */
+    }
+
+    if (WLD_IsChildOfMover(vob)) {
+        return COLL_IGNORE; /* collision on movers is a difficult topic
+                             * cannot be handled by a tool */
+    }
+    
+    if (vob.presetName ~= "IGNORECOLL") {
+        return COLL_IGNORE; /* give the spacerer limited control */
+    }
+    
+    //Take them out for safety. But they would not be a problem, would they?
+    if (vob.className == "oCItem")
+    || (vob.className == "oCNpc")
+    || (vob.className == "zCVobLevelCompo") {
+        return COLL_IGNORE;
+    }
+    
+    //all other cases are handled by the wizard
+    return COLL_BY_RULES;
+}
+
+//************************************************
+//   COLLSPEC_Rules contains all rules the
+//   wizard will take in account.
+//************************************************
+
+func void COLLSPEC_Rules() {
+    COLL_MatchingSection(COLL_SECT_CERTAIN); //very high priority
+    COLL_False(".*\.PFX$"); //particle effects should not have collision
+    COLL_False(".*\.pfx$");
+    COLL_False(".*\.TGA$"); //doesn't work anyway as far as I know
+    COLL_Ignore(".*\.MMS$"); //ignore morphmeshs: collision does not work for them anyway
+    
+    //************************************************
+    //   Pretty blind guesses:
+    //************************************************
+    
+    COLL_MatchingSection(COLL_SECT_GUESS); //very low priority.
+    
+    /* Item Visuals that have collision */
+    COLL_True("^ITAM_");
+    COLL_True("^ITAR_");
+    COLL_True("^ITAT_");
+    COLL_True("^ITFO_");
+    COLL_True("^ITKE_");
+    COLL_True("^ITMI_");
+    COLL_True("^ITMW_");
+    COLL_True("^ITSC_");
+    COLL_True("^ITPO_");
+    COLL_True("^ITRI_");
+    COLL_True("^ITRU_");
+    COLL_True("^ITRW_");
+    COLL_True("^ITWR_");
+    COLL_False("^ITPL_"); //should not have collision.
+    
+    /* All vobs with these strings in their name
+     * I came across in the vob catalogue looked
+     * like they should have collision enabled */
+    COLL_True("_MISC_");
+    COLL_True("_LOB_");
+    
+    /* some location specific vobs contain certain strings.
+     * Most of those vobs depict man-made objects (in
+     * particular there are no plants among them) so they
+     * tend to be vobs that should have collision */
+    COLL_True("_CITY_"); //Khorinis
+    COLL_True("_HARBOUR_"); //Khorinis harbour area
+    COLL_True("^OW_"); //old world
+    COLL_True("^OC_"); //old camp
+    COLL_True("_OC.MDS"); //old camp mobs
+    COLL_True("^PC_"); //psi camp
+    COLL_True("^NC_"); //new camp
+    COLL_True("^OM_"); //old mine
+    COLL_True("^ORC_"); //orc stuff
+    COLL_True("^TPL_"); //sleeper temple
+    COLL_True("^EVT_"); //most of those are moving platforms and doors
+    COLL_False("PLANT"); //most plants dont have collision
+    
+    //************************************************
+    //   Better guesses (but not quite sure):
+    //************************************************
+    
+    /* although it is very likely, that visuals containing
+     * the strings "STONE" or "TREE" are in fact stones or trees,
+     * it is still possible that some modeler creates meshes named
+     * "stoneplant.3ds" or "thisIsNoTree.3ds", so these
+     * rules should not have priority over more specific rules. */
+    
+    COLL_MatchingSection(COLL_SECT_LOWER); //low priority
+    COLL_True("STONE");
+    COLL_True("ROCK");
+    COLL_True("TREE");
+    COLL_False("GRAS");
+    COLL_False("WEED");
+    COLL_True("WOOD");
+    COLL_True("HOLZ");
+    COLL_True("DOOR");
+    COLL_True("BEAM");
+    COLL_True("BAUM");
+    COLL_True("PLANK");
+    
+    //************************************************
+    //   Things we know how to handle
+    //************************************************
+    
+    /* Pretty specific stuff that has a low probability
+     * of ever matching a wrong vob */
+    COLL_MatchingSection(COLL_SECT_NORMAL); //normal priority
+    
+    /* This list is build with the help of the vob-catalogue
+     * by identifying groups of vobs with simular name. */
+     
+    //dungeons and orc stuff
+    COLL_True("_ORC_");
+    COLL_True("_ORCS_");
+    COLL_True("OREHEAP");
+    COLL_True("SKELETON");
+    COLL_False("CHAIN"); //they just dangle in your face and annoy you.
+    COLL_True("ORE_.*\.ASC"); //gold and ore
+    
+    //architecture
+    COLL_True("PILLAR");
+    COLL_True("BRIDGE");
+    COLL_False("SPIKE"); /* the trap spikes. Hero should not lie on top of them he collides with a trigger, not with the spikes. */
+    COLL_True("PALISSADE");
+    COLL_True("STATUE");
+    COLL_True("STAIRS");
+    COLL_True("FENCE");
+    COLL_True("LADDER_.*\.ASC");
+    
+    //furniture-like objects
+    COLL_True("TORTURE"); //the torture tables
+    COLL_True("SHELF");
+    COLL_True("TABLE");
+    COLL_True("CUPBOARD");
+    COLL_True("LIGHTER");
+    COLL_True("FIREPLACE");
+    COLL_True("FIREWOOD");
+    COLL_True("_SACK_");
+    COLL_True("_SAECKE_");
+    COLL_True("_FLAG_");
+    COLL_True("CRATE");
+    COLL_True("KISTE");
+    COLL_True("CHEST");
+    COLL_True("CHAIR");
+    COLL_True("THRONE");
+    COLL_True("BENCH");
+    COLL_True("CAULDRON");
+    COLL_True("BEDHIGH");
+    COLL_True("BOOK");
+    COLL_True("TORCH");
+    COLL_True("CARPET"); //not sure about this one, though... should they have collision?
+    COLL_True("PICTURE"); //doesn't really matter, does it?
+    COLL_True("BS.*\.MDS"); //smith mobs
+    
+    //Plants:
+    COLL_False("BUSHES");
+    COLL_False("_BUSH_");
+    COLL_True("CACTUS");
+    COLL_True("_PALM_");
+    COLL_True("BIGTREE");
+    COLL_True("DEADTREE");
+    COLL_True("TREE_ROOT");
+    COLL_True("OLDTREE");
+    COLL_False("LIANA");
+    COLL_False("_FARN_");
+    COLL_False("FARNTEPPICH");
+    COLL_False("HANGPLANTS");
+    COLL_True("SMALLPALM");
+    COLL_True("HOHETANNE");
+    COLL_True("_TANNE_");
+    COLL_True("BAUMSTUMPF");
+    COLL_True("BAUMSTAMM");
+    COLL_False("WALLFERN");
+    COLL_False("DUCKWEED");
+    COLL_False("WATERLILI");
+    COLL_False("RICEPLANT");
+    COLL_False("MUSHROOM");
+    COLL_False("CAVEWEBS");
+    
+    COLL_True("_PINE_");
+    COLL_False("BLUME");
+    
+    //others
+    COLL_True("SCROLLS");
+    COLL_True("_BODY.ASC"); //animal bodies, sometimes used for decoration (e.g. Bosper)
+    COLL_True("STALAG_"); //stalactites
+    COLL_True("INNOS_.*\.ASC"); //statues (Innos / Beliar)
+    COLL_False("SPIDERWEBS");
+    
+    //************************************************
+    //   Very specific stuff
+    //************************************************
+    
+    COLL_MatchingSection(COLL_SECT_HIGHER); //normal priority
+    
+    COLL_True("SMOKE_WATERPIPE");
+    COLL_False("EVT_TPL_METALTHORNS"); //more spikes
+    
+    //************************************************
+    //   Things that fail to fall into some category
+    //   and have to be explicitly handled.
+    //   or things that fall into wrong categories
+    //************************************************
+    
+    COLL_ExplicitSection();
+    
+    //some mobs
+    COLL_True("BAUMSAEGE_1.ASC");
+    COLL_True("BARBQ_SCAV.MDS");
+    COLL_True("LAB_PSI.ASC");
+    COLL_True("HERB_PSI.MDS");
+    COLL_True("RMAKER_1.MDS");
+    COLL_True("BARBQ_SCAV.ASC");
+    COLL_False("TREASURE_ADDON_01.ASC"); //the invisible treasure mob
+    COLL_False("REPAIR_PLANK.ASC"); //invisible repair mob
+    COLL_False("NW_MISC_STRAW_GROUP_01.3DS"); //the _misc_ rules would give them collision
+    
+    //misc vobs
+    COLL_True("CR_DI_OPENEGG.3DS");
+    COLL_True("NW_EVT_CEMENTARYCOFFIN_01.3DS");
+    COLL_True("NW_MONASTERY_ALTAR_01.3DS");
+    COLL_True("OSTA_AXE2.3DS"); //weirdly named orcstatue
+    COLL_True("DT_CHAINBOX.3DS"); //would be false due to the "CHAIN" rule.
+    COLL_True("ADDON_DUNGEON_SCHUTT_01.3DS");
+    COLL_True("ADDON_MAYA_SNAKE_01.3DS");
+    COLL_False("CR_DI_SLIME.3DS");
+    
+    //Xardas OW stuff
+    COLL_True("DT_2ND_FLOOR_GEWOELBE.3DS");
+    COLL_True("DT_3RD_FLOOR_GEWOELBE.3DS");
+    COLL_False("DT_2ND_FLOOR_BANNKREIS_02.3DS");
+    
+    //things that hang in your face and should not have collision
+    COLL_False("NW_NATURE_SMALL_ROOTS_30P.3DS");
+    COLL_False("OC_KITCHENSTUFF_V01.3DS");
+    
+    //happen to be somewhere in newworld.zen for no reason:
+    COLL_Ignore("INVISIBLE_VOBBOX.3DS");
+    COLL_Ignore("INVISIBLE_ZCVOBSTARTPOINT.3DS");
+    
+    //car easteregg:
+    COLL_False("ADDON_CANYONOBJECT_SIGN_01.3DS");
+    COLL_True("ADDON_CANYONOBJECT_CAR_01.3DS");
+}
+
+//************************************************
+//   The property staticVob is set according
+//   to this function. It is not affected by
+//   the collision rules.
+//   This property makes the vob cast a static shadow
+//   (i.e. a shadow in the lightmap, indoor only)
+//   and may speed up some calculations in the engine.
+//   This property may not be set for moving objects
+//   since this can lead to rendering problems
+//   (e.g. a flickering mover)
+//************************************************
+
+func int COLLSPEC_IsStaticVob(var object o) {
+    if (o.visual == "") {
+        return COLL_IGNORE;
+    }
+
+    //check whether this vob is a mover or child of a mover
+    if (WLD_IsChildOfMover(o)) {
+        return COLL_FALSE;
+    }
+    
+    if (o.className == "oCItem")
+    || (o.className == "oCNpc")
+    || (o.className == "zCVobLevelCompo") {
+        return COLL_IGNORE;
+    }
+    
+    return COLL_TRUE;
+}

@@ -1,0 +1,64 @@
+#include<stdlib.zsl>
+
+/* Dies ist ein Skript das ich verwendet habe um die LOA Welt zu zerschneiden.
+ * Genauer: Die Wüste soll in einer ZEN landen und der Rest in einer anderen ZEN.
+ * Zuben hat zu diesem Zweck bereits Waypoints in der Welt platziert,
+ * die die Wüste umschließen. Die Waypoints heißen WUESTE_001, WUESTE_002, usw.
+ * Sie bilden einen (nicht notwendig konvexes) Polygon. */
+
+func void main() {
+    /* Lade die Welt mit Wüste, Rest und den Markierungswaypoints */
+    WLD_Load("WORLDWUESTE_WAYPOINT.zen");
+    
+    /* Hier suche ich die Waypoints zusammen, die Zuben gesetzt hat
+     * und speichere sie im Array randPunkt ab. */
+    var object randPunkte[];
+    for(var int i = 1; ; i += 1) {
+        /* Hier wird aus der Zahl "i" ein String der die Zahl
+         * repräsentiert und mindestens drei Stellen hat
+         * (zum Beispiel wird aus 7 der String "007").
+         * Hätte Zuben in den Waypointnamen keine führenden Nullen
+         * wäre dieser Schritt unnötig gewesen. */
+        var string name = i;
+        while(name.length < 3) { name = "0" + name; }
+        
+        /* Der Waypoint wird gesucht. Ich wusste nicht wieviele Waypoints
+         * Zuben letztendlich verwendet hat, daher mache ich weiter, bis
+         * kein Waypoint mehr gefunden wird (durch prüfen ob der
+         * Rückgabewert von WLD_GetObject Null war oder nicht). */
+        var object o = WLD_GetObject("WUESTE_" + name);
+        if (!o) {
+            /* Ich gebe aus, wieviele Waypoints ich gefunden habe. */
+            Info("Last WP Index: " + (i-1));
+            break;
+        }
+        
+        /* Der Waypoint wurde gefunden, er wird in das Array eingefügt. */
+        randPunkte |= o;
+    }
+    
+    /* Ich wähle alle Objekte aus, die im von den Waypoints
+     * beschriebenen Bereich liegen. */
+    var selection sel = HULL_SelectByHull(HULL_Polygon(randPunkte));
+    
+    /* Die Waypoints waren nur Hilfswaypoints, ich möchte sie entfernen.
+     * Leider nimmt WLD_Delete nur Selektionen, keine Arrays.
+     * Ich entferne die Waypoints die ich lösche aus der Selektion,
+     * sonst wird später versucht auf ein Objekt zuzugreifen, was gar nicht
+     * existiert! */
+    var selection randPunkteSel = CVT_ArrToSel(randPunkte);
+    sel -= randPunkteSel;
+    WLD_Delete(randPunkteSel);
+    
+    /* Im Grunde passiert hier in etwa folgendes:
+     *   WLD_SaveSelection("test_wueste.ZEN", sel);
+     *   WLD_SaveSelection("test_keinewueste.ZEN", WLD_GetAll() - sel);
+     * Allerdings ist WLD_SplitWorld etwas klüger:
+     * Waypoints die an der Grenze sind, das heißt Waypoints in der Selektion,
+     * die mit einem Waypoint verbunden sind, der nicht in der Selektion ist
+     * oder umgekehrt, landen in beiden Welten. Nach Ausführung eines Spacermakros
+     * werden diese Welten sowieso wieder verschmolzen.
+     * Ohne diese Spezialbehandlung der Grenzwaypoints
+     * würde das Wegenetz auseinandergerissen. */
+    WLD_SplitWorld(sel, "test_wueste.ZEN", "test_keinewueste.zen");
+}

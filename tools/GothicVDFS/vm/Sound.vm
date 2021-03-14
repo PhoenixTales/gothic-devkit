@@ -1,0 +1,12 @@
+[BEGINVDF]
+Comment="Gothic - Sound Data - %%D%%N (C) 1999 Piranha Bytes"
+BaseDir="F:\Gothic"
+VDFName="F:\Gothic\Data\ModVdf\Sound.mod"
+[FILES]
+Data\Sound\SFX\*.* -r
+[EXCLUDE]
+*.lnk -r
+*.bak -r
+*.zip -r
+[INCLUDE]
+[ENDVDF]

@@ -1,0 +1,26 @@
+#ifndef STDLIB_ZSL
+#define STDLIB_ZSL
+
+//#################################################
+//
+//    stdlib.zsl
+//
+//    includes the whole standard library
+//
+//#################################################
+
+#include<stdlib/tools.zsl>
+#include<stdlib/algebra.zsl>
+#include<stdlib/geometry.zsl>
+#include<stdlib/hulls.zsl>
+#include<stdlib/util.zsl>
+#include<stdlib/zobjects.zsl>
+#include<stdlib/util.zsl>
+#include<stdlib/collision.zsl>
+#include<stdlib/movement.zsl>
+
+#ifdef STDLIB_UNITTESTS
+    #include<stdlib/unittests.zsl>
+#endif
+
+#endif //STDLIB_ZSL

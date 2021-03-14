@@ -1,0 +1,35 @@
+    Version 3.14 (05.06.2007) /* all is made for the Gothic 1,2 and them Modes */
+    Changes:
+    1. 	 It is added error handler of dat a file - "empty" operator IF.
+    2. 	 Recognition of files not belonging to the project is improved.
+    3. 	 In the contextual menu of a file not belonging to the project functions Goto Declaration and Return Back are closed.
+    4. 	 In an associative mode of opening of files of a folder of the project are not created.
+    5. 	 Files menu.dat, sfx.dat and pfx.dat are decompiled correctly.
+    6. 	 Files IntFuncMenu_*.d are corrected.	
+
+    *****************************************************************************
+    Version 3.13 (29.03.2007) /* all is made for the Gothic 1,2 and them Modes */
+    Changes:
+    1. 	 Decompile processing unary operands is modified (!,-, ~) together with brackets.
+    2. 	 The arising mistake is eliminated sometimes at decompiling different projects without an exit from the program..
+    3. 	 The system of restoration of names of files of scripts is improved at decompiling.
+
+    *****************************************************************************
+    Version 3.12 (21.03.2007) /* all is made for the Gothic 1,2 and them Modes */
+    Errors are eliminated:
+    1. 	 Decompile processing unary operands is corrected (!,-, ~) together with brackets.
+    2. 	 Blocking SRC of a file by the compiler is eliminated. After compilation it was impossible to execute at once decompiling.
+    3. 	 Last function of last file of the project is decompiled correctly.
+    4. 	 Before function call Replacement in files of the project the changed files are saved.
+    5. 	 At closing the program all new files are saved.
+    6. 	 SRC file is written always to the place.
+
+    *****************************************************************************
+    Version 3.11 (11.12.2006) /* all is made for the Gothic 1,2 and them Modes */
+    Errors are eliminated:
+    1. 	 Now the empty new project and folders in it are created correctly.
+    2. 	 The archive of format BINARY is loaded correctly.
+    3. 	 Replacement in files of the project - is eliminated a mistake of replacement only the first word in line.
+    4. 	 Window SRC Manager at the resolution of the screen 800?600 is completely accessible.
+    5. 	 The mistake is corrected at decompiling when instead of numbers there were names of instances.
+

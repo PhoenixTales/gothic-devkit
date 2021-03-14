@@ -1,0 +1,94 @@
+#ifndef GEOMETRY_ZSL
+#define GEOMETRY_ZSL
+
+//#################################################
+//
+//    geometry.zsl
+//
+//    Basic Geometry.
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+#include<stdlib/algebra.zsl>
+
+var float PI = 3.14159265;
+
+//************************************************
+//   2D Stuff:
+//************************************************
+
+/* The angle between two vectors, between -pi and pi */
+func float GEO_Angle(var float v[2], var float w[2]) {
+    var float tmp = atan2(v[0], v[1]) - atan2(w[0], w[1]);
+    
+    //-PI < atan2 <= PI  ==> |atan2(v) - atan2(w)| <= 2*PI
+    //one 'modulo' step suffices.
+    if (tmp <= -PI) {
+        return tmp + 2*PI;
+    } else if (tmp > PI) {
+        return tmp - 2*PI;
+    }
+    
+    return tmp;
+}
+
+func float GEO_TriangleHeight(var float a[2], var float b[2], var float c[2]) {
+    if (c == a || c == b) {
+        /* better handle this correctly
+         * this has already caused infinite recursion...*/
+        return 0;
+    }
+
+    b -= a;
+    c -= a;
+    ALG_NormalizeVec(b);
+    
+    return b[0] * c[1] - b[1] * c[0];
+}
+
+/* Too lazy to document this: */
+/* The angle of the turn at v2 when going from v1 to v2 to v3. */
+//func float GEO_TurnAngle(var float v1[2], var float v2[2], var float v3[2]) {
+//    /* the following cases are guaranteed to be handle accurately: */
+//    if (v3 == v2 || v2 == v1) {
+//        return 0;
+//    } else if (v3 == v1) {
+//        return PI;
+//    }
+//
+//    return GEO_Angle(v2 - v1, v3 - v2);
+//}
+
+//zu faul das zu dokumentieren, wird auch nur hier gebraucht:
+func void ALG_Transpose(ref float mat[][]) {
+    if (mat.size == 0 || mat.size != mat[0].size) {
+        Fatal("ALG_Transpose: The matrix is not square!");
+    }
+    
+    var float tmp;
+    for(var int i = 0; i < n; i += 1) {
+        for (var int j = 0; j < i; j += 1) {
+            tmp = mat[i][j];
+            mat[i][j] = mat[j][i];
+            mat[j][i] = tmp;
+        }
+    }
+}
+
+//wird nicht dokumentiert, bleibt aber drin:
+//Intersection of two points:
+func float[2] GEO_IntersectionCoefficients(var float p1[2], var float p2[2], var float q1[2], var float q2[2]) {
+    //solve: p1 + alpha * (p2 - p1) = q1 + beta * (q2 - q1)
+    var float mat[2][2] = { p2 - p1, q1 - q2 }; //transposed
+    ALG_Transpose(mat);
+    
+    return ALG_Gauss(mat, q1 - p1);
+}
+
+func float[2] GEO_Intersection(var float p1[2], var float p2[2], var float q1[2], var float q2[2]) {
+    var float coefficients[2] = ALG_IntersectionCoefficients(p1, p2, q1, q2);
+    return p1 + coefficients[0] * (p2 - p1);
+}
+
+#endif //GEOMETRY_ZSL

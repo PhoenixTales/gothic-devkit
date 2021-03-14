@@ -1,0 +1,176 @@
+#ifndef ALGEBRA_ZSL
+#define ALGEBRA_ZSL
+
+//#################################################
+//
+//    algebra.zsl
+//
+//    Basic Algebra
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+
+var float EPS = 0.00000000001; // 10^-10
+
+func template ALG_Gauss(var float mat[][], var template vec) {
+    var int n = mat.size;
+    if (n == 0 || mat[0].size != n) {
+        Fatal("ALG_Gauss: mat has to be a non-empty square matrix.");
+    }
+    if (n != vec.size) {
+        Fatal("ALG_Gauss: Matrix and vector sizes mismatch.");
+    }
+    
+    for(var int i = 0; i < n; i += 1) {
+        /* for numeric stability choose the entry with the highest absolute value */
+        var int maxArg = i;
+        for (var int j = i + 1; j < n; j += 1) {
+            if (fabs(mat[j][i]) > fabs(mat[maxArg][i])) {
+                maxArg = j; 
+            }
+        }
+        
+        /* it may sound expensive to move the lines around and more
+         * efficient to do indirection, but the matrices handled
+         * by this library will almost never be bigger than 3x3. */
+        if (maxArg != i) {
+            var float tmp[] = mat[i];
+            var template tmpVec = vec[i];
+            
+            mat[i] = mat[maxArg];
+            vec[i] = vec[maxArg];
+            
+            mat[maxArg] = tmp;
+            vec[maxArg] = tmpVec;
+        }
+        
+        if(fabs(mat[i][i]) < EPS) {
+            Warn("ALG_Gauss: Matrix is singular or nearly singular and very possibly numerically unstable.");
+        }
+        
+        vec[i] /= mat[i][i];
+        mat[i] /= +mat[i][i]; /* damn. The interpreter fails here without the "+". But I won't touch that stuff anymore. */
+        
+        for (var int j = 0; j < n; j += 1) {
+            if (j != i) {
+                vec[j] -= vec[i] * mat[j][i];
+                mat[j] -= mat[i] * mat[j][i];
+            }
+        }
+    }
+    
+    return vec;
+}
+
+func float[][] ALG_Identity(var int dim) {
+    var float mat[dim][dim];
+    for(var int i = 0; i < dim; i += 1) {
+        mat[i][i] = 1;
+    }
+    return mat;
+}
+
+func float[][] ALG_Invert(ref float mat[][]) {
+    if (mat.size == 0 || mat.size != mat[0].size) {
+        Fatal("ALG_Invert: The matrix is not square!");
+    }
+    
+    return ALG_Gauss(mat, ALG_Identity(mat.size));
+}
+
+func float ALG_VecLen(ref float vec[]) {
+    return sqrt(vec*vec);
+}
+
+func float ALG_Dist(ref float v1[], ref float v2[v1.size]) {
+    return ALG_VecLen(v1 - v2);
+}
+
+func void ALG_NormalizeVec(ref float vec[]) {
+    vec /= ALG_VecLen(vec);
+}
+
+func void ALG_NormalizeMat(ref float mat[][]) {
+    var int n = mat.size;
+    if (n == 0 || mat[0].size != n) {
+        Fatal("ALG_NormalizeMat: mat has to be a non-empty square matrix.");
+    }
+    
+    for(var int i = 0; i < n; i += 1) {
+        for(var int j = 0; j < i; j += 1) {
+            mat[i] = mat[i] - (mat[i] * mat[j]) * mat[j];
+        }
+         ALG_NormalizeVec(mat[i]);
+    }
+}
+
+//************************************************
+//   3D Stuff
+//************************************************
+
+func float[3] ALG_CrossProd(ref float vl[3], ref float vr[3]) {
+    var float res[3];
+    res[0] = vl[1] * vr[2] - vr[1] * vl[2];
+    res[1] = vl[2] * vr[0] - vr[2] * vl[0];
+    res[2] = vl[0] * vr[1] - vr[0] * vl[1];
+    return res;
+}
+
+struct Plane {
+    var float normal[3];
+    var float pos[3];
+    
+    //I want a guarantee that the points I constructed the
+    //plane with remain on the plane after rounding errors.
+    var float _pointsOnPlane[][3];
+}
+
+func float[3] ALG_UnitNormal(ref float v1[3], ref float v2[3]) {
+    var float res[3] = ALG_CrossProd(v1, v2);
+    ALG_NormalizeVec(res);
+    return res;
+}
+
+func Plane ALG_PlaneFromPoints(ref float points[3][3]) {
+    var Plane p;
+    p.normal = ALG_UnitNormal(points[1] - points[0], points[2] - points[0]);
+    p.pos    = points[0];
+    p._pointsOnPlane = points;
+    return p;
+}
+
+func float ALG_DistToPlane(ref Plane p, ref float v[3]) {
+    /* guarantee that rounding errors do not effect
+     * the fact that points the plane was created from
+     * are actually on the plane */
+    for(var int i = 0; i < p._pointsOnPlane.size; i += 1) {
+        if (p._pointsOnPlane[i] == v) {
+            return 0;
+        }
+    }
+
+    return p.normal * (v - p.pos);
+}
+
+func float ALG_DistToPlaneAbs(ref Plane p, ref float v[3]) {
+    return abs(ALG_DistToPlane(p, v));
+}
+
+func float ALG_DistToLine(var float l1[], var float l2[l1.size], var float p[l1.size]) {
+    if (l1 == p || l2 == p) {
+        return 0;
+    }
+
+    /* translate problem to the origin */
+    p  -= l1;
+    l2  -= l1;
+    /* and normalize the direction of the line */
+    ALG_NormalizeVec(l2);
+    
+    /* shift p in direction l2 until it is orthogonal on l2 */
+    p  -= l2 * (p * l2);
+    return ALG_VecLen(p);
+}
+
+#endif //ALGEBRA_ZSL

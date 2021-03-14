@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Root>
+  <TITLE>GVE - Gothic Variablen Editor</TITLE>
+  <SAVEGAMEMENU>&amp;Savegame</SAVEGAMEMENU>
+  <HELPMENU>&amp;?</HELPMENU>
+  <OPTIONSMENU>&amp;Einstellungen</OPTIONSMENU>
+  <BTSEARCH>Suchen</BTSEARCH>
+  <BTPREV> &lt;</BTPREV>
+  <BTNEXT>&gt;</BTNEXT>
+  <CKBAUSBLENDEN>Ausblenden</CKBAUSBLENDEN>
+  <DATAVAR>Variable</DATAVAR>
+  <DATAVAL>Wert</DATAVAL>
+  <BTBACKUP>Backup anlegen</BTBACKUP>
+  <BTRESTORE>Backup einspielen</BTRESTORE>
+  <BTSAVE>Speichern</BTSAVE>
+  <LOADNEWESTMENU>&amp;Aktuellstes laden</LOADNEWESTMENU>
+  <LOADMENU>&amp;Manuell laden</LOADMENU>
+  <LISTALLMENU>Alle &amp;Savegames auflisten</LISTALLMENU>
+  <HELPM>&amp;Hilfe</HELPM>
+  <INFO>&amp;Info</INFO>
+    <GBPATH>Pfad zum Gothic-Ordner</GBPATH>
+    <CKBBACKUP>Beim Speichern automatisch Backup anlegen</CKBBACKUP>
+    <CKBAUTOLOAD>Automatisches Laden beim Start</CKBAUTOLOAD>
+    <LBLANGUAGE>Sprache</LBLANGUAGE>
+    <BTOK>Übernehmen</BTOK>
+    <FOPTIONSTITLE>Einstellungen</FOPTIONSTITLE>
+    <MBTINPUTERROR>Eingabefehler</MBTINPUTERROR>
+    <MBINPUTERROR>Ungülte Eingabe.
+Die Eingabe muss eine Zahl zwischen −2.147.483.648 und 2.147.483.647 sein.</MBINPUTERROR>
+    <MBTFILEERROR>Dateifehler</MBTFILEERROR>
+    <MBFILENOTFOUND>Datei nicht gefunden!</MBFILENOTFOUND>
+    <MBFILENOTREAD>Datei konnte nicht gelesen werden!</MBFILENOTREAD>
+    <MBFOLDERERROR>Ungültiger Pfad!
+Bitte ändern sie Den Pfad zum Gothic Ordner in den Einstellungen.</MBFOLDERERROR>
+    <MBNOTHINGFOUND>Keine Savegames gefunden!
+Vergewissern sie sich, dass der Pfad zum Gothic-Ordner führt.</MBNOTHINGFOUND>
+    <MBNOACCESS>Kein Zugriff auf die Dateien!
+Vergewissern sie sich, dass auf die Savegames zugegriffen werden kann.</MBNOACCESS>
+    <MBREGISTRY>Es ist entweder keine Pfadangabe in der Konfigurationsdatei vorhanden
+oder der angegebene Pfad existiert nicht.
+Es wird versucht den Pfad zum Gothic 2 Ordner über die Registry zu ermitteln.</MBREGISTRY>
+    <MBREGISTRYFOUND>Es wurde ein Pfad erkannt, bitte überprüfen Sie,
+ob der Pfad korrekt ist und ändern Sie ihn gegebenenfalls.</MBREGISTRYFOUND>
+    <MBREGISTRYNOTFOUND>Es wurde kein Eintrag in der Registry gefunden.
+Bitte geben sie den Pfad manuell an.</MBREGISTRYNOTFOUND>
+    <MBWRONGINPUT>Ungültige Eingabe.</MBWRONGINPUT>
+    <MBVARNOTFOUND>Variable nicht gefunden.</MBVARNOTFOUND>
+    <MBTNOTFOUND>Nicht gefunden</MBTNOTFOUND>
+    <MBBACKUPCREATEERROR>Backup kann nicht erzeugt werden.</MBBACKUPCREATEERROR>
+    <MBLOADBACKUP>Soll das Backup eingespielt werden? Die Änderungen am aktuellen Savegame gehen dadurch verloren.</MBLOADBACKUP>
+    <MBBACKUPLOADERROR>Backup kann nicht eingespielt werden.</MBBACKUPLOADERROR>
+    <MBBACKUPNOTFOUND>Backupatei nicht gefunden. Möglicherweise wurde noch kein Backup dieses Savegames erstellt.</MBBACKUPNOTFOUND>
+    <MBSAVEERROR>Speichern fehlgeschlagen. Möglicherweise fehlt die Berechtigung.</MBSAVEERROR>
+    <MBHELPNOTFOUND>Hilfedatei nicht gefunden!</MBHELPNOTFOUND>
+	<CKBAUTOSEARCH>Automatische Aktualisierung</CKBAUTOSEARCH>
+
+  </Root>

@@ -1,0 +1,14 @@
+[BEGINVDF]
+Comment=Gothic - Animation Data (%%D)%%N(C) 1999, 2002 Piranha Bytes Software GmbH%%N
+BaseDir=..\..\..\..
+VDFName=..\..\..\..\Data\Anims.vdf
+[FILES]
+_work\Data\Anims\_compiled\*.MAN
+_work\Data\Anims\_compiled\*.MDH
+_work\Data\Anims\_compiled\*.MDL
+_work\Data\Anims\_compiled\*.MDM
+_work\Data\Anims\_compiled\*.MMB
+[EXCLUDE]
+[INCLUDE]
+_work\Data\Anims\*.MDS -r
+[ENDVDF]

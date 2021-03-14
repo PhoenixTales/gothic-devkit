@@ -1,0 +1,10 @@
+[BEGINVDF]
+Comment=Gothic - Mesh Data (%%D)%%N(C) 1999, 2002 Piranha Bytes Software GmbH%%N
+BaseDir=..\..\..\..
+VDFName=..\..\..\..\Data\Meshes.vdf
+[FILES]
+_work\Data\Meshes\_compiled\*.MRM
+_work\Data\Meshes\_compiled\*.MSH
+[EXCLUDE]
+[INCLUDE]
+[ENDVDF]

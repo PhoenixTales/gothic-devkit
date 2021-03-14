@@ -1,0 +1,4 @@
+﻿CHANGELOG V1.1:
+  - Farben werden nun beim Laden angewendet
+  - Name wird beim Speichern vorgeschlagen
+  - Kyrillische Symbole können nun verwendet werden

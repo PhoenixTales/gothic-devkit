@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<config>
+	<string name="Font" value="FontLucida.png" />
+	
+	<colorf name="EGDC_3D_DARK_SHADOW" value="0.2, 0.2, 0.2, 1.0" />
+	<colorf name="EGDC_3D_SHADOW" value="0.4, 0.4, 0.4, 1.0" />
+	<colorf name="EGDC_3D_FACE" value="0.8, 0.2, 0.2, 1.0" />
+	<colorf name="EGDC_3D_HIGH_LIGHT" value="0.9, 0.9, 0.9, 1.0" />
+	<colorf name="EGDC_3D_LIGHT" value="1.0, 1.0, 1.0, 1.0" />
+	<colorf name="EGDC_ACTIVE_BORDER" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_ACTIVE_CAPTION" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_APP_WORKSPACE" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_BUTTON_TEXT" value="0.0, 0.0, 0.0, 1.0" />
+	<colorf name="EGDC_GRAY_TEXT" value="0.5, 0.5, 0.5, 1.0" />
+	<colorf name="EGDC_HIGH_LIGHT" value="0.8, 0.2, 0.2, 1.0" />
+	<colorf name="EGDC_HIGH_LIGHT_TEXT" value="8.0, 8.0, 0.6, 1.0" />
+	<colorf name="EGDC_INACTIVE_BORDER" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_INACTIVE_CAPTION" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_TOOLTIP" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_TOOLTIP_BACKGROUND" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_SCROLLBAR" value="0.9, 0.9, 0.9, 1.0" />
+	<colorf name="EGDC_WINDOW" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_ICON" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+	<colorf name="EGDC_ICON_HIGH_LIGHT" value="0.8, 0.8, 0.8, 1.0" /> <!--not used -->
+</config>

@@ -1,0 +1,30 @@
+#include<stdlib.zsl>
+
+/* Dieses Skript macht letztlich genau das selbe wie das
+ * "Compile Newworld" Makro im Spacer, ist dabei aber bedeutend schneller.
+ * Der Spacer hat für sein Makro bei mir rund 6 Minuten gebraucht,
+ * dieses Skript dagegen nur rund 15 Sekunden.
+ *
+ * Ein Problem gibt es allerdings: Dieses Skript kompiliert das
+ * Levelmesh und die Lightmap nicht neu sondern übernimmt beides
+ * ohne Betrachtung aus NEWWORLD\NEWWORLD.ZEN. Hat sich eines der Meshes
+ * verändert, ist es daher ungeeignet.
+ * Haben sich dagegen nur ein paar Vobs verändert, die keine nennenswerten
+ * Schatten werfen, so kann dieses Skript eine gute Möglichkeit sein
+ * um beim Testen Zeit zu sparen. */
+
+func void main() {
+    WLD_LoadMesh("NEWWORLD\NEWWORLD.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_CITY_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_FARM_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_FOREST_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_GREATPEASANT_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_MONASTERY_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_PASS_TO_OW_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_SHIP_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_TROLLAREA_01.ZEN");
+    WLD_Merge("NEWWORLD\NEWWORLD_PART_XARDAS_01.ZEN");
+    
+    WLD_MergeWaypoints();
+    WLD_Save("NEWWORLD_FAST.ZEN");
+};

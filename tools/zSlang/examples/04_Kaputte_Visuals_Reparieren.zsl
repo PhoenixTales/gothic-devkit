@@ -1,0 +1,103 @@
+//************************************************
+//   Kaputte Visuals anhand alter ZEN reapieren
+//************************************************
+
+/* !!! Um Items zu reparieren gibt es eine einfache Methode,         !!!
+   !!! siehe WLD_FixItems in der Doku. Hier geht es um etwas anderes !!! */
+
+/* Dieses Beispiel ist sehr speziell und deutlich
+ * komplizierter als die bisherigen. Ich hatte das Problem,
+ * dass eine Welt von Exodus bearbeitet wurde, ohne dass
+ * die passenden Visuals vorhanden waren. In dem Fall
+ * vergisst der Spacer das vorgesehene Visual von Vobs,
+ * bei denen die 3ds-Datei fehlt bzw. der Partikeleffekt
+ * undefiniert ist.
+ * Zum Glück hatte ich noch eine alte Version der Welt,
+ * in der diese Vobs noch enthalten waren. Allerdings
+ * fehlten in dieser alten Welt natürlich die Änderungen,
+ * die seitdem geschehen waren.
+ *
+ * Die von mir erdachte Lösung sah nun so aus:
+ * Falls es ein Vob in der alten Welt gibt und in der
+ * neuen Welt gibt es an der *exakt* selben Position
+ * ein Vob ohne Visual, dann wird das Visual des Vobs
+ * aus der alten Welt für das Vob in der neuen Welt
+ * übernommen.
+ *
+ * Das hat gut funktioniert und ich musste weder die 
+ * an der neuen Welt gemachten Änderungen verwerfen,
+ * noch die kaputtgegangenen Vobs aufgeben. */
+ 
+#include<stdlib.zsl> 
+ 
+/* Diese Funktion ist ein "<"-Operator auf Vobs,
+ * wobei ein Vob dann als kleiner gilt, wenn seine
+ * Position kleiner ist. Eine Position gilt als kleiner,
+ * wenn sie lexikographisch kleiner ist (das heißt
+ * es wird primär nach x, dann nach y, dann nach z sortiert.
+ *
+ * Hintergrund ist, dass ich zwei Listen von Vobs habe
+ * und die Vobs mit gleicher Position einander zuordnen will.
+ * Das ist leichter, wenn die Listen (irgendwie) sortiert sind.
+ */
+func bool posLess(var object o1, var object o2) {
+    return lexLess(o1.pos, o2.pos);
+}
+ 
+func void main() {
+    /* die Welt die repariert werden soll laden. */
+    Info("Loading broken world.");
+    WLD_Load("../exodus/Valsum/EX_HAUPTSTADT_BROKENPFX.ZEN");
+    
+    var object brokenVobs[] = CVT_SelToArr(WLD_GetVobs());
+    
+    /* Die veraltete Welt, bei der aber die Visuals noch ganz sind laden. */
+    Info("Loading old world.");
+    var selection oldZEN = WLD_Merge("../exodus/Valsum/EX_HAUPTSTADT.ZEN");
+    var object oldVobs[] = CVT_SelToArr(oldZEN * WLD_GetVobs());
+    
+    /* sortiere Vobs nach Position */
+    Info("Sorting.");
+    sort(brokenVobs, pred(posLess));
+    sort(oldVobs, pred(posLess));
+    Info("Sorted.");
+    
+    var int brokenWalker = 0; var int oldWalker = 0;
+    
+    /* gehe durch alle Vobs in der zu reparierenden Welt
+     * falls sie kein Visual haben, schaue ob es ein Objekt in der intakten Welt
+     * an der selben Position gibt, dass ein Visual hat und nimm das. */
+    while(brokenWalker < brokenVobs.size) {
+        if (brokenVobs[brokenWalker].visual) {
+            brokenWalker += 1; /* ist gar nicht kaputt */
+        } else {
+            var float here[3];
+            here = brokenVobs[brokenWalker].pos;
+        
+            if (brokenWalker > 0 && brokenVobs[brokenWalker-1].pos == here)
+            || (brokenWalker < brokenVobs.size - 1 && brokenVobs[brokenWalker+1].pos == here) {
+                brokenWalker += 1; //vobs mit uneindeutigen Position ignorieren.
+                continue;
+            }
+            
+            /* überspringe in der Liste der alten Vobs die mit kleinerer Position */
+            while(oldWalker < oldVobs.size && posLess(oldVobs[oldWalker], brokenVobs[brokenWalker])) {
+                oldWalker += 1;
+            }
+            
+            /* gibt es ein altes Vob mit Visual an dieser Position? */
+            if (oldWalker < oldVobs.size && here == oldVobs[oldWalker].pos && oldVobs[oldWalker].visual) {
+                /* Dann übernehme das Visual! */
+                brokenVobs[brokenWalker].visual = oldVobs[oldWalker].visual;
+                Warn("Restoring visual: " + oldVobs[oldWalker].visual);
+            }
+            
+            brokenWalker += 1;
+        }
+    }
+    
+    /* Weg mit der intakten, veralteten Welt, dann speichern. */
+    WLD_Delete(oldZEN);
+    WLD_Save("../exodus/Valsum/EX_HAUPTSTADT_REPAIREDPFX.ZEN");
+}
+

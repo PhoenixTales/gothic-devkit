@@ -1,0 +1,219 @@
+#ifndef MOVEMENT_ZSL
+#define MOVEMENT_ZSL
+
+//#################################################
+//
+//    movement.zsl
+//
+//    Moving objects
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+#include<stdlib/algebra.zsl>
+#include<stdlib/geometry.zsl>
+
+func float[3][3] POS_GetRotMat(var object o) {
+    var float mat[3][3];
+
+    if (!WLD_IsVob(o)) {
+        // WP
+        assert(o.direction[1] == 0, "WP direction has y-component?");
+        mat[0][0] =  o.direction[2];
+        mat[1][0] =  0;
+        mat[2][0] = -o.direction[0];
+        
+        mat[1][0] = 0;
+        mat[1][1] = 1;
+        mat[1][2] = 0;
+        
+        mat[0][2] = o.direction[0];
+        mat[1][2] = 0;
+        mat[2][2] = o.direction[2];
+        return mat;
+    }
+
+    var float floats[9] = CVT_RawToFloats(o.trafoOSToWSRot);
+    
+    var int i; var int j;
+    for(; i < 3; i += 1) {
+        j = 0;
+        for(; j < 3; j += 1) {
+            mat[i][j] = floats[3*i + j];
+        }
+    }
+    return mat;
+}
+
+func void POS_SetRotMat(var object o, ref float mat[3][3]) {
+    if (!WLD_IsVob(o)) {
+        // WP
+        o.direction[0] = mat[0][2];
+        o.direction[1] = 0;
+        o.direction[2] = mat[2][2];
+        
+        if (ALG_VecLen(o.direction) == 0.0) {
+            o.direction[2] = 1;
+        } else {
+            o.direction /= ALG_VecLen(o.direction);
+        }
+        return;
+    }
+
+    var float err;
+    for(var int i = 0; i < 3; i += 1) {
+        for(var int j = 0; j < 3; j += 1) {
+            err += fabs(mat[i] * mat[j] - (i == j));
+        }
+    }
+    
+    if (err > 0.0001) {
+        if (err > 0.1) {
+            Error("POS_SetRotMat: The given matrix is probably not a rotation matrix. It is far from being orthogonal (Error = " + err + "). Your vobs might disappear.");
+        } else {
+            Warn("POS_SetRotMat: The given matrix has slight errors (Error = " + err + "). This may be due to rounding errors and probably no problem. Use ALG_NormalizeMat to resolve the problem.");
+        }
+    }
+    
+    var float floats[9];
+    
+    var int i; var int j;
+    for(; i < 3; i += 1) {
+        j = 0;
+        for(; j < 3; j += 1) {
+            floats[3*i + j] = mat[i][j];
+        }
+    }
+    
+    o.trafoOSToWSRot = CVT_FloatsToRaw(floats);
+}
+
+func void POS_MoveFromTo(var object from, var object to, ref selection sel = WLD_GetAll()) {
+    var float fromVec[3]       = from.pos;
+    var float toVec[3]         = to.pos;
+    var float fromMatInv[3][3] = ALG_Invert(POS_GetRotMat(from));
+    var float toMat[3][3]      = POS_GetRotMat(to);
+    
+    var float trafo[3][3]      = toMat * fromMatInv;
+    
+    foreach o in sel {
+        if (o.className == "zCVobLevelCompo") {
+            continue;
+        }
+        
+        var float dboxmin[];
+        var float dboxmax[];
+        
+        if(WLD_IsVob(o)) {
+             dboxmin = subArr(o.bbox3DWS, 0, 3) - o.pos;
+             dboxmax = subArr(o.bbox3DWS, 3, 3) - o.pos;
+        }
+        
+        var float rotMat[3][3] = trafo * POS_GetRotMat(o);
+        ALG_NormalizeMat(rotMat);
+        POS_SetRotMat(o, rotMat);
+        o.pos = trafo * (o.pos - fromVec) + toVec;
+        
+        if(WLD_IsVob(o)) {
+            dboxmin += o.pos;
+            dboxmax += o.pos;
+            
+            o.bbox3DWS = dboxmin || dboxmax;
+        }
+    }
+}
+
+/* Given how two points two find out the underlying transformation
+ * (assuming that rotation only occurs around the y-axis
+ * This should help some people who cant or dont wanna figure out the math */
+ 
+var int POS_AutoMove_Good_Accuracy = 7;
+var int POS_AutoMove_Warn_Accuracy = 20;
+var int POS_AutoMove_Poor_Accuracy = 50;
+var int POS_AutoMove_PlainlyWrong  = 1000;
+
+
+func void POS_AutoMove(var template o1, var template n1, var template o2, var template n2, ref selection sel = WLD_GetAll()) {
+    #define fromTemplate(t,out) if(TPL_TypeOf(t) == "object") { out = t.pos; } else { out = t; }
+    var float vob1Old[3]; fromTemplate(o1, vob1Old);
+    var float vob1New[3]; fromTemplate(n1, vob1New);
+    var float vob2Old[3]; fromTemplate(o2, vob2Old);
+    var float vob2New[3]; fromTemplate(n2, vob2New);
+    #undef fromTemplate
+    
+    //filter out the case where it is really undefined:
+    if(vob1Old == vob2Old || vob1New == vob2New) {
+        Fatal("POS_AutoMove: I can't work with this. You need to specify the movement for two different points. The points you specified are identical before or after the movement.");
+    }
+    
+    //Test for inaccurate input
+    var float inaccuracy;
+
+    var float dy1 = vob1New[2] - vob1Old[2];
+    var float dy2 = vob1New[2] - vob1Old[2];
+    
+    inaccuracy = fabs(dy2 - dy1);
+    var float distDiff = ALG_Dist(vob1Old, vob2Old) - ALG_Dist(vob1New, vob2New);
+    inaccuracy = max({inaccuracy, fabs(distDiff)});
+    
+    var string whatsWrong =  "The shift of the y-coordinate differs between the two objects or the distance of the two Vobs to each other has changed after the transformation. Read the documentation for details.";
+    
+    if (inaccuracy > POS_AutoMove_PlainlyWrong) {
+        Error("POS_AutoMove: The given data is either extremely inaccurate or (more likely) its plainly wrong. " + whatsWrong + " (algorithm will continue anyway).");
+    }
+    else if (inaccuracy > POS_AutoMove_Poor_Accuracy) {
+        Warn("POS_AutoMove: The given data is wrong or of poor accuracy. " + whatsWrong + " Double check your data! It's off by more than " + POS_AutoMove_Poor_Accuracy + "cm.");
+    } else if (inaccuracy > POS_AutoMove_Warn_Accuracy) {
+        Warn("POS_AutoMove: The given data seems a little bit inaccurate. " + whatsWrong + " Consider to improve the data and you will receive better results. It's off by more than " + POS_AutoMove_Poor_Accuracy + "cm.");
+    } else if (inaccuracy > POS_AutoMove_Good_Accuracy) {
+        Info("POS_AutoMove: Data seems to be consistent (< " + POS_AutoMove_Warn_Accuracy + "cm of detectable errors).");
+    } else {
+        Info("POS_AutoMove: Data seems to be of high precision.");
+    }
+    
+    /* First map the line vob1Old<->vob2Old to something parallel to vob1New<->vob2New
+     * Then get the translation right */
+    
+    #define GET2D(vec) {(vec)[0], (vec)[2]}
+    var float v1[2] = GET2D(vob2Old - vob1Old);
+    var float v2[2] = GET2D(vob2New - vob1New);
+    ALG_NormalizeVec(v1);
+    ALG_NormalizeVec(v2);
+    #undef GET2D
+    
+    var float c = v1 * v2;
+    var float s = v1[0]*v2[1] - v1[1]*v2[0];
+    
+    var float mat[3][3] = { { c, 0, -s },
+                            { 0, 1,  0 },
+                            { s, 0,  c } };
+                            
+    var float trans[3] = (vob1New - mat*vob1Old + vob2New - mat*vob2Old) / 2;
+    
+    foreach obj in sel {
+        if (obj.className == "zCVobLevelCompo") {
+            continue;
+        }
+        
+        var float rotMat[3][3] = mat * POS_GetRotMat(obj);
+        ALG_NormalizeMat(rotMat);
+        POS_SetRotMat(obj, rotMat);
+        
+        var float oldPos[3] = obj.pos;
+        obj.pos = mat * obj.pos + trans;
+        
+        if(WLD_IsVob(obj)) {
+            var float dboxmin[];
+            var float dboxmax[];
+            dboxmin = subArr(obj.bbox3DWS, 0, 3) - obj.pos;
+            dboxmax = subArr(obj.bbox3DWS, 3, 3) - obj.pos;
+            
+            dboxmin = dboxmin - oldPos + obj.pos;
+            dboxmax = dboxmax - oldPos + obj.pos;
+            
+            obj.bbox3DWS = dboxmin || dboxmax;
+        }
+    }
+}
+
+#endif //MOVEMENT_ZSL

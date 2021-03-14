@@ -1,0 +1,15 @@
+[BEGINVDF]
+Comment=Gothic - World Data (%%D)%%N(C) 1999, 2002 Piranha Bytes Software GmbH%%N
+BaseDir=..\..\..\..
+VDFName=..\..\..\..\Data\Worlds.vdf
+[FILES]
+_work\Data\Worlds\World.ZEN
+_work\Data\Worlds\OrcTempel.ZEN
+_work\Data\Worlds\OldMine.ZEN
+_work\Data\Worlds\OrcGraveyard.ZEN
+_work\Data\Worlds\FreeMine.ZEN
+[EXCLUDE]
+[INCLUDE]
+_work\Data\Worlds\ItLsTorchBurning.ZEN
+_work\Data\Worlds\FireTree_*.ZEN
+[ENDVDF]

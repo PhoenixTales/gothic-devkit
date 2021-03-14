@@ -1,0 +1,9 @@
+[BEGINVDF]
+Comment=Gothic - Sound Speech Data (%%D)%%N(C) 1999, 2002 Piranha Bytes Software GmbH%%N
+BaseDir=..\..\..\..
+VDFName=..\..\..\..\Data\Speech.vdf
+[FILES]
+_work\Data\Sound\Speech\*.WAV
+[EXCLUDE]
+[INCLUDE]
+[ENDVDF]

@@ -1,0 +1,10 @@
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\bin\Release\GVE.exe
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\bin\Release\GVE.pdb
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.FMain.resources
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.FOptions.resources
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.Properties.Resources.resources
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.csproj.GenerateResource.Cache
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.exe
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.pdb
+C:\Users\Sumpfkrautjunkie\Documents\Visual Studio 2008\Projects\GVE\GVE\obj\Release\GVE.FSaveGames.resources

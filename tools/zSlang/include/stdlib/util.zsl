@@ -1,0 +1,161 @@
+#ifndef UTIL_ZSL
+#define UTIL_ZSL
+
+//#################################################
+//
+//    util.zsl
+//
+//    Miscellaneous utilities
+//
+//#################################################
+
+/* assertion: evaluate b and if it does not return true evaluate
+ * the failure. */
+ 
+#ifndef NOASSERT
+    #define assert(b, err) ((b) || Fatal("Assertion Failed: " + (err)))
+#else
+    #define assert(b, err)
+#endif
+
+/* boolean values */
+#define bool int
+#define false 0
+#define true 1
+#define bitfield int
+#define flag int
+
+/* Null */
+var void null;
+
+#define isNull(s) (TPL_TypeOf(s) == "void")
+#define notNull(s) (!isNull(s))
+
+//************************************************
+//   functions
+//************************************************
+
+func template sqr(ref template t) {
+    return t*t;
+}
+
+func selection CVT_ArrToSel(ref object objs[]) {
+    var selection res;
+    foreach obj in objs {
+        res += obj;
+    }
+    return res;
+}
+
+func object[] CVT_SelToArr(ref selection sel) {
+    var object res[];
+    foreach obj in sel {
+        res |= obj;
+    }
+    return res;
+}
+
+//************************************************
+//   infinity and nan
+//************************************************
+
+func bool isNan(var float x) {
+    return x != x;
+}
+
+func bool isInfinity(var float x) {
+    return x > 0 && (x - x != x - x); //nan != nan
+}
+
+func bool isNegInfinity(var float x) {
+    return x < 0 && (x - x != x - x); //nan != nan
+}
+var float infinity    = 1.0E999;
+var float negInfinity = -infinity;
+var float nan         = infinity - infinity;
+
+//************************************************
+//   Predicates
+//************************************************
+
+/* predicates */
+#define PREDICATE_PARAMS_MAX 5
+struct Predicate {
+    var function fun;
+    var template data;
+}
+
+func Predicate pred(var function fun, ref template data = null) {
+    var Predicate pred;
+    pred.fun = fun;
+    pred.data = data; /* its not ideal that the data has to be copied...
+                       * but apart from that the concept of predicates is
+                       * pretty elegant, isnt it? */
+    
+    var int numParams = fun.numParams - notNull(data);
+    assert(numParams > 0, "Cannot construct predicate of nullary function (function must have at least one parameter)");
+    
+    assert(numParams <= PREDICATE_PARAMS_MAX, "Currently only predicates with up to " + PREDICATE_PARAMS_MAX + " parameters are supported. Consider accepting a struct or vector as an argument.");
+
+    return pred;
+}
+
+func bool eval(var Predicate pred, var template params) {
+    var int numParams = pred.fun.numParams - notNull(pred.data);
+    
+    if (numParams > 1) {
+        assert(params.size == numParams,
+               "Predicate expects " + numParams + " params but " + params.size + " are given.");
+    }
+
+    if (isNull(pred.data)) {
+        if (numParams == 1) {
+            return pred.fun(params);
+        } else if (numParams == 2) { return pred.fun(params[0], params[1]); }
+          else if (numParams == 3) { return pred.fun(params[0], params[1], params[2]); }
+          else if (numParams == 4) { return pred.fun(params[0], params[1], params[2], params[3]); }
+          else if (numParams == 5) { return pred.fun(params[0], params[1], params[2], params[3], params[4]);
+        }
+    } else {
+        if (numParams == 1) {
+            return pred.fun(params, pred.data);
+        } else if (numParams == 2) { return pred.fun(params[0], params[1], pred.data); }
+          else if (numParams == 3) { return pred.fun(params[0], params[1], params[2], pred.data); }
+          else if (numParams == 4) { return pred.fun(params[0], params[1], params[2], params[3], pred.data); }
+          else if (numParams == 5) { return pred.fun(params[0], params[1], params[2], params[3], params[4], pred.data);        
+        }
+    }
+    assert(false, "eval: Should never be here.");
+}
+
+//common predicates:
+
+func bool _less     (var template val1, var template val2) { return val1 <  val2; }
+func bool _lessEq   (var template val1, var template val2) { return val1 <= val2; }
+func bool _greater  (var template val1, var template val2) { return val1 >  val2; }
+func bool _greaterEq(var template val1, var template val2) { return val1 >= val2; }
+
+func bool lexLess(var template arr1, var template arr2) {
+    assert(arr1.size == arr2.size, "lexLess: The arrays have different sizes.");
+    for(var int i = 0; i < arr1.size; i += 1) {
+        if (arr1[i] < arr2[i]) {
+            return true;
+        } else if (arr2[i] < arr1[i]) {
+            return false;
+        }
+    }
+    return false; //equal
+}
+
+func bool _coordLess(var template arr1, var template arr2, var int coord) {
+    return arr1[coord] < arr2[coord];
+}
+
+var Predicate predLess      = pred(_less);
+var Predicate predLessEq    = pred(_lessEq);
+var Predicate predGreater   = pred(_greater);
+var Predicate predGreaterEq = pred(_greaterEq);
+var Predicate predLexLess   = pred(lexLess);
+func Predicate predCoordLess(var int coord) { return pred(_coordLess, coord); }
+
+#endif //UTIL_ZSL

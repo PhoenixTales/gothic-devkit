@@ -1,0 +1,9 @@
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\bin\Debug\Font2Targa.exe
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\bin\Debug\Font2Targa.pdb
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\ResolveAssemblyReference.cache
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\Font2Targa.Properties.Resources.resources
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\ResGen.read.1.tlog
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\ResGen.write.1.tlog
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\Font2Targa.exe
+g:\users\gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\Font2Targa.pdb
+G:\Users\Gottfried\documents\visual studio 2010\Projects\Font2Targa\Font2Targa\obj\x86\Debug\Font2Targa.Font2Targa_Main.resources

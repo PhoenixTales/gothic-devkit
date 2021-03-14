@@ -1,0 +1,29 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 23.7.2011 18:25:6
+user Sekti
+END
+objects 5        
+END
+
+[% oCWorld:zCWorld 36865 0]
+	[WayNet % 0 0]
+		[% zCWayNet 0 1]
+			waynetVersion=int:1
+			numWaypoints=int:1
+			[waypoint0 zCWaypoint 0 4]
+				wpName=string:ZSLANG_UNNAMED_WAYPOINT
+				waterDepth=int:0
+				underWater=bool:0
+				position=vec3:0 0 0
+				direction=vec3:0 0 1
+			[]
+			numWays=int:0
+		[]
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

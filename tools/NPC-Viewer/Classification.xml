@@ -1,0 +1,214 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<headmesh name="HUM_HEAD_BABE" gender="female">
+<headmesh name="HUM_HEAD_BABE1" gender="female">
+<headmesh name="HUM_HEAD_BABE2" gender="female">
+<headmesh name="HUM_HEAD_BABE3" gender="female">
+<headmesh name="HUM_HEAD_BABE4" gender="female">
+<headmesh name="HUM_HEAD_BABE5" gender="female">
+<headmesh name="HUM_HEAD_BABE6" gender="female">
+<headmesh name="HUM_HEAD_BABE7" gender="female">
+<headmesh name="HUM_HEAD_BABE8" gender="female">
+
+<headmesh name="HUM_HEAD_BALD" gender="male">
+<headmesh name="HUM_HEAD_FATBALD" gender="male">
+<headmesh name="HUM_HEAD_FIGHTER" gender="male">
+<headmesh name="HUM_HEAD_PONY" gender="male">
+<headmesh name="HUM_HEAD_PSIONIC" gender="male">
+<headmesh name="HUM_HEAD_THIEF" gender="male">
+
+<bodytex name="BodyTex_P" gender="male" id="0" skincolor="pale">
+<bodytex name="BodyTex_N" gender="male" id="1" skincolor="normal">
+<bodytex name="BodyTex_L" gender="male" id="2" skincolor="latino">
+<bodytex name="BodyTex_B" gender="male" id="3" skincolor="brown">
+
+<bodytex name="BodyTexBabe_P" gender="female" id="4" skincolor="pale">
+<bodytex name="BodyTexBabe_N" gender="female" id="5" skincolor="normal">
+<bodytex name="BodyTexBabe_L" gender="female" id="6" skincolor="latino">
+<bodytex name="BodyTexBabe_B" gender="female" id="7" skincolor="brown">
+
+<bodytex name="BodyTex_Player"	gender="male" id="8" skincolor="extra">
+<bodytex name="BodyTex_T"		gender="male" id="9" skincolor="extra">
+<bodytex name="BodyTexBabe_F"	gender="female" id="10" skincolor="extra">
+<bodytex name="BodyTexBabe_S"	gender="female" id="11" skincolor="extra">
+
+
+
+<headtex name="Face_N_Gomez"	gender="male"	id="0"	skincolor="normal">
+<headtex name="Face_N_Scar"	gender="male"	id="1"	skincolor="normal">
+<headtex name="Face_N_Raven"	gender="male"	id="2"	skincolor="normal">
+<headtex name="Face_N_Bullit"	gender="male"	id="3"	skincolor="normal">
+<headtex name="Face_B_Thorus"	gender="male"	id="4"	skincolor="brown">
+<headtex name="Face_N_Corristo"	gender="male"	id="5"	skincolor="normal">
+<headtex name="Face_N_Milten"	gender="male"	id="6"	skincolor="normal">
+<headtex name="Face_N_Bloodwyn"	gender="male"	id="7"	skincolor="normal">
+<headtex name="Face_L_Scatty"	gender="male"	id="8"	skincolor="latino">
+<headtex name="Face_N_YBerion"	gender="male"	id="9"	skincolor="normal">
+<headtex name="Face_N_CoolPock"	gender="male"	id="10"	skincolor="normal">
+<headtex name="Face_B_CorAngar"	gender="male"	id="11"	skincolor="brown">
+<headtex name="Face_B_Saturas"	gender="male"	id="12"	skincolor="brown">
+<headtex name="Face_N_Xardas"	gender="male"	id="13"	skincolor="normal">
+<headtex name="Face_N_Lares"	gender="male"	id="14"	skincolor="normal">
+<headtex name="Face_L_Ratford"	gender="male"	id="15"	skincolor="latino">
+<headtex name="Face_N_Drax"	gender="male"	id="16"	skincolor="normal">
+<headtex name="Face_B_Gorn"	gender="male"	id="17"	skincolor="brown">
+<headtex name="Face_N_Player"	gender="male"	id="18"	skincolor="normal">
+<headtex name="Face_P_Lester"	gender="male"	id="19"	skincolor="normal">
+<headtex name="Face_N_Lee"		gender="male"	id="20"	skincolor="normal">
+<headtex name="Face_N_Torlof"	gender="male"	id="21"	skincolor="normal">
+<headtex name="Face_N_Mud"	gender="male"	id="22"	skincolor="normal">
+<headtex name="Face_N_Ricelord"	gender="male"	id="23"	skincolor="normal">
+<headtex name="Face_N_Horatio"	gender="male"	id="24"	skincolor="normal">
+<headtex name="Face_N_Richter"	gender="male"	id="25"	skincolor="normal">
+<headtex name="Face_N_Cipher_neu" gender="male"	id="26"	skincolor="normal">
+<headtex name="Face_N_Homer"	gender="male"	id="27"	skincolor="normal">
+<headtex name="Face_B_Cavalorn"	gender="male"	id="28"	skincolor="brown">
+<headtex name="Face_L_Ian"		gender="male"	id="29"	skincolor="latino">
+<headtex name="Face_L_Diego"	gender="male"	id="30"	skincolor="latino">
+<headtex name="Face_N_MadPsi"	gender="male"	id="31"	skincolor="normal">
+<headtex name="Face_N_Bartholo"	gender="male"	id="32"	skincolor="normal">
+<headtex name="Face_N_Snaf"	gender="male"	id="33"	skincolor="normal">
+<headtex name="Face_N_Mordrag"	gender="male"	id="34"	skincolor="normal">
+<headtex name="Face_N_Lefty"	gender="male"	id="35"	skincolor="normal">
+<headtex name="Face_N_Wolf"	gender="male"	id="36"	skincolor="normal">
+<headtex name="Face_N_Fingers"	gender="male"	id="37"	skincolor="normal">
+<headtex name="Face_N_Whistler"	gender="male"	id="38"	skincolor="normal">
+<headtex name="Face_P_Gilbert"	gender="male"	id="39"	skincolor="pale">
+<headtex name="Face_L_Jackal"	gender="male"	id="40"	skincolor="latino">
+
+
+<headtex name="Face_P_ToughBald"	gender="male"	id="41"	skincolor="pale">
+<headtex name="Face_P_Tough_Drago"	gender="male"	id="42"	skincolor="pale">
+<headtex name="Face_P_Tough_Torrez"	gender="male"	id="43"	skincolor="pale">
+<headtex name="Face_P_Tough_Rodriguez"	gender="male"	id="44"	skincolor="pale">
+<headtex name="Face_P_ToughBald_Nek"	gender="male"	id="45"	skincolor="pale">
+<headtex name="Face_P_NormalBald"	gender="male"	id="46"	skincolor="pale">
+<headtex name="Face_P_Normal01"	gender="male"	id="47"	skincolor="pale">
+<headtex name="Face_P_Normal02"	gender="male"	id="48"	skincolor="pale">
+<headtex name="Face_P_Normal_Fletcher"	gender="male"	id="49"	skincolor="pale">
+<headtex name="Face_P_Normal03"	gender="male"	id="50"	skincolor="pale">
+<headtex name="Face_P_NormalBart01"	gender="male"	id="51"	skincolor="pale">
+<headtex name="Face_P_NormalBart_Cronos"	gender="male"	id="52"	skincolor="pale">
+<headtex name="Face_P_NormalBart_Nefarius=53"	skincolor="pale">
+<headtex name="Face_P_NormalBart_Riordian=54"	skincolor="pale">
+<headtex name="Face_P_OldMan_Gravo"	gender="male"	id="55"	skincolor="pale">
+<headtex name="Face_P_Weak_Cutter"	gender="male"	id="56"	skincolor="pale">
+<headtex name="Face_P_Weak_Ulf_Wohlers"	gender="male"	id="57"	skincolor="pale">
+
+<!--Normal-->
+<headtex name="Face_N_Important_Arto"	gender="male"	id="58"	skincolor="normal">
+<headtex name="Face_N_ImportantGrey"	gender="male"	id="59"	skincolor="normal">
+<headtex name="Face_N_ImportantOld"	gender="male"	id="60"	skincolor="normal">
+<headtex name="Face_N_Tough_Lee_ähnlich"	gender="male"	id="61"	skincolor="normal">
+<headtex name="Face_N_Tough_Skip"	gender="male"	id="62"	skincolor="normal">
+<headtex name="Face_N_ToughBart01"	gender="male"	id="63"	skincolor="normal">
+<headtex name="Face_N_Tough_Okyl"	gender="male"	id="64"	skincolor="normal">
+<headtex name="Face_N_Normal01"	gender="male"	id="65"	skincolor="normal">
+<headtex name="Face_N_Normal_Cord"	gender="male"	id="66"	skincolor="normal">
+<headtex name="Face_N_Normal_Olli_Kahn"	gender="male"	id="67"	skincolor="normal">
+<headtex name="Face_N_Normal02"	gender="male"	id="68"	skincolor="normal">
+<headtex name="Face_N_Normal_Spassvogel"	gender="male"	id="69"	skincolor="normal">
+<headtex name="Face_N_Normal03"	gender="male"	id="70"	skincolor="normal">
+<headtex name="Face_N_Normal04"	gender="male"	id="71"	skincolor="normal">
+<headtex name="Face_N_Normal05"	gender="male"	id="72"	skincolor="normal">
+<headtex name="Face_N_Normal_Stone"	gender="male"	id="73"	skincolor="normal">
+<headtex name="Face_N_Normal06"	gender="male"	id="74"	skincolor="normal">
+<headtex name="Face_N_Normal_Erpresser"	gender="male"	id="75"	skincolor="normal">
+<headtex name="Face_N_Normal07"	gender="male"	id="76"	skincolor="normal">
+<headtex name="Face_N_Normal_Blade"	gender="male"	id="77"	skincolor="normal">
+<headtex name="Face_N_Normal08"	gender="male"	id="78"	skincolor="normal">
+<headtex name="Face_N_Normal14"	gender="male"	id="79"	skincolor="normal">
+<headtex name="Face_N_Normal_Sly"	gender="male"	id="80"	skincolor="normal">
+<headtex name="Face_N_Normal16"	gender="male"	id="81"	skincolor="normal">
+<headtex name="Face_N_Normal17"	gender="male"	id="82"	skincolor="normal">
+<headtex name="Face_N_Normal18"	gender="male"	id="83"	skincolor="normal">
+<headtex name="Face_N_Normal19"	gender="male"	id="84"	skincolor="normal">
+<headtex name="Face_N_Normal20"	gender="male"	id="85"	skincolor="normal">
+<headtex name="Face_N_NormalBart01"	gender="male"	id="86"	skincolor="normal">
+<headtex name="Face_N_NormalBart02"	gender="male"	id="87"	skincolor="normal">
+<headtex name="Face_N_NormalBart03"	gender="male"	id="88"	skincolor="normal">
+<headtex name="Face_N_NormalBart04"	gender="male"	id="89"	skincolor="normal">
+<headtex name="Face_N_NormalBart05"	gender="male"	id="90"	skincolor="normal">
+<headtex name="Face_N_NormalBart06"	gender="male"	id="91"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Senyan"	gender="male"	id="92"	skincolor="normal">
+<headtex name="Face_N_NormalBart08"	gender="male"	id="93"	skincolor="normal">
+<headtex name="Face_N_NormalBart09"	gender="male"	id="94"	skincolor="normal">
+<headtex name="Face_N_NormalBart10"	gender="male"	id="95"	skincolor="normal">
+<headtex name="Face_N_NormalBart11"	gender="male"	id="96"	skincolor="normal">
+<headtex name="Face_N_NormalBart12"	gender="male"	id="97"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Dexter"	gender="male"	id="98"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Graham"	gender="male"	id="99"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Dusty"	gender="male"	id="100"	skincolor="normal">
+<headtex name="Face_N_NormalBart16"		gender="male"	id="101"	skincolor="normal">
+<headtex name="Face_N_NormalBart17"		gender="male"	id="102"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Huno"	gender="male"	id="103"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Grim"	gender="male"	id="104"	skincolor="normal">
+<headtex name="Face_N_NormalBart20"		gender="male"	id="105"	skincolor="normal">
+<headtex name="Face_N_NormalBart21=106"	skincolor="normal">
+<headtex name="Face_N_NormalBart22"		gender="male"	id="107"	skincolor="normal">
+<headtex name="Face_N_OldBald_Jeremiah"	gender="male"	id="108"	skincolor="normal">
+<headtex name="Face_N_Weak_Ulbert"		gender="male"	id="109"	skincolor="normal">
+<headtex name="Face_N_Weak_BaalNetbek"	gender="male"	id="110"	skincolor="normal">
+<headtex name="Face_N_Weak_Herek"		gender="male"	id="111"	skincolor="normal">
+<headtex name="Face_N_Weak04"			gender="male"	id="112"	skincolor="normal">
+<headtex name="Face_N_Weak05"			gender="male"	id="113"	skincolor="normal">
+<headtex name="Face_N_Weak_Orry"		gender="male"	id="114"	skincolor="normal">
+<headtex name="Face_N_Weak_Asghan"		gender="male"	id="115"	skincolor="normal">
+<headtex name="Face_N_Weak_Markus_Kark"	gender="male"	id="116"	skincolor="normal">
+<headtex name="Face_N_Weak_Cipher_alt"	gender="male"	id="117"	skincolor="normal">
+<headtex name="Face_N_NormalBart_Swiney"	gender="male"	id="118"	skincolor="normal">
+<headtex name="Face_N_Weak12"			gender="male"	id="119"	skincolor="normal">
+
+<!--Latinos-->
+<headtex name="Face_L_ToughBald01"		gender="male"	id="120"	skincolor="latino">
+<headtex name="Face_L_Tough01"			gender="male"	id="121"	skincolor="latino">
+<headtex name="Face_L_Tough02"			gender="male"	id="122"	skincolor="latino">
+<headtex name="Face_L_Tough_Santino"		gender="male"	id="123"	skincolor="latino">
+<headtex name="Face_L_ToughBart_Quentin"	gender="male"	id="124"	skincolor="latino">
+<headtex name="Face_L_Normal_GorNaBar"	gender="male"	id="125"	skincolor="latino">
+<headtex name="Face_L_NormalBart01"		gender="male"	id="126"	skincolor="latino">
+<headtex name="Face_L_NormalBart02"		gender="male"	id="127"	skincolor="latino">
+<headtex name="Face_L_NormalBart_Rufus"	gender="male"	id="128"	skincolor="latino">
+
+<!--black-->
+<headtex name="Face_B_ToughBald"	gender="male"	id="129"	skincolor="brown">
+<headtex name="Face_B_Tough_Pacho"	gender="male"	id="130"	skincolor="brown">
+<headtex name="Face_B_Tough_Silas"	gender="male"	id="131"	skincolor="brown">
+<headtex name="Face_B_Normal01"		gender="male"	id="132"	skincolor="brown">
+<headtex name="Face_B_Normal_Kirgo"	gender="male"	id="133"	skincolor="brown">
+<headtex name="Face_B_Normal_Sharky"	gender="male"	id="134"	skincolor="brown">
+<headtex name="Face_B_Normal_Orik"	gender="male"	id="135"	skincolor="brown">
+<headtex name="Face_B_Normal_Kharim"	gender="male"	id="136"	skincolor="brown">
+
+<!--frauen-->
+<headtex name="FaceBabe_N_BlackHair"	gender="female"	id="137"	skincolor="normal">
+<headtex name="FaceBabe_N_Blondie"	gender="female"	id="138"	skincolor="normal">
+<headtex name="FaceBabe_N_BlondTattoo" gender="female"	id="139"	skincolor="normal">
+<headtex name="FaceBabe_N_PinkHair"	gender="female"	id="140"	skincolor="normal">
+<headtex name="FaceBabe_L_Charlotte"	gender="female"	id="141"	skincolor="latino">
+<headtex name="FaceBabe_B_RedLocks"	gender="female"	id="142"	skincolor="brown">
+<headtex name="FaceBabe_N_HairAndCloth" gender="female"	id="143"	skincolor="normal">
+
+<headtex name="FaceBabe_N_WhiteCloth"	gender="female"	id="144"	skincolor="normal">
+<headtex name="FaceBabe_N_GreyCloth"	gender="female"	id="145"	skincolor="normal">
+<headtex name="FaceBabe_N_Brown"	gender="female"	id="146"	skincolor="normal">
+<headtex name="FaceBabe_N_VlkBlonde"	gender="female"	id="147"	skincolor="normal">
+<headtex name="FaceBabe_N_BauBlonde"	gender="female"	id="148"	skincolor="normal">
+<headtex name="FaceBabe_N_YoungBlonde" gender="female"	id="149" skincolor="normal">
+<headtex name="FaceBabe_N_OldBlonde"	gender="female"	id="150"	skincolor="normal">
+<headtex name="FaceBabe_P_MidBlonde" gender="female"	id="151"	skincolor="pale">
+<headtex name="FaceBabe_N_MidBauBlonde" gender="female"	id="152" skincolor="normal">
+<headtex name="FaceBabe_N_OldBrown"	gender="female"	id="153"	skincolor="normal">
+<headtex name="FaceBabe_N_Lilo"		gender="female"	id="154"	skincolor="normal">
+<headtex name="FaceBabe_N_Hure"		gender="female"	id="155"	skincolor="normal">
+<headtex name="FaceBabe_N_Anne"	gender="female"	id="156"	skincolor="normal">
+<headtex name="FaceBabe_B_RedLocks2"	gender="female"	id="157"	skincolor="brown">
+<headtex name="FaceBabe_L_Charlotte2"	gender="female"	id="158"	skincolor="latino">
+
+
+<headtex name="Face_N_Fortuno"	gender="male"	id="159"	skincolor="normal">
+
+<headtex name="Face_P_Greg"	gender="male"	id="160"	skincolor="pale">
+<headtex name="Face_N_Pirat01"	gender="male"	id="161"	skincolor="normal">
+<headtex name="Face_N_ZombieMud" gender="male"	id="162"	skincolor="extra"><!--Ist laut texturname normal, sollte aber nicht generiert werden-->
+
+

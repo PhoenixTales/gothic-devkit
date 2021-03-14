@@ -1,0 +1,25 @@
+#include<stdlib.zsl>
+
+/* Beispielskript aus dem ersten Tutorial
+ * mit kommentierten Zeilen. */
+
+func void main() {
+    /* Gibt eine Warnung (grün) im zSpy aus */
+    Warn("Hello zSpy");
+    
+    /* Lädt die Welt NewWorld_Part_Farm_01.ZEN,
+     * wobei an den in worldIncludePath in der zSlang.ini
+     * angegebenen Stellen nach ihr gesucht wird. */
+    WLD_Load("NewWorld_Part_Farm_01.ZEN");
+    
+    /* WLD_NewVob erzeugt ein neues Vob mit angegebenem Visualnamen
+     * und Position. Die Position wird von der Position eines
+     * Waypoints übernommen, der bereits in der Welt ist. */
+    var object obj = WLD_NewVob("Hello Lobart!", WLD_GetWP("NW_FARM1_OUT_01").pos);
+    
+    /* Das Visual des Objekts wird auf das Visual eines Baumes geändert. */
+    obj.visual = "NW_NATURE_BIGTREE_356P.3DS";
+    
+    /* Die veränderte Welt wird unter neuem Namen gespeichert. */
+    WLD_Save("HELLO_LOBART.ZEN");
+}

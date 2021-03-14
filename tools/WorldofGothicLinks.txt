@@ -1,0 +1,22 @@
+Farbeimer: https://forum.worldofplayers.de/forum/threads/444316-Tool-Farbeimer
+FNTEdit: https://forum.worldofplayers.de/forum/threads/921903-Tool-FNTEdit
+Font2Targa: https://forum.worldofplayers.de/forum/threads/1022915-Tool-Font2Targa
+Goman: https://www.worldofgothic.de/gothic/index.php?go=editing_goman
+// Goman Releasethread?
+Gothic MaT Blender: https://forum.worldofplayers.de/forum/threads/1492323-Blender-Script-Gothic-MaT-Blender
+Gothic Sourcer: https://forum.worldofplayers.de/forum/threads/133580-GothicSourcer-v3-10
+// GothicVDFS Releasethread?
+GothicVDFS Optimizer: https://forum.worldofplayers.de/forum/threads/98537-tool-GothicVDFS-Optimizer
+// GothicZTEX Releasethread?
+GVE: https://forum.worldofplayers.de/forum/threads/576370-Release-GVE-Gothic-Variablen-Editor
+NPC-Viewer: https://forum.worldofplayers.de/forum/threads/959374-Tool-NPC-Viewer
+Output-Commander: https://forum.worldofplayers.de/forum/threads/141481-TOOL-RELEASE-Output-Commander-2-0
+Redefix: https://forum.worldofplayers.de/forum/threads/745791-Tool-Redefix
+Spacer Hotkeys: https://forum.worldofplayers.de/forum/threads/1484624-Spacer-Spacer-Hotkeys
+Sprachausgabenhelfer: https://forum.worldofplayers.de/forum/threads/141482-Tool-Sprachausgabenhelfer-2-0
+Stampfer: https://forum.worldofplayers.de/forum/threads/641328-RELEASE-Stampfer-Gothic-Scripteditor 
+VDF Manager: https://forum.worldofplayers.de/forum/threads/420115-VDFStarter
+Zen Convert: https://forum.worldofplayers.de/forum/threads/132529-NEUES-TOOL-ZEN-Convert
+ZenVis: https://forum.worldofplayers.de/forum/threads/1516186-Tool-ZenVis
+zSlang: https://forum.worldofplayers.de/forum/threads/1185937-Werkzeug-zSlang-Eine-Skriptsprache-f%C3%BCr-Spacerprobleme
+zTEXTools: https://forum.worldofplayers.de/forum/threads/62043-info-ZTEX-docs-n-tools

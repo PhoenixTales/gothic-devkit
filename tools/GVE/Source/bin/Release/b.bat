@@ -1,0 +1,1 @@
+mt.exe -manifest "GVE.exe.manifest" -outputresource:"GVE.exe";1

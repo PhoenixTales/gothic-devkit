@@ -1,0 +1,705 @@
+#ifndef HULLS_ZSL
+#define HULLS_ZSL
+
+//#################################################
+//
+//    selalgo.zsl
+//
+//    Selection algorithms
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+#include<stdlib/geometry.zsl>
+#include<stdlib/algebra.zsl>
+
+//************************************************
+//   Generic
+//************************************************
+
+func selection HULL_SelectByHull(ref template theHull, var float eps = EPS) {
+    var selection res;
+    foreach o in WLD_GetAll() {
+        if (theHull.isInChecker(theHull, o, eps)) {
+            res += o;
+        }
+    }
+    return res;
+}
+
+#define _HULL_PointsFromTemplate3D \
+    var float points[][3];                \
+    if (TPL_TypeOf(t) == "selection" || TPL_BaseTypeOf(t) == "object") {   \
+        foreach obj in t {                \
+            points |= obj.pos;            \
+        }                                 \
+    } else {                              \
+        points = t;                       \
+    }                                     
+#define _HULL_PointsFromTemplate2D        \
+    var float points[][2];                \
+    if (TPL_TypeOf(t) == "selection" || TPL_BaseTypeOf(t) == "object") {   \
+        foreach obj in t {                \
+            points |= obj.pos2D;          \
+        }                                 \
+    } else {                              \
+        points = t;                       \
+    }                                         
+#define _HULL_PointFromTemplate3D         \
+    var float point[3];                   \
+                                          \
+    if (TPL_TypeOf(t) == "object") {      \
+        point = t.pos;                    \
+    } else {                              \
+        point = t;                        \
+    }                                     
+    
+#define _HULL_PointFromTemplate2D \
+    var float point[2];                   \
+                                          \
+    if (TPL_TypeOf(t) == "object") {      \
+        point = t.pos2D;                  \
+    } else {                              \
+        point = t;                        \
+    }                                     
+    
+func bool HULL_IsInHull(ref template theHull, var template obj) {
+    return theHull.isInChecker(theHull, obj);
+}
+
+//************************************************
+//   Convex Hull 2D
+//************************************************
+
+/* given a set of objects, convexHullBorder computes *
+ * the ordered set of those objects that form the border of  *
+ * the convex hull of these objects.                 *
+ * The objects are returned in the order they appear *
+ * on the border of the hull. */
+
+struct _CHullNode2D {
+    var float pos[2];   //position of this node
+    var int nextLeft;   //the index of the first node that was constructed between
+                        //me and my left parent. -1 if no node exists.
+    var int nextRight;  //the same as above but with the right parent instead.
+}
+
+struct CHull2D {
+    var _CHullNode2D nodes[];
+    var function isInChecker = HULL_IsInCHull2D;
+}
+
+//extracting nodes that are above the line from left to right
+func bool _CH2D_aboveFilter(var float p[2], var float line[2][2]) {
+    return GEO_TriangleHeight(line[0], line[1], p) > 0;
+}
+
+func float[][2] _CH2D_extractAbove(var float left[2], var float right[2], ref float arr[][2]) {
+    return extract(arr, pred(_CH2D_aboveFilter, { left, right }));
+}
+
+//sorting by height (height above the line from left to right)
+
+func bool _CH2D_heightLess(var float p1[2], var float p2[2],
+                           var float line[2][2]) {
+    return GEO_TriangleHeight(line[0], line[1], p1)
+         < GEO_TriangleHeight(line[0], line[1], p2);
+}
+
+/* Situation: The is a left point and a right point and a set of points that are
+ * above the line from the left to the right.
+ * Task: Complete the convex Hull on this end of the figure, i.e:
+ * Find the point that is highest above the line from left to right and recurse
+ * for the two sides of the resulting triangle.
+ * return the index of this highest point. */
+func int _HULL_CHull2D_Sub(ref CHull2D hull, ref float points[][2],
+                              var float left[2], var float right[2]) {
+    if (points.size == 0) {
+        return -1;
+    }
+    
+    var _CHullNode2D newNode;
+    newNode.pos = max(points, pred(_CH2D_heightLess, { left, right })); //the maximum with respect to the height above the line
+    
+    var float leftPart[][2]  = _CH2D_extractAbove(left, newNode.pos , points);
+    var float rightPart[][2] = _CH2D_extractAbove(newNode.pos, right, points);
+    
+    newNode.nextLeft  = _HULL_CHull2D_Sub(hull, leftPart,  left,  newNode.pos);
+    newNode.nextRight = _HULL_CHull2D_Sub(hull, rightPart, newNode.pos, right);
+    
+    hull.nodes |= newNode;
+    return hull.nodes.size - 1;
+}
+ 
+/* First step of computing the hull:
+ * find two points that are guaranteed to be in the hull and
+ * use the above function two compute the hull of the points above
+ * and below the line connecting those two points.
+ * handle special cases (few nodes). */
+func CHull2D HULL_CHull2D(ref template t) {
+    _HULL_PointsFromTemplate2D; //macro
+    
+    sort(points, predLexLess); //lexicographical sorting
+    unique(points);
+    
+    var CHull2D hull;
+    /*algorithm works for 2 or more nodes: */
+    if (points.size <= 1) {
+        Warn("HULL_CHull2D was called with degenerated set of " + points.size + " distinct nodes.");
+        if (points.size == 0) {
+            return hull;
+        }
+        var _CHullNode2D theNode;
+        theNode.pos = points[0];
+        theNode.nextLeft = theNode.nextRight = -1;
+        hull.nodes |= theNode;
+        return hull;
+    };
+    
+    /* the leftmost point */
+    var _CHullNode2D tmp;
+    tmp.pos = points[0];
+    tmp.nextLeft = tmp.nextRight = -1;
+    hull.nodes |= tmp;
+    
+    tmp.pos = points[points.size - 1];
+    hull.nodes |= tmp;
+    
+    var float upper[][2] = _CH2D_extractAbove(hull.nodes[0].pos, hull.nodes[1].pos, points);
+    var float lower[][2] = _CH2D_extractAbove(hull.nodes[1].pos, hull.nodes[0].pos, points);
+    
+    hull.nodes[0].nextLeft  = _HULL_CHull2D_Sub(hull, lower, hull.nodes[1].pos, hull.nodes[0].pos);
+    hull.nodes[0].nextRight = _HULL_CHull2D_Sub(hull, upper, hull.nodes[0].pos, hull.nodes[1].pos);
+    return hull;
+}
+
+/* We did this for checking whether stuff is within the convex Hull */
+/* sub: Check whether a point respects the contraints that come from
+ * the part of the hull between left and right.
+ * leftNodeIsNew indicates in which of the nodes to search for subnodes. */
+var float _HULL_EPS;
+func bool _HULL_IsInCHull2D_Sub(ref CHull2D hull, var float p[2],
+                                   var int leftIndex, var int rightIndex,
+                                   var bool leftNodeIsNew) {
+    var float left[2]  = hull.nodes[leftIndex].pos;
+    var float right[2] = hull.nodes[rightIndex].pos;
+    if (GEO_TriangleHeight(left, right, p) < _HULL_EPS) { //is below the line from left to right
+        return true; //trivially respects all contraints
+    }
+    
+    var int nextIndex;
+    if(leftNodeIsNew) {
+        nextIndex = hull.nodes[leftIndex].nextRight;
+    } else {
+        nextIndex = hull.nodes[rightIndex].nextLeft;
+    }
+    
+    if (nextIndex == -1) {
+        //this was already a real border and the point does not respect it.
+        return false;
+    }
+    
+    return _HULL_IsInCHull2D_Sub(hull, p, leftIndex, nextIndex, false)
+        && _HULL_IsInCHull2D_Sub(hull, p, nextIndex, rightIndex, true);
+}
+
+func bool HULL_IsInCHull2D(ref CHull2D hull, var template t, var float eps = EPS) {
+    _HULL_EPS = eps;
+    
+    _HULL_PointFromTemplate2D; //macro
+    
+    if (hull.nodes.size == 0) {
+        return false;
+    }
+    if (hull.nodes.size == 1) {
+        return ALG_Dist(hull.nodes[0].pos, point) < _HULL_EPS;
+    }
+    
+    /* no borderline case: Check whether it is in the upper and the lower hull */
+    return _HULL_IsInCHull2D_Sub(hull, point, 0, 1, 1)
+        && _HULL_IsInCHull2D_Sub(hull, point, 1, 0, 0);
+}
+
+//************************************************
+//   Convex Hull 3D
+//************************************************
+
+/* Its far harder to implement this efficiently.
+ * I did gift wrapping and if I want to know
+ * whether a point is within a hull, I naively
+ * check against every face.
+ *
+ * For more information on convex hulls refer to
+ * http://www.cse.unsw.edu.au/~lambert/java/3d/hull.html
+ */
+
+/* Conventions:
+ * Normals point Outwards of the polyhedron.
+ * The first, second and third point of a triangle appear
+ * counterclockwise when observed from the outside of the polyhedron. */
+ 
+struct _HullNode3D {
+    var float pos[3];
+    var int faceIndices[];
+}
+
+struct _Hull3D_Constructor {
+    var _HullNode3D nodes[];
+    var int faces[][3];
+    var bool isColinear;
+}
+
+struct CHull3D {
+    /* normal case: constraints: */
+    var Plane planes[];
+    /* special case: */
+    var bool specialCase;
+    var float specialCasePoints[][3];
+    var function isInChecker = HULL_IsInCHull3D;
+}
+
+func bool _HULL3D_FaceExists(ref _Hull3D_Constructor hull, var int first, var int second) {
+    /* check whether a face with these verteces (in that order) already exists. */
+    foreach faceIndex in hull.nodes[first].faceIndices {
+        var int face[3] = hull.faces[faceIndex];
+        if (face[0] == first && face[1] == second)
+        || (face[1] == first && face[2] == second)
+        || (face[2] == first && face[0] == second) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* Construct the next face when the current face goes through p1 and p2 with the normal.
+ * Return the index of the third point needed and update the normal */
+func int _HULL3D_FindThird(ref _Hull3D_Constructor hull, var float first[3], var float second[3], ref float normal[3]) {
+    /* Find the point such that the normal does not change much */
+    var float qual[hull.nodes.size];
+    var float third[3];
+    for(var int i = 0; i < hull.nodes.size; i += 1) {
+        third = hull.nodes[i].pos;
+        /* avoid constructing degenerated triangles of (nearly) colinear points.
+         * They may seem harmless, but their normals are numerically unstable. */
+        if(ALG_DistToLine(first, second, third) < EPS) {
+            qual[i] = -2;
+        } else {
+            qual[i] = ALG_PlaneFromPoints({first, second, third}).normal * normal;
+        }
+    }
+    
+    var int thirdIndex = maxIndex(qual);
+    var int maxQual = qual[thirdIndex];
+    
+    if (maxQual == -2) {
+        Warn("HULL_CHull3D: All given points are (roughly) colinear.");
+        hull.isColinear = true;
+        return -1;
+    }
+    
+    normal = ALG_PlaneFromPoints({first, second, hull.nodes[thirdIndex].pos}).normal;
+    return thirdIndex;
+}
+
+func void _HULL3D_Process(ref _Hull3D_Constructor hull, var int first, var int second, var float normal[3]) {
+    if (_HULL3D_FaceExists(hull, first, second) || hull.isColinear) {
+        return; //I already drew that face
+    }
+    
+    var int third = _HULL3D_FindThird(hull, hull.nodes[first].pos, hull.nodes[second].pos, normal);
+    
+    if (hull.isColinear) {
+        //emergency abort (all points colinear)
+        return;
+    }
+    
+    /* Construct face: */
+    var int faceIndex = hull.faces.size;
+    hull.faces |= {first, second, third};
+    hull.nodes[first] .faceIndices |= faceIndex;
+    hull.nodes[second].faceIndices |= faceIndex;
+    hull.nodes[third] .faceIndices |= faceIndex;
+    
+    //normal has been updated. Keep the conventions in mind at this point
+    _HULL3D_Process(hull, third, second, normal);
+    _HULL3D_Process(hull, first, third, normal);
+}
+
+func void _HULL3D_DistLess(ref float p1[3], ref float p2[3], ref float refPoint[3]) {
+    return ALG_Dist(p1, refPoint) < ALG_Dist(p2, refPoint);
+}
+
+func CHull3D HULL_CHull3D(ref template t) {
+    _HULL_PointsFromTemplate3D; //macro
+    
+    sort(points, predLexLess); //lexicographic sorting
+    unique(points);
+    
+    //now i got to find two points that form an edge in the polyhedron hull:
+    var CHull3D result;
+    result.specialCase = false; //normal case
+    
+    if (points.size < 2) {
+        result.specialCase = true;
+        
+        Warn("HULL_CHull3D was called with degenerated set of only " + objs.size + " distinct points.");
+        
+        if (points == 0) {
+            return result;
+        } else {
+            result.specialCasePoints = { points[0] };
+            return result;
+        }
+    }
+    
+    //Package in datastructure so I can draw edges:
+    var _Hull3D_Constructor hull;
+    var _HullNode3D node;
+    foreach point in points {
+        node.pos = point;
+        hull.nodes |= node;
+    }
+    
+    /* the lexicographically smallest node A = (x,y,z) is in hull(points).
+     * All nodes p in hull(points) respect the constraint p.x >= A.x.
+     * So lets take the plane X = A.x and the two Nodes A and B=(x, y-1, z)
+     * A and B are neighbours in hull(points+B).
+     * If not all points are on the line X = A.x, Z = A.z we will get a point C
+     * on hull(points+B) with the help of _HULL3D_FindThird.
+     * A and C are neighbours in hull(points+B) and also neighbours in
+     * hull(points). This is what we wanted. */
+    
+    var int A_Index = 0;
+    var float A[3] = points[A_Index];
+    var float B[3] = points[0] + {0, -1, 0};
+    var float normal[3] = {-1, 0, 0};
+    ALG_NormalizeVec(normal);
+    
+    var int C_Index = _HULL3D_FindThird(hull, /*A*/points[0], /*B*/ points[0] + {0, -1, 0}, normal);
+    var float C[3] = points[C_Index];
+    
+    /* All points respect the contraint given by the Plane going through A B C.
+     * normal was already updated by _HULL3D_FindThird to be the normal
+     * of that plane. */
+    /* No go on in both directions*/
+    
+    _HULL3D_Process(hull, A_Index, C_Index, normal);
+    _HULL3D_Process(hull, C_Index, A_Index, normal);
+    
+    if (hull.isColinear) {
+        result.specialCase = true;
+        
+        /* get the two extremal points on the line */
+        /* first: get the point that is furthest away from some point */
+        var float p1[3] = max(points, pred(_HULL3D_DistLess, points[0]));
+        /* then get the point that is furthest away from this extremal point */
+        var float p2[3] = max(points, pred(_HULL3D_DistLess, p1));
+        
+        result.specialCasePoints = { p1, p2 };
+    }
+    
+    #ifdef HULL3D_DEBUGPRINT
+        /* print the hull for testing */
+        foreach face in hull.faces {
+            var object wps[3];
+            for(var int wp = 0; wp < 3; wp += 1) {
+                if !(wps[wp] = WLD_GetWP("HULL" + face[wp])) {
+                    wps[wp] = WLD_NewWP("HULL"+ face[wp]);
+                    wps[wp].pos = hull.nodes[face[wp]].pos;
+                }
+            }
+            
+            WLD_ConnectWPs(wps[0], wps[1]);
+            WLD_ConnectWPs(wps[1], wps[2]);
+            WLD_ConnectWPs(wps[2], wps[0]);
+        }
+    #endif
+    
+    /* normal case: Construct the Planes */
+    foreach face in hull.faces {
+        result.planes |= ALG_PlaneFromPoints({hull.nodes[face[0]].pos,
+                                              hull.nodes[face[1]].pos,
+                                              hull.nodes[face[2]].pos});
+    }
+    return result; //and forget the constructor
+}
+
+func bool HULL_IsInCHull3D(ref CHull3D hull, var template t, var float eps = EPS) {
+    _HULL_PointFromTemplate3D;
+    
+    //special cases:
+    if (hull.specialCase) {
+        var int numPoints = hull.specialCasePoints.size;
+        
+        if (numPoints == 0) {
+            return false;
+        } else if (numPoints == 1) {
+            return ALG_Dist(hull.specialCasePoints[0], point) < eps;
+        }
+        //numPoints = 2:
+        assert(numPoints == 2, "HULL_IsInCHull3D: What special case?!");
+        var float p1[3] = hull.specialCasePoints[0];
+        var float p2[3] = hull.specialCasePoints[1];
+        if (ALG_DistToLine(p1, p2, point) >= eps) {
+            //dist from that line is big
+            return false;
+        } 
+        if ((p1 - point)*(p2-point) < 0) {
+            //not right or left of both p1 and p2
+            return true;
+        }
+        return ALG_Dist(p1,point) < EPS || ALG_Dist(p2,point) < EPS;
+    }
+    
+    //Normal cases: naive checking:
+    foreach plane in hull.planes {
+        if (ALG_DistToPlane(plane, point) > eps) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//************************************************
+//   Polygon
+//************************************************
+
+/* Strategie: A point is in a polygon if it is
+ * in the convex hull of the points of the polygon
+ * and if it is not in one of the "cavities".
+ * These "cavities" (area that is in the convex
+ * hull but not in the polygon) are again a set
+ * of (smaller) polygons. Handle them recursively. */
+
+struct Polygon {
+    var CHull2D hull;
+    var _Cavity cavityPool[]; //a little bit ugly because cyclic struct usage
+                              //is not allowed (not even for arrays with standard size 0).
+                              //This poly will therefore also contain the cavities of the cavities.
+    var int cavities[];       //the indices of the direct cavities of the polygon
+    var function isInChecker = HULL_IsInPoly;
+}
+
+struct _Cavity {
+    var float opening[2][2]; /* must be known for epsilon handling */
+    var CHull2D hull;
+    var int cavities[]; //indices in the cavityPool of the Polygon
+}
+
+/* points must be given in counterclockwise order when seen from above */
+
+func Polygon HULL_Polygon(var template t) {
+    if (TPL_TypeOf(t) == "selection") {
+        Fatal("HULL_Polygon cannot be called with a selection, because selections do not provide a natural ordering of the objects which is needed to construct a polygon.");
+    }
+    
+    _HULL_PointsFromTemplate2D;
+    unique(points); //guarantee that no two consecutive points are equal will be useful
+    
+    var Polygon poly;
+    poly.hull = HULL_CHull2D(points);
+    
+    if (points.size <= 2) {
+        return poly; //Polys of sizes <= 2 dont have cavities (and can be pretty annoying).
+    }
+
+    //****************************
+    //   finding a starting point
+    //****************************
+    
+    var int first = minIndex(points, predLexLess); //lowest x coordinate
+    
+    //now rotate the array so that first is on index 0 (will save me some modulo confusion later)
+    var float rotPoints[points.size+1][2];
+    
+    for(var int i = 0; i < points.size; i += 1) {
+        rotPoints[i] = points[(first + i) % points.size];
+    }
+    rotPoints[points.size] = rotPoints[0];
+    
+    //****************************
+    //   call the construction
+    //****************************
+    
+    _HULL_Polygon_FindCavities(poly, rotPoints, 0, points.size, {0, -1}, poly.cavities);
+    return poly;
+}
+
+/* search for cavities on the way from "from" to "to". Register all cavities in cavityArr.
+ * lastStep contains the direction of a tangent on "from" such that all points in the
+ * range [from,to] are above that tangent. */
+func void _HULL_Polygon_FindCavities(ref Polygon poly, ref float points[][2], //data
+                                  var int from, var int to, var float lastStep[2], ref int cavityArr[]) {
+    var int dir = 1;
+    if (from > to) {
+        dir = -1;
+    }
+    
+    while(abs(from - to) > 1) {
+        /* get the next point on the hull, all in between is a cavity */
+        var int bestI = -1;
+        var float best  = PI + EPS;
+        for(var int i = from + dir; i != to; i += dir) {
+            if (points[i] == points[from]) { continue; } //Only when from == 0 and to == poly.length
+            
+            var float angle = GEO_Angle(lastStep, points[i] - points[from]);
+            
+            if(-PI <= angle && angle < -PI + EPS) {
+                angle += 2*PI;
+            }
+            
+            if (angle < best) {
+                best = angle;
+                bestI = i;
+            }
+        }
+        
+        if (best < -EPS) {
+            //turning the wrong direction. lastStep must be wrong.
+            Fatal("_HULL_Polygon_FindCavities: Major inconsistency detected. Are you sure the polygon does not intersect itself and the points are given in counterclockwise order?");
+        }
+        
+        if (best > PI - EPS) {
+            Warn("Detected a U-Turn in the Polygon (angle ~= PI). The Polygon is either pretty weird or the points are not given in counterclockwise order.");
+        }
+        
+        //go that step:
+        lastStep = points[bestI] - points[from];
+        
+        //there is a cavity from "from" to "bestI" if they are not neighbours.
+        if (abs(from - bestI) > 1) {
+            var _Cavity cav;
+            var int count = abs(bestI - from) + 1;
+            cav.hull = HULL_CHull2D(subArr(points, min({from, bestI}), count));
+            cav.opening = {points[from], points[bestI]};
+            
+            //recursivly find the cavities of this cavity
+            _HULL_Polygon_FindCavities(poly, points, bestI, from, lastStep, cav.cavities);
+            
+            poly.cavityPool |= cav;
+            cavityArr |= poly.cavityPool.size - 1;
+        }
+        
+        from = bestI; //now go on from best until at the end.
+    }
+}
+
+//Test whether a point is within the poly
+
+func bool HULL_IsInPoly(ref Polygon poly, ref template t, var float eps = EPS) {
+    _HULL_PointFromTemplate2D;
+    
+    if (!HULL_IsInCHull2D(poly.hull, point, eps)) {
+        return false;
+    }
+    
+    for(var int c = 0; c < poly.cavities.size; c += 1) {
+        if (_HULL_IsInCavity(poly, poly.cavityPool[poly.cavities[c]], point, eps)) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+func bool _HULL_IsInCavity(ref Polygon poly, ref _Cavity cav, var float point[2], var float eps) {
+    /* The epsilon handling is the problem here.
+     * 
+     * case 1: eps > 0
+     * The user wants all border conditions to be relaxed by eps.
+     * but for cavities that means the opposite: In order for a point to be
+     * discarded because it is in the cavity, the point must fullfill a tightened condition.
+     * 
+     * There must be special handling for the opening of the cavitiy.
+     * Otherwise the points along the opening are in the (relaxed)
+     * convex Hull of the polygon, but not in the (thightened) cavitiy.
+     *
+     * case 2: eps < 0
+     * The user wants to exclude the border. The convex hull condition
+     * is tightened, the cavitiy condition relaxed. There may be points
+     * that are not in the (tightened) convex hull of the polygon but
+     * in one of the (relaxed) cavities. This is not a problem, though. */
+    
+    var bool inCav = HULL_IsInCHull2D(cav.hull, point, -eps);
+    
+    if (eps > 0 && !inCav) {
+        //its not in the thightened cavity.
+        
+        //is it on the borderline?
+        if (ALG_DistToLine(cav.opening[0], cav.opening[1], point) > eps) {
+            return false;
+        }
+        
+        //but its not on the segment is it?
+        if ((cav.opening[0] - point)*(cav.opening[1]-point) > 0) {
+            return false;
+        }
+        
+        //ok, if its not directly at one of the points, I'll admit its on that opening
+        if (ALG_Dist(cav.opening[0],point) > eps && ALG_Dist(cav.opening[1], point) > eps) {
+            inCav = true;
+        }
+    }
+    
+    if (!inCav) {
+        return false; //not even in the convex hull.
+    }
+    
+    /* this cavity may be non trivial. If the point is in the convex hull
+     * of my cavity it may still not be in the cavitiy if my cavity has itself cavities.
+     * Test that.
+     * If the conditions were relaxed they are now tightened and vice versa. */
+    for(var int c = 0; inCav && c < cav.cavities.size; c += 1) {
+        if (_HULL_IsInCavity(poly, poly.cavityPool[cav.cavities[c]], point, -eps)) {
+            return false; //in cavity of cavity -> not in cavity
+        }
+    }
+    
+    return true;
+}
+
+//************************************************
+//   Ball2D and Ball3D (trivial)
+//************************************************
+
+struct Ball2D {
+    var float center[2];
+    var float radQuad;
+    var function isInChecker = HULL_IsInBall2D;
+}
+
+struct Ball3D {
+    var float center[3];
+    var float radQuad;
+    var function isInChecker = HULL_IsInBall3D;
+}
+
+func Ball2D HULL_Ball2D(var template t, var float rad) {
+    var Ball2D ball;
+    _HULL_PointFromTemplate2D;
+    ball.center = point;
+    ball.radQuad = sqr(rad);
+    return ball;
+}
+
+func Ball3D HULL_Ball3D(var template t, var float rad) {
+    var Ball3D ball;
+    _HULL_PointFromTemplate3D;
+    ball.center = point;
+    ball.radQuad = sqr(rad);
+    return ball;
+}
+
+func bool HULL_IsInBall2D(ref Ball2D ball, var template t) {
+    _HULL_PointFromTemplate2D;
+    var float diff[2] = point - ball.center;
+    return diff * diff <= ball.radQuad;
+}
+
+func bool HULL_IsInBall3D(ref Ball3D ball, var template t) {
+    _HULL_PointFromTemplate3D;
+    var float diff[3] = point - ball.center;
+    return diff * diff <= ball.radQuad;
+}
+
+#endif //HULLS_ZSL

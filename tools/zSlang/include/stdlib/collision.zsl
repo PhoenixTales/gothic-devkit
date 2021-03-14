@@ -1,0 +1,341 @@
+#ifndef COLLISION_ZSL
+#define COLLISION_ZSL
+
+//#################################################
+//
+//    collision.zsl
+//
+//    Automatic Collision Settings
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+#include<stdlib/tools.zsl>
+#include<collspec.zsl>
+
+//Actions
+var int COLL_IGNORE   = 0;  //Leave everything as it is
+var int COLL_TRUE     = 1;  //Set collision flags to true
+var int COLL_FALSE    = 2;  //Set collision flags to false
+var int COLL_BY_RULES = 3;  //Let the wizard decide (only valid in COLLSPEC_HandleVob)
+
+/* Priority constants
+ * Not that those constants have a lot of meaning...
+ * But they may make the code easier to understand  */
+ 
+var int COLL_SECT_CERTAIN  = 10000;
+var int COLL_SECT_HIGHER   =  5000;
+var int COLL_SECT_NORMAL   =  2000;
+var int COLL_SECT_LOWER    =  1000;
+var int COLL_SECT_GUESS    =     0;
+
+/* some matching rule */
+struct _CollisionRule {
+    var int priority;
+    var int action;
+    var string regEx;
+}
+
+/* Deprecated, do not use. */
+var flag COLL_STATICVOB  = 1;
+var flag COLL_CDDYN      = 2;
+var flag COLL_CDSTATIC   = 4;
+var flag COLL_COLLISION  = COLL_CDDYN + COLL_CDSTATIC;
+var flag COLL_ALL        = COLL_CDDYN + COLL_CDSTATIC + COLL_STATICVOB;
+
+//************************************************
+//   Collision Wizard struct
+//************************************************
+
+struct _CollisionWizard {
+    var object affectVobs[]; //affect only these vobs
+    
+    //explicit rules
+    var string explicitlyTrue[];
+    var string explicitlyFalse[];
+    var string explicitlyIgnored[];
+    
+    //matching rules
+    var _CollisionRule rules[];
+    
+    //the log for the "what if" functionality
+    var bool   whatIfMode;
+    var string whatIf_Log[];
+    var bool   whatIf_ChangesOnly;
+    
+    /* what could I not handle correctly? */
+    var string unmatchableTrue[]; //with currently activated collision
+    var string unmatchableFalse[];//with currently deactivated collision
+    
+    /* When reading the rules, what kind of rules am I reading now? */
+    var bool inExplicitSection;
+    var int  currMatchingPrio;
+}
+
+/* For ease of use, define it globally and clear it every time. */
+var _CollisionWizard _COLL_theWizard;
+
+func void _COLL_ClearWizard() {
+    _COLL_theWizard.explicitlyTrue = _COLL_theWizard.explicitlyFalse = _COLL_theWizard.explicitlyIgnored = { };
+    _COLL_theWizard.rules = _COLL_theWizard.whatIf_Log = { };
+    _COLL_theWizard.affectVobs = {};
+    _COLL_theWizard.inExplicitSection = true;
+    _COLL_theWizard.unmatchableTrue = {};
+    _COLL_theWizard.unmatchableFalse = {};
+}
+
+//************************************************
+//   Introduce a rule 
+//************************************************
+
+func void COLL_True(var string str) {
+    if(_COLL_theWizard.inExplicitSection) {
+        _COLL_theWizard.explicitlyTrue |= str;
+    } else {
+        var _CollisionRule rule;
+        rule.action = COLL_TRUE;
+        rule.regEx = str;
+        rule.priority = _COLL_theWizard.currMatchingPrio;
+        _COLL_theWizard.rules |= rule;
+    }
+}
+
+func void COLL_False(var string str) {
+    if(_COLL_theWizard.inExplicitSection) {
+        _COLL_theWizard.explicitlyFalse |= str;
+    } else {
+        var _CollisionRule rule;
+        rule.action = COLL_FALSE;
+        rule.regEx = str;
+        rule.priority = _COLL_theWizard.currMatchingPrio;
+        _COLL_theWizard.rules |= rule;
+    }
+}
+
+func void COLL_Ignore(var string str) {
+    if(_COLL_theWizard.inExplicitSection) {
+        _COLL_theWizard.explicitlyIgnored |= str;
+    } else {
+        var _CollisionRule rule;
+        rule.action = COLL_IGNORE;
+        rule.regEx = str;
+        rule.priority = _COLL_theWizard.currMatchingPrio;
+        _COLL_theWizard.rules |= rule;
+    }
+}
+
+//************************************************
+//   Specify which rules follow
+//************************************************
+
+func void COLL_ExplicitSection() {
+    _COLL_theWizard.inExplicitSection = true;
+}
+
+func void COLL_MatchingSection(var int priority) {
+    _COLL_theWizard.inExplicitSection = false;
+    _COLL_theWizard.currMatchingPrio      = priority;
+}
+
+//************************************************
+//   Core functionality
+//************************************************
+
+func bool _COLL_PrioGreater(ref _CollisionRule r1, ref _CollisionRule r2) {
+    return r1.priority > r2.priority;
+}
+
+func bool _COLL_visualLess(var object o1, var object o2) {
+    return o1.visual < o2.visual;
+}
+
+func void _COLL_InvokeWizard(ref _CollisionWizard wizard) {
+    /* Get the rules */
+    COLLSPEC_Rules();
+    
+    /* sort them. */
+    sort(wizard.explicitlyTrue);
+    sort(wizard.explicitlyFalse);
+    sort(wizard.explicitlyIgnored);
+    
+    sort(wizard.rules, pred(_COLL_PrioGreater));
+    sort(wizard.affectVobs, pred(_COLL_visualLess));
+    
+    var int actionCache = -1;
+    var string cachedFor;
+    
+    foreach vob in wizard.affectVobs {
+        var int action = COLLSPEC_HandleVob(vob);
+        var string vis = vob.visual;
+        
+        /* the only free variable in the following calculation is vis.
+         * for efficiency: cache the result. vobs where sorted by visual. */
+        if (action == COLL_BY_RULES && actionCache >= 0 && cachedFor == vis) {
+            action = actionCache;
+        } else if (action == COLL_BY_RULES) {
+            var int found = 0;
+            if (findSorted(wizard.explicitlyTrue, vis) >= 0) {
+                found += 1;
+                action = COLL_TRUE;
+            }
+            if (findSorted(wizard.explicitlyFalse, vis) >= 0) {
+                found += 1;
+                action = COLL_FALSE;
+            }
+            if (findSorted(wizard.explicitlyIgnored, vis) >= 0) {
+                found += 1;
+                action = COLL_IGNORE;
+            }
+            
+            if (found) {
+                if (found > 1) {
+                    WARN("Collision Wizard: Contradicting explicit rules for visual " + vis + " found!");
+                    continue;
+                }
+            } else {
+                //not found? Consider the matching rules:
+                var bool matched = false;
+                var int  matchedWithPrio;
+                
+                for(var int i = 0; i < wizard.rules.size; i += 1) {
+                    if (matched && wizard.rules[i].priority < matchedWithPrio) {
+                        break; //found rule with some priority and no rules
+                               //with the same priority contradict the rule
+                    }
+                    
+                    if (vis ~= wizard.rules[i].regEx) {
+                        if (matched && wizard.rules[i].action != action) {
+                            /* another rule with the same priority wants
+                             * something else for this vob. */
+                            WARN("Collision Wizard: Several rules with equally high priority match the visual "
+                                 + vis + " and request different actions for it.");
+                        }
+                        matched = true;
+                        matchedWithPrio = wizard.rules[i].priority;
+                        action = wizard.rules[i].action;
+                    }
+                }
+            }
+            
+            actionCache = action;
+            cachedFor = vis;
+        }
+        
+        //still not found?
+        if (action == COLL_BY_RULES) {
+            action = COLL_IGNORE;
+            
+            if (vob.cdDyn) {
+                wizard.unmatchableTrue |= vis;
+            } else {
+                wizard.unmatchableFalse |= vis;
+            }
+            
+            //WARN("No applicable rule... <- do this later all at once. There may be a lot of duplicate warnings.
+        }
+        
+        //cddyn and cdstatic
+        if (action == COLL_TRUE || action == COLL_FALSE) {
+            var bool b = action == COLL_TRUE;
+            var bool affectStatic = COLLSPEC_affect_cdStatic && (vob.cdStatic != b || !wizard.whatIf_ChangesOnly);
+            var bool affectDyn    = COLLSPEC_affect_cdDyn    && (vob.cdDyn    != b || !wizard.whatIf_ChangesOnly);
+            
+            if (wizard.whatIfMode) {
+                if (affectStatic || affectDyn || !wizard.whatIf_ChangesOnly) {
+                    var string message;
+                    
+                    if (affectStatic && affectDyn) {
+                        message = "cdDyn/cdStatic = ";
+                    } else if (affectDyn) {
+                        message = "cdDyn          = ";
+                    } else {
+                        message = "cdStatic       = ";
+                    }
+                    
+                    message += b + " on " + quotes + vob.visual + quotes;
+                    
+                    _COLL_theWizard.whatIf_Log |= message;
+                }
+            } else {
+                if (affectStatic) {
+                    vob.cdStatic = b;
+                }
+                if (affectDyn) {
+                    vob.cdDyn = b;
+                }
+            }
+        }
+        
+        //static vob:
+        if (COLLSPEC_affect_staticVob) {
+            var int staticVobAction = COLLSPEC_IsStaticVob(vob);
+            if (staticVobAction == COLL_TRUE || staticVobAction == COLL_FALSE) {
+                var bool b = staticVobAction == COLL_TRUE;
+                if (wizard.whatIfMode) {
+                    if(!wizard.whatIf_ChangesOnly || vob.staticVob != b) {
+                        _COLL_theWizard.whatIf_Log |= "staticVob      = " + b + " on " + quotes + vob.visual + quotes;
+                    }
+                } else {
+                    vob.staticVob = b;
+                }
+            }
+        }
+    }
+    
+    sort(wizard.unmatchableTrue);
+    var int unmatchableTrue_Count[] = unique_count(wizard.unmatchableTrue);
+    sort(wizard.unmatchableFalse);
+    var int unmatchableFalse_Count[] = unique_count(wizard.unmatchableFalse);
+    
+    if (wizard.unmatchableTrue.size || wizard.unmatchableFalse.size) {
+        var string warn = "Collision Wizard: Could not match some of the visuals. Here is a list:" + endl;
+        if (wizard.unmatchableTrue.size) {
+            warn += "   Unmatchable visuals that occured with enabled (dynamic) collision: " + endl;
+            for(var int i = 0; i < wizard.unmatchableTrue.size; i += 1) {
+                warn += "        " + wizard.unmatchableTrue[i] + " (" + unmatchableTrue_Count[i] + " times)" + endl; 
+            }
+        }
+        if (wizard.unmatchableFalse.size) {
+            warn += "   Unmatchable visuals that occured with disabled (dynamic) collision: " + endl;
+            for(var int i = 0; i < wizard.unmatchableFalse.size; i += 1) {
+                warn += "        " + wizard.unmatchableFalse[i] + " (" + unmatchableFalse_Count[i] + " times)" + endl; 
+            }
+        }
+        Warn(warn);
+    }
+}
+
+func void COLL_InvokeWizard(ref selection affectVobs = WLD_GetVobs()) {
+    /* setup */
+    _COLL_ClearWizard();
+    _COLL_theWizard.affectVobs  = CVT_SelToArr(affectVobs);
+    _COLL_theWizard.whatIfMode  = false;
+    _COLL_InvokeWizard(_COLL_theWizard);
+}
+
+func void COLL_InvokeWizard_WhatIf(var bool logChangesOnly = true, ref selection affectVobs = WLD_GetVobs()) {
+    _COLL_ClearWizard();
+    _COLL_theWizard.affectVobs         = CVT_SelToArr(affectVobs);
+    _COLL_theWizard.whatIfMode         = true;
+    _COLL_theWizard.whatIf_ChangesOnly = logChangesOnly;
+    _COLL_InvokeWizard(_COLL_theWizard);
+    
+    sort(_COLL_theWizard.whatIf_Log);
+    var int actionCount[] = unique_count(_COLL_theWizard.whatIf_Log);
+    
+    var string msg;
+    msg += "###############################################" + endl;
+    msg += "# BEGIN collision wizard what if log" + endl;
+    msg += "###############################################" + endl;
+    for(var int i = 0; i < _COLL_theWizard.whatIf_Log.size; i += 1) {
+        msg += _COLL_theWizard.whatIf_Log[i] + " (" + actionCount[i] + ")" + endl;
+    }
+    msg += "###############################################" + endl;
+    msg += "# END collision wizard what if log" + endl;
+    msg += "###############################################";
+    
+    Info(msg);
+}
+
+
+#endif //COLLISION_ZSL

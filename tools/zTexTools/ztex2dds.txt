@@ -1,0 +1,63 @@
+
+ZTEX2DDS Converter, Version 1.0
+Copyright (c) 2005 Nico Bendlin
+
+Usage:
+
+  ztex2dds [options] [--] [ztexfile] [ddsfile]
+
+Options:
+
+  -h --help     Show this help screen
+  -i --stdin    Use stdin as ztexfile
+  -o --stdout   Use stdout as ddsfile
+  -q --shutup   Suppress all messages
+  -v --version  Copyright and version
+
+  --force-argb  Convert uncommon formats (e.g. BGRA) to ARGB
+  --hack-atip8  FourCC 'P8  ' for ATI's 'The Compressonator'
+
+Samples:
+
+  Convert FOO.TEX to FOO.DDS
+
+    ztex2dds FOO.TEX
+
+  Convert FOO-C.TEX to FOO.DDS
+
+    ztex2dds FOO-C.TEX
+
+  Convert -FOO.TEX to -FOO.DDS
+  (-- signals end of options!) 
+
+    ztex2dds -- -FOO.TEX
+
+  Convert FOO.TEX to BAR.DDS
+
+    ztex2dds FOO.TEX BAR.DDS
+
+  Convert FOO.TEX to stdout
+
+    ztex2dds -o       FOO.TEX > BAR.DDS
+    ztex2dds --stdout FOO.TEX > BAR.DDS
+
+  Convert stdin to BAR.DDS
+
+    ztex2dds -i       BAR.DDS < FOO.TEX
+    ztex2dds --stdout BAR.DDS < FOO.TEX
+
+  Convert stdin to stdout
+
+    ztex2dds -io              < FOO.TEX > BAR.DDS
+    ztex2dds -i -o            < FOO.TEX > BAR.DDS
+    ztex2dds -i --stdout      < FOO.TEX > BAR.DDS
+    ztex2dds --stdin --stdout < FOO.TEX > BAR.DDS
+    ztex2dds --stdin -o       < FOO.TEX > BAR.DDS
+    ...
+
+Hints:
+
+  In scripts you should always use -- and quotes:
+
+    ztex2dds -... -- "..." "..."
+

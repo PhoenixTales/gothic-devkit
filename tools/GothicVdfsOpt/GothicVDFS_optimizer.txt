@@ -1,0 +1,56 @@
+
+GothicVDFS Optimizer 1.0
+========================
+
+Dieses kleine Kommandozeilenprogramm kann benutzt werden,
+um Virtual Disk File System (VDFS) Dateien (*.vdf, *.mod)
+fuer Gothic I und/oder Gothic II zu optimieren. Das Tool
+erwartet den Dateinamen des zu optimierenden VDF-Volumes
+als ersten Parameter (zB: das Volume im Explorer mittels
+Drag 'n Drop auf die GothicVDFS_optimizer.exe ziehen...).
+
+Wenn die Quelldatei Test.mod heisst, lautet der Name der
+Zieldatei Test_optimized.mod (dies ist nicht aenderbar!).
+
+Funktionsweise
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+Es wird im Volume nach Dateien gesucht, welche sowohl in
+Groesse und Inhalt uebereinstimmen. Die gefundenen Daten
+werden nur noch einmalig in das Ziel-Volume kopiert; und
+die zwei (oder mehr) Dateieintraege werden so angepasst,
+dass sie alle auf den selben Datenblock zeigen.
+
+Diese Optimierung macht natuerlich nur Sinn, wenn in dem
+Volume identische Daten mit unterschiedlichen Dateinamen
+vorkommen. Erwartet also nicht unglaubliche 'Packraten'.
+
+Legal stuff
+¯¯¯¯¯¯¯¯¯¯¯
+Copyright (c) 2006 Nico Bendlin.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+  * Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+  * Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from this
+    software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+Note: VDFS is Copyright (c) 1994-2002, Peter Sabath / TRIACOM Software GmbH

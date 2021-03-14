@@ -1,0 +1,391 @@
+#ifndef TOOLS_ZSL
+#define TOOLS_ZSL
+
+//#################################################
+//
+//    tools.zsl
+//
+//    Various tools
+//
+//#################################################
+
+#include<stdlib/util.zsl>
+
+//************************************************
+//   Sum
+//************************************************
+
+func template sum(ref template arr, var template def = arr.defaultValue) {
+    for (var int i = 0; i < arr.size; i += 1) {
+        def += arr[i];
+    }
+    
+    return def;
+}
+
+//************************************************
+//   Minimum
+//************************************************
+
+/* get the minimum of an array */
+func int minIndex(ref template arr, ref Predicate operatorLower = predLess) {
+    if(TPL_TypeOf(arr) != "array" || arr.size == 0) {
+        Fatal("stdlib::tools::min: No array or array of size 0 given.");
+    }
+    
+    var int minIndex = 0;
+    
+    for (var int i = 1; i < arr.size; i += 1) {
+        if (eval(operatorLower, {arr[i], arr[minIndex]})) {
+            minIndex = i;
+        }
+    }
+    return minIndex;
+}
+
+func template min(ref template arr, ref Predicate operatorLower = predLess) {
+    return arr[minIndex(arr, operatorLower)];
+}
+
+//************************************************
+//   maximum
+//************************************************
+
+func int maxIndex(ref template arr, ref Predicate operatorLower = predLess) {
+    if(TPL_TypeOf(arr) != "array" || arr.size == 0) {
+        Fatal("stdlib::tools::min: No array or array of size 0 given.");
+    }
+    
+    var int maxIndex = 0;
+    
+    for (var int i = 1; i < arr.size; i += 1) {
+        if (eval(operatorLower, {arr[maxIndex], arr[i]})) {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+func template max(ref template arr, ref Predicate operatorLower = predLess) {
+    return arr[maxIndex(arr, operatorLower)];
+}
+
+//************************************************
+//   Find in an unsorted sequence
+//************************************************
+
+func int find(ref template arr, ref template val) {
+    for(var int i = 0; i < arr.size; ++i) {
+        if (arr[i] == val) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+//************************************************
+//   Filtering
+//************************************************
+
+func template filter(var template arr, var Predicate pred) {
+    if (TPL_TypeOf(arr) == "selection") {
+        var selection result;
+        foreach obj in arr {
+            if (eval(pred, obj)) {
+                result += obj;
+            }
+        }
+        return result;
+    } else if (TPL_TypeOf(arr) == "array") {
+        var int readWalker = 0;
+        var int writeWalker = 0;
+        
+        while(readWalker < arr.size) {
+            if (eval(pred, arr[readWalker])) {
+                arr[writeWalker] = arr[readWalker];
+                writeWalker += 1;
+            }
+            readWalker += 1;
+        }
+        
+        ARR_resize(arr, writeWalker);
+    } else {
+        Fatal("stdlib::tools::filter: The supplied set is neither a selection nor an array.");
+    }
+}
+
+//************************************************
+//   subarr
+//************************************************
+
+func template subArr(ref template arr, var int start, var int count) {
+    if (start < 0 || count < 0 || arr.size < start + count) {
+        Fatal("invalid use of subArr: (arr.size, start, count) = (" + arr.size + ", " + start + ", " + count + ")");
+    }
+    
+    if (arr.size == 0) { 
+        return { };
+    }
+    
+    var template res = { arr[start]};
+    
+    for(var int i = 1; i < count; i += 1) {
+        res |= arr[start + i];
+    }
+    return res;
+}
+
+//************************************************
+//   Extract
+//************************************************
+
+/* Extract elements from an array that fullfill a given predicate
+ * The array of extracted elements is returned and the array
+ * passed is changed.
+ * If the array was sorted, this order is respected. */
+ 
+func template extract(ref template arr, ref Predicate p) {
+    if (arr.size == 0) {
+        return { };
+    }
+    
+    var template result = { arr[0] }.nullVal;
+    
+    var int writeWalker = 0;
+    for(var int walker = 0; walker < arr.size; walker += 1) {
+        if (eval(p, arr[walker])) {
+            result |= arr[walker];
+        } else {
+            arr[writeWalker] = arr[walker];
+            writeWalker += 1;
+        }
+    }
+    ARR_Resize(arr, writeWalker);
+    return result;
+}
+
+//************************************************
+//   unique (for sorted arrays)
+//************************************************
+
+func void unique(ref template arr) {
+    if (arr.size == 0) {
+        return;
+    }
+    
+    var int writeIndex = 1;
+    for(var int i = 1; i < arr.size; i += 1) {
+        if (arr[i] != arr[i-1]) { //this is something new, keep it
+            arr[writeIndex] = arr[i];
+            writeIndex += 1;
+        }
+    }
+    
+    ARR_Resize(arr, writeIndex);
+}
+
+//************************************************
+//   make unique but remember the number of
+//   occurences for every value (must be sorted)
+//************************************************
+
+func int[] unique_count(ref template arr) {
+    var int res[];
+    if (arr.size == 0) {
+        return res;
+    }
+    
+    res |= 1 ;
+    
+    var int writeIndex = 1;
+    for(var int i = 1; i < arr.size; i += 1) {
+        if (arr[i] != arr[i-1]) { //this is something new, keep it
+            arr[writeIndex] = arr[i];
+            writeIndex += 1;
+            res |= 1;
+        } else {
+            res[writeIndex -1] += 1;
+        }
+    }
+    
+    ARR_Resize(arr, writeIndex);
+    return res;
+}
+
+//************************************************
+//   Sorting
+//************************************************
+
+/* sort an array with a custom "<" operator from start to end-1
+   This is an inplace quicksort. */
+func void sort(ref template arr,
+                   ref Predicate operatorLower = predLess,
+                   var int start = 0, var int end = arr.size) {
+    if (start >= end) {
+        return;
+    }
+    var template pivot = arr[start + rand() % (end - start)];
+    var int borderLeft = start; var int borderRight = end -1;
+    
+    var int walker = start;
+    
+    /* Invariant:
+       A = arr[start..borderLeft-1]
+       B = arr[borderLeft..walker-1]
+       C = arr[walker..borderRight]
+       D = arr[borderRight+1, end-1]
+       
+       all elements in A are smaller than the pivot
+       all elements in B are equal to the pivot (neither < nor >)
+       all elements in D are bigger than the pivot
+       
+       C is empty in the end
+       A,B and D are empty in the beginning
+    */
+    
+    while(walker <= borderRight) {
+        var template tmp = arr[walker];
+        if (eval(operatorLower, {tmp, pivot})) {
+            arr[walker] = arr[borderLeft];
+            arr[borderLeft] = tmp;
+            borderLeft += 1;
+            walker += 1;
+        } else if (eval(operatorLower, {pivot, tmp})) {
+            arr[walker] = arr[borderRight];
+            arr[borderRight] = tmp;
+            borderRight -= 1;
+        } else {
+            /* equal to the pivot, leave it here */
+            walker += 1;
+        }
+    }
+    
+    /* recursively sort the rest of the array: */
+    sort(arr, operatorLower, start, borderLeft);
+    sort(arr, operatorLower, borderRight+1, end);
+}
+
+//************************************************
+//   Stable sorting (may be a little slower)
+//************************************************
+
+func void stableSort(ref template arr,
+                     ref Predicate operatorLower = predLess) {
+    if (arr.size <= 1) {
+        return;
+    }
+    var template pivot = arr[rand() % arr.size];
+    var template smallerArr = { pivot }.nullVal; //its an array of elements like the pivot, and empty.
+    var template biggerArr  = smallerArr;
+    var template pivotArr   = smallerArr;
+    
+    /*
+    foreach ele in arr {
+        if(operatorLower(ele, pivot)) {
+            smallerArr |= ele;
+        } else if (operatorLower(pivot, ele)) {
+            biggerArr |= ele;
+        } else {
+            pivotArr |= ele;
+        }
+    }*/
+    for (var int i = 0; i < arr.size; i += 1) {
+        if(eval(operatorLower, {arr[i], pivot})) {
+            smallerArr |= arr[i];
+        } else if (eval(operatorLower, {pivot, arr[i]})) {
+            biggerArr |= arr[i];
+        } else {
+            pivotArr |= arr[i];
+        }
+    }
+    
+    stableSort(smallerArr, operatorLower);
+    stableSort(biggerArr, operatorLower);
+    arr = smallerArr || pivotArr || biggerArr;
+}
+
+//************************************************
+//   Will find the first occurence of val
+//   in a sorted sequence and return the index.
+//************************************************
+
+//binary search
+func int findSorted(ref template arr, ref template val, ref Predicate less = predLess, var int start = 0, var int end = arr.size) {
+    assert(start <= end, "findSorted: Called with start > end");
+    
+    /* invariant: if i is the index of the first occurence of val in the array then:
+            (1) start <= i
+            (2) end >= i
+    */
+                    
+    if (end == start) {
+        /* occording to the invariant, if i exists then it is equal to start and end. */
+        if (start < arr.size && arr[start] == val) {
+            return start;
+        }
+        return -1;
+    }
+    
+    var int midIndex = (start + end) / 2;
+    
+    if (eval(less, {arr[midIndex], val})) {
+        /* start skips values that are smaller than val, the invariant holds */
+        return findSorted(arr, val, less, midIndex + 1, end);
+    } else {
+        /* if arr[midIndex] > val then end skips values that are bigger than val
+         * if arr[midIndex] == val then there is one occurence of val at end
+         * in both cases the invariant is not broken */
+        return findSorted(arr, val, less, start, midIndex);
+    }
+}
+
+//************************************************
+//   toString (for matrices)
+//************************************************
+
+func string toString(var template val, var int alignment = 0) {
+    if (TPL_TypeOf(val) == "array") {
+        if (val.size == 0) {
+            return "";
+        }
+        
+        if (TPL_TypeOf(val[0]) == "array") {
+            var string res;
+            
+            for (var int i = 0; i < val.size; i += 1) {
+                res += toString(val[i], alignment);
+                
+                if (i < val.size - 1) {
+                    res += endl;
+                }
+            }
+            return res;
+        }
+        
+        
+        var string res = "(";
+        for (var int i = 0; i < val.size; i += 1) {
+            var string tmp;
+            tmp = toString(val[i]);
+            
+            var int j = max({alignment - tmp.length, 1});
+            while(j > 2) {
+                res += " ";
+                j -= 1;
+            }
+            
+            res += tmp;
+            
+            if (i < val.size -1) {
+                res += ", ";
+            } else {
+                res += ")";
+            }
+        }
+        return res;
+    }
+    return "" + val;
+}
+
+
+#endif //STOOLS_ZSL

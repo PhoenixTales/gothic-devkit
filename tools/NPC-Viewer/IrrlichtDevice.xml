@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Video>
+  <Driver>DirectX9</Driver>
+  <width>800</width>
+  <height>600</height>
+  <bits>16</bits>
+  <fullscreen>False</fullscreen>
+  <AntiAlising>false</AntiAlising>
+  <VSync>true</VSync>
+</Video>

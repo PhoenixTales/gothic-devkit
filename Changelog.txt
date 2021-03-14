@@ -3,6 +3,44 @@ GOTHIC MOD DEVELOPMENT-KIT
 //////////////////////////
 
 
+////////////////
+v1.3 // 12.02.21
+////////////////
+
+Version 1.3 integriert alle Animationen,
+Morph-Meshes und Welten in dekompilierter Form.
+
+Flosha: Copyright Liste hinzugefügt in tools/
+
+Flosha: alex.txt hinzugefügt (danke an Tom Putzki)
+
+Avallach: Animations decompiled from the GOTHIC 
+          installation using Gothic Sourcer 3.14.
+          * ASC_ANIMS 
+          * ASC_BODIES 
+          * ASC_MOBSI 
+          * ASC_MORPHMESH
+          * ASC_OVERLAY
+          * ASC_STATIC
+          * MDS_MOBSI
+          * MDS_OVERLAY
+
+Avallach: Some worlds, not part of the official DevKit, 
+          extracted by using GothicVDFS:
+          * FIRETREE_LARGE.ZEN
+          * FIRETREE_MEDIUM.ZEN
+          * FIRETREE_MEDIUM_DUNGEONS.ZEN
+          * FIRETREE_MEDIUM_LIGHT_ONLY.ZEN
+          * FIRETREE_MEDIUM_WO_LIGHT.ZEN
+          * FIRETREE_PSI_MEDIUM.ZEN
+          * FIRETREE_SMALL.ZEN
+          * FREEMINE.ZEN
+          * ITLSTORCHBURNING.ZEN
+          * OLDMINE.ZEN
+          * ORCGRAVEYARD.ZEN
+          * ORCTEMPEL.ZEN
+          * WORLD.ZEN
+
 
 //////////////////////////
 v1.2 // 29.02.20 // Flosha

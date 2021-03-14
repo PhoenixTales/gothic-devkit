@@ -1,0 +1,80 @@
+<PeterConfig>
+  <Application>
+    <SaveOnExit>True</SaveOnExit>
+    <Top>-8</Top>
+    <Left>-8</Left>
+    <Width>1296</Width>
+    <Height>980</Height>
+    <RecentFileCount>20</RecentFileCount>
+    <RecentProjectCount>10</RecentProjectCount>
+  </Application>
+  <RecentProjects>
+    <project>
+      <name>Moses</name>
+      <file>D:\NewNotePad\Peter\bin\Debug\Test.pproj</file>
+    </project>
+    <project>
+      <name>Crap</name>
+      <file>C:\Documents and Settings\hz11139\Desktop\temp.pproj</file>
+    </project>
+  </RecentProjects>
+  <RecentFiles>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_Addon_BDT_10028_Buddler.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_Addon_BDT_10026_Wache.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1073_Sancho.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1074_Edgor.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1082_Skinner.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_BDT_1013_Bandit_L.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\B_Story\B_Enter_DragonIsland.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Startup.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_Addon_BDT_10023_Wache.d</file>
+    <file>C:\Users\Sumpfkrautjunkie\Documents\Stampfertemp\Current\Startup.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_BAU_905_Bauer.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_Addon_BDT_10025_Wache.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\NPC\Monster\MST_Shadowbeast.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\NPC\Monster\MST_Giant_Bug.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Human\B_Human\B_AssessEnemy.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Human\B_Human\B_AssessDamage.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Human\TA_Human\ZS_Saw.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\AI_Intern\Perception.d</file>
+    <file>d:\gothic ii\_work\data\scripts\System\PFX\PfxInstMagic.d</file>
+    <file>d:\gothic ii\_work\data\scripts\System\PFX\PfxInstEngine.d</file>
+  </RecentFiles>
+  <Code>
+    <LineComments>
+      <Comment name="C-Style" begin="//" end="" />
+      <Comment name="VB-Style" begin="-" end="" />
+      <Comment name="Batch File-Style" begin="Rem" end="" />
+    </LineComments>
+  </Code>
+  <Editor>
+    <ShowEOL>False</ShowEOL>
+    <ShowInvalidLines>False</ShowInvalidLines>
+    <ShowSpaces>False</ShowSpaces>
+    <ShowTabs>False</ShowTabs>
+    <ShowMatchBracket>True</ShowMatchBracket>
+    <ShowLineNumbers>True</ShowLineNumbers>
+    <ShowHRuler>False</ShowHRuler>
+    <ShowVRuler>False</ShowVRuler>
+    <EnableCodeFolding>True</EnableCodeFolding>
+    <ConvertTabs>False</ConvertTabs>
+    <UseAntiAlias>False</UseAntiAlias>
+    <AllowCaretBeyondEOL>False</AllowCaretBeyondEOL>
+    <HighlightCurrentLine>True</HighlightCurrentLine>
+    <AutoInsertBracket>True</AutoInsertBracket>
+    <TabIndent>4</TabIndent>
+    <VerticalRulerCol>90</VerticalRulerCol>
+    <IndentStyle>auto</IndentStyle>
+    <BracketMatchingStyle>Nachher</BracketMatchingStyle>
+    <Font>Courier New;9,75</Font>
+    <Scripts>d:\gothic ii\_work\data\scripts</Scripts>
+    <Bilder>d:\dokumente und einstellungen\sumpfkrautjunkie\desktop\test</Bilder>
+    <parser>False</parser>
+    <backup>True</backup>
+    <autocomplete>True</autocomplete>
+    <backupfolder>c:\users\sumpfkrautjunkie\documents\stampfertemp</backupfolder>
+    <backupeach>0</backupeach>
+    <backupfolderonly>False</backupfolderonly>
+    <autobrackets>True</autobrackets>
+  </Editor>
+</PeterConfig>

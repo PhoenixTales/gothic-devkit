@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!-- syntaxdefinition for TeX document 2001 by Mike Krueger (gleaned from Jedit) -->
+
+<SyntaxDefinition name = "ASM" extensions = ".asm">
+	
+	<Digits   name = "Digits" bold = "true" italic = "false" color = "DarkBlue"/>
+	
+	<RuleSets>
+		<RuleSet ignorecase = "false">
+		  	<Delimiters>&amp;~!@%^*()-+=|\#/{}[]:;"'&lt;&gt; , .?</Delimiters>
+			
+			<Span name = "LineComment" bold = "false" italic = "true" color = "SlateGray" stopateol = "true">
+				<Begin>;</Begin>
+			</Span>
+			
+			<!-- \... commands -->
+			<MarkPrevious markmarker ="true" bold = "true" italic = "false" color = "MidnightBlue">:</MarkPrevious>
+			<MarkFollowing markmarker ="true" bold = "true" italic = "false" color = "MidnightBlue">.</MarkFollowing>
+			
+			<!-- some commands must be handled specially -->
+			<KeyWords name = "Keyword1" bold = "false" italic = "false" color = "Blue">
+				<Key word = "jmp" />
+				<Key word = "mov" />
+				<Key word = "cli" />
+				<Key word = "push" />
+				<Key word = "pop" />
+				<Key word = "pusha" />
+				<Key word = "popa" />
+				<Key word = "call" />
+				<Key word = "add" />
+				<Key word = "extern" />
+				<Key word = "global" />
+				<Key word = "equ" />
+				<Key word = "hlt" />
+				<Key word = "dd" />
+				<Key word = "DD" />
+				<Key word = "dw" />
+				<Key word = "DW" />
+				<Key word = "EXTERN" />
+		  	</KeyWords>
+		  	
+			<KeyWords name = "Keyword2" bold = "true" italic = "false" color = "DarkBlue">
+				<Key word = "SECTION" />
+				<Key word = "BITS" />
+				<Key word = "ALIGN" />
+		  	</KeyWords>
+		  	
+			<KeyWords name = "Keyword3" bold = "true" italic = "false" color = "DarkRed">
+				<Key word = "iret" />
+				<Key word = "resb" />
+				<Key word = "ret" />
+				<Key word = "retn" />
+		  	</KeyWords>
+		  	
+			<KeyWords name = "Keyword4" bold = "true" italic = "false" color = "Red">
+				<Key word = "eax" />
+				<Key word = "ds" />
+				<Key word = "es" />
+				<Key word = "fs" />
+				<Key word = "gs" />
+				<Key word = "ax" />
+				<Key word = "esp" />
+				<Key word = "ebp" />
+				<Key word = "ss" />
+				<Key word = "BITS" />
+				<Key word = "ALIGN" />
+		  	</KeyWords>
+		  
+		 	<KeyWords name = "Puntuation" bold="true" italic="false" color="Green">
+				    <Key word = ")" />
+				    <Key word = ")" />
+				    <Key word = "{" />
+				    <Key word = "}" />
+				    <Key word = "[" />
+				    <Key word = "]" />
+				    <Key word = "=" />
+				    <Key word = "!" />
+				    <Key word = "+" />
+				    <Key word = "-" />
+				    <Key word = "/" />
+				    <Key word = "*" />
+				    <Key word = "&gt;" />
+				    <Key word = "&lt;" />
+				    <Key word = "&amp;" />
+				    <Key word = "|" />
+				    <Key word = "^" />
+				    <Key word = "~" />
+				    <Key word = "." />
+				    <Key word = "," />
+				    <Key word = ";" />
+				    <Key word = "?" />
+				    <Key word = ":" />
+				    <Key word = "'" />
+				    <Key word = "`" />
+	 	 	</KeyWords>
+		</RuleSet>
+	</RuleSets>
+	
+</SyntaxDefinition>
+

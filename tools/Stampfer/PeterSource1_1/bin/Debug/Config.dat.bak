@@ -1,0 +1,79 @@
+<PeterConfig>
+  <Application>
+    <SaveOnExit>True</SaveOnExit>
+    <Top>-4</Top>
+    <Left>-4</Left>
+    <Width>1288</Width>
+    <Height>938</Height>
+    <RecentFileCount>20</RecentFileCount>
+    <RecentProjectCount>10</RecentProjectCount>
+  </Application>
+  <RecentProjects>
+    <project>
+      <name>Moses</name>
+      <file>D:\NewNotePad\Peter\bin\Debug\Test.pproj</file>
+    </project>
+    <project>
+      <name>Crap</name>
+      <file>C:\Documents and Settings\hz11139\Desktop\temp.pproj</file>
+    </project>
+  </RecentProjects>
+  <RecentFiles>
+    <file>C:\Programme\Jowood\Gothic II\_work\data\Scripts\Content\Story\NPC_Scripts\NPC_Default.d</file>
+    <file>C:\Programme\Jowood\Gothic II\_work\data\Scripts\Content\AI\AI_Intern\B_RefreshAtInsert.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Content\AI\Human\ZS_Human\ZS_Talk.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Story\NPC\PC_Hero.d</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\Xardas.txt</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\Xardas.txt</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\WM\WacheGedicht.txt</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\WM\Xardas.txt</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Content\AI\AI_Intern\Externals.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\AI\AI_Intern\Externals.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Content\AI\Human\B_Human\B_DeletePetzCrime.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Content\AI\AI_Intern\AI_Constants.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Content\AI\Magic\B_AssessMagic.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\AI\Test_Skripts\Magic\B_AssessMagic.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Content\AI\Test_Skripts\Magic\B_AssessMagic.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\AI\Magic\B_AssessMagic.d</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\WM\test.d</file>
+    <file>c:\programme\jowood\gothic ii\_work\data\scripts\Content\Items\IT_Addon_Written.d</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\testornder307\tests.d</file>
+    <file>d:\Dokumente und Einstellungen\Sumpfkrautjunkie\Desktop\testornder307\tests2.d</file>
+  </RecentFiles>
+  <Code>
+    <LineComments>
+      <Comment name="C-Style" begin="//" end="" />
+      <Comment name="VB-Style" begin="-" end="" />
+      <Comment name="Batch File-Style" begin="Rem" end="" />
+    </LineComments>
+  </Code>
+  <Editor>
+    <ShowEOL>False</ShowEOL>
+    <ShowInvalidLines>False</ShowInvalidLines>
+    <ShowSpaces>False</ShowSpaces>
+    <ShowTabs>False</ShowTabs>
+    <ShowMatchBracket>True</ShowMatchBracket>
+    <ShowLineNumbers>True</ShowLineNumbers>
+    <ShowHRuler>False</ShowHRuler>
+    <ShowVRuler>False</ShowVRuler>
+    <EnableCodeFolding>True</EnableCodeFolding>
+    <ConvertTabs>False</ConvertTabs>
+    <UseAntiAlias>False</UseAntiAlias>
+    <AllowCaretBeyondEOL>False</AllowCaretBeyondEOL>
+    <HighlightCurrentLine>True</HighlightCurrentLine>
+    <AutoInsertBracket>True</AutoInsertBracket>
+    <TabIndent>4</TabIndent>
+    <VerticalRulerCol>90</VerticalRulerCol>
+    <IndentStyle>auto</IndentStyle>
+    <BracketMatchingStyle>Nachher</BracketMatchingStyle>
+    <Font>Courier New;9,75</Font>
+    <Scripts>c:\programme\jowood\gothic ii\_work\data\scripts</Scripts>
+    <Bilder>d:\dokumente und einstellungen\sumpfkrautjunkie\desktop\test</Bilder>
+    <parser>True</parser>
+    <backup>True</backup>
+    <autocomplete>True</autocomplete>
+    <backupfolder>d:\dokumente und einstellungen\sumpfkrautjunkie\desktop\testornder</backupfolder>
+    <backupeach>0</backupeach>
+    <backupfolderonly>False</backupfolderonly>
+  </Editor>
+</PeterConfig>

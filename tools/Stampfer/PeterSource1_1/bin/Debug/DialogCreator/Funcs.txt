@@ -1,0 +1,21 @@
+italk@(Npc_IsInState (self,ZS_Talk))
+if@if(#0)§{§§};
+ife@if(#0)§{§§}§else§{§§};§
+rt@return TRUE;
+rf@return FALSE;
+iknow@(Npc_KnowsInfo (other, #0))
+cis@CreateInvItems (self, #0, #1);
+cio@CreateInvItems (other, #0, #1);
+gis@B_GiveInvItems (other, self, #0, #1);
+gio@B_GiveInvItems (self, other, #0, #1);
+gigs@B_GiveInvItems (other, self, Itmi_Gold, #0);
+gigo@B_GiveInvItems (self, other, Itmi_Gold, #0);
+e@AI_StopProcessInfos (self);
+ihi@(Npc_HasItems (other, #0) >=#1)
+xp@B_GivePlayerXP (#0);
+fscrl@B_UseFakeScroll();
+iguild@(other.guild == #0)
+ar@B_RaiseAttribute (other, #0, #1);
+aa@@Du bist#1§|cool%*#0§|#2!§
+array@@if(#0[0]==#1)§{§	#2§}|§else if (#0[%]==#1)§{§	#2§}|;
+testarray@@|§else if (#0[%]==#1)§{§	#2§}|;

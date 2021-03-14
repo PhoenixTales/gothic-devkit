@@ -1,0 +1,20 @@
+<PeterConfig>
+  <Application>
+    <SaveOnExit value="true" />
+    <Top value="244" />
+    <Left value="586" />
+    <Width value="1024" />
+    <Height value="768" />
+  </Application>
+  <Editor>
+    <ShowEOL value="false" />
+    <ShowInvalidLines value="false" />
+    <ShowSpaces value="false" />
+    <ShowTabs value="false" />
+    <ShowMatchBracket value="true" />
+    <ShowLineNumbers value="true" />
+    <ShowHRuler value="false" />
+    <ShowVRuler value="false" />
+    <EnableCodeFolding value="true" />
+  </Editor>
+</PeterConfig>

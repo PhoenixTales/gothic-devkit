@@ -1,0 +1,511 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{85FC2AB3-09C0-4D36-B1BA-D7019DF7A59C}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Peter</RootNamespace>
+    <AssemblyName>Stampfer</AssemblyName>
+    <ApplicationIcon>stampfers.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.TextEditor, Version=3.0.0.2970, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Plugins\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="PeterInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Plugins\PeterInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.3.1.24483, Culture=neutral, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\AutoComplete.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\cDiff.cs" />
+    <Compile Include="Classes\cHtmlToolTip.cs" />
+    <Compile Include="Classes\cDFoldingStrategy.cs" />
+    <Compile Include="Classes\FilePaths.cs" />
+    <Compile Include="Classes\Game.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classes\Game2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Classes\Global.cs" />
+    <Compile Include="Classes\WM.cs" />
+    <Compile Include="Controls\GListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Grouper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DockContent\ctrlGothicInstances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\ctrlGothicInstances.Designer.cs">
+      <DependentUpon>ctrlGothicInstances.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockContent\ctrlQuestManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\ctrlQuestManager.Designer.cs">
+      <DependentUpon>ctrlQuestManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockContent\DialogCreator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\DialogCreator.Designer.cs">
+      <DependentUpon>DialogCreator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FAddQuest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FAddQuest.Designer.cs">
+      <DependentUpon>FAddQuest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FBeklauen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FBeklauen.Designer.cs">
+      <DependentUpon>FBeklauen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FChoices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FChoices.Designer.cs">
+      <DependentUpon>FChoices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FNPCSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FNPCSelect.Designer.cs">
+      <DependentUpon>FNPCSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FQuest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FQuest.Designer.cs">
+      <DependentUpon>FQuest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FQuestEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FQuestEdit.Designer.cs">
+      <DependentUpon>FQuestEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FXP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FXP.Designer.cs">
+      <DependentUpon>FXP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GoToLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GoToLine.Designer.cs">
+      <DependentUpon>GoToLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Info.Designer.cs">
+      <DependentUpon>Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Ordner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Ordner.Designer.cs">
+      <DependentUpon>Ordner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OutlookGrid\DataSourceManager.cs" />
+    <Compile Include="OutlookGrid\OutlookGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OutlookGrid\OutlookGrid.designer.cs">
+      <DependentUpon>OutlookGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OutlookGrid\OutlookGridGroup.cs" />
+    <Compile Include="OutlookGrid\OutlookGridRow.cs" />
+    <Compile Include="Parsers\CParser\CParser.cs" />
+    <Compile Include="Parsers\CocoParser\DFA.cs" />
+    <Compile Include="Parsers\CocoParser\Parser.cs" />
+    <Compile Include="Parsers\CocoParser\ParserGen.cs" />
+    <Compile Include="Parsers\CocoParser\Scanner.cs" />
+    <Compile Include="Parsers\CocoParser\Tab.cs" />
+    <Compile Include="Parsers\CParser\CCodeInfo.cs" />
+    <Compile Include="Parsers\CParser\Parser.cs" />
+    <Compile Include="Parsers\CParser\Scanner.cs" />
+    <Compile Include="Parsers\DParser\DCodeInfo.cs" />
+    <Compile Include="Parsers\DParser\DParser.cs" />
+    <Compile Include="Parsers\DParser\Parser.cs" />
+    <Compile Include="Parsers\DParser\Scanner.cs" />
+    <Compile Include="Parsers\JavaParser\JavaParser.cs" />
+    <Compile Include="Parsers\CSParser\CSParser.cs" />
+    <Compile Include="DockContent\CommandPrompt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\CommandPrompt.Designer.cs">
+      <DependentUpon>CommandPrompt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\cCommon.cs" />
+    <Compile Include="DockContent\ctrlCodeStructure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\ctrlCodeStructure.Designer.cs">
+      <DependentUpon>ctrlCodeStructure.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockContent\ctrlFileExplorer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\ctrlFileExplorer.Designer.cs">
+      <DependentUpon>ctrlFileExplorer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\cDirectorySorter.cs" />
+    <Compile Include="DockContent\Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\FileDifference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\FileDifference.Designer.cs">
+      <DependentUpon>FileDifference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Find.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Find.Designer.cs">
+      <DependentUpon>Find.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockContent\FindResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\FindResults.Designer.cs">
+      <DependentUpon>FindResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\fHtmlToolTip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\fHtmlToolTip.Designer.cs">
+      <DependentUpon>fHtmlToolTip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IHtmlInterface.cs" />
+    <Compile Include="InternalImages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InternalImages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\cPluginCollection.cs" />
+    <Compile Include="Parsers\CSParser\CSCodeInfo.cs" />
+    <Compile Include="Parsers\CSParser\Parser.cs" />
+    <Compile Include="Parsers\CSParser\Scanner.cs" />
+    <Compile Include="Parsers\CSSParser\CSSParser.cs" />
+    <Compile Include="Parsers\CSSParser\Model\CSS.cs" />
+    <Compile Include="Parsers\CSSParser\Model\Property.cs" />
+    <Compile Include="Parsers\CSSParser\Model\PropertyValue.cs" />
+    <Compile Include="Parsers\CSSParser\Model\Selector.cs" />
+    <Compile Include="Parsers\CSSParser\Model\Tag.cs" />
+    <Compile Include="Parsers\CSSParser\Model\TagType.cs" />
+    <Compile Include="Parsers\CSSParser\Parser.cs" />
+    <Compile Include="Parsers\CSSParser\Scanner.cs" />
+    <Compile Include="Parsers\JavaParser\JavaCodeInfo.cs" />
+    <Compile Include="Parsers\JavaParser\Parser.cs" />
+    <Compile Include="Parsers\JavaParser\Scanner.cs" />
+    <Compile Include="Parsers\VBParser\Parser.cs" />
+    <Compile Include="Parsers\VBParser\Scanner.cs" />
+    <Compile Include="Parsers\VBParser\Util.cs" />
+    <Compile Include="Parsers\VBParser\VBCodeInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Forms\Project.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Project.Designer.cs">
+      <DependentUpon>Project.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockContent\ProjectManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockContent\ProjectManager.Designer.cs">
+      <DependentUpon>ProjectManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\cProjectInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Classes\AutoComplete.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AutoComplete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\CommandPrompt.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>CommandPrompt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\ctrlCodeStructure.resx">
+      <DependentUpon>ctrlCodeStructure.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\ctrlFileExplorer.resx">
+      <DependentUpon>ctrlFileExplorer.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\Editor.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Editor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\FileDifference.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FileDifference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\ctrlGothicInstances.resx">
+      <DependentUpon>ctrlGothicInstances.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\ctrlQuestManager.resx">
+      <DependentUpon>ctrlQuestManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\DialogCreator.resx">
+      <DependentUpon>DialogCreator.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FAddQuest.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FAddQuest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FBeklauen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FBeklauen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FChoices.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FChoices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Find.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Find.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\FindResults.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FindResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\fHtmlToolTip.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>fHtmlToolTip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FNPCSelect.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FNPCSelect.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FQuest.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FQuest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FQuestEdit.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FQuestEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FXP.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>FXP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GoToLine.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>GoToLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Info.resx">
+      <DependentUpon>Info.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Ordner.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Ordner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InternalImages.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>InternalImages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Options.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Project.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Project.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockContent\ProjectManager.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ProjectManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SplashScreen.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Classes\cShell32.cs" />
+    <Compile Include="Classes\cShellContextMenu.cs" />
+    <Compile Include="Forms\SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Webber.cs">
+    </Compile>
+    <Compile Include="Classes\cXmlFoldingStrategy.cs" />
+    <Compile Include="Parsers\XMLParser\XmlParser.cs" />
+    <Compile Include="DockContent\VistaButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoToNextHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icons\Icon.ico" />
+    <None Include="Resources\LegendHS.png" />
+    <None Include="Resources\compareversionsHS.png" />
+    <None Include="Resources\lock.GIF" />
+    <Content Include="Icons\textdoc.ico" />
+    <Content Include="Icons\PeterIcon.ico" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\minus.png" />
+    <None Include="Resources\Hammer.png" />
+    <None Include="Resources\tsbPrint.Image.png" />
+    <Content Include="stampfers.ico" />
+    <None Include="StampferSplash2.png" />
+    <None Include="Resources\Funtionen.png" />
+    <None Include="Resources\Items.png" />
+    <None Include="Resources\NPC.png" />
+    <None Include="Resources\Dialog.png" />
+    <None Include="Resources\Comment.png" />
+    <None Include="Resources\Left.png" />
+    <None Include="Resources\Gothic.png" />
+    <None Include="Resources\analyze.png" />
+    <None Include="Resources\downarrow.png" />
+    <None Include="Resources\uparrow.png" />
+    <None Include="Resources\X.png" />
+    <None Include="Resources\HtmlBalanceBracesHS.png" />
+    <None Include="Resources\FindHS.png" />
+    <None Include="Resources\cmd.png" />
+    <None Include="Resources\RelationshipsHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,28 @@
+﻿<config>
+  <OutputFolder>$(AppDir)-Profiled</OutputFolder>
+  <ReportFolderNetFull>$(SystemRoot)\Temp\EQATECProfilerLogs</ReportFolderNetFull>
+  <ReportFolderNetCF>\Temp\EQATECProfilerLogs</ReportFolderNetCF>
+  <AutoSnapshot>Main OnStop ApplicationEnd</AutoSnapshot>
+  <TinyMethodAction>Skip</TinyMethodAction>
+  <RuntimeControlEnabled>true</RuntimeControlEnabled>
+  <RuntimeControlPort>3947</RuntimeControlPort>
+  <RuntimeModuleLogLevel>Errors</RuntimeModuleLogLevel>
+  <ExcludeFiles>
+    <ExcludeFile>ICSharpCode.TextEditor.dll</ExcludeFile>
+    <ExcludeFile>ICSharpCode.TextEditor2.dll</ExcludeFile>
+    <ExcludeFile>PeterInterface.dll</ExcludeFile>
+    <ExcludeFile>PeterInterface2.dll</ExcludeFile>
+    <ExcludeFile>Stampfer.vshost.exe</ExcludeFile>
+    <ExcludeFile>WeifenLuo.WinFormsUI.Docking.dll</ExcludeFile>
+    <ExcludeFile>WeifenLuo.WinFormsUI.Docking2.dll</ExcludeFile>
+    <ExcludeFile>Tools\Debug\Quiz.vshost.exe</ExcludeFile>
+    <ExcludeFile>Tools\Release\ADOUSADS.vshost.exe</ExcludeFile>
+    <ExcludeFile>Tools\Debug\Quiz.exe</ExcludeFile>
+    <ExcludeFile>Tools\GVE\GVE.exe</ExcludeFile>
+    <ExcludeFile>Tools\Release\ADOUSADS.exe</ExcludeFile>
+    <ExcludeFile>Tools\Release\mt.exe</ExcludeFile>
+  </ExcludeFiles>
+  <SignActions>
+    <SignAction action="Skip" publickey="ACQAAASAAACUAAAABgIAAAAkAABSU0ExAAQAAAEAAQAfn9ZCslENpGTLOG/ihI+uDTI2nfOt7XcBWte0X3UcQ5ZHA2RYyYNTZ/uIaCvo2IYe2YR1JF9I8hMhYuXCGPWharyrDRtfCnFjK9I25dTzHe89kvKgqK/LyBrEgSKi+glNx+4tIviJKb4CWSW/bVy7ig3iPvFnxmIpddeVRRU1uQ==" usedby="G:\Dokumente und Einstellungen\Sumpfkrautjunkie\Eigene Dateien\Visual Studio 2005\Projects\PeterSource1_1\bin\Debug\Plugins\ICSharpCode.TextEditor.dll" keyfile="" />
+  </SignActions>
+</config>

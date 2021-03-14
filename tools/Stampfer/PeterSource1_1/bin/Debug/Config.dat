@@ -1,0 +1,80 @@
+<PeterConfig>
+  <Application>
+    <SaveOnExit>True</SaveOnExit>
+    <Top>-8</Top>
+    <Left>-8</Left>
+    <Width>1296</Width>
+    <Height>980</Height>
+    <RecentFileCount>20</RecentFileCount>
+    <RecentProjectCount>10</RecentProjectCount>
+  </Application>
+  <RecentProjects>
+    <project>
+      <name>Moses</name>
+      <file>D:\NewNotePad\Peter\bin\Debug\Test.pproj</file>
+    </project>
+    <project>
+      <name>Crap</name>
+      <file>C:\Documents and Settings\hz11139\Desktop\temp.pproj</file>
+    </project>
+  </RecentProjects>
+  <RecentFiles>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\B_AssignAmbientInfos\B_AssignAmbientInfos.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Human\ZS_Human\ZS_Talk.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\B_Story\B_BuildLearnString.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\\DIA_Wasili.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_BAU_916_Bauer.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\\DIA_Rega.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_Rega.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_Addon_KDW_1405_Merdarion_NW.d</file>
+    <file>G:\Dokumente und Einstellungen\Sumpfkrautjunkie\Eigene Dateien\Visual Studio 2005\Projects\PeterSource1_1\bin\Debug\KeyWords\Properties.d</file>
+    <file>G:\Dokumente und Einstellungen\Sumpfkrautjunkie\Eigene Dateien\Visual Studio 2005\Projects\PeterSource1_1\bin\Debug\KeyWords\KeyWords.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1071_Ramon.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\Story\Dialoge\DIA_SLD_800_Lee.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1072_Logan.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1073_Sancho.d</file>
+    <file>D:\Gothic II\_work\data\Scripts\Content\Story\Dialoge\DIA_Addon_BDT_1075_Fortuno.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\AI_Intern\AI_Constants.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\_intern\Constants.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Human\Guilds.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Magic\Spells\Spell_Sleep.d</file>
+    <file>d:\gothic ii\_work\data\scripts\Content\AI\Magic\Spells\Spell_Transform_Alle.d</file>
+  </RecentFiles>
+  <Code>
+    <LineComments>
+      <Comment name="C-Style" begin="//" end="" />
+      <Comment name="VB-Style" begin="-" end="" />
+      <Comment name="Batch File-Style" begin="Rem" end="" />
+    </LineComments>
+  </Code>
+  <Editor>
+    <ShowEOL>False</ShowEOL>
+    <ShowInvalidLines>False</ShowInvalidLines>
+    <ShowSpaces>False</ShowSpaces>
+    <ShowTabs>False</ShowTabs>
+    <ShowMatchBracket>True</ShowMatchBracket>
+    <ShowLineNumbers>True</ShowLineNumbers>
+    <ShowHRuler>False</ShowHRuler>
+    <ShowVRuler>False</ShowVRuler>
+    <EnableCodeFolding>True</EnableCodeFolding>
+    <ConvertTabs>False</ConvertTabs>
+    <UseAntiAlias>False</UseAntiAlias>
+    <AllowCaretBeyondEOL>False</AllowCaretBeyondEOL>
+    <HighlightCurrentLine>True</HighlightCurrentLine>
+    <AutoInsertBracket>True</AutoInsertBracket>
+    <TabIndent>4</TabIndent>
+    <VerticalRulerCol>90</VerticalRulerCol>
+    <IndentStyle>auto</IndentStyle>
+    <BracketMatchingStyle>Nachher</BracketMatchingStyle>
+    <Font>Courier New;9,75</Font>
+    <Scripts>d:\gothic ii\_work\data\scripts</Scripts>
+    <Bilder>d:\dokumente und einstellungen\sumpfkrautjunkie\desktop\test</Bilder>
+    <parser>False</parser>
+    <backup>True</backup>
+    <autocomplete>True</autocomplete>
+    <backupfolder>d:\dokumente und einstellungen\sumpfkrautjunkie\desktop\testornder</backupfolder>
+    <backupeach>0</backupeach>
+    <backupfolderonly>False</backupfolderonly>
+    <autobrackets>True</autobrackets>
+  </Editor>
+</PeterConfig>

@@ -1,0 +1,224 @@
+﻿<?xml version="1.0"?>
+
+<SyntaxDefinition name = "SQL" extensions = ".sql">
+  
+  <Digits name = "Digits" bold = "true" italic = "false" color = "Brown"/>
+  
+  <RuleSets>
+    <RuleSet ignorecase = "true">
+      
+      <Delimiters>&amp;&lt;&gt;~!%^*()-+=|\#/{}[]:;"' , .?</Delimiters>
+      
+      <Span name = "String" bold = "false" italic = "false" color = "Gray" stopateol = "true">
+        <Begin>'</Begin>
+        <End>'</End>
+      </Span>
+
+      <KeyWords name = "Punctuation" bold = "true" italic = "false" color = "DarkGreen">
+        <Key word = "?" />
+        <Key word = "," />
+        <Key word = "." />
+        <Key word = ";" />
+        <Key word = "(" />
+        <Key word = ")" />
+        <Key word = "[" />
+        <Key word = "]" />
+        <Key word = "{" />
+        <Key word = "}" />
+        <Key word = "+" />
+        <Key word = "-" />
+        <Key word = "/" />
+        <Key word = "%" />
+        <Key word = "*" />
+        <Key word = "&lt;" />
+        <Key word = "&gt;" />
+        <Key word = "^" />
+        <Key word = "=" />
+        <Key word = "~" />
+        <Key word = "!" />
+        <Key word = "|" />
+        <Key word = "&amp;" />
+      </KeyWords>
+      
+      <KeyWords name = "OperatorKeywords" bold="true" italic="false" color="DarkCyan">
+        <Key word = "add" />
+        <Key word = "except" />
+        <Key word = "percent" />
+        <Key word = "all" />
+        <Key word = "exec" />
+        <Key word = "plan" />
+        <Key word = "alter" />
+        <Key word = "execute" />
+        <Key word = "precision" />
+        <Key word = "and" />
+        <Key word = "exists" />
+        <Key word = "primary" />
+        <Key word = "any" />
+        <Key word = "exit" />
+        <Key word = "print" />
+        <Key word = "as" />
+        <Key word = "fetch" />
+        <Key word = "proc" />
+        <Key word = "asc" />
+        <Key word = "file" />
+        <Key word = "procedure" />
+        <Key word = "authorization" />
+        <Key word = "fillfactor" />
+        <Key word = "public" />
+        <Key word = "backup" />
+        <Key word = "for" />
+        <Key word = "raiserror" />
+        <Key word = "begin" />
+        <Key word = "foreign" />
+        <Key word = "read" />
+        <Key word = "between" />
+        <Key word = "freetext" />
+        <Key word = "readtext" />
+        <Key word = "break" />
+        <Key word = "freetexttable" />
+        <Key word = "reconfigure" />
+        <Key word = "browse" />
+        <Key word = "from" />
+        <Key word = "references" />
+        <Key word = "bulk" />
+        <Key word = "full" />
+        <Key word = "replication" />
+        <Key word = "by" />
+        <Key word = "function" />
+        <Key word = "restore" />
+        <Key word = "cascade" />
+        <Key word = "goto" />
+        <Key word = "restrict" />
+        <Key word = "case" />
+        <Key word = "grant" />
+        <Key word = "return" />
+        <Key word = "check" />
+        <Key word = "group" />
+        <Key word = "revoke" />
+        <Key word = "checkpoint" />
+        <Key word = "having" />
+        <Key word = "right" />
+        <Key word = "close" />
+        <Key word = "holdlock" />
+        <Key word = "rollback" />
+        <Key word = "clustered" />
+        <Key word = "identity" />
+        <Key word = "rowcount" />
+        <Key word = "coalesce" />
+        <Key word = "identity_insert" />
+        <Key word = "rowguidcol" />
+        <Key word = "collate" />
+        <Key word = "identitycol" />
+        <Key word = "rule" />
+        <Key word = "column" />
+        <Key word = "if" />
+        <Key word = "save" />
+        <Key word = "commit" />
+        <Key word = "in" />
+        <Key word = "schema" />
+        <Key word = "compute" />
+        <Key word = "index" />
+        <Key word = "select" />
+        <Key word = "constraint" />
+        <Key word = "inner" />
+        <Key word = "session_user" />
+        <Key word = "contains" />
+        <Key word = "insert" />
+        <Key word = "set" />
+        <Key word = "containstable" />
+        <Key word = "intersect" />
+        <Key word = "setuser" />
+        <Key word = "continue" />
+        <Key word = "into" />
+        <Key word = "shutdown" />
+        <Key word = "convert" />
+        <Key word = "is" />
+        <Key word = "some" />
+        <Key word = "create" />
+        <Key word = "join" />
+        <Key word = "statistics" />
+        <Key word = "cross" />
+        <Key word = "key" />
+        <Key word = "system_user" />
+        <Key word = "current" />
+        <Key word = "kill" />
+        <Key word = "table" />
+        <Key word = "current_date" />
+        <Key word = "left" />
+        <Key word = "textsize" />
+        <Key word = "current_time" />
+        <Key word = "like" />
+        <Key word = "then" />
+        <Key word = "current_timestamp" />
+        <Key word = "lineno" />
+        <Key word = "to" />
+        <Key word = "current_user" />
+        <Key word = "load" />
+        <Key word = "top" />
+        <Key word = "cursor" />
+        <Key word = "national" />
+        <Key word = "tran" />
+        <Key word = "database" />
+        <Key word = "nocheck" />
+        <Key word = "transaction" />
+        <Key word = "dbcc" />
+        <Key word = "nonclustered" />
+        <Key word = "trigger" />
+        <Key word = "deallocate" />
+        <Key word = "not" />
+        <Key word = "truncate" />
+        <Key word = "declare" />
+        <Key word = "null" />
+        <Key word = "tsequal" />
+        <Key word = "default" />
+        <Key word = "nullif" />
+        <Key word = "union" />
+        <Key word = "delete" />
+        <Key word = "of" />
+        <Key word = "unique" />
+        <Key word = "deny" />
+        <Key word = "off" />
+        <Key word = "update" />
+        <Key word = "desc" />
+        <Key word = "offsets" />
+        <Key word = "updatetext" />
+        <Key word = "disk" />
+        <Key word = "on" />
+        <Key word = "use" />
+        <Key word = "distinct" />
+        <Key word = "open" />
+        <Key word = "user" />
+        <Key word = "distributed" />
+        <Key word = "opendatasource" />
+        <Key word = "values" />
+        <Key word = "double" />
+        <Key word = "openquery" />
+        <Key word = "varying" />
+        <Key word = "drop" />
+        <Key word = "openrowset" />
+        <Key word = "view" />
+        <Key word = "dummy" />
+        <Key word = "openxml" />
+        <Key word = "waitfor" />
+        <Key word = "dump" />
+        <Key word = "option" />
+        <Key word = "when" />
+        <Key word = "else" />
+        <Key word = "or" />
+        <Key word = "where" />
+        <Key word = "end" />
+        <Key word = "order" />
+        <Key word = "while" />
+        <Key word = "errlvl" />
+        <Key word = "outer" />
+        <Key word = "with" />
+        <Key word = "escape" />
+        <Key word = "over" />
+        <Key word = "writetext" />
+      </KeyWords>
+      
+    </RuleSet>
+    
+  </RuleSets>
+  
+</SyntaxDefinition>

@@ -1,0 +1,411 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: ZenGin Models</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                ZenGin: 3D-Modelle
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Dieter Hildebrandt
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  15.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+		<li><a href="#01"><b>1. 3DS-MAX Animationen und Meshes</b></a>
+		<li><a href="#02"><b>2. Das MDS-Format</b></a>
+			<ul>
+			<li>2.1 'ANIENUM'
+				<ul>
+				<li>2.1.1 'ani'
+				<li>2.1.2 'aniAlias'
+				<li>2.1.3 'aniBlend'
+				<li>2.1.4 'aniSync'
+				<li>2.1.5 'aniBatch'
+				<li>2.1.6 Ani-Event-Block
+				</ul>
+			<li>2.2 Bemerkungen
+			</ul>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+
+
+<!---- History
+v0.08 - 13.07.2001
+- kleinere Updates
+
+v0.06 - 12.10.1999, engine 082b
+- *eventSFX, *eventSFXGrnd
+- *eventMMStartAni
+
+v0.05 - 13.12.1998
+- *eventPFX, *eventPFXStop
+
+TODO/einzuarbeiten:
+- registerMesh
+- CVS:xx, SPD,xx
+- I-Flag, P-Flag
+- AniBlend Zeiten
+- FPS:xx, aniMaxFps()
+- Bug-Workaround wenn BlendZeiten laenger als die Anis (=> Zeiten verkleinern)
+- aniComb
+- "Auto-Aiming" Echtzeit Modifikation von Animationen.
+- Overlay-MDS
+- "meshAndTree" Eintrag
+- "FIX" und "FIXSUB" sind obsolete, dafuer neu MAX Node-Props "dontExport..."
+----->
+
+<a name="01"><H1>1. 3DS-MAX Animationen & Meshes</H1></a>
+
+<p>Ein Model ist ganz allgemein definiert als eine Hierarchie von Bones/Nodes/Knoten (Skelett), ein oder mehreren Meshes, die diesen Bones zugeordnet sind, und einem dazugehörigem Satz von Animationen. Bones-Hierarchie, Meshes und Animationen werden mit 3DS-MAX erstellt. Damit die ZenGin ein solches Model verwenden kann, muss es mit einem speziellen Exporter aus 3DS-MAX exportiert werden (das MAX-Plugin "zenexp.dle"). Derart exportierte Dateien haben die Dateiendung ".ASC" und sollten, damit sie von ZenGin eingelesen werden können, in einem Unterverzeichnis von "GOTHIC\_WORK\DATA\ANIMS\" abgelegt werden. </p>
+
+<p>Bones-Hierarchie, Meshes und Animationen werden schliesslich in "Model-Script-Files" (.MDS) aufgeführt, um einen Model-Prototype zu definieren. Die Engine liest .MDS Files und importiert/konvertiert dabei die angegebenen aus 3DS-MAX exportierten .ASC-Files in interne Repräsentationen. Die Spezifikation der .MDS Files ist einem folgenden Kapitel zu entnehmen.</p>
+
+<p>Bei der Erstellung von Bones-Hierarchien, Meshes und Animationen, die in die Engine importiert werden sollen, sind folgende Punkte zu beachten:
+<ul>
+<li>Bei ASC-Files, die für ein Model benutzt werden sollen, müssen die Knoten der Model-Hierarchie immer konsistent benannt sein. Folgendes würde Fehler ergeben:
+	<ul>
+	<li>File "jump_up.ASC"		enthält		Knoten "ZM_Hand_R"
+	<li>File "jump_back.ASC"	enthält		Knoten "ZM_HandR"
+	</ul>
+<li>Der Anfangsteil eines Knoten-Namens legt fest, wie dieser Knoten zu behandeln ist. Im folgenden werden die verwendeten Präfixe aufgeführt. Beachte: Jeder Knoten muß mit einem dieser Präfixe beginnen, ansonsten wird er ignoriert.
+	<ul>
+ 	<li>"BIP01": Meshes, die sich in solchen Knoten befinden werden ignoriert, nicht aber deren Animation.
+	<li>"ZM_*": Dieses sind 'Mesh-Knoten'. Nur Meshes aus diesen Knoten werden in die Engine importiert. Knoten dieses Typs müssen immer an "BIP01" Knoten hängen. Animationen dieser Knoten werden nicht berücksichtigt.
+	<li>"ZS_*": Dieses sind 'Slot-Knoten'. Während des Spiels werden hier dynamisch Meshes ein- und ausgehängt. Knoten dieses Typs müssen immer an "BIP01" Knoten hängen. Animationen dieser Knoten werden berücksichtigt.
+	</ul>
+<li>Skalierungen innerhalb von Animationen sind nicht erlaubt.
+<li>Die einzigen Objekt-Arten, die berücksichtigt werden, sind Geometrie-Objekte und Helper-Objekte. Beide werden beim Einlesen gleich behandelt.
+<li>Teilkörper-Anis:<br>	
+Knoten, die beim Abspielen in der Engine in einer Ani still gehalten werden sollen, werden mit dem Namensanhängesel 'FIX' oder 'FIXSUB' gekennzeichnet. Ersteres hält nur diesen Knoten still, zweiteres den gesamten Subtree. Diese Angabe ist nur bei "BIP01" oder "ZS_*" Knoten sinnvoll.<br>
+Beispiele:
+	<ul>
+	<li>"BIP01 Hals 'FIXSUB'"
+	<li>"ZS_RIGHTHAND 'FIX'"
+	</ul>
+</ul>
+</p>
+
+<p>Der 3DS-MAX-ASCII Exporter wird verwendet, um sowohl Mesh-Geometrien als auch Animationen zu exportieren. Es darf allerdings nur jeweils die Geometrie oder die Animation in ein einzelnes .ASC File exportiert werden (siehe dazu auch die MDS Spezifikation). Beachte: die Hierarchie der Bones wird immer exportiert.</p>
+
+<p>
+Folgende Exporter-Einstellungen sind sowohl beim Mesh- als auch bei Animation-Export zu aktivieren (nicht aufgeführte Checkboxes sind jeweils zu deaktivieren):
+<ul>
+<li>Object Types: Geometry
+<li>Static Output, Frame#: 0
+<li>Known Controllers: Sample
+<li>Frames per Sample: Controllers: 1
+<li>Frames per Sample: Animated Objects: 1
+</ul>
+</p>
+
+<p>Folgende Exporter-Einstellungen sind exklusiv bei Mesh-Export zu wählen:
+<ul>
+<li>Mesh Definition
+<li>Materials
+<li>Texture Coordinates
+</ul>
+</p>
+
+<p>Folgende Exporter-Einstellungen sind exklusiv bei Animations-Export zu wählen:
+<ul>
+<li>Transform Animation Keys
+</ul>
+</p>
+
+<a name="02"><H1>2. MDS-Format</H1></a>
+
+<p>Ein Model-Script hat beispielhaft den folgenden Aufbau:</p>
+
+<pre>
+Model ("Player")
+{
+  meshAndTree  ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+
+  registerMesh ("Hum_Body_Naked0.ASC")
+  registerMesh ("Hum_Body_CookSmith.ASC")
+
+  aniEnum
+  {
+    modelTag ("DEF_HIT_LIMB"		"zs_RightHand")
+
+    ani  ("s_stand"     1  "s_stand" 0.5 0.5 M. "stand_pause2.asc"  F 0 -1)
+    ani  ("t_strafe_l"  1  "s_stand" 0.1 0.1 M. "Strafe_Left.asc"   F 0 -1)
+    aniBlend("t_stand_2_run" "s_run")
+    aniSync  ("t_run_2_walk"  "s_walk")
+    aniAlias ("t_strafe_r" 1 "s_stand" 0.1 0.1 M. "t_strafe_l" R)
+    aniBatch ("t_1h_slash1")
+    {
+      *aniBatch ("t_1h_slash1_top")
+      *aniBatch ("t_1h_slash1_bot")
+    }
+    ani  ("t_1h_shield_ready" 5 "" 0.2 0.2 .. "shield_ready.asc" F 0 -1)
+    {
+      *eventSwapMesh(13 "zs_Shield" "zs_LeftArm")
+    }
+    ...
+  }
+}
+</pre>
+
+<p>Die Abschnitte im Einzelnen:</p>
+
+<H4>'meshAndTree'</H4>
+
+<p>Als erstes Argument ist eine .ASC Datei anzugeben, die für das zu definierende Model sowohl das komplette Skelett in neutraler Pose, als auch ein Mesh enthält. Bei dem Export aus 3DS-MAX heraus läßt sich innerhalb eines Dialogs einstellen, was die zu exportierende Datei enthalten soll.</p>
+
+<p>Als zweites Argument ist das Schlüßelwort "DONT_USE_MESH" optional anzugeben. Falls es vorhanden ist, hat eine neu erzeugte Instanz des Models im Spiel per Default kein Mesh angelegt. Das trifft i.A. für Models zu, die Charaktere und Monster definieren, und denen verschiedene Meshes angelegt werden können, wobei die Auswahl per Befehl in Skripten erfolgt. Wenn allerdings jede erzeugte Instanz des Models immer dasselbe Mesh tragen soll, ist das Schlüßelwort nicht anzugeben. Das Mesh wird in diesem Fall aus der Datei genommen, die als erstes Argument bei "meshAndTree" genannt ist.</p>
+
+<H4>'registerMesh'</H4>
+
+<p>Falls dem Model zur Laufzeit verschiedene Meshes angelegt werden sollen (z.B. verschiedene Rüstungen/Uniformen bei Menschen), müßen diese per "registerMesh" an dieser Stelle bekannt gemacht werden. Als Argument ist eine .ASC Datei anzugeben, die das zu registrierende Mesh samt Skelett enthält.</p>
+
+<H2>2.1 'aniEnum'</H2>
+
+<p>Die abzuspielenden Anis mitsamt einiger Parameter werden aufgezählt. Dabei gibt es verschiedene Möglichkeiten eine Ani zu definieren. Für die Programm-Spiel-Logik gibt es allerdings keinen Unterschied zwischen diesen.</p>
+
+<H3>2.1.1 'ani'</H3>
+
+<pre>
+Beispiel:
+  ani ("s_stand" 1 "s_stand" 0.5 0.5 M. "pause.asc" F 0 -1)
+Syntax: 
+  ani (ANI_NAME LAYER NEXT_ANI BLEND_IN BLEND_OUT FLAGS ASC_NAME ANI_DIR START_FRAME END_FRAME)
+</pre>
+
+<p>Im Einzelnen:</p>
+
+<H4>ANI_NAME</H4>
+<p>Der Ani-Name. Hierbei gibt es gewisse Konventionen. Anis werden in verschiedene Gruppen eingeteilt, wobei die Zugehörigkeit am Namen zu erkennen ist:</p>
+<pre>
+Prefix "s_": eine State-Ani (Zustand)
+Prefix "t_": eine Transition-Ani (Zustands-Uebergang)
+... [to be continued] ...
+</pre>
+
+<H4>LAYER</H4>
+<p>Layer dieser Animation (von 1 bis 9999999..).<br>
+Es gilt die Regel: Zur selben Zeit kann nur eine Ani aus jedem Layer abgespielt werden (exklusiv). Es können allerdings mehere Anis aus verschiedenen Layern gleichzeitig abgespielt werden. Hierbei gilt dann, dass ein Layer mit einer höheren Nummer die höhere Priorität hat und solche Anis mit kleinerer Layer-Nummer überdeckt. (Das Layer-Konzept ist an das 'Improv'-Projekt angelehnt).</p>
+
+<H4>NEXT_ANI</H4>
+<p>Ani, die abgespielt werden soll, falls die gerade definierte Ani beendet worden ist. State-Anis ("s_") haben i.A. sich selbst als NEXT_ANI. Trans-Anis ("t_") haben i.A. eine Zustands-Ani ("s_") als NEXT_ANI. Occas-Anis haben i.A. keine NEXT_ANI (""). </p>
+
+<H4>BLEND_IN</H4>
+<p>Zeit in sec, die vergeht, bis der Einfluss dieser Ani von 0% auf 100% angewachsen. Z.B.: Bei einem BLEND_IN von 0.75 Sekunde ist zum Zeitpunkt t=0sec (Start der Ani im Frame 0) der Einfluss dieser Ani 0%, bei t=0.5 ist der Einfluss 66%, bei t=.75 100%, bei t=1 100%.</p>
+
+<H4>BLEND_OUT</H4>
+<p>Zeit in sec, die vergeht, bis der Einfluss dieser Ani von 100% (oder dem aktuellen Wert) auf 0% gesunken ist. Anzumerken ist hierbei, dass das Herunterregeln des Einflusses erst beginnt, sobald der <u>letzte Frame</u> der Ani abgespielt worden ist (END_FRAME).</p>
+
+<H4>FLAGS</H4><br>
+<p>Das FLAGS-Feld ist im Grunde ein String, in dem jedes mögliche Flag durch einen Buchstaben repräsentiert ist. Falls allerdings keine Flags gesetzt sind, muss hier ein "." stehen. Überflüssige "." in dem FLAGS-String werden überlesen.<br>
+Die Flags im Einzelnen (Erweiterungen denkbar):
+<ul>
+<li>M: Die Bewegungen des Models, die in der 3DS-MAX-Ani enthalten sind, werden beim Abspielen auf den Vob übertragen, in dem sich das Model befindet. Falls dieses Flag nicht vorhanden ist, bewirkt die Ani keine Bewegung des Models im Game. 
+<li>R: Rotation, analog zu 'M'.
+<li>E: Diese Flag sorgt dafür, dass die Ani erst gestartet wird, wenn eine zur Zeit aktive Ani im selben Layer ihren letzten Frame erreicht hat und somit beendet wird. Sinnvoll z.B. in folgenden Fall: ani "s_walk", ani "t_walk_2_stand", ani "s_stand", wobei alle Anis als ASC-Anis vorliegen.<br>
+=> In diesem Fall würde es Sinn machen, die Ani "t_walk_2_stand" mit dem 'E' Flag zu versehen. Da diese Ani direkt aus dem ASC File kommt, muss sie haargenau an den Walk-Zyklus der Ani  "s_walk" passen. Fehlt das 'E' Flag, so wird beim Loslassen der 'Laufen-Taste' im Spiel sofort die "t_walk_2_stand" Ani gestartet, was trotzt Ani-Blending unschön aussehen wird. Mit dem Flag hingegen wird das Ende der "s_walk" Ani abgewartet und erst dann wird die Trans-Ani gestartet. Alles klar ?
+<li>F: Wenn dieses Flag gesetzt ist, wird die Höhen-Position des Models nicht nach der Höhe des Bodens ausgerichtet, über dem sich das Model gerade befindet. (F steht fuer 'fly').
+<li>I: Kennzeichnet eine Animation als "Idle-Animation". Solche Animationen bewegen das Model nur gering und erlauben der Engine beim Abspielen gewisse Optimierungen. Beispiel: Die Animation eines Menschen, der einfach nur ruhig dasteht und atmet.
+</ul>                                          
+</p>
+
+<H4>ASC_NAME</H4>
+<p>3ds-max ASCII Name.</p>
+
+<H4>ANI_DIR</H4>
+<p>Abspielrichtung, in der die gerade definierte Ani abgespielt werden soll. Moegliche Werte: "R" = Reverse, "F" = Forward.</p>
+
+<H4>START_FRAME / END_FRAME</H4>
+<p>-1 bedeutet: Ani bis zum Ende einlesen</p>
+
+<H3>2.1.2 'aniAlias'</H3>
+
+<pre>
+Beispiel:
+  aniAlias ("t_strafe_r" 1 "s_stand" 0.1 0.1 M. "t_strafe_l" R)
+Syntax:
+  aniAlias (ANI_NAME LAYER NEXT_ANI BLEND_IN BLEND_OUT FLAGS ALIAS_NAME ANI_DIR)
+</pre>
+
+<p>Mit 'aniAlias' wird eine Ani definiert, die dasselbe Datenmaterial einer bereits über 'ani' definierten Ani verwendet. Obwohl dieselben Animations-Daten verwendet werden, kann diese neue Ani mit unterschiedlichen Parametern versehen werden. Sinnvolles Beispiel (siehe oben): 'ani' "t_strafe_l", 'aniAlias' "t_strafe_r", wobei sich die ANI_DIR unterscheidet.</p>
+
+<H4>ALIAS_NAME</H4>
+<p>Name der Ani, dessen Datenmaterial dieser neu definierten Ani zugrunde liegen soll.</p>
+
+<H3>2.1.3 'aniBlend'</H3>
+
+<pre>
+aniBlend ( "t_stand_2_run"   "s_run"  )
+aniBlend ( ANI_NAME          NEXT_ANI )
+</pre>
+
+<p>Mit 'aniBlend' werden (Transition-) Anis definiert, die sich aus dem dynamischen Überblenden zweier (State-) Anis ergeben. D.h. für diese Anis liegt kein konkretes Datenmaterial aus einer ASC-Datei vor, sondern diese Ani wird zur Laufzeit durch Überblenden zweier State-Anis durch Interpolation erzeugt. Die Blend-In und -Out Werte werden dabei aus den angegebenen Anis genommen.</p>
+
+<H4>NEXT_ANI</H4>
+<p>Die 'Folge-Ani', in die weich übergeblendet werden soll.</b>
+
+<H3>2.1.4 'aniSync'</H3>
+
+<pre>
+Beispiel:
+  aniSync ( "t_run_2_walk"    "s_walk" )
+Syntax:
+  aniSync ( ANI_NAME          NEXT_ANI )
+</pre>
+
+<p>Ähnlich dem 'aniBlend', nur dass die die NEXT_ANI nicht beim Frame 0 gestartet wird, sondern relativ zur aktuellen State-Ani desselben Layers. </p>
+
+<p>Beispiel: ani "s_walk", aniSync "t_walk_2_run", ani "s_run". Gerade aktiv ist im Layer 1 die Ani "s_walk" die gerade zu 45% abgespielt ist. Ein Starten der Ani "t_walk_2_run" bewirkt dann, dass die Ani "s_run" sofort gestartet wird, und zwar nicht bei Frame 0, sondern bei dem Frame der 45% ihrer Länge enstpricht. Hiermit ist es moeglich verschiedene Bewegungs-Anis smooth ineinander zu blenden, ohne dass sich die Beine allzusehr unlogisch verhalten. Vorraussetzung ist hierbei, dass alle Anis, die so ineinander geblendet werden sollen, von den Beinstellungen zueinander passen. Z.B., dass alle Walk/Run-Anis mit demselben Bein starten..</p>
+
+<H3>2.1.5 'aniBatch'</H3>
+
+<pre>
+Beispiel:
+  aniBatch ("t_1h_slash1")
+  {
+    *aniBatch ("t_1h_slash1_top")
+    *aniBatch ("t_1h_slash1_bot")
+  }
+Syntax.
+  aniBatch	(ANI_NAME)
+  {
+    *aniBatch	(BATCH_ANI_NAME)
+    [...]
+  }
+</pre>
+
+<p>Mit 'aniBatch' ist es möglich, beliebig viele Anis zu einer einzigen Ani zusammenzufassen. Wird z.B. bezogen auf das obige Beispiel die Ani "t_1h_slash1" gestartet, so startet die Model-Engine intern die beiden Anis "t_1h_slash1_top" und "t_1h_slash1_bot" zeitgleich. Gedacht war dieses Feature, um nachträglich noch auf elegante Weise eine Ober-/Unterkörper-Trennung der Anis bewerkstelligen zu können.</p>
+
+<p>Indem mann wie in dem Beispiel oben die 1h_slash Ani in Top und Bottom aufteilt, ist es möglich, diese auch separat zu verwenden. Bei einem slash aus dem Stand würden über 'aniBatch' sowohl Ober- als auch Unterkoerper abgespielt werden, bei einem Slash aus dem Gehen würde dann nur die Slash-Ani fuer den Oberkörper abgespielt werden, während der Unterkörper weiterhin von der Gehen-Ani kontrolliert wird. Status: unbenutzt, ungetestet.</p>
+
+<H3>2.1.6 Ani-Event-Block</H3>
+
+<p>Ein Ani-Event-Block ist optional und folgt - falls vorhanden - immer einer Ani-Definition. Ein Ani-Event ist eine Aktion, die während des Abspielens einer Ani zu einem bestimmten Zeitpunkt (per Frame festgelegt) ausgeführt wird.</p>
+
+<pre>
+Ein Beispiel:
+
+  {
+    *eventHeading   (5  F 0.0 1.0 0.0 90.0)
+    *eventSwapMesh  (-1 "zs_LongSword" "zs_RightHand")
+    *eventSound     (10 "step.wav" 1.0)
+    ...
+  }
+</pre>
+
+<p>Bisher implementierte Ani-Events:
+<ul>
+<li>*eventSwapMesh	(frameNr "Knoten1" "Knoten2")<br>
+Tauscht die beiden Meshes im Frame 'frameNr' aus, die sich in den angegebenen Knoten befinden.
+(=> z.B. fuer WaffenZiehAnis)
+<li>*eventHeading	(frameNr dir xCoord yCoord zCoord Angle)<br>
+ACHTUNG: dieser Ani-Event ist zur Zeit disabled, da er durch Implementation des 'R'-Flags überflüssig geworden ist. 
+Per Befehl kann die Orientierung des Models geändert werden. "xCoord yCoord zCoord" geben dabei die Rotations Achse an, und Angle das Ausmass der Rotation um diese Achse in Grad. 'Dir' gibt die Abspielrichtung an, in der diese Aktion ausgeführt werden soll.  Ein 'eventHeading' mit der Dir 'F' wird ignoriert, wenn die Ani in Richtung 'R' abgespielt wird. (=> z.B. fuer "PlayerTurnLeft90Deg")
+<li>*eventPFX (frameNr [pfxHandle] "pfxName" "nodeName" [ATTACH])<br>
+Startet einen Partikel-Effekt mit dem Namen "pfxName" zum Zeitpunkt "frameNr". Dieser Effekt kann einen Knoten des Models geheftet werden, dessen Name "nodeName" ist. Es muß allerdings kein Knoten angegeben werden. Wird als "nodeName" nur "" angegeben, so wird der Effekt an der Hüfte (BIP01) des Models ausgerichtet. Mit dem optionalen Parameter "ATTACH" wird festgelegt, ob der Emitter des Effektes nur beim Start an dem Knoten ausgerichtet werden soll, oder aber über seine gesamte Lebensdauer an dem Knoten heften soll. Das sind die verschiedenen Optionen mit steigendem Rechenaufwand:
+	<ul>
+	<li>kein NodeName, kein ATTACH
+	<li>NodeName, kein ATTACH
+	<li>NodeName, ATTACH
+	</ul>
+Ferner kann man für einen gestarteten Partikel-Effekt optional einen Handle angeben ("pfxHandle"). Ein Handle muß und darf nur angegeben werden, wenn der Partikel-Effekt zeitlich unbegrenzt ist, und über ein "*eventPFXStop" ausgeschaltet werden soll (s.u.). Das Ausschalten des Effektes erfolgt dann über Angabe des Handles, der hier als positive Integer Zahl >0 zu wählen ist.
+<li>*eventPFXStop (frameNr pfxHandle)<br>
+Dieser Befehl stoppt einen zuvor gestarteten Partikel-Effekt über Angabe des beim Start gewählten Handles an einem bestimmten Frame.
+<li>*eventSFX (frameNr "sfxName" [R:x] [EMPTY_SLOT])<br>
+"sfxName" ist entweder der Name einer Script-Soundinstanz oder der Name eines Wave Files (dann mit der Endung ".wav").  Falls die Reichweite, in der dieser Sound zu hören ist, von der automatischen Default Reichweite abweichen soll, kann ein neuer Wert unter "R:" in cm angegeben werden. Alle durch das MDS gestarteten Soundeffekte liegen per Default auf demselbem Soundkanal des Models, bzw. "Slot". Der Start eines neuen Sounds wird somit einen laufenden Sound abbrechen. Ein Sound hingegen, der mit dem Flag "EMPTY_SLOT" gestartet wird, sucht sich einen weiteren, freien Slot heraus und bricht niemals bereits laufende Sounds ab.
+<li>*eventSFXGrnd (frameNr "sfxName" [R:x] [EMPTY_SLOT])<br>
+"sfxName" ist der Name einer Script-Soundinstanz, ergänzt durch Material-Gruppen Suffixe. Die übrigen Parameter verhalten sich wie bei "*eventSFX".
+<li>*evenMMStartAni  (frameNr "aniName" ["nodeName"] [I:intensity] [H:holdTime])<br>
+Startet auf dem MorphMesh Visual, das sich auf der Node "nodeName" befindet, die Animation "aniName". Falls kein "nodeName" angegeben ist, wird per Default versucht die Animation auf der Node "BIP01 HEAD" zu starten (Gesichtsanimation). Die "intensity" (0..1..?) und "holdtime" (in sec) der zu spielenden Animation können angegeben werden, falls nicht die im .MMS festgelegten Werte benutzt werden sollen.
+</ul>
+</p>
+
+<H2>2.2 Bemerkungen</H2>
+
+<p>Zu beachten:
+<ul>
+<li>Angegebene Filenamen und Ani-Namen dürfen in ihrem Namen <u>keine</u> Spaces enthalten.
+<li>'*events' in dem Ani-Event-Block müssen unbedingt in aufsteigender frameNr-Reihenfolge sortiert sein.
+<li>aniComb Animationen sind Animationen, die aus der Interpolation einer Anzahl von Animationen mit gleicher Frame-Anzahl hervorgehen. Im .MDS tauchen sie beispielhaft in folgender Form auf:
+	<pre>
+	ani ("c_bow_1" 4 "" 0.1  0.1 .. "bow_shoot.asc"  F 41 41)
+	ani ("c_bow_2" 4 "" 0.1  0.1 .. "bow_shoot.asc"  F 43 43)
+	ani ("c_bow_3" 4 "" 0.1  0.1 ..	"bow_shoot.asc"  F 47 47)
+	ani ("c_bow_4" 4 "" 0.1  0.1 .. "bow_shoot.asc"  F 49 49)
+	aniComb ("s_bow_aim" 1 "s_bow_aim" 0.1 0.1 M. "c_bow_" 4)
+	</pre>
+<li>Problem: Bei den meisten Anis möchte man, dass der Charakter per Kollisionserkennung deutlich von anderen Objekten getrennt bleibt, bei einigen wenigen Anis möchte man den Charakter allerdings näher an Objekte bewegen können. Lösung: Anis der zweiten Kategorie werden als solche gekennzeichnet. Im .MDS lässt sich dazu pro Animation ein CollisionVolumeScale Faktor angeben ("CVS:xx", aehnlich einzustellen wie z.B. "FPS:xx"), der per Default 1 ist. Ein Setzen dieses Wertes auf z.B. 0.5 oder 0.1 würde das Volumen, mit dem der Character gegen den Level getestet wird, um den entsprechenden Faktor verkleinern und der Character würde sich näher an Hindernisse bewegen können.(Anis, die wahrscheinlich mit diesem Param versehen werden sollten sind u.a.: Tot-Liegend-Ani, Sitz-Anis, Lieg-Anis,..).
+</ul>
+</p>
+
+
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

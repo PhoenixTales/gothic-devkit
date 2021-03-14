@@ -1,0 +1,298 @@
+// ZOMBIE.MDS
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+
+//	14.09.00	Keine JumpUps
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Model ("Zom")
+{
+	MeshAndTree ("Zom_Body.ASC" DONT_USE_MESH)
+
+	registerMesh ("Zom_Body.ASC")
+	
+	aniEnum
+	{
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// Bewegungs-Modi
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ---------------------------------------------------------------------------------------------------------------
+//	RUN-Mode
+			ani			("s_FistRun"					1	"s_FistRun"		0.1	0.1	MI.	"Zom_Ambient_A01.asc"	F	0	49)
+
+			ani			("t_FistRun_2_FistRunL"			1	"s_FistRunL"	0.0	0.0	M.	"Zom_Run_A01.asc"		F	1	24	)
+			{
+				*eventSFXGrnd	(10	"Run"	)
+				*eventSFXGrnd	(15	"Run"	)
+			}
+			ani			("s_FistRunL"					1	"s_FistRunL"	0.0	0.1	M.	"Zom_Run_A01.asc"		F	25	45	)
+			{
+				*eventSFX	(26	"ZOM_AMBIENT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(33	"Run"	)
+				*eventSFXGrnd	(45	"Run"	)
+			}
+
+			ani			("t_FistRunL_2_FistRun"			1	"s_FistRun"		0.0	0.0	M.	"Zom_Run_A01.asc"		F	46	54	)
+			{
+				*eventSFXGrnd	(53	"Run"	)
+			}
+			
+			aniBlend	("t_FistRunR_2_FistRun"				"s_FistRun"		0.2	0.2)
+
+			ani			("t_FistJumpB"					1	"s_FistRun"		0.1	0.1	M.	"Zom_JumpB_M01.asc"		F	1	29	)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+//	WALK-Mode
+			ani			("s_FistWalk"					1	"s_FistWalk"	0.0	0.0	MI.	"Zom_Ambient_A01.asc"		F	0	49)
+			{
+				*eventSFX	(1	"ZOM_AMBIENT"	EMPTY_SLOT	)
+			}			
+			ani			("t_FistWalk_2_FistWalkl"		1	"s_FistWalkL"	0.0	0.0	M.	"Zom_Walk_A01.asc"		F	1	24	)
+			ani			("s_FistWalkL"					1	"s_FistWalkL"	0.0	0.0	M.	"Zom_Walk_A01.asc"		F	25	46	)
+			{
+				*eventSFX	(26	"ZOM_AMBIENT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(30	"Run"	)
+				*eventSFXGrnd	(42	"Run"	)
+			}
+			ani			("t_FistWalkL_2_FistWalk"		1	"s_FistWalk"	0.0	0.0	M.	"Zom_Walk_A01.asc"		F	47	54	)
+			aniBlend	("t_FistWalkR_2_FistWalk"			"s_FistWalk"	0.2	0.2)
+			
+			aniAlias	("t_FistWalk_2_FistWalkBL"		1	"s_FistWalkBL"	0.1	0.0	M.	"t_FistWalkL_2_FistWalk"	R)
+			aniAlias	("s_FistWalKBL"					1	"s_FistWalkBL"	0.1	0.1	M.	"s_FistWalkL"				R)
+			aniAlias	("t_FistWalkBL_2_FistWalk"		1	"s_FistWalk"	0.0	0.1	M.	"t_FistWalk_2_FistWalkL"	R)
+			aniBlend	("t_FistWalkBR_2_FistWalk"			"s_FistWalk"	0.2	0.2)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+//	TURNING
+			ani			("t_FistRunTurnL"				20	"t_FistRunTurnL"	0.1	0.1	M.	"Zom_TurnL_M01.asc"	F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+//				*eventSFXGrnd	(12	"Run")
+				*eventSFXGrnd	(18	"Turn")
+//				*eventSFXGrnd	(24	"Run")
+			}
+			ani			("t_FistRunTurnR"				20	"t_FistRunTurnR"	0.1	0.1	M.	"Zom_TurnR_M01.asc"	F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+//				*eventSFXGrnd	(12	"Run")
+				*eventSFXGrnd	(18	"Turn")
+//				*eventSFXGrnd	(24	"Run")
+			}
+
+			aniAlias	("t_FistWalkTurnL"				20	"t_FistWalkTurnL"	0.1	0.1	M.	"t_FistRunTurnL"	F)
+			aniAlias	("t_FistWalkTurnR"				20	"t_FistWalkTurnR"	0.1	0.1	M.	"t_FistRunTurnR"	F)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+//	STRAFING
+			ani			("t_FistRunStrafeL"				1	"t_FistRunStrafeL"	0.0	0.0	M.	"Zom_StrafeL_M01.asc"	F	0	45)
+			{
+//				*eventSFXGrnd	(5	"Run")
+//				*eventSFXGrnd	(13	"Run")
+				*eventSFXGrnd	(22	"Turn")
+//				*eventSFXGrnd	(26	"Run")
+				*eventSFX	(1	"ZOM_AMBIENT"	EMPTY_SLOT	)
+			}
+			ani			("t_FistRunStrafeR"				1	"t_FistRunStrafeR"	0.0	0.0	M.	"Zom_StrafeR_M01.asc"	F	0	45)
+			{
+//				*eventSFXGrnd	(5	"Run")
+//				*eventSFXGrnd	(13	"Run")
+				*eventSFXGrnd	(22	"Turn")
+//				*eventSFXGrnd	(26	"Run")
+				*eventSFX	(1	"ZOM_AMBIENT"	EMPTY_SLOT	)
+			}
+
+			aniAlias	("t_FistWalkStrafeL"			1	"t_FistWalkStrafeL"	0.0	0.0	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_FistWalkStrafeR"			1	"t_FistWalkStrafeR"	0.0	0.0	M.	"t_FistRunStrafeR"		F)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+//	TRANSITIONS
+			aniBlend	("t_FistRun_2_FistWalk"				"s_FistWalk"		0.2	0.2)
+			aniBlend	("t_FistWalk_2_FistRun"				"s_FistRun"			0.2	0.2)
+
+			aniBlend	("t_FistRunL_2_FistWalkL"			"s_FistWalkL"		0.2	0.2)
+			aniBlend	("t_FistWalkL_2_FistRunL"			"s_FistRunL"		0.2	0.2)
+
+
+//////////////////////////
+// STUMBLE
+//////////////////////////
+			ani			("t_Stumble"					1	""				0.1	0.1	M.	"Zom_Stumble_M01.asc"	F	0	25)
+			{
+				*eventSFX	(1	"ZOM_HURT"	EMPTY_SLOT	)
+			}
+			ani			("t_StumbleB"					1	""				0.1	0.1	M.	"Zom_StumbleB_M01.asc"	F	0	25)
+			{
+				*eventSFX	(1	"ZOM_HURT"	EMPTY_SLOT	)
+			}
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// JUMP
+			ani			("t_Stand_2_JumpUpLow"			1	"s_JumpUpLow"			0.1	0.0	M.	"Zom_JumpUpLow_M01.asc"	F	1	8)
+			ani			("s_JumpUpLow"					1	"t_JumpUpLow_2_Stand"	0.3	0.3	MF	"Zom_JumpUpLow_M01.asc"	F	8	10)
+			ani			("t_JumpUpLow_2_Stand"			1	""						0.0	0.1	MF	"Zom_JumpUpLow_M01.asc"	F	10	69)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// FALL
+			ani			("s_FallDn"						1	"s_FallDn"		0.1	0.1	MF	"Zom_FallDn_M01.asc"	F	0	0)
+			ani			("t_FallDn_2_Stand"				1	""				0.0	0.1	M.	"Zom_FallDn_M01.asc"	F	1	46)
+			{
+				*eventSFX	(5	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+
+			ani			("t_FallDn_2_Fall"				1	"s_Fall"		0.1	0.1	MF	"Zom_Fallen_M01.asc"	F	1	7)
+			ani			("s_Fall"						1	"s_Fall"		0.0	0.0	MF	"Zom_Fallen_M01.asc"	F	8	8)
+			ani			("t_Fall_2_Fallen"				1	"s_Fallen"		0.0	0.0	M.	"Zom_Fallen_M01.asc"	F	9	34)
+			{
+				*eventSFX	(12	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+			ani			("s_Fallen"						1	"s_Fallen"		0.0	0.0	M.	"Zom_Fallen_M01.asc"	F	35	35)
+			ani			("t_Fallen_2_Stand"				1	""				0.0	0.1	M.	"Zom_Fallen_M01.asc"	F	36	194	FPS:15)
+
+			ani			("t_FallBDn_2_FallB"			1	"s_FallB"		0.1	0.1	MF	"Zom_FallenB_M01.asc"	F	1	7)
+			ani			("s_FallB"						1	"s_FallB"		0.0	0.0	MF	"Zom_FallenB_M01.asc"	F	8	8)
+			ani			("t_FallB_2_FallenB"			1	"s_FallenB"		0.0	0.0	M.	"Zom_FallenB_M01.asc"	F	9	24)
+			ani			("s_FallenB"					1	"s_FallenB"		0.0	0.0	M.	"Zom_FallenB_M01.asc"	F	25	25)
+			ani			("t_FallenB_2_Stand"			1	""				0.0	0.1	M.	"Zom_FallenB_M01.asc"	F	26	84	FPS:15)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// DIE
+			ani			("t_Dead"						1	"s_Dead"		0.1	0.0	M.	"Zom_Dead_A01.asc"		F	1	109	FPS:15)
+			{
+				*eventSFX	(1	"ZOM_DIE"	EMPTY_SLOT	)
+			    *eventPFX		(1	 1	"MFX_DESTROYUNDEAD_SOUL_BACK"	"BIP01 SPINE2"				ATTACH	)
+			    *eventPFX		(10	 2	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 L Hand"		ATTACH	)
+				*eventPFX		(15	 3	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 R Hand"		ATTACH	)
+				*eventPFX		(20	 4	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 L Foot"		ATTACH	)
+				*eventPFX		(25	 5	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 R Foot"		ATTACH	)
+				*eventPFX		(30	 6	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 Head"		ATTACH	)
+				*eventPFX		(35	 7	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 L UpperArm"	ATTACH	)
+				*eventSFX	(33	"M_FALL_SMALL"	EMPTY_SLOT	)
+				*eventPFX		(40	 8	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 R UpperArm"	ATTACH	)
+				*eventPFX		(45	 9	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01"				ATTACH	)
+			}
+			
+			
+			ani			("s_Dead"						1	"s_Dead"		0.0	0.0	M.	"Zom_Dead_A01.asc"		F	110	110)
+
+			ani			("t_DeadB"						1	"s_DeadB"		0.1	0.0	M.	"Zom_DeadB_M01.asc"		F	1	159	FPS:15)
+			{
+				*eventSFX	(2	"ZOM_DIE"	EMPTY_SLOT	)
+			    *eventPFX		(1	 1	"MFX_DESTROYUNDEAD_SOUL_BACK"	"BIP01 SPINE2"				ATTACH	)
+			    *eventPFX		(10	 2	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 L Hand"		ATTACH	)
+				*eventPFX		(20	 3	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 R Hand"		ATTACH	)
+				*eventPFX		(30	 4	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 L Foot"		ATTACH	)
+				*eventSFX	(34	"M_FALL_SMALL"	EMPTY_SLOT	)
+				*eventPFX		(40	 5	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 R Foot"		ATTACH	)
+				*eventPFX		(50	 6	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 Head"		ATTACH	)
+				*eventPFX		(60	 7	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 L UpperArm"	ATTACH	)
+				*eventPFX		(70	 8	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01 R UpperArm"	ATTACH	)
+				*eventPFX		(80	 9	"MFX_DESTROYUNDEAD_SOUL_CLOUD"	"BIP01"				ATTACH	)
+
+				*eventPFX		(120	 1	"MFX_DESTROYUNDEAD_SOUL_BACK"	"BIP01 SPINE2"				ATTACH	)
+			}
+		
+			ani			("s_DeadB"						1	"s_DeadB"		0.0	0.0	M.	"Zom_DeadB_M01.asc"		F	160	160)
+
+
+//////////////////////////
+// LOOK / WHIRL
+//////////////////////////
+
+// LOOK Autoaiming
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	0	0)
+			ani			("c_look_2"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	1	1)
+			ani			("c_look_3"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	2	2)
+			ani			("c_look_4"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	3	3)
+			ani			("c_look_5"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	4	4)
+			ani			("c_look_6"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	5	5)
+			ani			("c_look_7"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	6	6)
+			ani			("c_look_8"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	7	7)
+			ani			("c_look_9"						9	""				0.0	0.0	.	"Zom_Look_A01.asc"	F	8	8)
+
+			aniComb		("t_look"						9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+	// WhirlAround CCW
+			ani			("t_surprise_CCW"				1	"s_surprise"	0.0	0.0	M.	"Zom_WhirlL_M01.asc"	F	1	20)
+	// WhirlAround CW
+			ani			("t_surprise_CW"				1	"s_surprise"	0.0	0.0	M.	"Zom_WhirlR_M01.asc"	F	1	20)
+	// Surprise
+			aniAlias	("s_surprise"					1	"s_surprise"	0.1	0.1	M.	"s_FistRun"				F)
+
+
+//////////////////////////
+// ATTACK
+//////////////////////////
+			ani			("s_FistAttack"					1	"s_FistAttack"	0.0	0.0	M.	"Zom_Attack_Jue01.asc"		F	1	29)
+			{
+				*eventTag	(0	"DEF_HIT_LIMB"	"BIP01 R HAND")
+				*eventTag	(0	"DEF_OPT_FRAME"	"18")
+				*eventTag	(0	"DEF_HIT_END"	"29")
+				*eventTag	(0	"DEF_WINDOW"	"18	29")
+//				*eventTag	(0	"DEF_DIR"		"O")
+				*eventSFX	(10	"ZOM_ATTACK"	EMPTY_SLOT	)
+			}
+
+	// während des Laufens zuschlagen
+			ani			("t_FistAttackMove"				2	""				0.2	0.2	M.	"Zom_AttackMove_M01.asc"	F	1	29)
+			{
+				*eventTag	(0 "DEF_HIT_LIMB"	"BIP01 R HAND")
+				*eventTag	(0 "DEF_OPT_FRAME"	"18")
+				*eventSFX	(10	"ZOM_ATTACK"	EMPTY_SLOT	)
+			}
+
+	//	Paraden
+			aniAlias	("t_FistParadeJumpB"			1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+			aniAlias	("t_FistParade_O"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_U"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_L"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_R"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+
+
+//////////////////////////
+// SCRIPTS
+//////////////////////////
+
+			ani			("t_Perception"					2	""				0.1	0.1	M.	"Zom_Perception_M01.asc"	F	1	100	FPS:15)
+			ani			("t_Warn"						1	""				0.1	0.1	M.	"Zom_Warn_M01.asc"			F	1	50	FPS:15)
+			{
+				*eventSFX	(1	"ZOM_WARN"	EMPTY_SLOT	)
+			}
+
+
+
+///////////////////////
+// MAGIC VICTIMS
+///////////////////////
+
+// Feuerschaden allgemein, z.B. Fireball ...
+//			aniAlias	("s_Fire_Victim"			1	"s_Fire_Victim"			0.0	0.0	M.	"s_FallDn"			F)
+
+// Lightning, Chainlightning, Thunderbolt, Thunderball
+			aniAlias	("t_Stand_2_Lightning_Victim"	1	"s_Lightning_Victim"	0.0	0.0	M.	"s_FallDn"		F)
+			aniAlias	("s_Lightning_Victim"		1	"s_Lightning_Victim"		0.0	0.0	M.	"s_FallDn"		F)
+
+// IceCube, IceWave
+			ani			("t_Stand_2_Freeze_Victim"		1	"s_Freeze_Victim"		0.0	0.0	M.	"Zom_StumbleB_M01.asc"	F	1	3)
+			ani			("s_Freeze_Victim"				1	"s_Freeze_Victim"		0.0	0.0	M.	"Zom_StumbleB_M01.asc"	F	4	4)
+
+// kein Sleep Victim
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	}
+

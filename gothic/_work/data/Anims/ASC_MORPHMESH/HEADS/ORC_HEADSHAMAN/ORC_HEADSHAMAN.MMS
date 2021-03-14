@@ -1,0 +1,9 @@
+morphMesh ("Orc_Headshaman")
+{
+	morphRef ("ORC_HEADSHAMAN.ASC")
+	morphAni ("S_NEUTRAL" 1 1 -1 1 L "ORC_HEADSHAMAN.ASC" 0 0 SPD:1)
+	morphAni ("S_ANGRY" 2 1 -1 1 L "ORC_HEAD_EMOTIONS.ASC" 0 0 SPD:1)
+	morphAni ("S_FRIENDLY" 2 1 -1 1 L "ORC_HEAD_EMOTIONS.ASC" 1 1 SPD:1)
+	morphAni ("S_FRIGHTENED" 2 1 -1 1 L "ORC_HEAD_EMOTIONS.ASC" 2 2 SPD:1)
+	morphAni ("VISEME" 3 1 -1 1 DL "ORC_HEADWARRIORTALK.ASC" 0 14 SPD:5)
+}

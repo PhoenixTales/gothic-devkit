@@ -1,0 +1,1773 @@
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Model ("Orc")
+{
+	MeshAndTree ("Orc_Body.asc"	DONT_USE_MESH)
+
+	registerMesh ("Orc_Body.ASC")
+	registerMesh ("Orc_BodyScout.ASC")
+	registerMesh ("Orc_BodyShaman.ASC")
+	registerMesh ("Orc_BodySlave.ASC")
+	registerMesh ("Orc_BodyWarrior.ASC")
+
+	registerMesh ("UOS_Body.ASC")
+	registerMesh ("UOW_Body.ASC")
+
+	aniEnum
+	{
+			modelTag	("DEF_HIT_LIMB"	"zs_RightHand")
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// Bewegungs-Modi
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ---------------------------------------------------------------------------------------------------------------
+//	RUN-Mode
+			ani			("s_Run"				1	"s_Run"			0.1	0.1	MI	"Orc_RunAmbient_jue02.asc"			F	0	50  FPS:10)
+			{
+				*eventSFX	(1	"ORC_AMBIENT"	EMPTY_SLOT	)
+			}
+			ani			("t_Run_2_RunL"			1	"s_RunL"		0.0	0.0	M.	"Orc_RunLoop+JumpBack_jue02.asc"	F	0	11	)
+			ani			("s_RunL"				1	"s_RunL"		0.0	0.1	M.	"Orc_RunLoop+JumpBack_jue02.asc"	F	12	31	)
+			{
+				*eventSFX	(13	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(12	"Run")
+				*eventSFXGrnd	(21	"Run")
+			}
+
+			ani			("t_RunL_2_Run"			1	"s_Run"			0.0	0.0	M.	"Orc_RunLoop+JumpBack_jue02.asc"	F	33	38	)
+			aniBlend	("t_RunR_2_Run"				"s_Run"			0.0	0.05)
+
+			ani			("t_JumpB"				1	"s_Run"			0.0	0.0	M.	"Orc_RunLoop+JumpBack_jue02.asc"	F	40	54	)
+			{
+				*eventSFXGrnd  (49 "Run")
+				*eventSFXGrnd  (53 "Run")
+			}
+
+// ---------------------------------------------------------------------------------------------------------------
+//	WALK-Mode
+			ani			("s_Walk"				1	"s_Walk"		0.1	0.1	MI	"Orc_WalkAmbient_jue02.asc"			F	0	50	FPS:10)
+			{
+				*eventSFX	(1	"ORC_AMBIENT"	EMPTY_SLOT	)
+			}
+			ani			("t_Walk_2_WalkL"		1	"s_WalkL"		0.0	0.0	M.	"Orc_WalkLoop_jue02.asc"			F	1	9	)
+			ani			("s_WalkL"				1	"s_WalkL"		0.0	0.1	M.	"Orc_WalkLoop_jue02.asc"			F	10	32	)
+			{
+				*eventSFXGrnd	(10	"Run")
+				*eventSFX	(11	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(21	"Run")
+			}
+
+			ani			("t_WalkL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"Orc_WalkLoop_jue02.asc"			F	33	40	)
+			{
+				*eventSFXGrnd	(40	"Run")
+			}
+
+			aniBlend	("t_WalkR_2_Walk"			"s_Walk"		0.0	0.1)
+
+			ani			("t_Walk_2_WalkBL"		1	"s_WalkBL"		0.0	0.0	M.	"Orc_WalkLoop_B_jue02.asc"			R	33	40	)
+
+			ani			("s_WalkBL"				1	"s_WalkBL"		0.0	0.0	M.	"Orc_WalkLoop_B_jue02.asc"			R	9	32	)
+			ani			("t_WalkBL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"Orc_WalkLoop_B_jue02.asc"			R	1	8	)
+			aniBlend	("t_WalkBR_2_Walk"			"s_Walk"		0.0	0.1)
+
+// ---------------------------------------------------------------------------------------------------------------
+//	SNEAK-Mode
+			ani			("s_Sneak"				1	"s_Sneak"		0.0	0.0	MI	"Orc_SneakAmbient.asc"				F	0	50	FPS:10)
+			ani			("t_Sneak_2_SneakL"		1	"s_SneakL"		0.0	0.0	M.	"Orc_SneakLoop.asc"					F	1	52	)
+			ani			("s_SneakL"				1	"s_SneakL"		0.0	0.0	M.	"Orc_SneakLoop.asc"					F	53	104	)
+
+			ani			("t_SneakL_2_Sneak"		1	"s_Sneak"		0.0	0.0	M.	"Orc_SneakLoop.asc"					F	105	149	)
+			aniBlend	("t_SneakR_2_Sneak"			"s_Sneak"		0.2	0.2)
+
+			ani			("t_Sneak_2_SneakBL"	1	"s_SneakBL"		0.0	0.0	M.	"Orc_SneakLoop_B.asc"				R	105	149	)
+
+			ani			("s_SneakBL"			1	"s_SneakBL"		0.0	0.0	M.	"Orc_SneakLoop_B.asc"				R	53	104	)
+			ani			("t_SneakBL_2_Sneak"	1	"s_Sneak"		0.0	0.0	M.	"Orc_SneakLoop_B.asc"				R	1	52	)
+			aniBlend	("t_SneakBR_2_Sneak"		"s_Sneak"		0.2	0.2)
+
+// ---------------------------------------------------------------------------------------------------------------
+//	TURNING
+			ani			("t_RunTurnL"			20	"t_RunTurnL"	0.2	0.2	M.	"Orc_RunTurnL_A01.asc"		F	1	24	)
+			{
+				*eventSFXGrnd	(8	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+			ani			("t_RunTurnR"			20	"t_RunTurnR"	0.2	0.2	M.	"Orc_RunTurnR_A01.asc"		F	1	24	)
+			{
+				*eventSFXGrnd	(8	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+			aniAlias	("t_WalkTurnL"			20	"t_WalkTurnL"	0.2	0.2	M.	"t_RunTurnL"				F)
+			aniAlias	("t_WalkTurnR"			20	"t_WalkTurnR"	0.2	0.2	M.	"t_RunTurnR"				F)
+
+			ani			("t_SneakTurnL"			20	"t_SneakTurnL"	0.2	0.2	M.	"Orc_SneakTurnL_R.asc"		F	1	59	)
+			ani			("t_SneakTurnR"			20	"t_SneakTurnL"	0.2	0.2	M.	"Orc_SneakTurnL_R.asc"		F	61	119	)
+
+// ---------------------------------------------------------------------------------------------------------------
+//	STRAFING
+			ani			("t_RunStrafeL"			1	"s_Run"			0.1	0.1	M.	"Orc_RunStrafeL_R_A01.asc"	F	0	14	)
+			{
+				*eventSFX	(1	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(10	"Turn")
+				*eventSFXGrnd	(14	"Turn")
+			}
+			ani			("t_RunStrafeR"			1	"s_Run"			0.1	0.1	M.	"Orc_RunStrafeL_R_A01.asc"	F	16	30	)
+			{
+				*eventSFX	(16	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(25	"Turn")
+				*eventSFXGrnd	(29	"Turn")
+			}
+			ani			("t_WalkStrafeL"		1	"s_Walk"		0.2	0.2	M.	"Orc_WalkStrafeL_R_A01.asc"	F	0	15	)
+			{
+				*eventSFX	(1	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(10	"Turn")
+				*eventSFXGrnd	(14	"Turn")
+			}
+			ani			("t_WalkStrafeR"		1	"s_Walk"		0.2	0.2	M.	"Orc_WalkStrafeL_R_A01.asc"	F	15	30	)
+			{
+				*eventSFX	(16	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(25	"Turn)
+				*eventSFXGrnd	(29	"Turn")
+			}
+
+			ani			("t_SneakStrafeL"		1	"s_Sneak"		0.2	0.2	M.	"Orc_SneakStrafeL_R.asc"	F	1	44	)
+			ani			("t_SneakStrafeR"		1	"s_Sneak"		0.2	0.2	M.	"Orc_SneakStrafeL_R.asc"	F	46	99	)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+//	TRANSITIONS
+			ani			("t_Run_2_Walk"			1	"s_Walk"		0.1	0.1	M.	"Orc_Run2Walk_jue02.asc"	F	0	12	)
+			aniAlias	("t_Walk_2_Run"			1	"s_Run"			0.1	0.1	M.	"t_Run_2_Walk"				R)
+
+			aniBlend	("t_Run_2_Sneak"			"s_Sneak"		0.2	0.2)
+			aniBlend	("t_Sneak_2_Run"			"s_Run"			0.2	0.2)
+
+			aniBlend	("t_RunL_2_WalkL"			"s_WalkL"		0.2	0.2)
+			aniBlend	("t_WalkL_2_RunL"			"s_RunL"		0.2	0.2)
+
+			aniBlend	("t_SneakL_2_RunL"			"s_RunL"		0.2	0.2)
+			aniBlend	("t_RunL_2_SneakL"			"s_SneakL"		0.2	0.2)
+
+			aniBlend	("t_Walk_2_Sneak"			"s_Sneak"		0.2	0.2)
+			aniBlend	("t_Sneak_2_Walk"			"s_Walk"		0.2	0.2)
+
+			aniBlend	("t_WalkL_2_SneakL"			"s_SneakL"		0.2	0.2)
+			aniBlend	("t_SneakL_2_WalkL"			"s_WalkL"		0.2	0.2)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// JUMP
+
+			ani			("t_Stand_2_Jump"		1	"s_Jump"		0.1	0.0	M.	"Orc_Jump_jue02.asc"		F	0	24	)
+
+			ani			("s_Jump"				1	"s_Jump"		0.0	0.0 MF	"Orc_Jump_jue02.asc"		F	25	25	)
+			ani			("t_Jump_2_Stand"		1	""				0.0 0.1	M.	"Orc_Jump_jue02.asc"		F	26	41	)
+			{
+				*eventSFXGrnd	(31	"Run")
+				*eventSFXGrnd	(34	"Run")
+			}
+
+//	aus dem Rennen direkt Springen
+			ani			("t_RunL_2_Jump"		1	"s_Jump"		0.0	0.1	MF	"Orc_RunJump_jue02.asc"		F	0	19	)
+			aniAlias	("t_RunR_2_Jump"		1	"s_Jump"		0.3	0.1	MF	"t_RunL_2_Jump"				F)
+//	nach dem Sprung direkt weiterrennen, wenn CursorUp weiterhin gedrückt
+			aniBlend	("t_Jump_2_RunL"			"s_RunL"		0.2	0.2)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// JUMP UP, CLIMB
+
+//	JumpUpLow       (Ohne Benutzung der Hände, rechter Fuß setzt zuerst auf. Höhe: 50-100cm)
+//  ani1: Schwung holen, ani2: Flugphase, ani3: Kontakt mit Kante
+			ani     ("t_Stand_2_JumpUpLow"  	1   "s_JumpUpLow"			0.1 0.0 M.  "Orc_JumpUpLow_jue02.asc" F   1   10	)
+ 			ani		("s_JumpUpLow"              1   "t_JumpUpLow_2_Stand"	0.0 0.0 MF	"Orc_JumpUpLow_jue02.asc" F   10	14)
+            ani     ("t_JumpUpLow_2_Stand"  	1   ""						0.0 0.1 MF	"Orc_JumpUpLow_jue02.asc" F   14	29	)
+			{
+				*eventPFX		(17 "ZMODELLANDDUST" "BIP01 L Foot")
+				*eventSFXGrnd	(17	"Run")
+				*eventSFXGrnd	(23	"Run")
+			}
+
+//	aus dem Rennen direkt Springen
+			aniAlias	("t_RunL_2_JumpUpLow"	1	"t_JumpUpLow_2_Stand"		0.2	0.1	M.	"s_JumpUpLow"			F)
+			aniAlias	("t_RunR_2_JumpUpLow"	1	"t_JumpUpLow_2_Stand"		0.2	0.1	M.	"s_JumpUpLow"			F)
+
+
+//	JumpUpMid       (Auf den Händen abgestützt in einem Satz nach oben. Höhe: 100-200cm)
+//  ani1: Schwung holen, ani2: Flugphase, ani3: Kontakt mit Kante
+            ani     ("t_Stand_2_JumpUpMid" 		1   "s_JumpUpMid"			0.1 0.0 M.	"Orc_JumpUpMid_jue02.asc" 		F   1    10)
+			ani     ("s_JumpUpMid"              1   "t_JumpUpMid_2_Stand"	0.0 0.0 MF	"Orc_JumpUpMid_jue02.asc" 		F   10	12)
+            ani     ("t_JumpUpMid_2_Stand"  	1   ""						0.0 0.1 MF	"Orc_JumpUpMid_jue02.asc" 		F   12	35	)
+			{
+				*eventPFX		(12 "ZMODELLANDDUST" "BIP01 L Hand")
+				*eventPFX		(12 "ZMODELLANDDUST" "BIP01 R Hand")
+
+				*eventSFXGrnd	(25	"Run")
+				*eventSFXGrnd	(28	"Run")
+			}
+
+//	aus dem Rennen direkt Springen
+			aniAlias	("t_RunL_2_JumpUpMid"	1	"t_JumpUpMid_2_Stand"		0.2	0.1	M.	"s_JumpUpMid"			F)
+			aniAlias	("t_RunR_2_JumpUpMid"	1	"t_JumpUpMid_2_Stand"		0.2	0.1	M.	"s_JumpUpMid"			F)
+
+
+//	Während Sprung nach vorn Festhalten an Kante
+			aniBlend	("t_Jump_2_Hang"			"s_Hang"		0.2	0.2)
+
+//	Während Runterfallen Festhalten an Kante
+			aniBlend	("t_FallDn_2_Hang"			"s_Hang"		0.2	0.2)
+
+//	JumpUp, Hang	(An Kante springen, und dann hochziehen. Höhe: 200-350cm)
+//	aus dem Rennen direkt Springen
+			aniAlias	("t_RunL_2_JumpUp"		1	"s_JumpUp"		0.3	0.1	M.	"t_Stand_2_JumpUp"		F)
+			aniAlias	("t_RunR_2_JumpUp"		1	"s_JumpUp"		0.3	0.1	M.	"t_Stand_2_JumpUp"		F)
+
+			ani			("t_Stand_2_JumpUp"		1	"s_JumpUp"		0.0	0.0	M.	"Orc_JumpUpClimb_jue02.asc"	F	1	9)
+
+			ani			("s_JumpUp"				1	"s_JumpUp"		0.0	0.0	MF	"Orc_JumpUpClimb_jue02.asc"	F	10	10)
+
+			ani			("t_JumpUp_2_Hang"		1	"s_Hang"		0.2	0.2	MF	"Orc_JumpUpClimb_jue02.asc"	F	11	12)
+			ani			("s_Hang"				1	"s_Hang"		0.0	0.0	MF	"Orc_JumpUpClimb_jue02.asc" 	F	13	13)
+
+//	Climb up
+			ani			("t_Hang_2_Stand"		1	""				0.0	0.0	MF	"Orc_JumpUpClimb_jue02.asc" 	F	14	54)
+			{
+				*eventSFXGrnd	(38	"Run")
+				*eventSFXGrnd	(47	"Run")
+			}
+
+//	Climb Down
+			aniAlias	("t_Stand_2_Hang"	1	"s_Hang"		0.0	0.0	MF	"t_Hang_2_Stand"			R)
+
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// FALL
+
+//	FallDn
+			aniBlend	("t_Hang_2_FallDn"			"s_FallDn"		0.0	0.2)
+			aniBlend	("t_JumpUp_2_FallDn"		"s_FallDn"		0.0	0.2)
+			aniBlend	("t_Jump_2_FallDn"			"s_FallDn"		0.0	0.2)
+
+			ani			("s_FallDn"				1	"s_FallDn"		0.1	0.1	MF	"Orc_FallDn_jue02.asc"		F	0	0)
+
+// Landen und stehenbleiben
+			ani			("t_FallDn_2_Stand"		1	""				0.0	0.1	M.	"Orc_FallDn_jue02.asc"		F	1	13	)
+			{
+				*eventSFXGrnd	(4	"Run")
+				*eventSFXGrnd	(6	"Run")
+			}
+
+// Landen und direkt weiterrennen
+			aniBlend	("t_FallDn_2_RunL"			"s_RunL"		0.1	0.1)
+
+//	wenn Falltiefe zu tief um unbeschadet auf den Füßen zu landen
+			ani			("t_FallDn_2_Fall"		1	"s_Fall"		0.1	0.1	MF	"Orc_Fall.asc"			F	1	6	)
+			ani			("t_FallDn_2_FallB"		1	"s_FallB"		0.1	0.1	MF	"Orc_Fall_B.asc"		F	1	7	)
+
+//	Bei s-Fall und s_FallB "fliegt" die Figur durch die Luft.
+//	Bei s_Fallen + s_FallenB liegt der Spieler flach. Soll solange liegen bleiben bis eine CURSORTASTE gedrückt wird
+			ani			("s_Fall"				1	"s_Fall"		0.2 0.1 MF	"Orc_Fall.asc"		F	 7	7)
+			ani			("t_Fall_2_Fallen"		1	"s_Fallen"		0.0 0.0 M.	"Orc_Fall.asc"		F	 8	19)
+
+			ani			("s_Fallen"				1	"s_Fallen"		0.0 0.0 M.	"Orc_Fall.asc"		F	20	20)
+			ani			("t_Fallen_2_Stand"		1	""				0.0 0.2 M.	"Orc_KnockedOut_StandUp_jue02.asc"	F	32	79)
+			{
+				*eventSFXGrnd	(59	"Run")
+				*eventSFXGrnd	(74	"Run")
+			}
+
+
+			ani			("s_FallB"				1	"s_FallB"		0.1 0.0 MF	"Orc_Fall_B.asc"		F	 8	8)
+			ani			("t_FallB_2_FallenB"	1	"s_FallenB"		0.0 0.0 M.	"Orc_Fall_B.asc"		F	 8	18	)
+//			{
+//				*eventSFX	(8	"Fallen")
+//			}
+
+			ani			("s_FallenB"			1	"s_FallenB"		0.0 0.0 M.	"Orc_Fall_B.asc"		F	 19	19)
+			ani			("t_FallenB_2_Stand"	1	""				0.0 0.2 M.	"Orc_Fall_B.asc"		F	 20	45	)
+			{
+				*eventSFXGrnd	(27	"Run")
+				*eventSFXGrnd	(29	"Run")
+			}
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// SLIDE
+
+// TODO: Slide, SlideB
+
+
+///////////////////////////
+// ITEM GET / DROP / THROW
+///////////////////////////
+// Item auf verschiedenen Höhen aufnehmen
+			ani			("c_Stand_2_IGet_1"		1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	1	12)
+			ani			("c_Stand_2_IGet_2"		1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	25	36)
+			ani			("c_Stand_2_IGet_3"		1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	51	62)
+			aniComb		("t_Stand_2_IGet"		1	"s_IGet"		0.0	0.0	M.	"c_Stand_2_IGet_"			3)
+
+			ani			("c_IGet_1"				1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	13	13)
+			ani			("c_IGet_2"				1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	37	37)
+			ani			("c_IGet_3"				1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	63	63)
+			aniComb		("s_IGet"				1	"s_IGet"		0.0	0.0	M.	"c_IGet_"					3)
+
+			ani			("c_IGet_2_Stand_1"		1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	14	25)
+			ani			("c_IGet_2_Stand_2"		1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	38	49)
+			ani			("c_IGet_2_Stand_3"		1	""				0.0	0.0	.	"Orc_ItemGet_jue02.asc"		F	64	75)
+			aniComb		("t_IGet_2_Stand"		1	""				0.0	0.1	M.	"c_IGet_2_Stand_"			3)
+
+//	Item ABLEGEN
+			ani			("t_Stand_2_IDrop"		1	"s_IDrop"		0.1 0.0 M.	"Orc_ItemThrow_jue02.asc"		F	1	16)
+			ani			("s_IDrop"				1	"s_IDrop"		0.0 0.0 M.	"Orc_ItemThrow_jue02.asc"		F	17	17)
+			ani			("t_IDrop_2_Stand"		1	""				0.0 0.1 M.	"Orc_ItemThrow_jue02.asc"		F	18	24)
+
+
+
+
+
+//////////////////////////
+// WALK WATER
+//////////////////////////
+
+			ani			("t_Walk_2_WalkWL"		1	"s_WalkWL"		0.0	0.0	M.	"Orc_WaterWalk_jue02.asc"			F	1	11	)
+
+//	Water-Walk-Loop
+			ani			("s_WalkWL"				1	"s_WalkWL"		0.0	0.0	M.	"Orc_WaterWalk_jue02.asc"			F	12	47	)
+			{
+				*eventSFX	(20	"Walk_Water")
+				*eventSFX	(40	"Walk_Water")
+			}
+
+			ani			("t_WalkWL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"Orc_WaterWalk_jue02.asc"			F	48	55	)
+			aniBlend	("t_WalkWR_2_Walk"			"s_Walk"		0.2	0.2)
+
+//	Walk Backwards Movement
+			aniBlend	("t_Walk_2_WalkWBL"			"s_WalkWBL"		0.2	0.2)
+
+//	Water-Walk-Loop backwards
+			aniAlias	("s_WalkWBL"			1	"s_WalkWBL"		0.0	0.0	M.	"s_WalkWL"					R)
+
+			aniBlend	("t_WalkWBL_2_Walk"			"s_Walk"		0.2	0.2)
+			aniBlend	("t_WalkWBR_2_Walk"			"s_Walk"		0.2	0.2)
+
+
+/////////////////////////////
+// WATER TURNING / STRAFING
+/////////////////////////////
+//	Turn / Strafe können doch nicht von "s_Walk" benutzt werden (Weil sie dann auch die selben SFX benutzen) :(
+			ani			("t_WalkWTurnL"			20	"t_WalkWTurnL"	0.2	0.2	M.	"Orc_RunTurnL_110_jue02.asc"		F	1	24	)
+			{
+				*eventSFX	(10	"Swim")
+			}
+			ani			("t_WalkWTurnR"			20	"t_WalkWTurnR"	0.2	0.2	M.	"Orc_RunTurnR_110_jue02.asc"		R	1	24	)
+			{
+				*eventSFX	(10	"Swim")
+			}
+
+			ani			("t_WalkWStrafeL"		1	"t_WalkWStrafeL"	0.1	0.1	M.	"Orc_WalkStrafeL_jue02.asc"		F	1	24	)
+			{
+				*eventSFX	(6	"Swim")
+			}
+			ani			("t_WalkWStrafeR"		1	"t_WalkWStrafeR"	0.1	0.1	M.	"Orc_WalkStrafeR_jue02.asc"		F	1	24	)
+			{
+				*eventSFX	(21	"Swim")
+			}
+
+
+//	Transitions won Walkloops zu Walkloop im Wasser
+			aniBlend	("t_SneakBL_2_WalkWBL"		"s_WalkWBL"		0.2	0.2)
+			aniBlend	("t_WalkWBL_2_SneakBL"		"s_SneakBL"		0.2	0.2)
+
+			aniBlend	("t_WalkBL_2_WalkWBL"		"s_WalkWBL"		0.2	0.2)
+			aniBlend	("t_WalkWBL_2_WalkBL"		"s_WalkBL"		0.2	0.2)
+
+			aniBlend	("t_SneakL_2_WalkWL"		"s_WalkWL"		0.2	0.2)
+			aniBlend	("t_WalkWL_2_SneakL"		"s_SneakL"		0.2	0.2)
+
+			aniBlend	("t_WalkL_2_WalkWL"			"s_WalkWL"		0.2	0.2)
+			aniBlend	("t_WalkWL_2_WalkL"			"s_WalkL"		0.2	0.2)
+
+			aniBlend	("t_RunL_2_WalkWL"			"s_WalkWL"		0.2	0.2)
+			aniBlend	("t_WalkWL_2_RunL"			"s_RunL"		0.2	0.2)
+
+			aniBlend	("t_WalkWBL_2_SwimB"		"s_SwimB"		0.2	0.2)
+			aniBlend	("t_SwimB_2_WalkWBL"		"s_WalkWBL"		0.2	0.2)
+
+			ani			("t_WalkWL_2_SwimF"		1	"s_SwimF"		0.2	0.2	MF	"Orc_Walk2Swim_jue02.asc"		F	0	10)
+			{
+				*eventSFX	(5	"Swim")
+			}
+			aniAlias	("t_SwimF_2_WalkWL"		1	"s_WalkWL"		0.2	0.2	MF	"t_WalkWL_2_SwimF"		R)
+
+
+//////////////////////////
+// SWIM
+//////////////////////////
+			ani			("s_Swim"				1	"s_Swim"		0.1	0.1	MI		"Orc_Swim_Ambient.asc"		F	0	48	FPS:10)
+			{
+				*eventSFX	(10  "SwimWaves")
+			}
+// Kraulen
+			ani			("t_Swim_2_SwimF"		1	"s_SwimF"		0.1	0.0	M.	"Orc_Swim.asc"		F	1	19	)
+			{
+				*eventSFX	(0  "SwimWaves")
+			}
+
+			ani			("s_SwimF"				1	"s_SwimF"		0.0	0.2	M.	"Orc_Swim.asc"		F	20	49	)
+			{
+				*eventSFX	(22	"Swim")
+				*eventSFX	(37	"Swim")
+			}
+			ani			("t_SwimF_2_Swim"		1	"s_Swim"		0.0	0.1	M.	"Orc_Swim.asc"		F	50	69	)
+			{
+				*eventSFX	(52  "SwimWaves")
+			}
+
+
+			ani			("t_Swim_2_SwimB"		1	"s_SwimB"		0.0	0.0	M.	"Orc_Swim_B.asc"		F	1	16	)
+			ani			("s_SwimB"				1	"s_swimB"		0.0	0.0	M.	"Orc_Swim_B.asc"		F	17	54	)
+			{
+				*eventSFX	(30	"SwimBack")
+			}
+			ani			("t_SwimB_2_Swim"		1	"s_Swim"		0.0	0.0	M.	"Orc_Swim_B.asc"		F	55	69	)
+
+//	Turning
+			ani			("t_SwimTurnL"			20	"t_SwimTurnL"	0.1	0.1	M.	"Orc_SwimTurnL_R.asc"	F	1	24)
+			{
+				*eventSFX   (8 "SwimBack")
+			}
+			ani			("t_SwimTurnR"			20	"t_SwimTurnR"	0.1	0.1	M.	"Orc_SwimTurnL_R.asc"	F	26	49)
+			{
+				*eventSFX   (34 "SwimBack")
+			}
+
+
+
+//////////////////////////
+// DIVE
+//////////////////////////
+
+			ani			("t_FallDn_2_Dive"		1	"s_Dive"		0.1	0.1	MF	"Orc_FallDn2Dive.asc"		F	1	24	)
+
+			ani			("t_Swim_2_Dive"		1	"s_Dive"		0.2	0.1	MF	"Orc_Swim2Dive2Swim.asc"	F	1	24	)
+			{
+				*eventSFX	(5	"Swim2Dive")
+			}
+			ani			("t_SwimF_2_Dive"		1	"s_Dive"		0.2	0.1	MF	"Orc_Swim2Dive2Swim.asc"	F	26	49	)
+			{
+				*eventSFX	(31	"Swim2Dive")
+			}
+
+			ani			("s_Dive"				1	"s_Dive"		0.1	0.1	MF	"Orc_Dive.asc"				F	0	0)
+
+			aniBlend	("t_Dive_2_DiveF"			"s_DiveF"		0.1	0.1)
+			ani			("s_DiveF"				1	"s_DiveF"		0.4	0.4	MF	"Orc_Dive.asc"				F	1	37	)
+			{
+				*eventSFX	(1	"Dive")
+			}
+			aniBlend	("t_DiveF_2_Dive"			"s_Dive"		0.2	0.2)
+			aniAlias	("t_DiveF_2_Swim"		1	"s_Swim"		0.3	0.0	MF	"t_Swim_2_Dive"				R)
+
+
+			ani			("t_Dive_2_Drowned"		1	"s_Drowned"		0.2	0.0	M.	"Orc_Drown.asc"				F	1	24	)
+			{
+				*eventSFX	(24	"Drown")
+			}
+
+			ani			("s_Drowned"			1	"s_Drowned"		0.0	0.0	M.	"Orc_Drown.asc"				F	25	25)
+
+//	Turning
+			ani			("t_DiveTurnL"			20	"t_DiveTurnL"	0.1	0.1	M.	"Orc_DiveTurnL_R.asc"		F	1	24	)
+			{
+				*eventSFX	(10  "DiveWaves")
+			}
+
+			ani			("t_DiveTurnR"			20	"t_DiveTurnR"	0.1	0.1	M.	"Orc_DiveTurnL_R.asc"		F	26	49	)
+			{
+				*eventSFX	(36  "DiveWaves")
+			}
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// STUMBLE (für Treffer im Kampf)
+// !!	AI: was ist mit Umfallen wenn zu hoher Schaden? Was mit den verschiedenen Stumbles?
+
+			ani			("t_Stumble"			1	""				0.1 0.1 M.	"Orc_Stumble_jue02.asc"		F	0	15	)
+			{
+				*eventSFX	(1	"ORC_HURT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(11	"Run")
+				*eventSFXGrnd	(14	"Run")
+			}
+
+			ani			("t_StumbleB"			1	""				0.1 0.1 M.	"Orc_Stumble_B_jue02.asc"		F	0	15	)
+			{
+				*eventSFX	(1	"ORC_HURT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(8	"Run")
+				*eventSFXGrnd	(14	"Run")
+			}
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// DIE
+
+			ani			("t_Dead"				1	"s_Dead"		0.1 0.0 M.	"Orc_Dead_jue02.asc"		F	 1	46)
+			{
+				*eventSFX	(25	"M_FALL_HUGE"	EMPTY_SLOT	)
+				*eventSFX	(2	"ORC_DIE"	EMPTY_SLOT	)
+			}
+			ani			("s_Dead"				1	"s_Dead"		0.0 0.0 M.	"Orc_Dead_jue02.asc"		F	47	47)
+
+			ani			("t_DeadB"				1	"s_DeadB"		0.1 0.0 M.	"Orc_Dead_B_jue02.asc"		F	 0	38)
+			{
+				*eventSFX	(1	"ORC_DIE"	EMPTY_SLOT	)
+				*eventSFX	(32	"M_FALL_HUGE"	EMPTY_SLOT	)
+			}
+			ani			("s_DeadB"				1	"s_DeadB"		0.0 0.0 M.	"Orc_Dead_B_jue02.asc"		F	39	39)
+
+
+
+//////////////////////////
+// UMSEHEN / ZEIGEN
+//////////////////////////
+
+// LOOK Autoaiming
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	0	0)
+			ani			("c_look_2"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	1	1)
+			ani			("c_look_3"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	2	2)
+			ani			("c_look_4"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	3	3)
+			ani			("c_look_5"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	4	4)
+			ani			("c_look_6"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	5	5)
+			ani			("c_look_7"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	6	6)
+			ani			("c_look_8"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	7	7)
+			ani			("c_look_9"				9	""				0.0	0.0	.	"Orc_Look_jue02.asc"	F	8	8)
+
+			aniComb		("t_look"				9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+// POINT AT Autoaiming
+// Seitenwinkel: +/- 90°	Höhenwinkel: +/- 45°
+// Fehlt
+
+	// WhirlAround CCW
+			ani			("t_surprise_CCW"		1	"s_surprise"	0.0	0.0	M.	"Orc_WhirlAround_jue02.asc"	F	0	15)
+	// WhirlAround CW
+			ani			("t_surprise_CW"		1	"s_surprise"	0.0	0.0	M.	"Orc_WhirlAround_jue02.asc"	F	16	31)
+
+			ani			("c_looksurprised_1"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	8	8)
+			ani			("c_looksurprised_2"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	17	17)
+			ani			("c_looksurprised_3"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	26	26)
+			ani			("c_looksurprised_4"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	35	35)
+			ani			("c_looksurprised_5"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	44	44)
+			ani			("c_looksurprised_6"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	53	53)
+			ani			("c_looksurprised_7"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	62	62)
+			ani			("c_looksurprised_8"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	71	71)
+			ani			("c_looksurprised_9"	1	""				0.0	0.0	..	"Orc_Surprise_jue02.asc"	F	80	80)
+
+			aniComb		("s_surprise"			1	"s_surprise"	0.0	0.0	M.	"c_looksurprised_"	9)
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+//	KAMPF-MOVES
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//////////////////////////
+// WEAPON CHOOSE
+//////////////////////////
+	// FIST
+			ani			("t_Run_2_Fist"			1	"s_Fist"		0.1	0.0	M.	"Orc_DrawFist_jue02.asc"			F	1	4)
+			ani			("s_Fist"				1	"s_Fist"		0.0	0.0	M.	"Orc_DrawFist_jue02.asc"			F	5	5)
+			ani			("t_Fist_2_FistRun"		1	"s_FistRun"		0.0	0.1	M.	"Orc_DrawFist_jue02.asc"			F	6	14)
+			{
+				*eventTag		(6	"DEF_FIGHTMODE"	"FIST")
+			}
+
+			ani			("t_FistRun_2_Fist"		1	"s_Fist"		0.1	0.0	M.	"Orc_DrawFist_jue02.asc"			R	6	14)
+			{
+				*eventTag		(6	"DEF_FIGHTMODE"	"")
+			}
+			aniAlias	("t_Fist_2_Run"			1	""				0.0	0.1	M.	"t_Run_2_Fist"				R)
+
+
+			ani			("t_Move_2_FistMove"			2	""		0.2	0.2	M.	"Orc_DrawFist_Run_A01.asc"	F	1	20)
+			{
+				*eventTag		(5 "DEF_FIGHTMODE"	"FIST")
+			}
+			ani			("t_FistMove_2_Move"			2	""		0.2	0.2	M.	"Orc_DrawFist_Run_A01.asc"	R	1	20)
+			{
+				*eventTag		(5 "DEF_FIGHTMODE"	"")
+			}
+
+
+	// 2H - WEAPON
+			ani			("t_Run_2_2h"			1	"s_2h"			0.1 0.0 M.	"Orc_2hSDrawT2_A00.asc"	F	1	5)
+			ani			("s_2h"					1	"s_2h"			0.0 0.0 M.	"Orc_2hSDrawT2_A00.asc"	F	6	6)
+			ani			("t_2h_2_2hRun"			1	"s_2hRun"		0.0 0.1 M.	"Orc_2hSDrawT2_A00.asc"	F   7	18)
+			{
+				*eventTag	(7 "DEF_FIGHTMODE"	"2h")
+				*eventTag	(7	"DEF_DRAWSOUND")
+			}
+
+			ani			("t_2hRun_2_2h"			1	"s_2h"			0.1 0.0 M.	"Orc_2hSDrawT2_A00.asc"	R   7	18)
+			{
+				*eventTag	(7 "DEF_FIGHTMODE"	"")
+				*eventTag	(7	"DEF_UNDRAWSOUND")
+			}
+			aniAlias	("t_2h_2_Run"			1	""				0.0 0.1 M.	"t_Run_2_2h"				R)
+
+
+			ani			("t_Move_2_2hMove"		2	""				0.2	0.2	M.	"Orc_2hSDrawT2_Run_A00.asc"		F	1	20)
+			{
+				*eventTag	(7 "DEF_FIGHTMODE"	"2H")
+				*eventTag	(7	"DEF_DRAWSOUND")
+			}
+			ani			("t_2hMove_2_Move"		2	""				0.2	0.2	M.	"Orc_2hSDrawT2_Run_A00.asc"		R	1	20)
+			{
+				*eventTag	(7	"DEF_UNDRAWSOUND")
+				*eventTag	(7 "DEF_FIGHTMODE"	"")
+			}
+
+
+	// CBOW
+			ani			("t_Run_2_CBow"			1	"s_CBow"		0.1	0.0	M.	"Orc_CBow_jue02.asc"				F	1	4)
+			ani			("s_CBow"				1	"s_CBow"		0.0	0.0	M.	"Orc_CBow_jue02.asc"				F	5	5)
+			ani			("t_CBow_2_CBowRun"		1	"s_CBowRun"		0.0	0.1	M.	"Orc_CBow_jue02.asc"				F	6	40)
+			{
+				*eventTag		(11 "DEF_FIGHTMODE"	"CBOW")
+				*eventMMStartAni (10	"S_SHOOT"	"ZS_RIGHTHAND")
+				*eventSFX		(11	"Drawsound_Bow")
+		        *eventTag		(24	"DEF_PLACE_MUNITION"	"ZS_LEFTHAND")
+			}
+			ani			("t_CBowRun_2_CBow"		1	"s_CBow"		0.1	0.0	M.	"Orc_CBow_jue02.asc"				R	6	40)
+			{
+				*eventTag		(11	"DEF_FIGHTMODE"	"")
+				*eventSFX		(12	"Drawsound_Bow")
+		        *eventTag		(24	"DEF_REMOVE_MUNITION")
+			}
+			aniAlias	("t_CBow_2_Run"			1	""				0.0	0.1	M.	"t_Run_2_CBow"				R)
+
+
+			ani			("t_Move_2_CBowMove"	2	""				0.2	0.2	M.	"Orc_CBow_Run_A01.asc"	F	1	20)
+			{
+				*eventTag		(7 "DEF_FIGHTMODE"	"CBOW")
+				*eventMMStartAni (6	"S_SHOOT"	"ZS_RIGHTHAND")
+				*eventSFX		(7	"Drawsound_Bow")
+		        *eventTag		(6	"DEF_PLACE_MUNITION"	"ZS_LEFTHAND")
+			}
+			ani			("t_CBowMove_2_Move"	2	""				0.2	0.2	M.	"Orc_CBow_Run_A01.asc"	R	1	20)
+			{
+				*eventTag		(7 "DEF_FIGHTMODE"	"")
+				*eventSFX		(7	"Drawsound_Bow")
+		        *eventTag		(6	"DEF_REMOVE_MUNITION")
+			}
+
+
+		// MAG
+			ani			("t_Run_2_Mag"			1	"s_Mag"			0.1 0.0 M.	"Orc_Ready_Mag_M01.asc"		F	1	3)
+			ani			("s_Mag"				1	"s_Mag"			0.0 0.0 M.	"Orc_Ready_Mag_M01.asc"		F	3	3)
+			ani			("t_Mag_2_MagRun"		1	"s_MagRun"		0.0 0.1 M.	"Orc_Ready_Mag_M01.asc"		F	3	30)
+			{
+				*eventTag		(4 "DEF_FIGHTMODE"	"MAG")
+			}
+
+			ani			("t_MagRun_2_Mag"		1	"s_Mag"			0.1 0.0 M.	"Orc_Ready_Mag_M01.asc"		R	3	30)
+			{
+				*eventTag		(4 "DEF_FIGHTMODE"	"")
+			}
+			aniAlias	("t_Mag_2_Run"			1	""				0.0 0.1 M.	"t_Run_2_Mag"				R)
+
+
+// FIGHT MODE TRANSITIONS
+			aniBlend	("t_Fist_2_CBow"			"s_CBow"		0.2	0.2)
+			aniBlend	("t_Fist_2_2h"				"s_2h"			0.2	0.2)
+			aniBlend	("t_Fist_2_Mag"				"s_Mag"			0.2	0.2)
+
+			aniBlend	("t_2h_2_Fist"				"s_Fist"		0.2	0.2)
+			aniBlend	("t_2h_2_CBow"				"s_CBow"		0.2	0.2)
+			aniBlend	("t_2h_2_Mag"				"s_Mag"			0.2	0.2)
+
+			aniBlend	("t_CBow_2_Fist"			"s_Fist"		0.2	0.2)
+			aniBlend	("t_CBow_2_2h"				"s_2h"			0.2	0.2)
+			aniBlend	("t_CBow_2_Mag"				"s_Mag"			0.2	0.2)
+			
+			aniBlend	("t_Mag_2_Fist"				"s_Fist"		0.2	0.2)
+			aniBlend	("t_Mag_2_2h"				"s_2h"			0.2	0.2)
+			aniBlend	("t_Mag_2_CBow"				"s_CBow"		0.2	0.2)
+
+
+///////////////////////
+// Fist MOVEMENT
+///////////////////////
+
+//	Fist-RUN
+			ani			("s_FistRun"				1	"s_FistRun"		0.1 0.1 MI	"Orc_FistRun.asc"			F	0	0)
+			ani			("t_FistRun_2_FistRunL"		1	"s_FistRunL"	0.1	0.0	M.	"Orc_FistRun.asc"			F	1	11)
+			{
+				*eventSFXGrnd	(3	"Run")
+			}
+			ani			("s_FistRunL"				1	"s_FistRunL"	0.0	0.0	M.	"Orc_FistRun.asc"			F	12	31)
+			{
+				*eventSFXGrnd	(12	"Run")
+				*eventSFX	(13	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(22	"Run")
+			}
+			ani			("t_FistRunL_2_FistRun"		1	"s_FistRun"		0.0	0.0	M.	"Orc_FistRun.asc"			F	32	41)
+			{
+				*eventSFXGrnd	(32	"Run")
+				*eventSFXGrnd	(36	"Run")
+				*eventSFXGrnd	(41	"Run")
+			}
+			aniBlend	("t_FistRunR_2_FistRun"			"s_FistRun"		0.2	0.2)
+
+//	Fist-Run Backwards Movement
+			ani			("t_FistJumpB" 				1 	"s_FistRun" 	0.1 0.1 M. 	"Orc_FistParade.asc"		F	1	14)
+			{
+				*eventSFXGrnd	(7	"Run")
+				*eventSFXGrnd	(10	"Run")
+			}
+
+//	Fist-WALK
+			ani			("s_FistWalk"				1	"s_FistWalk"	0.0	0.0	MI	"Orc_FistWalk.asc"	F	0	0)
+			ani			("t_FistWalk_2_FistWalkL"	1	"s_FistWalkL"	0.0	0.0	M.	"Orc_FistWalk.asc"	F	1	9)
+			ani			("s_FistWalkL"				1	"s_FistWalkL"	0.0	0.0	M.	"Orc_FistWalk.asc"	F	10	29)
+			{
+				*eventSFXGrnd	(10	"Run")
+				*eventSFX	(11	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(20	"Run")
+			}
+			ani			("t_FistWalkL_2_FistWalk"	1	"s_FistWalk"	0.0	0.0	M.	"Orc_FistWalk.asc"	F	30	39)
+			{
+				*eventSFXGrnd	(30	"Run")
+				*eventSFXGrnd	(39	"Run")
+			}
+			aniBlend	("t_FistWalkR_2_FistWalk"		"s_FistWalk"	0.2	0.2)
+
+//	Fist-Walk Backwards Movement
+			aniAlias	("t_FistWalk_2_FistWalkBL"	1	"s_FistWalkBL"	0.0	0.0	M.	"t_FistWalkL_2_FistWalk"		R)
+			aniAlias	("s_FistWalkBL"				1	"s_FistWalkBL"	0.0	0.0	M.	"s_FistWalkL"					R)
+
+			aniAlias	("t_FistWalkBL_2_FistWalk"	1	"s_FistWalk"	0.0	0.0	M.	"t_FistWalk_2_FistWalkL"		R)
+			aniBlend	("t_FistWalkBR_2_FistWalk"		"s_FistWalk"	0.2	0.2)
+
+///////////////////////
+// Fist TURNING
+///////////////////////
+
+			ani			("t_FistRunTurnL"		20	"t_FistRunTurnL"	0.2	0.2	M.	"Orc_FistTurn.asc"		F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+			aniAlias	("t_FistRunTurnR"		20	"t_FistRunTurnR"	0.2	0.2	M.	"t_FistRunTurnL"		R)
+
+			aniAlias	("t_FistWalkTurnL"		20	"t_FistWalkTurnL"	0.2	0.2	M.	"t_FistRunTurnL"			F)
+			aniAlias	("t_FistWalkTurnR"		20	"t_FistWalkTurnR"	0.2	0.2	M.	"t_FistRunTurnL"			R)
+
+///////////////////////
+// Fist STRAFING
+///////////////////////
+
+			aniAlias	("t_FistRunStrafeL"			1	"t_FistRunStrafeL"				0.1	0.1	M.	"t_2hRunStrafeL"	F)
+			aniAlias	("t_FistRunStrafeR"			1	"t_FistRunStrafeR"				0.1	0.1	M.	"t_2hRunStrafeR"	F)
+
+			aniAlias	("t_FistWalkStrafeL"		1	"t_FistWalkStrafeL"				0.1	0.1	M.	"t_2hRunStrafeL"			F)
+			aniAlias	("t_FistWalkStrafeR"		1	"t_FistWalkStrafeR"				0.1	0.1	M.	"t_2hRunStrafeR"			F)
+
+///////////////////////
+// Fist TRANSITIONS
+///////////////////////
+//	Movement-Modes
+			aniBlend	("t_FistRun_2_FistWalk"			"s_FistWalk"		0.0	0.2)
+			aniBlend	("t_FistWalk_2_FistRun"			"s_FistRun"			0.0	0.2)
+
+			aniBlend	("t_FistRunL_2_FistWalkL"		"s_FistWalkL"		0.2	0.2)
+			aniBlend	("t_FistWalkL_2_FistRunL"		"s_FistRunL"		0.2	0.2)
+
+
+///////////////////////
+// FIST ATTACKS
+///////////////////////
+			ani			("s_FistAttack"				1	"s_FistAttack"	0.0	0.1	M.	"Orc_FistAttack.asc"			F	0	40)
+			{
+				*eventTag	(0	"DEF_HIT_LIMB"	"BIP01 R HEAD")
+				*eventTag	(0	"DEF_OPT_FRAME"	"8 28")
+				*eventTag	(0	"DEF_HIT_END"	"19	39")
+				*eventTag	(0	"DEF_WINDOW"	"8 19 28 39")
+//				*eventTag	(0	"DEF_DIR"		"LU")
+				*eventSFX	(1	"ORC_ATTACK"	EMPTY_SLOT	)
+				*eventTag	(20	"DEF_HIT_LIMB"	"BIP01 L HAND")
+			}
+
+			ani			("t_FistAttackMove"			2	""				0.1	0.1	M.	"Orc_FistRunAttack_A01.asc"		F	1	25)
+			{
+				*eventTag	(0 "DEF_HIT_LIMB"	"BIP01 R HAND")
+				*eventTag	(0 "DEF_OPT_FRAME"	"15")
+				*eventSFX	(1	"ORC_ATTACK"	EMPTY_SLOT	)
+			}
+
+			aniAlias	("t_FistParade_O"			1	""				0.1	0.1	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_U"			1	""				0.1	0.1	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_L"			1	""				0.1	0.1	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_R"			1	""				0.1	0.1	M.	"t_FistJumpB"					F)
+
+			aniAlias	("t_FistParadeJumpB"		1	""				0.1	0.1	M.	"t_FistJumpB"					F)
+
+
+///////////////////////
+// 2h MOVEMENT
+///////////////////////
+
+//	2h-RUN
+			ani			("s_2hRun"					1	"s_2hRun"		0.1 0.1 MI	"Orc_1hRunT2_jue02.asc"			F	0	0)
+			ani			("t_2hRun_2_2hRunL"			1	"s_2hRunL"		0.1	0.0	M.	"Orc_1hRunT2_Jue02.asc"			F	1	11)
+			ani			("s_2hRunL"					1	"s_2hRunL"		0.0	0.0	M.	"Orc_1hRunT2_Jue02.asc"			F	12	31)
+			{
+				*eventSFXGrnd	(12	"Run")
+				*eventSFX	(13	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(22	"Run")
+			}
+			ani			("t_2hRunL_2_2hRun"			1	"s_2hRun"		0.0	0.0	M.	"Orc_1hRunT2_Jue02.asc"			F	32	38)
+			{
+				*eventSFXGrnd	(32	"Run")
+				*eventSFXGrnd	(37	"Run")
+			}
+			aniBlend	("t_2hRunR_2_2hRun"				"s_2hRun"		0.2	0.2)
+
+//	2h-Run Backwards Movement
+			ani			("t_2hJumpB" 				1 	"s_2hRun" 		0.1 0.1 M. 	"Orc_1hParadeJumpT2_Jue02.asc"		F	1	14)
+
+//	2h-WALK
+			ani			("s_2hWalk"					1	"s_2hWalk"		0.0	0.0	MI	"Orc_1hWalkT2_Jue02.asc"			F	0	0)
+			ani			("t_2hWalk_2_2hWalkL"		1	"s_2hWalkL"		0.0	0.0	M.	"Orc_1hWalkT2_Jue02.asc"			F	1	14)
+			{
+				*eventSFXGrnd	(12	"Run")
+			}
+			ani			("s_2hWalkL"				1	"s_2hWalkL"		0.0	0.0	M.	"Orc_1hWalkT2_Jue02.asc"			F	15	33)
+			{
+				*eventSFX	(16	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(23	"Run")
+				*eventSFXGrnd	(29	"Run")
+			}
+			ani			("t_2hWalkL_2_2hWalk"		1	"s_2hWalk"		0.0	0.0	M.	"Orc_1hWalkT2_Jue02.asc"			F	34	45)
+			{
+				*eventSFXGrnd	(37	"Run")
+				*eventSFXGrnd	(44	"Run")
+			}
+			aniBlend	("t_2hWalkR_2_2hWalk"			"s_2hWalk"		0.2	0.2)
+
+//	2h-Walk Backwards Movement
+			aniAlias	("t_2hWalk_2_2hWalkBL"		1	"s_2hWalkBL"	0.0	0.0	M.	"t_2hWalkL_2_2hWalk"		R)
+			aniAlias	("s_2hWalkBL"				1	"s_2hWalkBL"	0.0	0.0	M.	"s_2hWalkL"					R)
+
+			aniAlias	("t_2hWalkBL_2_2hWalk"		1	"s_2hWalk"		0.0	0.0	M.	"t_2hWalk_2_2hWalkL"		R)
+			aniBlend	("t_2hWalkBR_2_2hWalk"			"s_2hWalk"		0.2	0.2)
+			{
+				*eventSFXGrnd	(22	"Run")
+			}
+
+///////////////////////
+// 2h TURNING
+///////////////////////
+
+			ani			("t_2hRunTurnL"				20	"t_2hRunTurnL"		0.2	0.2	M.	"Orc_1hTurnL110_Jue02.asc"	F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+			ani			("t_2hRunTurnR"				20	"t_2hRunTurnR"		0.2	0.2	M.	"Orc_1hTurnR110_Jue02.asc"	F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+
+			aniAlias	("t_2hWalkTurnL"			20	"t_2hWalkTurnL"		0.2	0.2	M.	"t_2hRunTurnL"			F)
+			aniAlias	("t_2hWalkTurnR"			20	"t_2hWalkTurnR"		0.2	0.2	M.	"t_2hRunTurnR"			F)
+
+///////////////////////
+// 2h STRAFING
+///////////////////////
+
+			ani			("t_2hRunStrafeL"			1	"t_2hRunStrafeL"	0.1	0.1	M.	"Orc_2hStrafeL_M01.asc"	F	0	16)
+			{
+				*eventSFX	(2	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(2	"Turn")
+				*eventSFXGrnd	(10	"Turn")
+			}
+			ani			("t_2hRunStrafeR"			1	"t_2hRunStrafeR"	0.1	0.1	M.	"Orc_2hStrafeR_M01.asc"	F	0	16)
+			{
+				*eventSFXGrnd	(2	"Turn")
+				*eventSFX	(3	"ORC_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(10	"Turn")
+			}
+
+			aniAlias	("t_2hWalkStrafeL"			1	"t_2hWalkStrafeL"	0.1	0.1	M.	"t_2hRunStrafeL"			F)
+			aniAlias	("t_2hWalkStrafeR"			1	"t_2hWalkStrafeR"	0.1	0.1	M.	"t_2hRunStrafeR"			F)
+
+///////////////////////
+// 2h TRANSITIONS
+///////////////////////
+//	Movement-Modes
+			aniBlend	("t_2hRun_2_2hWalk"				"s_2hWalk"		0.0	0.2)
+			aniBlend	("t_2hWalk_2_2hRun"				"s_2hRun"		0.0	0.2)
+
+			aniBlend	("t_2hRunL_2_2hWalkL"			"s_2hWalkL"		0.2	0.2)
+			aniBlend	("t_2hWalkL_2_2hRunL"			"s_2hRunL"		0.2	0.2)
+
+
+///////////////////////
+// 2h SWORD FIGHTING
+///////////////////////
+			ani			("s_2hAttack"				1	"s_2hAttack"	0.0	0.1	M.	"Orc_2hAttack_M01.asc"		F	0	80)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"6 45")
+				*eventTag		(0 "DEF_HIT_END"	"39 79")
+				*eventTag		(0 "DEF_WINDOW"		"20 41 60 79")
+//				*eventTag		(0 "DEF_DIR"		"RO")
+
+				*eventSFX	(1	"ORC_ATTACK"	EMPTY_SLOT	)
+				*eventSFX		(6	"Whoosh"	EMPTY_SLOT	)
+				*eventSFX		(45	"Whoosh"	EMPTY_SLOT	)
+			}
+
+
+			ani			("t_2hAttackMove"				2	""			0.2	0.2	M.	"Orc_1hRunAttackT2_A01.asc"		F	1	19)
+			{
+				*eventTag	(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag	(0 "DEF_OPT_FRAME"	"13")
+				*eventSFX	(2	"ORC_ATTACK"	EMPTY_SLOT	)
+				*eventSFX	(8	"Whoosh"	EMPTY_SLOT	)
+			}
+
+		// Parade
+			ani			("t_2hParade_O"				1	"s_2hRun"		0.0	0.0	M.	"Orc_2hParade_M01.asc"	F	0	30)
+			{
+				*eventTag	(0 "DEF_WINDOW"	"3 27")
+			}
+
+//			ani			("t_2hParade_U"				1	"s_2hRun"		0.0	0.0	M.	"Orc_2hParade_M01.asc"	F	0	30)
+//			ani			("t_2hParade_L"				1	"s_2hRun"		0.0	0.0	M.	"Orc_2hParade_M01.asc"	F	0	30)
+//			ani			("t_2hParade_R"				1	"s_2hRun"		0.0	0.0	M.	"Orc_2hParade_M01.asc"	F	0	30)
+
+			ani			("t_2hParadeJumpB"			1	"s_2hRun"		0.0	0.0	M.	"Orc_1hParadeJumpT2_Jue02.asc"	F	1	14)
+
+
+
+	// Drehschläge 360°
+			ani			("t_2hAttackL"					1	"s_2hRun"	0.1	0.1	M.	"Orc_2hAttackLR_M01.asc"		F	0	24)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"3")
+				*eventTag		(0 "DEF_HIT_END"	"24")
+				*eventTag		(0 "DEF_WINDOW"		"12 24")
+
+				*eventSFX	(1	"ORC_ATTACK"	EMPTY_SLOT	)
+				*eventSFX		(3	"Whoosh"	EMPTY_SLOT	)
+			}
+
+			ani			("t_2hAttackR"					1	"s_2hRun"	0.1	0.1	M.	"Orc_2hAttackLR_M01.asc"		F	24	48)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"3")
+				*eventTag		(0 "DEF_HIT_END"	"24")
+				*eventTag		(0 "DEF_WINDOW"		"12 24")
+
+				*eventSFX	(25	"ORC_ATTACK"	EMPTY_SLOT	)
+				*eventSFX		(28	"Whoosh"	EMPTY_SLOT	)
+			}
+
+/////////////////////
+// CBOW MOVES
+/////////////////////
+	// CBowRun
+			aniAlias	("s_CBowRun"				1	"s_CBowRun"		0.0	0.0	M.	"s_Run"							F)
+			aniAlias	("t_CBowRun_2_CBowRunL"		1	"s_CBowRunL"	0.0	0.0	M.	"t_Run_2_RunL"					F)
+			aniAlias	("s_CBowRunL"				1	"s_CBowRunL"	0.0	0.0	M.	"s_RunL"						F)
+			aniAlias	("t_CBowRunL_2_CBowRun"		1	"s_CBowRun"		0.0	0.0	M.	"t_RunL_2_Run"					F)
+			aniBlend	("t_CBowRunR_2_CBowRun"			"s_CBowRun"		0.3	0.1)
+
+			aniAlias	("t_CBowJumpB"				1	"s_CBowRun"		0.0	0.0	M.	"t_JumpB"						F)
+
+	// CBowWalk
+			aniAlias	("s_CBowWalk"				1	"s_CBowWalk"	0.0	0.0	M.	"s_Walk"						F)
+			aniAlias	("t_CBowWalk_2_CBowWalkL"	1	"s_CBowWalkL"	0.0	0.0	M.	"t_Walk_2_WalkL"				F)
+			aniAlias	("s_CBowWalkL"				1	"s_CBowWalkL"	0.0	0.0	M.	"s_WalkL"						F)
+			aniAlias	("t_CBowWalkL_2_CBowWalk"	1	"s_CBowWalk"	0.0	0.0	M.	"t_WalkL_2_Walk"				F)
+			aniBlend	("t_CBowWalkR_2_CBowWalk"		"s_CBowWalk"	0.3	0.1)
+
+			aniAlias	("t_CBowWalk_2_CBowWalkBL"	1	"s_CBowWalkBL"	0.0	0.0	M.	"t_WalkL_2_Walk"				R)
+			aniAlias	("s_CBowWalkBL"				1	"s_CBowWalkBL"	0.0	0.0	M.	"s_WalkL"						R)
+			aniAlias	("t_CBowWalkBL_2_CBowWalk"	1	"s_CBowWalk"	0.0	0.0	M.	"t_WalkL_2_Walk"				R)
+			aniBlend	("t_CBowWalkBR_2_CBowWalk"		"s_CBowWalk"	0.3	0.1)
+
+	// Turning
+			aniAlias	("t_CBowRunTurnL"			20	"t_CBowRunTurnL"	0.2	0.2	M.	"t_RunTurnL"				F)
+			aniAlias	("t_CBowRunTurnR"			20	"t_CBowRunTurnR"	0.2	0.2	M.	"t_RunTurnR"				F)
+
+			aniAlias	("t_CBowWalkTurnL"			20	"t_CBowWalkTurnL"	0.2	0.2	M.	"t_RunTurnL"				F)
+			aniAlias	("t_CBowWalkTurnR"			20	"t_CBowWalkTurnR"	0.2	0.2	M.	"t_RunTurnR"				F)
+
+	// Strafe
+			aniAlias	("t_CBowRunStrafeL"			1	""					0.2	0.2	M.	"t_RunStrafeL"			F)
+			aniAlias	("t_CBowRunStrafeR"			1	""					0.2	0.2	M.	"t_RunStrafeR"			F)
+
+			aniAlias	("t_CBowWalkStrafeL"		1	""					0.2	0.2	M.	"t_RunStrafeL"			F)
+			aniAlias	("t_CBowWalkStrafeR"		1	""					0.2	0.2	M.	"t_RunStrafeR"			F)
+
+
+/////////////////////
+// CBOW SHOOTING
+/////////////////////
+// CROSSBOW Kampfanims
+			ani			("t_CBowRun_2_CBowAim"		1	"s_CBowAim"		0.0 0.0 M.	"Orc_CBow_jue02.asc"		F	41	52)
+			aniAlias	("t_CBowAim_2_CBowRun"		1	""				0.0 0.0 M.	"t_CBowRun_2_CBowAim"		R)
+
+			aniAlias	("t_CBowWalk_2_CBowAim"		1	"s_CBowAim"		0.0 0.0 M.	"t_CBowRun_2_CBowAim"		F)
+			aniAlias	("t_CBowAim_2_CBowWalk"		1	""				0.0	0.0	M.	"t_CBowRun_2_CBowAim"		R)
+
+
+// Shoot + Reload
+			aniBlend	("t_CBowAim_2_CBowShoot"		"s_CbowShoot")
+			ani			("s_CBowShoot"				1	"s_CBowShoot"	0.0 0.0 M.	"Orc_CBow_jue02.asc"		F	53	53)
+			{
+				*eventMMStartAni	(53	"S_SHOOT"	"ZS_RIGHTHAND")
+			}
+			ani			("t_CBowReload"				1	"s_CBowAim"		0.0 0.0 M.	"Orc_CBow_jue02.asc"		F	54	74)
+			{
+				*eventSFX		(72	"BowReload")
+		        *eventTag		(72 "DEF_PLACE_MUNITION" "ZS_LEFTHAND")
+				*eventMMStartAni	(54	"S_RELAX"	"ZS_RIGHTHAND")
+				*eventMMStartAni	(72	"S_READY"	"ZS_RIGHTHAND")
+			}
+
+// Autoaiming 9 Posen
+			ani			("c_Cbow_1"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	0	0)
+			ani			("c_Cbow_2"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	1	1)
+			ani			("c_Cbow_3"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	2	2)
+			ani			("c_Cbow_4"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	3	3)
+			ani			("c_Cbow_5"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	4	4)
+			ani			("c_Cbow_6"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	5	5)
+			ani			("c_Cbow_7"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	6	6)
+			ani			("c_Cbow_8"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	7	7)
+			ani			("c_Cbow_9"					4	""				0.0	0.0	..	"Orc_CBowAim_jue02.asc"	F	8	8)
+
+			aniComb		("s_CBowAim"				1	"s_CBowAim"		0.3	0.3	M.	"c_Cbow_"	9)
+
+/////////////////////////
+// MAGIC MOVEMENT
+//////////////////////////
+
+//	Mag-RUN
+			ani			("s_MagRun"					1	"s_MagRun"		0.1 0.1 MI	"Orc_Amb_MagRun_M01.asc"	F	0	50	FPS:10)
+			ani			("t_MagRun_2_MagRunL"		1	"s_MagRunL"		0.0	0.0	M.	"Orc_MagRun_M01.asc"		F	1	12)
+
+//	Mag-Run-Loop
+			ani			("s_MagRunL"				1	"s_MagRunL"		0.0	0.0	M.	"Orc_MagRun_M01.asc"		F	12	32)
+
+			ani			("t_MagRunL_2_MagRun"		1	"s_MagRun"		0.0	0.1	M.	"Orc_MagRun_M01.asc"		F	32	39)
+			aniBlend	("t_MagRunR_2_MagRun"			"s_MagRun"		0.3	0.3)
+
+			aniAlias	("t_MagJumpB"				1	"s_MagRun"		0.1	0.1	M.	"t_JumpB"					F)
+
+
+
+//	Mag-WALK
+			aniAlias	("s_MagWalk"				1	"s_MagWalk"		0.1	0.1	M.	"s_MagRun"					F)
+
+			ani			("t_MagWalk_2_MagWalkL"		1	"s_MagWalkL"	0.0	0.0	M.	"Orc_MagWalk_M01.asc"		F	0	9)
+
+//	Mag-Walk-Loop
+			ani			("s_MagWalkL"				1	"s_MagWalkL"	0.0	0.0	M.	"Orc_MagWalk_M01.asc"		F	9	33)
+
+			ani			("t_MagWalkL_2_MagWalk"		1	"s_MagWalk"		0.0	0.0	M.	"Orc_MagWalk_M01.asc"		F	33	39)
+			aniBlend	("t_MagWalkR_2_MagWalk"			"s_MagWalk"		0.2	0.2)
+
+//	Mag-Walk Backwards Movement
+			aniBlend	("t_MagWalk_2_MagWalkBL"		"s_MagWalkBL"	0.2	0.2)
+
+//	Mag-Walk-Loop backwards
+			aniAlias	("s_MagWalkBL"				1	"s_MagWalkBL"	0.0	0.0	M.	"s_MagWalkL"			R)
+
+			aniBlend	("t_MagWalkBL_2_MagWalk"		"s_MagWalk"		0.2	0.2)
+			aniBlend	("t_MagWalkBR_2_MagWalk"		"s_MagWalk"		0.2	0.2)
+
+
+//	Mag-SNEAK
+			ani			("s_MagSneak"				1	"s_MagSneak"	0.3	0.3	MI	"Orc_Amb_MagSneak_M01.asc"	F	0	70	FPS:10)
+			ani			("t_MagSneak_2_MagSneakL"	1	"s_MagSneakL"	0.0	0.0	M.	"Orc_MagSneak_M01.asc"		F	5	53	FPS:15)
+
+//	Mag-Sneak-Loop
+			ani			("s_MagSneakL"				1	"s_MagSneakL"	0.0	0.0	M.	"Orc_MagSneak_M01.asc"		F	53	105	FPS:15)
+
+			ani			("t_MagSneakL_2_MagSneak"	1	"s_MagSneak"	0.0	0.0	M.	"Orc_MagSneak_M01.asc"		F	105	150	FPS:15)
+			aniBlend	("t_MagSneakR_2_MagSneak"		"s_MagSneak"	0.2	0.2)
+
+//	Mag-Sneak Backwards Movement
+			aniAlias	("t_MagSneak_2_MagSneakBL"	1	"s_MagSneakBL"	0.1	0.1	M.	"t_MagSneakL_2_MagSneak"	R)
+
+//	Mag-Sneak-Loop backwards
+			aniAlias	("s_MagSneakBL"				1	"s_MagSneakBL"	0.0	0.0	M.	"s_MagSneakL"				R)
+
+			aniAlias	("t_MagSneakBL_2_MagSneak"	1	"s_MagSneak"	0.1	0.1	M.	"t_MagSneak_2_MagSneakL"	R)
+			aniBlend	("t_MagSneakBR_2_MagSneak"		"s_MagSneak"	0.2	0.2)
+
+
+/////////////////////
+//	MAGIC TURNING
+/////////////////////
+
+			ani			("t_MagRunTurnL"			20	"t_MagRunTurnL"	0.2	0.2	M.	"Orc_MagTurnL_M01.asc"		F	0	25)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+			ani			("t_MagRunTurnR"			20	"t_MagRunTurnR"	0.2	0.2	M.	"Orc_MagTurnR_M01.asc"		R	0	25)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+			aniAlias	("t_MagWalkTurnL"			20	"t_MagWalkTurnL"	0.2	0.2	M.	"t_MagRunTurnL"			F)
+			aniAlias	("t_MagWalkTurnR"			20	"t_MagWalkTurnR"	0.2	0.2	M.	"t_MagRunTurnR"			F)
+
+			ani			("t_MagSneakTurnL"			20	"t_MagSneakTurnL"	0.2	0.2	M.	"Orc_MagSneakTurnL_M01.asc"	F	0	25)
+			ani			("t_MagSneakTurnR"			20	"t_MagSneakTurnR"	0.2	0.2	M.	"Orc_MagSneakTurnR_M01.asc"	F	0	25)
+
+
+/////////////////////
+//	MAGIC STRAFING
+/////////////////////
+
+			ani			("t_MagRunStrafeL"			1	"t_MagRunStrafeL"		0.1	0.1	M.	"Orc_MagStrafeL_M01.asc"	F	0	20)
+			ani			("t_MagRunStrafeR"			1	"t_MagRunStrafeR"		0.1	0.1	M.	"Orc_MagStrafeR_M01.asc"	F	0	20)
+
+			aniAlias	("t_MagWalkStrafeL"			1	"t_MagWalkStrafeL"		0.1	0.1	M.	"t_MagRunStrafeL"		F)
+			aniAlias	("t_MagWalkStrafeR"			1	"t_MagWalkStrafeR"		0.1	0.1	M.	"t_MagRunStrafeR"		F)
+
+			ani			("t_MagSneakStrafeL"		1	"t_MagSneakStrafeL"		0.1	0.1	M.	"Orc_MagSneakStrafeL_M01.asc"	F	0	17)
+			aniAlias	("t_MagSneakStrafeR"		1	"t_MagSneakStrafeR"		0.1	0.1	M.	"t_MagSneakStrafeL"		R)
+
+//////////////////////
+//	MAGIC TRANSITIONS
+//////////////////////
+
+//	Movement-Modes
+			aniBlend	("t_MagRun_2_MagWalk"			"s_MagWalk"		0.1	0.1)
+			aniBlend	("t_MagWalk_2_MagRun"			"s_MagRun"		0.1	0.1)
+
+			ani			("t_MagRun_2_MagSneak"		1	"s_MagSneak"	0.1	0.1	M.	"Orc_MagSneak_M01.asc"		F	0	5)
+			aniAlias	("t_MagSneak_2_MagRun"		1	"s_MagRun"		0.1	0.1	M.	"t_MagRun_2_MagSneak"		R)
+
+			aniBlend	("t_MagRunL_2_MagWalkL"			"s_MagWalkL"	0.2	0.2)
+			aniBlend	("t_MagWalkL_2_MagRunL"			"s_MagRunL"		0.2	0.2)
+
+			aniBlend	("t_MagSneakL_2_MagRunL"		"s_MagRunL"		0.2	0.2)
+			aniBlend	("t_MagRunL_2_MagSneakL"		"s_MagSneakL"	0.2	0.2)
+
+//	Stand
+// 	aus dem Rennen direkt Springen
+			aniAlias	("t_MagRunL_2_Jump"			1	"s_Jump"		0.1	0.1	MF	"t_RunL_2_Jump"			F)
+			aniAlias	("t_MagRunR_2_Jump"			1	"s_Jump"		0.1	0.1	MF	"t_RunL_2_Jump"			F)
+//	nach dem Sprung direkt weiterrennen, wenn CursorUp weiterhin gedrückt
+			aniBlend	("t_Jump_2_MagRunL"				"s_MagRunL"		0.2	0.1)
+
+
+
+//////////////////////
+//	MAGIC ATTACKS
+//////////////////////
+
+
+//	Fireball, Thunderball, 
+			ani			("t_MagRun_2_FiBCast"		1	"s_FiBCast"		0.1 0.0 M.	"Orc_MagCast_A02.asc"		F	1	8)
+			ani			("s_FiBCast"				1	"s_FiBCast"		0.0 0.1 M.	"Orc_MagCast_A02.asc"		F	9	34)
+			aniAlias	("t_FibCast_2_Stand"		1	""				0.1	0.1 M.	"t_MagRun_2_FiBCast"		R)
+
+			ani			("t_FiBCast_2_FiBShoot"		1	"s_FiBShoot"	0.1 0.0 M.	"Orc_MagCast_A02.asc"		F	35	39)
+			ani			("s_FiBShoot"				1	"s_FiBShoot"	0.0 0.0 M.	"Orc_MagCast_A02.asc"		F	40	40)
+			ani			("t_FiBShoot_2_Stand"		1	""				0.0 0.1 M.	"Orc_MagCast_A02.asc"		F	41	49)
+			
+
+
+// Summon Demon/Skeleton/... 
+			aniAlias	("t_MagRun_2_SumShoot"		1	"s_SumShoot"	0.1	0.0	M.	"t_MagRun_2_FiBCast"		F)
+			aniAlias	("s_SumShoot"				1	"s_SumShoot"	0.0	0.1	M.	"s_FiBCast"					F)
+			aniAlias	("t_SumShoot_2_Stand"		1	""				0.0	0.1	M.	"t_MagRun_2_FiBCast"		R)
+
+//	Firebolt (Magic Missile), Thunderbolt,...
+			aniAlias	("t_MagRun_2_FBTShoot"		1	"s_FBTShoot"	0.1 0.0 M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias	("s_FBTShoot"				1	"s_FBTShoot"	0.0 0.0 M.	"s_FiBShoot"				F)
+			aniAlias	("t_FBTShoot_2_Stand"		1	""				0.0 0.1 M.	"t_FiBShoot_2_Stand"		F)
+
+// Windfist, Stormfist
+			aniAlias	("t_MagRun_2_WndCast"		1	"s_WndCast"		0.1	0.0	M.	"t_MagRun_2_FiBCast"		F)
+			aniAlias	("s_WndCast"				1	"s_WndCast"		0.0	0.0	M.	"s_FiBCast"					F)
+			aniBlend	("t_WndCast_2_Stand"			""				0.2	0.2)
+
+			aniAlias	("t_WndCast_2_WndShoot"		1	"s_WndShoot"	0.0	0.0	M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias	("s_WndShoot"				1	"s_WndShoot"	0.0	0.0	M.	"s_FiBShoot"				F)
+			aniAlias	("t_WndShoot_2_Stand"		1	""				0.0	0.1	M.	"t_FiBShoot_2_Stand"		F)
+
+// Heal, Teleport, 
+			aniAlias	("t_MagRun_2_HeaShoot"		1	"s_HeaShoot"	0.1	0.0	M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias	("s_HeaShoot"				1	"s_HeaShoot"	0.0	0.1	M.	"s_FiBShoot"				F)
+			aniAlias	("t_HeaShoot_2_Stand"		1	""				0.0	0.1	M.	"t_FiBShoot_2_Stand"		F)
+
+// Chain-Lightning
+			aniAlias	("t_MagRun_2_LinShoot"		1	"s_LinShoot"	0.1	0.0	M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias	("s_LinShoot"				1	"s_LinShoot"	0.0	0.1	M.	"s_FiBShoot"				F)
+			aniAlias	("t_LinShoot_2_Stand"		1	""				0.0	0.1	M.	"t_FiBShoot_2_Stand"		F)
+
+// Pyrokinesis
+			aniAlias			("t_MagRun_2_PyrShoot"		1	"s_PyrShoot"	0.1	0.0	M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias			("s_PyrShoot"				1	"s_PyrShoot"	0.0	0.0	M.	"s_FiBShoot"				F)
+			aniAlias			("t_PyrShoot_2_Stand"		1	""				0.0	0.1	M.	"t_FiBShoot_2_Stand"		F)
+
+// IceCube
+			aniAlias			("t_MagRun_2_FrzShoot"		1	"s_FrzShoot"	0.1	0.0	M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias			("s_FrzShoot"				1	"s_FrzShoot"	0.0	0.0	M.	"s_FiBShoot"				F)
+			aniAlias			("t_FrzShoot_2_Stand"		1	""				0.0	0.1	M.	"t_FiBShoot_2_Stand"		F)
+
+// Light, Charm, Sleep, Berzerk,...
+			aniAlias			("t_MagRun_2_SleShoot"		1	"s_SleShoot"	0.1	0.0	M.	"t_FiBCast_2_FiBShoot"		F)
+			aniAlias			("s_SleShoot"				1	"s_SleShoot"	0.0	0.0	M.	"s_FiBShoot"				F)
+			aniAlias			("t_SleShoot_2_Stand"		1	""				0.0	0.1	M.	"t_FiBShoot_2_Stand"		F)
+
+
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// ITEM_INTERAKTION
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ---------------------------------------------------------------------------------------------------------------
+// FoodHuge	(Bread, Cheese, Bacon)
+			ani			("t_FoodHuge_Stand_2_S0"	1	"s_FoodHuge_S0"	0.1	0.0	M.	"Orc_FoodBread_jue02.asc"		F	1	17)
+			{
+				*eventTag	(7	"DEF_INSERT_ITEM"	"ZS_RIGHTHAND")
+			}
+			ani			("s_FoodHuge_S0"			1	"s_FoodHuge_S0"	0.0	0.0	M.	"Orc_FoodBread_jue02.asc"		F	18	18)
+			ani			("t_FoodHuge_Random"		2	""				0.0	0.1	M.	"Orc_FoodBread_jue02.asc"		F	19	77)
+			ani			("t_FoodHuge_S0_2_Stand"	1	""				0.0	0.1	M.	"Orc_FoodBread_jue02.asc"		F	19	95)
+			{
+				*eventMMStartAni	(40	"T_EAT")
+				*eventTag	(90	"DEF_DESTROY_ITEM")
+			}
+
+// Generic Food (Apple, Mushroom)
+
+			ani			("t_Food_Stand_2_S0"	1	"s_Food_S0"		0.1	0.0	M.	"Orc_FoodHuge_jue02.asc"	F	1	19)
+			{
+				*eventTag	(10	"DEF_INSERT_ITEM"	"ZS_LEFTHAND")
+			}
+			ani			("s_Food_S0"			1	"s_Food_S0"		0.0	0.0	M.	"Orc_FoodHuge_jue02.asc"	F	20	20)
+			aniAlias	("t_Food_Random"		2	""				0.0	0.1	M.	"t_Food_S0_2_Stand"			F)
+			ani			("t_Food_S0_2_Stand"	1	""				0.0	0.1	M.	"Orc_FoodHuge_jue02.asc"	F	21	100)
+			{
+				*eventMMStartAni	(40	"T_EAT")
+				*eventTag	(60	"DEF_DESTROY_ITEM")
+			}
+
+// SOUP
+
+			ani			("t_SOUP_Stand_2_S0"	1	"s_SOUP_S0"		0.1	0.0	M.	"Orc_FoodSoup_jue02.asc"	F	1	17)
+			{
+				*eventTag	(7	"DEF_INSERT_ITEM"	"ZS_RIGHTHAND")
+			}
+			ani			("s_SOUP_S0"			1	"s_SOUP_S0"		0.0	0.0	M.	"Orc_FoodSoup_jue02.asc"	F	18	18)
+			ani			("t_SOUP_Random"		2	""				0.0	0.1	M.	"Orc_FoodSoup_jue02.asc"	F	19	77)
+			ani			("t_SOUP_S0_2_Stand"	1	""				0.0	0.1	M.	"Orc_FoodSoup_jue02.asc"	F	19	95)
+			{
+				*eventMMStartAni	(40	"T_EAT")
+				*eventTag	(90	"DEF_DESTROY_ITEM")
+			}
+
+
+// Bollen (Leg_of_Mutton)
+		
+			ani			("t_Meat_Stand_2_S0"	1	"s_Meat_S0"		0.1	0.0	M.	"Orc_FoodMeat_jue02.asc"	F	1	19)
+			{
+				*eventTag	(10	"DEF_INSERT_ITEM"	"ZS_LEFTHAND")
+			}
+			ani			("s_Meat_S0"			1	"s_Meat_S0"		0.0	0.0	M.	"Orc_FoodMeat_jue02.asc"	F	20	20)
+			aniAlias	("t_Meat_Random"		2	""				0.0	0.1	M.	"t_Meat_S0_2_Stand"			F)
+			ani			("t_Meat_S0_2_Stand"	1	""				0.0	0.1	M.	"Orc_FoodMeat_jue02.asc"	F	21	100)
+			{
+				*eventMMStartAni	(40	"T_EAT")
+				*eventTag	(60	"DEF_DESTROY_ITEM")
+			}
+		
+		
+// RICE
+			aniAlias	("t_RICE_Stand_2_S0"		1	"s_RICE_S0"		0.1	0.0	M.	"t_SOUP_Stand_2_S0"	F)
+			aniAlias	("s_RICE_S0"				1	"s_RICE_S0"		0.0	0.0	M.	"s_SOUP_S0"			F)
+			aniAlias	("t_RICE_Random_1"			1	"s_RICE_S0"		0.0	0.1	M.	"t_SOUP_S0_2_Stand"	F)
+			aniAlias	("t_RICE_S0_2_Stand"		1	""				0.0	0.1	M.	"t_SOUP_S0_2_Stand"	F)
+			
+		
+// ---------------------------------------------------------------------------------------------------------------
+// Trinken (Potion, Wine, etc.)
+			ani			("t_Potion_Stand_2_S0"		1	"s_Potion_S0"	0.1	0.0	M.	"Orc_Potion_jue02.asc"	F	1	19)
+			{
+				*eventTag	(10	"DEF_INSERT_ITEM"	"ZS_LEFTHAND")
+			}
+			ani			("s_Potion_S0"				1	"s_Potion_S0"	0.0	0.0	M.	"Orc_Potion_jue02.asc"	F	20	20)
+			ani			("t_Potion_S0_2_Stand"		1	""				0.0	0.1	M.	"Orc_Potion_jue02.asc"	F	21	99)
+			{
+				*eventSFX	(22	"DrinkBottle")
+				*eventTag	(86	"DEF_DESTROY_ITEM")
+			}
+
+// ---------------------------------------------------------------------------------------------------------------
+// POTIONFAST	(für schnelle Benutzung von Heiltränken!)
+
+			aniAlias	("t_potionfast_Stand_2_S0"	1	"s_potionfast_S0"	0.1	0.0	M.	"t_Potion_Stand_2_S0"	F)
+			aniAlias	("s_potionfast_S0"			1	"s_potionfast_S0"	0.0	0.0	M.	"s_Potion_S0"			F)
+			aniAlias	("t_potionfast_S0_2_Stand"	1	""					0.0	0.1	M.	"t_Potion_S0_2_Stand"	F)
+
+// ---------------------------------------------------------------------------------------------------------------
+// ALARMHORN (Item)
+			ani			("t_HORN_Stand_2_S0"		1	"s_HORN_S0"		0.2	0.0	M.	"Orc_Alarmhorn_jue02.asc"		F	0	5)
+			{
+				*eventTag	(0	"DEF_INSERT_ITEM"	"ZS_RIGHTHAND")
+			}
+			ani			("s_HORN_S0"				1	"s_HORN_S0"		0.0	0.0	M.	"Orc_Alarmhorn_Jue02.asc"		F	6	6)
+			ani			("t_HORN_S0_2_Stand"		1	""				0.0	0.2	M.	"Orc_Alarmhorn_Jue02.asc"		R	0	5)
+			{
+				*eventTag	(0	"DEF_REMOVE_ITEM")
+			}
+			ani			("t_HORN_S0_2_S1"			1	"s_HORN_S1"		0.0	0.0	M.	"Orc_Alarmhorn_Jue02.asc"		F	7	78)
+			{
+				*eventSFX	(18	"Inst_Alarm"	EMPTY_SLOT	)
+			}
+			ani			("s_HORN_S1"				1	"s_HORN_S1"		0.0	0.0	M.	"Orc_Alarmhorn_Jue02.asc"		F	79	79)
+			ani			("t_HORN_S1_2_Stand"		1	""				0.0	0.2	M.	"Orc_Alarmhorn_Jue02.asc"		F	80	90)
+			{
+				*eventTag	(89	"DEF_REMOVE_ITEM")
+			}
+
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// OBJEKT-Interaktionen
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//	Die Semantik der Interaktions-'STATES' ist (bei 2 States):
+//	"S0":	closed, off, inactive, empty
+//	"S1":	open, on, active, occupied
+
+// ---------------------------------------------------------------------------------------------------------------
+// DRUM (Mobsi)
+			ani			("t_ORCDRUM_Stand_2_S0"	1	"s_ORCDRUM_S0"	0.1	0.0	M.	"Orc_Drum_jue02.asc"			F	1	5)
+			ani			("s_ORCDRUM_S0"			1	"s_ORCDRUM_S0"	0.0	0.0	M.	"Orc_Drum_jue02.asc"			F	6	6)
+			aniAlias	("t_ORCDRUM_S0_2_Stand"	1	""				0.0	0.1	M.	"t_ORCDRUM_Stand_2_S0"			R)
+
+			ani			("t_ORCDRUM_S0_2_S1"	1	"s_ORCDRUM_S1"	0.0	0.0	M.	"Orc_Drum_jue02.asc"			F	7	30)
+			ani			("s_ORCDRUM_S1"			1	"s_ORCDRUM_S1"	0.0	0.0	M.	"Orc_Drum_jue02.asc"			F	30	30)
+			aniAlias	("t_ORCDRUM_S1_2_S0"	1	"s_ORCDRUM_S1"	0.0	0.0	M.	"t_ORCDRUM_S0_2_S1"				R)
+			// Randoms
+			ani			("t_ORCDRUM_Random_1"	2	""				0.1	0.1	M.	"Orc_DrumNoMove_jue02.asc"		F	30	73)
+			{
+				*eventSFX	(56	"Inst_Conga01"		EMPTY_SLOT	)
+				*eventSFX	(64	"Inst_Conga01"		EMPTY_SLOT	)
+			}
+			ani			("t_ORCDRUM_Random_2"	2	""				0.1	0.1	M.	"Orc_DrumNoMove_jue02.asc"		F	73	116)
+			{
+				*eventSFX	(89	"Inst_Conga01"		EMPTY_SLOT	)
+				*eventSFX	(94	"Inst_Conga01"		EMPTY_SLOT	)
+				*eventSFX	(107	"Inst_Conga01"		EMPTY_SLOT	)
+			}
+			ani			("t_ORCDRUM_Random_3"	2	""				0.1	0.1	M.	"Orc_DrumNoMove_jue02.asc"		F	116	164)
+			{
+				*eventSFX	(128	"Inst_Conga01"		EMPTY_SLOT	)
+				*eventSFX	(140	"Inst_Conga01"		EMPTY_SLOT	)
+				*eventSFX	(152	"Inst_Conga01"		EMPTY_SLOT	)
+				*eventSFX	(164	"Inst_Conga01"		EMPTY_SLOT	)
+			}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Bedlow (Mobsi)
+			ani			("t_BedLow_Front_Stand_2_S0"	1	"s_BedLow_Front_S0"	0.2	0.0	M.	"Orc_BedLow_A01.asc"		F	1	20)
+			ani			("s_BedLow_Front_S0"			1	"s_BedLow_Front_S0"	0.0	0.0	M.	"Orc_BedLow_A01.asc"		F	21	21)
+			aniAlias	("t_BedLow_Front_S0_2_Stand"	1	""					0.0	0.2	M.	"t_BedLow_Front_Stand_2_S0"		R)
+
+			ani			("t_BedLow_Front_S0_2_S1"		1	"s_BedLow_Front_S1"	0.0	0.0	M.	"Orc_BedLow_A01.asc"		F	22	80)
+			ani			("s_BedLow_Front_S1"			1	"s_BedLow_Front_S1"	0.0	0.0	M.	"Orc_BedLow_A01.asc"		F	81	130)
+			aniAlias	("t_BedLow_Front_S1_2_S0"		1	"s_BedLow_Front_S0"	0.0	0.0	M.	"t_BedLow_Front_S0_2_S1"	R)
+
+			ani			("t_BedLow_Back_Stand_2_S0"		1	"s_BedLow_Back_S0"	0.2	0.0	M.	"Orc_BedLow_A01.asc"		F	1	20)
+			ani			("s_BedLow_Back_S0"				1	"s_BedLow_Back_S0"	0.0	0.0	M.	"Orc_BedLow_A01.asc"		F	21	21)
+			aniAlias	("t_BedLow_Back_S0_2_Stand"		1	""					0.0	0.2	M.	"t_BedLow_Back_Stand_2_S0"		R)
+
+			ani			("t_BedLow_Back_S0_2_S1"		1	"s_BedLow_Back_S1"	0.0	0.0	M.	"Orc_BedLow_A01.asc"		F	22	80)
+			ani			("s_BedLow_Back_S1"				1	"s_BedLow_Back_S1"	0.0	0.0	M.	"Orc_BedLow_A01.asc"		F	81	130)
+			aniAlias	("t_BedLow_Back_S1_2_S0"		1	"s_BedLow_Back_S0"	0.0	0.0	M.	"t_BedLow_Back_S0_2_S1"		R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Auf Stuhl setzen
+			ani			("t_Chair_Stand_2_S0"		1	"s_Chair_S0"	0.2	0.0	M.	"Orc_Chair_jue02.asc"		F	0	4)
+			ani			("s_Chair_S0"				1	"s_Chair_S0"	0.0	0.0	M.	"Orc_Chair_jue02.asc"		F	5	5)
+			aniAlias	("t_Chair_S0_2_Stand"		1	""				0.0	0.2	M.	"t_Chair_Stand_2_S0"		R)
+
+			ani			("t_Chair_S0_2_S1"			1	"s_Chair_S1"	0.0	0.0	M.	"Orc_Chair_jue02.asc"		F	5	59)
+			ani			("s_Chair_S1"				1	"s_Chair_S1"	0.0	0.0	M.	"Orc_Chair_jue02.asc"		F	60	60)
+			aniAlias	("t_Chair_S1_2_S0"			1	"s_Chair_S0"	0.0	0.1	M.	"t_Chair_S0_2_S1"			R)
+
+// --------------------------------------------------------------------------------------------------------------
+// Fireplace
+			ani			("c_FP_Stand_2_S0_1"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	0	8)
+			ani			("c_FP_Stand_2_S0_2"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	20	28)
+			ani			("c_FP_Stand_2_S0_3"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	40	48)
+			aniComb		("t_FIREPLACE_Stand_2_S0"	1	"s_FIREPLACE_S0"	0.0	0.0	M.	"c_FP_STAND_2_S0_"			3)
+			{
+				*eventTag	(0	"DEF_INSERT_ITEM"	"ZS_RIGHTHAND")
+			}
+
+			ani			("c_FP_S0_1"				1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	9	9)
+			ani			("c_FP_S0_2"				1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	29	29)
+			ani			("c_FP_S0_3"				1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	49	49)
+			aniComb		("s_FIREPLACE_S0"			1	"s_FIREPLACE_S0"	0.0	0.0	M.	"c_FP_S0_"					3)
+
+			ani			("c_FP_S0_2_Stand_1"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		R	0	8)
+			ani			("c_FP_S0_2_Stand_2"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		R	20	28)
+			ani			("c_FP_S0_2_Stand_3"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		R	40	48)
+			aniComb		("t_FIREPLACE_S0_2_Stand"	1	""					0.0	0.0	M.	"c_FP_STAND_2_S0_"			3)
+			{
+				*eventTag	(0	"DEF_REMOVE_ITEM")
+			}
+
+			ani			("c_FP_S0_2_S1_1"			1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	10	18)
+			ani			("c_FP_S0_2_S1_2"			1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	30	38)
+			ani			("c_FP_S0_2_S1_3"			1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	50	58)
+			aniComb		("t_FIREPLACE_S0_2_S1"		1	"s_FIREPLACE_S1"	0.0	0.0	M.	"c_FP_S0_2_S1_"				3)
+
+			ani			("c_FP_S1_1"				1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	19	19)
+			ani			("c_FP_S1_2"				1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	39	39)
+			ani			("c_FP_S1_3"				1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		F	59	59)
+			aniComb		("s_FIREPLACE_S1"			1	"s_FIREPLACE_S1"	0.0	0.0	M.	"c_FP_S1_"					3)
+
+			ani			("c_FP_S1_2_Stand_1"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		R	0	18)
+			ani			("c_FP_S1_2_Stand_2"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		R	20	38)
+			ani			("c_FP_S1_2_Stand_3"		1	""					0.0	0.0	..	"Orc_FirePlace_jue02.asc"		R	40	58)
+			aniComb		("t_FIREPLACE_S1_2_Stand"	1	""					0.0	0.1	M.	"c_FP_S1_2_Stand_"			3)
+			{
+				*eventTag	(0	"DEF_REMOVE_ITEM")
+			}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Leiter hochklettern
+			ani			("t_Ladder_Stand_2_S0"		1	"s_Ladder_S0"	0.1	0.0	M.	"Orc_Ladder_Y+10_jue02.asc"	F	1	14)
+			ani			("s_Ladder_S0"				1	"s_Ladder_S0"	0.0	0.0	MF	"Orc_Ladder_Y+10_jue02.asc"	F	14	14)
+			aniAlias	("t_Ladder_S0_2_Stand"		1	""				0.0	0.0	MF	"t_Ladder_Stand_2_S0"		R)
+			ani			("t_Ladder_S0_2_S1"			1	"s_Ladder_S1"	0.0	0.0	MF	"Orc_Ladder_Y+10_jue02.asc"	F	15	45)
+			{
+				*eventSFX	(16	"Ladder_Step"	EMTPY_SLOT	)
+				*eventSFX	(31	"Ladder_Step"	EMTPY_SLOT	)
+			}
+			// 2m Leiter
+			aniAlias	("s_Ladder_S1"				1	"s_Ladder_S1"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			ani			("t_Ladder_S1_2_Stand"		1	""				0.0	0.2	MF	"Orc_Ladder_Y+10_jue02.asc"	F	46	64)
+			{
+				*eventSFXGrnd	(57	"Sneak"		)
+				*eventSFXGrnd	(63	"Sneak"		)
+			}
+			ani			("t_Ladder_Stand_2_S1"		1	"s_Ladder_S1"	0.2	0.0	MF	"Orc_Ladder_Y+10_jue02.asc"	F	67	95)
+			{
+				*eventSFX	(85	"Ladder_Step"	EMTPY_SLOT	)
+				*eventSFX	(90	"Ladder_Step"	EMTPY_SLOT	)
+			}
+			aniAlias	("t_Ladder_S1_2_S0"			1	"s_Ladder_S0"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S1_2_S2"			1	"s_Ladder_S2"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 3m Leiter
+			aniAlias	("s_Ladder_S2"				1	"s_Ladder_S2"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S2_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S2"		1	"s_Ladder_S2"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S2_2_S1"			1	"s_Ladder_S1"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S2_2_S3"			1	"s_Ladder_S3"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 4m Leiter
+			aniAlias	("s_Ladder_S3"				1	"s_Ladder_S3"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S3_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S3"		1	"s_Ladder_S3"	0.1	0.0	MF	"t_Ladder_S1_2_Stand"		R)
+			aniAlias	("t_Ladder_S3_2_S2"			1	"s_Ladder_S2"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S3_2_S4"			1	"s_Ladder_S4"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 5m Leiter
+			aniAlias	("s_Ladder_S4"				1	"s_Ladder_S4"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S4_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S4"		1	"s_Ladder_S4"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S4_2_S3"			1	"s_Ladder_S3"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S4_2_S5"			1	"s_Ladder_S5"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 6m Leiter
+			aniAlias	("s_Ladder_S5"				1	"s_Ladder_S5"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S5_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S5"		1	"s_Ladder_S5"	0.2	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S5_2_S4"			1	"s_Ladder_S4"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S5_2_S6"			1	"s_Ladder_S6"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 7m Leiter
+			aniAlias	("s_Ladder_S6"				1	"s_Ladder_S6"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S6_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S6"		1	"s_Ladder_S6"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S6_2_S5"			1	"s_Ladder_S5"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S6_2_S7"			1	"s_Ladder_S7"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 8m Leiter
+			aniAlias	("s_Ladder_S7"				1	"s_Ladder_S7"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S7_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S7"		1	"s_Ladder_S7"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S7_2_S6"			1	"s_Ladder_S6"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S7_2_S8"			1	"s_Ladder_S8"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 9m Leiter
+			aniAlias	("s_Ladder_S8"				1	"s_Ladder_S8"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S8_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S8"		1	"s_Ladder_S8"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S8_2_S7"			1	"s_Ladder_S7"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S8_2_S9"			1	"s_Ladder_S9"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 10m Leiter
+			aniAlias	("s_Ladder_S9"				1	"s_Ladder_S9"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S9_2_Stand"		1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S9"		1	"s_Ladder_S9"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S9_2_S8"			1	"s_Ladder_S8"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Hebel ziehen
+			ani			("t_Lever_Stand_2_S0"		1	"s_Lever_S0"	0.2	0.0	M.	"Orc_Lever_jue02.asc"		F	1	9)
+			ani			("s_Lever_S0"				1	"s_Lever_S0"	0.0	0.0	M.	"Orc_Lever_jue02.asc"		F	10	10)
+			aniAlias	("t_Lever_S0_2_Stand"		1	""				0.0	0.2	M.	"t_Lever_Stand_2_S0"		R)
+
+			aniAlias	("t_Lever_Stand_2_S1"		1	"s_Lever_S1"	0.0	0.0	M.	"t_Lever_S1_2_Stand"		R)
+			ani			("s_Lever_S1"				1	"s_Lever_S1"	0.0	0.0	M.	"Orc_Lever_jue02.asc"		F	40	40)
+			ani			("t_Lever_S1_2_Stand"		1	""				0.0	0.2	M.	"Orc_Lever_jue02.asc"		F	41	49)
+
+			ani			("t_Lever_S0_2_S1"			1	"s_Lever_S1"	0.0	0.0	M.	"Orc_Lever_jue02.asc"		F	11	39)
+			aniAlias	("t_Lever_S1_2_S0"			1	"s_Lever_S0"	0.0	0.0	M.	"t_Lever_S0_2_S1"			R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Steinplatte drücken (Trigger)
+			ani			("t_TOUCHPLATE_Stand_2_S0"	1	"s_TOUCHPLATE_S0"	0.1	0.0	M.	"Orc_Touchplate_Y+20cm_jue02.asc"	F	0	5)
+			ani			("s_TOUCHPLATE_S0"			1	"s_TOUCHPLATE_S0"	0.0	0.0	M.	"Orc_Touchplate_Y+20cm_jue02.asc"	F	6	6)
+			aniAlias	("t_TOUCHPLATE_S0_2_Stand"	1	""					0.0	0.2	M.	"t_TOUCHPLATE_Stand_2_S0"	R)
+
+			ani			("t_TOUCHPLATE_S0_2_S1"		1	"s_TOUCHPLATE_S1"	0.0	0.0	M.	"Orc_Touchplate_Y+20cm_jue02.asc"	F	7	34)
+			ani			("s_TOUCHPLATE_S1"			1	"s_TOUCHPLATE_S1"	0.0	0.0	M.	"Orc_Touchplate_Y+20cm_jue02.asc"	F	35	35)
+			aniAlias	("t_TOUCHPLATE_S1_2_S0"		1	"s_TOUCHPLATE_S0"	0.0	0.0	M.	"t_TOUCHPLATE_S0_2_S1"		F)
+
+			aniAlias	("t_TOUCHPLATE_Stand_2_S1"	1	"s_TOUCHPLATE_S1"	0.0	0.0	M.	"t_TOUCHPLATE_Stand_2_S0"	F)
+			aniAlias	("t_TOUCHPLATE_S1_2_Stand"	1	""					0.0	0.1	M.	"t_TOUCHPLATE_Stand_2_S0"	R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// "Am Rad drehen"
+			ani			("t_VWheel_Stand_2_S0"		1	"s_VWheel_S0"	0.2	0.0	M.	"Orc_VWheel.asc"		F	1	17)
+			ani			("s_VWheel_S0"				1	"s_VWheel_S0"	0.0	0.0	M.	"Orc_VWheel.asc"		F	18	18)
+			aniAlias	("t_VWheel_S0_2_Stand"		1	""				0.0	0.2	M.	"t_VWheel_Stand_2_S0"		R)
+
+			aniAlias	("t_VWheel_Stand_2_S1"		1	"s_VWheel_S1"	0.2	0.0	M.	"t_VWheel_Stand_2_S0"		F)
+			ani			("t_VWheel_S0_2_S1"			1	"s_VWheel_S1"	0.0	0.0	M.	"Orc_VWheel.asc"		F	19	57)
+			ani			("s_VWheel_S1"				1	"s_VWheel_S1"	0.0	0.0	M.	"Orc_VWheel.asc"		F	58	58)
+			aniAlias	("t_VWheel_S1_2_S0"			1	"s_VWheel_S0"	0.0	0.0	M.	"t_VWheel_S0_2_S1"			R)
+			aniAlias	("t_VWheel_S1_2_Stand"		1	""				0.0	0.2	M.	"t_VWheel_Stand_2_S0"		R)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// STONEMILL
+			ani			("t_STONEMILL_Stand_2_S0"	1	"s_STONEMILL_S0"	0.1	0.0	M.	"Orc_Stonemill.asc"	F	1	19)
+			ani			("s_STONEMILL_S0"			1	"s_STONEMILL_S0"	0.0	0.0	M.	"Orc_Stonemill.asc"	F	20	20)
+			aniAlias	("t_STONEMILL_S0_2_Stand"	1	""					0.0	0.1	M.	"t_STONEMILL_Stand_2_S0"	R)
+
+			ani			("t_STONEMILL_S0_2_S1"		1	"s_STONEMILL_S1"	0.0	0.0	M.	"Orc_Stonemill.asc"	F	20	260	)
+			ani			("s_STONEMILL_S1"			1	"s_STONEMILL_S1"	0.0	0.0	M.	"Orc_Stonemill.asc"	F	260	260)
+			ani			("t_STONEMILL_S1_2_S0"		1	"s_STONEMILL_S0"	0.0	0.0	M.	"Orc_Stonemill.asc"	F	260	500	)
+
+// ---------------------------------------------------------------------------------------------------------------
+// STOMPER
+			ani			("t_STOMPER_Stand_2_S0"		1	"s_STOMPER_S0"	0.1	0.0	M.	"Orc_Stomper.asc"	R	121	130)
+			ani			("s_STOMPER_S0"				1	"s_STOMPER_S0"	0.0	0.0	M.	"Orc_Stomper.asc"	F	120	120)
+			aniAlias	("t_STOMPER_S0_2_Stand"		1	""				0.0	0.1	M.	"t_STOMPER_Stand_2_S0"	F)
+
+			ani			("t_STOMPER_S0_2_S1"		1	"s_STOMPER_S1"	0.0	0.0	M.	"Orc_Stomper.asc"	F	0	29)
+			ani			("s_STOMPER_S1"				1	"s_STOMPER_S1"	0.0	0.0	M.	"Orc_Stomper.asc"	F	30	30)
+			ani			("t_STOMPER_S1_2_S0"		1	"s_STOMPER_S0"	0.0	0.0	M.	"Orc_Stomper.asc"	F	31	119)
+
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// Script-gesteuerte States (alternative Steh- und Sitzposen)
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ---------------------------------------------------------------------------------------------------------------
+// Sleeping Guard
+		// Auf Boden setzen
+			ani			("t_Stand_2_GuardSit"		1	"s_GuardSit"	0.2	0.0	M.	"Orc_SleepingGuard_jue02.asc"	F	1	49	)
+		// Wache schieben Loop
+			ani			("s_GuardSit"				1	"s_GuardSit"	0.0	0.0	M.	"Orc_SleepingGuard_jue02.asc"	F	50	124	)
+		// Einschlafen
+			ani			("t_GuardSit_2_GuardSleep"	1	"s_GuardSleep"	0.0	0.0	M.	"Orc_SleepingGuard_jue02.asc"	F	125	149	)	
+		// Schlafen Loop
+			ani			("s_GuardSleep"				1	"s_GuardSleep"	0.0	0.0	M.	"Orc_SleepingGuard_jue02.asc"	F	150	199	)
+		// Aufwachen
+			ani			("t_GuardSleep_2_GuardSit"	1	"s_GuardSit"	0.0	0.0	M.	"Orc_SleepingGuard_jue02.asc"	F	200	205)
+		// Aufstehen
+			ani			("t_GuardSit_2_Stand"		1	""				0.0	0.3	M.	"Orc_SleepingGuard_jue02.asc"	F	205	259	)
+
+// ---------------------------------------------------------------------------------------------------------------
+// DANCE (Script)
+			ani			("t_Stand_2_Dance"		1	"t_Dance"			0.2	0.0	M.	"Orc_WarDance_jue02.asc"		F	1	9)
+			ani			("t_Dance"				1	""					0.1	0.1	M.	"Orc_WarDance_jue02.asc"		F	10	89	)
+			ani			("t_Dance_Random_1"		1	""					0.0	0.0	MR	"Orc_WarDance_jue02.asc"		F	90	139	)
+			aniAlias	("t_Dance_2_Stand"		1	""					0.0	0.2	M.	"t_Stand_2_Dance"				R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Beten
+			ani			("t_Stand_2_Pray"			1	"s_Pray"		0.1	0.0	M.	"Orc_Idol_jue02.asc"			F	1	69)
+			ani			("s_Pray"					1	"s_Pray"		0.0	0.0	M.	"Orc_Idol_jue02.asc"			F	70	70)
+			ani			("t_Pray_Random"			1	"s_Pray"		0.1	0.1	M.	"Orc_Idol_jue02.asc"			F	71	146	)
+			aniAlias	("t_Pray_2_Stand"			1	""				0.1	0.1	M.	"t_Stand_2_Pray"				R)
+
+
+
+//////////////////////////
+// SCRIPT-ANIS
+//////////////////////////
+
+// Umschauen, wittern, etwas hören
+			ani			("t_Perception"				2	""				0.1	0.1	M.	"Orc_Perception_jue02.asc"		F	1	144	)
+			ani			("t_Warn"					1	""				0.2	0.2	M.	"Orc_1hRunT2_Warn_Jue02.asc"	F	1	34)
+			{
+				*eventSFX	(2	"ORC_WARN"	EMPTY_SLOT	)
+			}
+
+
+// Ärgern
+			ani			("t_Angry"					1	""				0.0	0.0	M.	"Orc_Angry_jue02.asc"			F	0	79	)
+			{
+				*eventSFX	(2	"ORC_ANGRY"	EMPTY_SLOT	)
+			}
+
+// Dog Commands
+			ani			("t_DCStop"					1	""				0.0	0.0	M.	"Orc_DogCommand_jue02.asc"		F	1	24	)
+			ani			("t_DCBite"					1	""				0.0	0.0	M.	"Orc_DogCommand_jue02.asc"		F	25	49	)
+			ani			("t_DCCome"					1	""				0.0	0.0	M.	"Orc_DogCommand_jue02.asc"		F	50	74	)
+
+// Fürchten
+			ani			("t_Frightened"				1	""				0.0	0.0	M.	"Orc_Frighten_jue02.asc"		F	0	39	)
+			{
+				*eventSFX	(2	"ORC_FRIGHTENED"	EMPTY_SLOT	)
+			}
+
+// Freuen
+			ani			("t_Happy"					1	""				0.0	0.0	M.	"Orc_Happy_jue02.asc"			F	0	169	)
+			{
+				*eventSFX	(2	"ORC_HAPPY"	EMPTY_SLOT	)
+			}
+
+
+
+///////////////////////
+// MAGIC VICTIMS
+///////////////////////
+
+// Feuerschaden allgemein, z.B. Fireball, Pyrokinesis, ...
+			aniAlias	("s_Fire_Victim"			1	"s_Fire_Victim"			0.0	0.0	M.	"s_FallDn"			F)
+
+// Lightning, Chainlightning, Thunderbolt, Thunderball
+			aniAlias	("t_Stand_2_Lightning_Victim"	1	"s_Lightning_Victim"	0.0	0.0	M.	"s_FallDn"		F)
+			aniAlias	("s_Lightning_Victim"			1	"s_Lightning_Victim"	0.0	0.0	M.	"s_FallDn"		F)
+
+// IceCube, IceWave
+			ani			("t_Stand_2_Freeze_Victim"	1	"s_Freeze_Victim"		0.1	0.0	M.	"Orc_Stumble_B_jue02.asc"		F	1	3)
+			ani			("s_Freeze_Victim"			1	"s_Freeze_Victim"		0.0	0.0	M.	"Orc_Stumble_B_jue02.asc"		F	4	4)
+		
+// Sleep Victim
+			aniAlias	("t_Stand_2_Victim_Sle"		1	"s_Victim_Sle"			0.1	0.0	M.	"t_BedLow_Front_S0_2_S1"	F)
+			aniAlias	("s_Victim_Sle"				1	"s_Victim_Sle"			0.1	0.1	M.	"s_BedLow_Front_S1"			F)
+			aniAlias	("t_Victim_Sle_2_Stand"		1	""						0.0	0.2	M.	"t_BedLow_Front_S0_2_S1"	R)
+
+
+
+/////////////////////
+///	DIALOG GESTEN
+/////////////////////
+
+			ani			("T_DIALOGGESTURE_01"		2	""				0.2	0.2	M.	"Orc_Dialog_01_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_02"		2	""				0.2	0.2	M.	"Orc_Dialog_02_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_03"		2	""				0.2	0.2	M.	"Orc_Dialog_03_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_04"		2	""				0.2	0.2	M.	"Orc_Dialog_04_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_05"		2	""				0.2	0.2	M.	"Orc_Dialog_05_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_06"		2	""				0.2	0.2	M.	"Orc_Dialog_06_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_07"		2	""				0.2	0.2	M.	"Orc_Dialog_07_A01.asc"		F	1	-1	FPS:15)
+			ani			("t_DIALOGGESTURE_08"		2	""				0.2	0.2	M.	"Orc_Dialog_08_A01.ASC"		F	1	-1	FPS:15)
+
+
+
+// Orcs werden wie Monster behandelt, und direkt getötet
+//			ani			("t_2hSFinish"			1	"s_2hRun"			0.0	0.0	M.	"Orc_2hFinish_A01.asc"		F	1	120)
+//			{
+//				*eventSFX	(35	"FIG_SwordFinal"	EMPTY_SLOT	)
+//			}
+
+//	Grundhaltung für Werfen
+//			ani			("t_Stand_2_IAim"		1	"s_IAim"		0.3	0.1	M.	"Orc_ItemThrow_jue02.asc"		F	26	36)
+//			ani			("s_IAim"				1	"s_IAim"		0.1 0.1 M.	"Orc_ItemThrow_jue02.asc"		F	37	37)
+//			aniAlias	("t_IAim_2_Stand"		1	""				0.1	0.1	M.	"t_Stand_2_IAim"			R)
+
+//	Item WERFEN
+//			ani			("t_IAim_2_IThrow"		1	"s_IThrow"		0.1 0.0 M.	"Orc_ItemThrow_jue02.asc"		F	38	42)
+//			ani			("s_IThrow"				1	"s_IThrow"		0.0 0.0 M.	"Orc_ItemThrow_jue02.asc"		F	43	43)
+//			ani			("t_IThrow_2_Stand"		1	""				0.0 0.1 M.	"Orc_ItemThrow_jue02.asc"		F	44	50)
+
+
+
+
+
+//			ani			("t_Wounded_2_Dead"		1	"s_Dead"		0.1	0.1	M.	"Orc_Wounded2Dead_A01.asc"	F	1	91	FPS:15)
+//			ani			("t_WoundedB_2_DeadB"	1	"s_DeadB"		0.1	0.1	M.	"Orc_WoundedB2Dead_A01.asc"	F	1	100	FPS:15)
+
+//
+	// K.O gegangen (1 Lebenspüppel übrig)
+//			ani			("t_Stand_2_Wounded"	1	"s_Wounded"		0.3	0.0	M.	"Orc_Wounded_A01.asc"		F	1	49	FPS:15)
+//			{
+//				*eventSFX	(2	"ORC_DIE"	EMPTY_SLOT	)
+//				*eventSFX	(30	"M_FALL_HUGE"	EMPTY_SLOT	)
+//			}
+
+//			ani			("s_Wounded"			1	"s_Wounded"		0.0	0.0	M.	"Orc_Wounded_A01.asc"		F	50	99	FPS:5)
+//			ani			("t_Wounded_Try"		2	""				0.1	0.2	M.	"Orc_Wounded_A01.asc"		F	186	229	FPS:5)
+//			ani			("t_Wounded_2_Stand"	1	""				0.0	0.1	M.	"Orc_Wounded_A01.asc"		F	100	184	FPS:15)
+
+		// Nach Vorne fallen
+//			ani			("t_Stand_2_WoundedB"	1	"s_WoundedB"	0.3	0.0	M.	"Orc_WoundedB_A01.asc"		F	1	34	FPS:15)
+//			{
+//				*eventSFX	(2	"ORC_DIE"	EMPTY_SLOT	)
+//				*eventSFX	(25	"M_FALL_HUGE"	EMPTY_SLOT	)
+//			}
+
+//			ani			("s_WoundedB"			1	"s_WoundedB"	0.0	0.0	M.	"Orc_WoundedBAmbient_A01.ASC"		F	1	39)
+//			ani			("t_WoundedB_Try"		2	""				0.1	0.4	M.	"Orc_WoundedB_A01.asc"		F	35	66	FPS:15)
+//			ani			("t_WoundedB_2_Stand"	1	""				0.0	0.1	M.	"Orc_WoundedB_A01.asc"		F	35	100	FPS:15)
+
+
+		}
+}

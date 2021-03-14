@@ -1,0 +1,271 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Objekte (Vobs) in der Welt</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Objekte (Vobs) in der Welt
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version: 14.August 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<ul>
+<li>1 Objekte (Vobs)
+    <ul>
+    <li>1.1 Was sind VOBs?
+    <li>1.2 Die Vob-Hierarchie in der Welt
+    </ul>
+<li>2 VOBs im Spacer
+    <ul>
+    <li>2.1 Der Objekt-Dialog
+    <li>2.2 Die Objekt-Liste
+    <li>2.3 Spezielle Objekt-Dialoge
+    </ul>
+<li>3 Sichtbare und unsichtbare Vobs
+    <ul>
+    <li>3.1 Das Mesh
+    <li>3.2 Partikeleffekte
+    <li>3.3 DECALs
+    <li>3.4 Unsichtbare Vobs
+    </ul>
+</ul>
+
+<hr noshade size=2>
+
+<H1>1 Objekte (Vobs)</H1>
+
+<H1>1.1 Was sind VOBs?</H1>
+
+Ein Vob ist ein "<b>v</b>irtuelles <b>Ob</b>jekt". Es hat eine Position und Orientierung im Raum
+und kann durch ein explizit wählbares "Visual" visualisiert werden.
+Die Welt wird mit Vobs bevölkert. Jedes Vob gehört einer Klasse an,
+die die Eigenschaften und Fähigkeiten dieses Objektes festlegt
+(z.B. "oCNPC" oder "zCTrigger"). Eine genauere Auflistung bietet
+das Spacer-Dokument zu den <a href="vobtypes.htm">Vob-Klassen</a>.
+<br><br>
+Beispiele einiger Vobs:
+<ul>
+<li>einzelne Bäume und Büsche
+<li>Sound- und Lichteffekte
+<li>Partikeleffekte (z.B. Feuer)
+<li>NPCs und Monster
+<li>Items
+<li>Nebel- und Musikzonen
+<li>Betten, Drehräder, Leitern
+<li>Ereignisfelder und Ereignisfilter
+</ul>
+Die Hauptarbeit im Spacer beschäftigt sich mit dem Einfügen, Löschen und Modizieren
+von Vobs in der Welt. Das Modifizieren umfasst das Positionieren in der Welt sowie die Änderung
+der Vob-Eigenschaften, die je nach VobKlasse unterschiedlich sind.
+
+<H2>1.2 Die Vob-Hierarchie in der Welt</H2>
+
+Die Objekte in der Welt werden in einer Hierarchie gespeichert.
+Die meisten Vobs werden wohl als einzelnes Objekt in der Welt "liegen".
+Doch einige Vobs sollte man als "Kind" anderer Vobs einfügen.
+<br><br>
+Ein gutes Beispiel hierfür ist eine Feuerstelle:
+Das Hauptvob stellt ein mit Steinen umrahmtes Gluthäufchen dar.
+An dieses Vob hängen wir nun einen
+Partikeleffekt (Feuer) als KindVob (ChildVob).
+Ein Feuer raucht in der Regel und strahlt Licht aus. Daher hängen wir zwei
+weitere Vobs als Kinder an das FeuerVob: Einen Rauch-Partikeleffekt und
+ein Licht-Vob. Insgesamt sieht die Hierarchie dann wie folgt aus
+(die Visualnamen sind erfunden):
+<ul>
+<li>zCVob: FeuerstellenVob (Visual: "feuerstelle.3ds")
+    <ul>
+    <li>zCVob: FeuerVob (Visual: "feuer.pfx")
+        <ul>
+        <li>zCVobLight: LichtVob (kein Visual)
+        <li>zCVob: RauchVob (Visual: "rauch.pfx")
+        </ul>
+    </ul>
+</ul>
+Der Vorteil einer solchen Hierarchie ist, dass die KindVobs automatisch bewegt werden,
+wenn man das ElternVob bewegt. Verschiebe ich also das FeuerstellenVob an eine andere Stelle,
+so brauche ich mich nicht um die Positionierung von Feuer, Rauch und Licht kümmern.
+Auf die gleiche Weise sind die Fackeln in der Welt modelliert, so dass bei der Bewegung
+des Fackelschafts automatisch die als KindVob angehängten Feuer- und LichtVobs
+mitbewegt werden.
+
+<H1>2 VOBs im Spacer</H1>
+
+<H2>2.1 Der Objekt-Dialog</H2>
+
+<img src="pics/object_tree.jpg" align=right>
+
+Als zentraler Dialog für (fast) alle Operationen mit Vobs dient der Objekt-Dialog (siehe auch <a href="pics/spacer_shot.jpg">dieses Bild</a>)
+Er besitzt drei Seiten:
+<ol>
+<li><b>CREATE</b><br>Der Objektbaum zur Auswahl der gewünschten Vobklasse, um dann ein Objekt dieser Klasse in die Welt einzufügen.
+<li><b>MODIFY</b><br>Die Eigenschaften eines selektierten Objektes in der Welt können auf der MODIFY-Seite geändert werden.
+<li>Die dritte Seite findet Verwendung, wenn die BoundingBox spezieller Vobs (Trigger, Sound) verändert werden soll.
+</ol>
+
+<H2>2.2 Die Objekt-Liste</H2>
+
+<img src="pics/object_list.jpg" align=right>
+
+In der Objekt-Liste (siehe <a href="pics/spacer_shot.jpg">Bild</a>) werden alle Vobs der geladenen
+Welt aufgelistet. Dabei bleibt die Hierarchie erhalten.
+<br><br>
+Jeder Levelbaustein (zCVobLevelCompo) wird in der Liste aufgeführt.
+Jeder Vob eines solchen Levelbausteins ist in speziellen Ordnern (mit dem
+Namen der jeweiligen Vob-Klasse) einsortiert. Besitzt der Vob weitere KindVobs, so
+werden diese entsprechend angezeigt (ggf. auf das Pluszeichen klicken).
+<br><br>
+Mit einem <b>Doppelklick</b> auf ein Vob in der Objekt-Liste
+springt man im Hauptfenster zu dem gewählten Vob (diese Funktion funktioniert erst ab Spacer-Version 1.5 korrekt).
+<br><br>
+Neu eingefügte Vobs haben anfangs ein grünes Icon (Kreis) vorangestellt, alle anderen haben ein rotes Icon.
+
+<H2>2.3 Spezielle Objekt-Dialoge</H2>
+
+<img src="pics/toolbar_objects.jpg">
+<br>
+Für einige VobKlassen gibt es spezielle Dialoge, die man über die Objekt-Toolbar
+aktivieren kann. Dies sind vor allem die vier Buttons, die mit einem roten Pfeil
+in der rechten oberen Ecke markiert sind:
+<ul>
+<li><img src="pics/icon_sound.gif" align=left>Soundobjekte (zCVobSound)
+<li><img src="pics/icon_light.gif" align=left>Lichtobjekte (zCVobLight)
+<li><img src="pics/icon_special.gif" align=left>Spezielle Vobs: Wegpunkte, FreePoints, Partikeleffekte und Decals
+<li><img src="pics/icon_cam.gif" align=left>Kamerafahrten
+</ul>
+Die weiteren Dialoge bieten folgende Möglichkeit:
+<ul>
+<li><img src="pics/icon_zones.gif" align=left>Zonen (eher unwichtig)
+<li><img src="pics/icon_events.gif" align=left>Ereignis-Trigger
+<li><img src="pics/icon_replace.gif" align=left>Suchen &amp; Ersetzen
+</ul>
+
+<H1>3 Sichtbare und unsichtbare Vobs</H1>
+
+Eine wichtige Eigenschaft von Vobs ist sein "Visual". Ein Visual regelt
+die Darstellung des Vobs. Dabei gibt es verschiedene Arten von Visuals:
+<ul>
+<li>Meshes
+<li>Partikeleffekt
+<li>Textur (Decal)
+</ul>
+
+<H2>3.1 Das Mesh</H2>
+
+Besitzt ein Vob als Visual ein Mesh (3ds), so wird es als das dreidimensionales
+Objekt dargestellt, das durch das Mesh beschrieben wird. Ein Mesh besteht aus aneinander
+gereihten Polygonen, die wiederum durch Vertices (ihre Eckpunkte) definiert sind.
+<br><br>
+<b>Wichtig!</b> Bei Meshes gibt es eine Einschränkung: Maximal darf ein
+"normales" Mesh 2048 Verteces besitzen. Eine Ausnahme spielt das Visual einer
+Levelkomponente (zCVobLevelCompo), das keiner solchen Beschränkung unterliegt.
+Allerdings können Levelkomponenten nur am Ursprung der Welt eingefügt und
+auch nicht bewegt oder rotiert werden. Deshalb muss das Mesh einer Levelkomponente
+(z.B. der Turm von Xardas) bereits an den korrekten Koordinaten im 3D-Editor
+positioniert werden.
+<br><br>
+Die zSpy-Meldung 'Degenerated Polygon' ist übrigens nicht tragisch, da diese
+autom. aus den Vob-Meshes entfernt werden, sollte aber vom Ersteller des Meshes
+beachtet werden: Ein 'Degenerate Polygon' ist ein Polygon/Triangle, das
+den Flächeninhalt 0 besitzt (beispielsweise durch kolineare Vertices).
+
+<H2>3.2 Partikeleffekte</H2>
+
+Partikeleffekt-Vobs werden über Scripte erzeugt. Die entsprechenden Datei befinden sich
+im Ordner _work\data\scripts\system\pfx. Der Name einer PFX-Instanz kann als Visual angegeben werden,
+wobei ein ".pfx" angehängt werden muss.
+
+<H2>3.3 DECALs</H2>
+
+DECALs sind zweidimensionale Meshes, zur Darstellung von zweidimensionalen Strukturen.
+Beispiele hierfür sind Spinnenweben, Vorhänge, Bilder an der Wand und mehr. Die Meshes werden automatisch erzeugt
+und die als Visual angegebene Textur darauf gemappt.
+
+<H2>3.4 Unsichtbare Vobs</H2>
+
+Es gibt neben all den offensichtlichen Vobs auch eine Reihe unsichtbarer Objekte.
+Dabei treten diese durch Effekte oder Ereignisse in Erscheinung. Ein LichtObjekt ist nicht
+direkt sichtbar, sondern macht sich nur durch die Beleuchtung seiner Umgebung bemerkbar.
+Ähnlich verhält es sich mit Soundobjekten. Musikzonen bestimmen, welche Hintergrundmusik in einem
+Levelbereich gespielt wird und Triggerfelder reagieren auf Berührung mit NPCs.
+Ein bekanntes Beispiel sind auch die Wegpunkte, die miteinander verknüpft das Wegenetz
+erzeugen.
+<br><br>
+<img src="pics/helpers.jpg" align=right>
+All diese  Objekte sind im Spacer sichtbar, wenn man die sogenannten "HelperVobs" anzeigen läßt.
+Dies geschieht über die Objekt-Toolbar: <img src="pics/icon_helper.gif">.
+<br><br>
+Diese Helpervobs für Lichter, Sounds, Wegpunkte und mehr sind Meshes, die im Ordner
+_work\data\meshes\_intern zu finden sind und den Namen der entsprechenden
+Vobklasse tragen (mit vorangestelltem "invisible_"):
+<ul>
+<li>invisible_zCVobSpot.3ds (im Bild: a)
+<li>invisible_zCVobLight.3ds (b)
+<li>invisible_zCVobStartpoint.3ds (c)
+<li>invisible_zCWaypoint.3ds (d)
+<li>invisible_zCVobSound.3ds (e)
+<li>...
+</ul>
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

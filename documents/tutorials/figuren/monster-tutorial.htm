@@ -1,0 +1,335 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: ZenGin Models</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Tutorial: Eine Spielfigur entsteht
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Markus Kark
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  18.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#01"><b>1. Einleitung</b></a>
+        <li><a href="#02"><b>2. Figurdaten exportieren</b></a>
+        <li><a href="#03"><b>3. Exportieren der Animationen</b></a>
+        <li><a href="#04"><b>4. MDS Datei erstellen</b></a>
+        <li><a href="#05"><b>5. D-Script für die Figur</b></a>
+        <li><a href="#06"><b>6. In-Game Test</b></a>
+        <li><a href="#07"><b>7. Ausbau des MDS</b></a>
+        </ul>
+        </b>
+        <a href="../../gothic.htm"><b><i>Zum Index</i></b></A>
+        <br><br><br>
+        <b>Hinweis: Einige Bilder werden verkleinert dargestellt. Ein Mausklick reicht, und das Bild erscheint in voller Größe!</b>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<!---- History
+18.07.01: NEU
+----->
+
+<a name="01"><H1>1. Einleitung</H1></a>
+
+<p> In diesem Tutorial wird der Weg vom 3D-Modell bis hin zur Figur im Spiel am Beispiel eines 'Meatbug' beschrieben.Es wird voraussgesetzt, das man sich schon mal mit der <a href="../../zengin/zengin_models.htm">ZENGIN Dokumentation</a> für 3D-Modelle auseinander gesetzt hat und Grundlagen in der Bedienung von 3D Studio MAX 3.1 besitzt.</p>
+<p>Ferner sollten Grundkenntnisse im Umgang mit der Gothic-Script Sprache vorhanden sein.</p>
+
+<p>Benötigte Software:
+<ul>
+    <li>Gothic MOD Development Kit
+    <li>3D Studio MAX 3.1
+    <li>ZenGin Exporter für 3D Studio MAX (zenexp.dle)
+    <li>Texteditor (empf. Ultra Edit 32)
+    
+    <li>MAX-Dateien für Meatbug (\GOTHIC MOD Development Kit\3DS MAX STUFF\DATA\MEATBUG)
+    </ul>
+</p>
+
+<a name="02"><H1>2. Figur exportieren:</H1></a>
+<p>Zunächst werden wir nur die nötigsten Daten für eine neue Spielfigur bereitstellen. Diese umfassen:</p>
+
+<ul>
+    <li>das darzustellende Modell
+    <li>ein rudimentärer Satz an Animationen
+    <li>die MDS-Datei 
+    <li>das D-Script für den Meatbug
+</ul>
+
+<br>
+
+<ul>
+    <li><p>a) Als erstes starten wir 3D Studio MAX 3.1. Dort öffnen wir aus den Beispieldateien für den Meatbug die Datei <b>MEATBUG_M04.MAX</b>. In dieser Datei ist sowohl die Skelett-Struktur der Figur als auch das sichtbare Mesh vorhanden.</p>
+            <a href="pics/meatbug_m04.jpg"><img src="pics/meatbug_m04.jpg" width=320 height=200></A><br>
+            
+    <li><p>b) Dieses Modell inklusive des Skeletts exportieren wir nun mit dem Zen-Exporter. Dazu aus dem Menü <b>Datei</b> den Unterpunkt <b>Export...</b> auswählen.</p>
+            <img src="pics/export.jpg"><br>
+    
+    <li><p>c) Im anschliessenden Dialog wählen wir als Export-Format den ZEN-Exporter  (Dateiendung *.asc). Als Speicherplatz für die ASC-Datei wählen wir das in der ZEN-Dokumentation angegebene Unterverzeichnis <b>GOTHIC\_WORK\DATA\ANIMS</b>.Hier sollte man sich einen Unterordner namens <b>Meatbug</b> für die Daten anlegen. Der zu exportierenden Datei geben wir den Namen <b>Mbg_Body_M04.asc</b>.</p>
+            <img src="pics/exportdialog.jpg"><br>
+     
+    <li><p>d) Im folgenden Dialogfeld wählen wir über den Quickbutton <b>Export Mesh</b> aus.</p>
+            <img src="pics/exportoptions.jpg"><br>
+</UL>
+        
+<p>Wir haben nun die fürs MDS erforderliche meshAndTree Datei angelegt (zur Einbindung ins MDS später mehr).</p>
+ 
+<a name="03"><H1>2. Exportieren der Animationen</H1></a>
+<p>Die Figur braucht nun ein paar Animationsdaten, damit wir sie auch direkt testen können. Für den Anfang reicht eine Animation für die Ambient-Bewegung (Ruhestellung), eine Lauf-Animation (Run) und eine Animation wie die Figur auf dem Boden landet (Fall).Diese sollte definiert werden, da beim Einsetzen der Figur im Spiel, das Model "in der Luft" erzeugt wird und dann zu Boden fällt.Fehlt diese Animation kann es zu einem Hänger kommen und die Figur ist nicht steuerbar.</p><br>
+ 
+<ul>
+    <li><p>a) Wir laden in 3D Studio MAX 3.1 die Datei <b>Mbg_Amb_M01.max</b>. Diese Animation ist für die Ruhestellung gedacht.</p>
+            <a href="pics/mbg_run_m01.jpg"><img src="pics/mbg_run_m01.jpg" width=320 height=200></A><br>
+ 
+    <li><p>b) Dann wird die Animation auch wieder über den ZEN-Exporter in das Animations-Unterverzeichnis von Gothic exportiert. Diesmal allerdings mit Hilfe des Quickbuttons <b>Export Animation</b>. Zur Sicherheit sollte man die Einstellungen hier auf jeden Fall mit den Vorgaben vergleichen, die in der  <a href="../../zengin/zengin_models.htm#01">ZENGIN Dokumentation</a> für den Export von Animationen angegeben sind .</p>
+            <img src="pics/exportanioptions.jpg"><br>
+
+    <li><p>c) Als Export-Namen wählen wir den selben Namen wie die Max-Datei, nur mit der Endung 'asc', also <b>Mbg_Amb_M01.asc</b>. Das erleichtert hinterher das Wiederfinden der MAX-Datei.</p><br>
+  
+    <li><p>d) Die Schritte a) bis c) wiederholen wir nun noch mit den Dateien</p>
+         <p><b>Mbg_Run_M02.max</b>  -- Export --> <b>Mbg_Run_M02.asc</b></p>
+         <p><b>Mbg_Fall_M01.max</b>  -- Export --> <b>Mbg_Fall_M01.asc</b></p>
+</ul>
+<p>Nun haben wir für unsere neue Figur die nötigsten Modell- und Animationsdaten zusammengestellt.</p>
+<br><br><br>
+ 
+<a name="04"><H1>4. MDS-Datei erstellen</H1></a>
+<p>Jetzt wird das Model-Script erstellt, wo die Animationsdaten im ASC-Format den logischen Animatione die wir für das Spiel brauchen zugeordnet werden. Wir öffnen nun also unseren Texteditor ( am besten halt UltraEdit32).</p><br>
+<p>
+<ul>
+<li><p>a) Als ersten Schritt schreiben wir den Header der Datei mit den Angaben für das Model und die Mesh-Datei</p>
+<pre>
+Model ("Meatbug")
+{
+    meshAndTree ("Mbg_Body_M04.asc" DONT_USE_MESH)
+    registerMesh ("Mbg_Body_M04.ASC")
+    aniEnum
+{
+</h5></pre>
+            
+    <p>Dies definiert dann das darzustellende Mesh im Spiel sowie die Skelett-Struktur die es besitzt (siehe dazu auch Zengin-Doku).</p>
+        
+<li><p>b) Nun werden die Animationen per 'ani'-Befehl definiert. Wir beginnen mit der Animation für die Ruhestellung. Diese heisst S_FISTRUN und wird folgendermassen angelegt:</p>
+<pre>
+    ani   ("s_FistRun"   1   "s_FistRun"     0.0  0.0  M.  "Mbg_Amb_M01.asc"    F  0 100)
+</pre>
+        
+    <p>Für eine genaue Erklärung der einzelnen Parameter siehe ZenGin-Dokumentation.</p>
+     
+<li><p>c) Jetzt kann unser Meatbug zwar rumstehen, aber das wäre langweilig. Ausserdem haben wir ja noch ein paar Animationen exportiert.Nun werden wir ihm das Laufen beibringen, indem wir die dafür erforderlichen Animationen definieren.</p>
+      
+<li><p>d) Die Lauf-Animation hat den Namen S_FISTRUNL. Um aus dem Stand ins Laufen wechseln und auch wieder stehenbleiben zu können müssen noch 2 weitere Animationen definiert werden, die Übergangsanis T_FISTRUN_2_FISTRUNL (fürs Loslaufen) und T_FISTRUNL_2_FISTRUN (fürs Anhalten). Dies geschieht durch folgende 3 Zeilen:</p>
+<pre>
+aniBlend  ("t_FistRun_2_FistRunL"               "s_FistRunL"    0.1  0.1)
+ani       ("s_FistRunL"                    1    "s_FistRunL"    0.0  0.0  M.  "Mbg_Run_M02.asc"    F 0 20)
+aniBlend  ("t_FistRunL_2_FistRun"               "s_FistRun"     0.0  0.1)
+</pre>      
+<p>Hier sehen wir das die Übergangsanis nur reine interpolierte Animationen sind (aniBlend), also keine eigenen Animationsdaten verwendet werden. Dies kann man bei dem Meatbug gut machen. Bei anderen vor allem grösseren Figuren sollten diese Übergänge doch 'von Hand' animiert sein, das es sonst zum nicht so beliebten Schlittschuh-Effekt kommt und die Figur peinlich über den Boden gleitet. Das erste und das letzte Frame der Animation die durch S_FISTRUNL definiert ist sollte die gleiche Pose beinhalten, damit die Schleife sauber aussieht und keine hässlichen Ruckler entstehen.</p>
+     
+<li><p>e) Nun brauchen wir nur noch die nötige Fall-Animation einzubinden. Sie besteht aus 2 Teilen. Einer State-Animationen S_FALLDN, die abgespielt wird solange das Modell fällt und eine Lande-Animation T_FALLDN_2_STAND, die bei Bodenkontakt aufgerufen wird.</p>
+<pre>
+ani       ("s_FallDn"                      1    "s_FallDn"      0.1 0.1 MF    "Mbg_Fall_M01.asc"    F 3 3)
+ani       ("t_FallDn_2_Stand"              1    ""              0.1 0.0 M.    "Mbg_Fall_M01.asc"    R 0 3)
+</pre>      
+<p>Bei der S_FALLDN-Animation wird das F-Flag gesetzt. Damit wird angegeben das bei dieser Ani die Höhe der Figur in den Animationsdaten nicht berücksichtigt wird, da sie durch die interne Physik gesteuert wird.</p>
+    
+<li><p> f) Jetzt setzen wir noch 2 abschliessende geschweifte Klammern unter unsere Animations-Definitionen. Fertig ist das MDS. Wir speichern es im <b>GOTHIC\_WORK\DATA\ANIMS</b>-Verzeichnis unter dem Namen <b>MyMeatbug.mds</b>.</p>
+    
+</ul><br>
+ 
+<p>Wir haben nun die Animationen für unser Modell definiert. Das reicht leider noch nicht ganz aus, um uns unseren kleinen Freund im Spiel zu betrachten. Dazu brauchen wir noch ein D-Script, wo unsere Figur fürs Spiel definiert wird.</p>
+<br><br><br>
+
+<a name="05"><H1>5. D-Script für die Figur</H5></a>
+<p>Im D-Script werden die Attribute einer Spielfigur festgelegt sowie deren Aussehen (Model) und die Animationsdaten, die es benutzt (MDS). Wir wollen nun für unseren Meatbug ein Skript anlegen, auch wieder in UltraEdit32.</p><br>
+
+<ul>
+<li><p>a) Zunächst erstellen wir eine neue Datei in Ultra-Edit mit folgendem Header.</p>
+<pre>
+INSTANCE MyMeatbug  (C_NPC)
+{
+    name              =   "Wanzi";
+    guild             =   GIL_MEATBUG;
+</pre>      
+<p>Hier geben wir den Namen der Figur an, die am oberen Bildrand erscheint wenn wir sie im Focus haben, sowie die Gilde, zu der diese Figur gehören soll.</p>
+        
+<li><p>b) Nun übertragen wir folgende Attribute in die Datei</p>
+<pre>
+    level             =   1;
+</pre>
+<p>Dies ist für den Erfahrungs-Level unser Figur, die sie von Anfang an haben soll.</p><br>
+<pre>
+    attribute   [ATR_STRENGTH]      =   1;
+</pre>
+<p>Dies legt den Wert für die Stärke der Figur fest, d.h. die Stärke mit der sie angreifen kann.</p><br>
+<pre>
+    attribute   [ATR_DEXTERITY]     =   1;
+</pre>
+<p>Dies ist an für sich nur für Fernkampfwaffen von Bedeutung. Aber der Vollständigkeit halber packen wir es auch dabei.</p>
+     
+
+<pre>
+    attribute   [ATR_HITPOINTS_MAX] =   10;
+    attribute   [ATR_HITPOINTS]     =   10;
+</pre>
+<p>Hier wird die Gesundheit unserer Figur festgelegt. Einmal die Anzhal der Hitpoints die die Figur maximal haben kann [ATR_HITPOINTS_MAX] und die Hitpoints die sie beim Start haben soll.</p>
+        
+    
+<pre>
+    attribute   [ATR_MANA_MAX]      =   0;
+    attribute   [ATR_MANA]          =   0;
+</pre>
+            
+<p>Dies legt analog zu den Hitpoints das Mana unserer Figur fest.</p><br>
+
+<p>Nun folgt der Abschnitt über den Rüstungsschutz unserer Figur, unterteilt nach den einzelnen Schadenskategorien.</p>
+<pre>
+    protection  [PROT_BLUNT]        =   0;              // stumpfe Waffen
+    protection  [PROT_EDGE]         =   0;              // Waffen mit EDGE-Schaden (Klingen)
+    protection  [PROT_POINT]        =   0;              // Waffen mit POINT-Schaden (Pfeile,Bolzen)
+    protection  [PROT_FIRE]         =   100;            // Feuerschaden
+    protection  [PROT_FLY]          =   0;              // FLY-Schaden,d.h. wenn die Figur weggeschleudert wird
+    protection  [PROT_MAGIC]        =   0;              // Magie-Schaden
+        
+    damagetype                      =   DAM_EDGE;
+</pre>            
+<p>Hiermit legen wir den Schadenstyp fest, den unsere Figur bei einem Angriff verursacht.</p>
+<pre>
+    Npc_SetToFistMode(self);
+</pre>
+<p>Über diesen Befehl wird die Figur beim Einsetzen ins Spiel direkt in den Kampfmodus gesetzt. Dies ist ein Standard bei Monstern, um Animationsdaten einzusparen.</p>
+
+<li><p>c) Nun tragen wir noch ins Skript ein, welche Daten für das Aussehen (Visual) der Figur benutzt werden sollen. Zum einem geben wir die MDS-Datei an, die diese Figur benutzen soll, d.h. welcher Animationssatz ihr zur Verfügung steht.</p>
+<pre>
+            Mdl_SetVisual   (self,  "MyMeatbug.mds");
+</pre>
+    
+<li><p>d) Desweiteren kann man mit dem nächsten Befehl das Erscheinungsbild der Figur näher bestimmen. Dieser Befehl ist gerade bei Figuren wichtig, die mehr als ein Body-Modell haben, wie z.b. die Menschen mit ihren Rüstungen und Hautfarben. In unserem Beispiel werden die meisten Paramter auf Default-Werten gelassen (Hautfarbe, Variation, Kopfdatei usw.) Nur die Körpermesh-Datei wird angegeben.</p>
+    
+<pre>
+    Mdl_SetVisualBody   (self,  "Mbg_Body_M04",     DEFAULT,    DEFAULT,    "",         DEFAULT,    DEFAULT,    -1);
+};
+</pre>
+<li><p>e) Abschliessend (mal wieder) eine geschweifte Klammer und ein Semikolon. Das wird schon gerne mal vergessen und dann gibts garstige Fehler beim Starten und man sucht sich nen Wolf :)</p>
+</ul>
+ 
+<p>Nun haben wir eine Instanz für unsere Figur geschaffen, die wir auch mal im Spiel testen wollen. Dazu speichern wir die Datei unter dem Namen
+ <b>MyMeatbug.d</b> im Ordner <b>GOTHIC\_WORK\DATA\SCRIPTS\CONTENT\AI\MONSTER</b></p>
+<br><br><br>
+
+<a name="06"><H1>6. In-Game Test</H1></a>
+<p>Nun starten wir Gothic. Am besten einen kleinen Level wie z,b, <b>TESTLEVEL.ZEN</b> und wir müssen den <b>-devmode</b> aktiviert haben, damit wir Zugriff auf die Game-Konsole bekommen und im <b>GothicStarter</b> muss die Option <b>reparse all scripts</b> aktiv sein, damit die Datei <b>MyMeatbug.d</b> auch eingelesen wird. Sobald der Level geladen ist und unsere Spielfigur vor uns steht, können wir unseren neuen Freund mal bestaunen. Hierzu öffnen wir mit <b>F2</b> die Game-Konsole und geben:</p>
+<pre>
+    insert MyMeatbug
+</pre>
+<p>ein. Nach einer mehr oder weniger kurzen Ladezeit, wird unsere neue Figur ins Spiel gesetzt.</p>
+<p> Mit <b>F2</b> schliessen wir die Konsole wieder und drehen unsere Spielfigur so, das wir unseren kleinen Freund "Wanzi" in den Focus bekommen. Mit einem Druck auf die Taste <b>O</b> (wie Ork) übernehmen wir die Kontrolle über "Wanzi". Jetzt können wir mit ihm den Level erkunden.</p>
+<p> Leider kann er noch nicht viel, nur laufen.... und irgendwo runterfallen, aber er ist ja auch noch klein. :)</p>
+
+<p><b>WICHTIG:</b> Beim Starten des Spiels werden die ASC-Dateien, die nur ein Zwischenformat für die Engine darstellen, kompiliert. Die kompilierten Daten befinden sich dann im <b>GOTHIC\_WORK\DATA\ANIMS\_COMPILED</b>-Verzeichnis. Wenn man jetzt bspw. eine Animation in MAX geändert und sie neu exportiert hat, so muss man die entsprechenden Daten im <b>COMPILED</b>-Ordner vorher löschen, sonst werden die ASC-Dateien nicht neu konvertiert. Es wird pro logischer Animation, die im MDS mit <b>ani</b> definiert wurde eine Datei angelegt. So heisst dann z.b. die <b>s_FistRunL</b> Animation des Meatbug als kompilierte Datei <b>MEATBUG-S_FISTRUNL.MAN</b>. Wenn man jetzt die ASC-Datei <b>Mbg_Run_M02.asc</b> neu gemacht hat, so muss man alle Animationen löschen, die aus dieser Datei kompiliert wurden - in unserem Beispiel sind das:
+<ul>
+<p>MEATBUG-S_FISTRUNL.MAN</p>
+<p>MEATBUG-S_FISTJUMPB.MAN</p>
+<p>MEATBUG-S_FISTRUNL.MAN</p>
+</ul>
+<br><br><br>
+ 
+<a name="07"><H1>7. Ausbau des MDS</H1></a>
+<ul>
+<li><p>Unser Meatbug kann jetzt vorwärtslaufen, aber nicht rückwärts. Das kann man ändern. Dazu machen wir aber keine neue Animation sondern bedienen uns bei den vorhandenen. Wir definieren nun das Rückwärtslaufen in der Datei <b>MyMeatbug.mds</b>:</p>
+<pre>
+ani         ("t_FistJumpB"              1   "s_FistRun"     0.1 0.0 M.  "Mbg_Run_M02.asc"       R   1   19)
+</pre>
+<p>Man beachte das R für das Richtungsflag der Animation, also wird hier die Run-Ani benutzt, nur wird sie rückwärts abgespielt. Jetzt kann "Wanzi" auch in den Rückwärtsgang schalten.</p><br>
+ 
+ 
+<li><p> Sicher ist aufgefallen, das man unsere Wanze zwar auf der Stelle drehen kann, sie aber stocksteif dabei bleibt. Um da ein wenig bewegung reinzukriegen, muss man noch sogenannte Turn-Animationen definieren. Wichtig bei der Erstellung der Anis ist, das sie 
+<ul>
+  <li><p>1. loop-fähig sein sollten und</p>
+  <li><p>2. keine Drehung animiert wird, die Animation findet praktisch "auf der Stelle" statt, die Drehung wird im Spiel durch die Engine vorgenommen.</p>
+</ul>
+<p>Hierzu exportieren wir in 3D Studio MAX 3.1 die Datei <b>Mbg_Turn_M01.max</b> als <b>Mbg_Turn_M01.asc</b> und tragen folgenden Zeilen in unser MDS ein.</p>
+<pre> 
+ani      ("t_FistRunTurnL" 20 "t_FistRunTurnL"  0.0 0.0 M. "Mbg_Turn_M01.asc" F  1  13)
+aniAlias ("t_FistRunTurnR" 20 "t_FistRunTurnR"  0.0 0.0 M. "t_FistRunTurnL"   R)
+</pre>
+<p>Hiermit werden Dreh-Animationen für den "FistRun" festgelegt. Wie man sieht, ist die 2te Drehani nur eine Alias-Definition der ersten und Wanzi wackelt nun beim Drehen auf der Stelle mit den Beinen.</p>
+
+<li><p>Kommen wir nun zu einem traurigen Kapitel. Wanzi kann auch sterben, und dafür braucht er auch Animationen. Wir exportieren die beiden MAX-Files <b>Mbg_Dead_A02.max</b> und <b>Mbg_Dead_M01.max</b>. Es gibt standardmässig immer 2 Arten von Todes-Animationen. Einmal wenn der entscheidende Treffer die Figur von vorne trifft und einmal von hinten. Im MDS machen wir dann folgende Eintragungen:</p>
+<pre>
+ani  ("t_Dead"   1   "s_Dead"       0.0 0.0 M.  "Mbg_Dead_A02.asc"   F   0   15)
+ani  ("s_Dead"   1   "s_Dead"       0.0 0.0 M.  "Mbg_Dead_A02.asc"   F   15  15)
+
+ani  ("t_DeadB"  1  "s_DeadB"       0.0 0.0 M.  "Mbg_Dead_M01.asc"   F   0   10)
+ani  ("s_DeadB"  1  "s_DeadB"       0.0 0.0 M.  "Mbg_Dead_M01.asc"   F   10  10)
+</pre>
+<p>Die T_DEAD-Animationen spiegeln dann den "Todeskampf" wieder, und die 1 Frame lange S_DEAD-Animation das "tot auf dem Boden liegen".</p>
+</ul>
+
+<br>&nbsp;
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

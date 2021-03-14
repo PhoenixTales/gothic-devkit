@@ -1,0 +1,49 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//	14.09.00	Keine JumpUps
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("Waran")
+{
+
+	meshAndTree ("War_Body.asc" DONT_USE_MESH)
+
+	aniEnum
+	{
+
+
+/////////////////////
+//	FIST FIGHTING
+/////////////////////
+// FIST Kampfanims
+//	Attacks  
+			ani			("s_FistAttack"			1	"s_FistAttack"	0.0 0.0 M.	"waran_attack_M01.asc"			F	1	29)
+			{
+				*eventTag	(0	"DEF_HIT_LIMB"		"BIP01 TONGUE04")
+				*eventTag	(0	"DEF_OPT_FRAME"		"15")
+				*eventTag	(0	"DEF_HIT_END"		"29")
+				*eventTag	(0	"DEF_WINDOW"		"15	29")
+//				*eventTag	(0	"DEF_DIR"			"O")
+				*eventSFXGrnd   ( 9     "Sneak"     )
+				*eventSFX       ( 13     "FWA_ATTACK"      EMPTY_SLOT     )
+				*eventSFXGrnd   ( 14     "Sneak"     )
+				*eventPFX       ( 10    1   "FLAMETHROWER"   "Bip01 tongue03"   ATTACH)
+				*eventPFXStop	(23	1)
+			}
+
+
+			// während des Laufens zuschlagen
+			ani			("t_FistAttackMove"		2	""				0.2	0.2	M.	"Waran_FistAttackMove_M01.asc"	F	0	12)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"BIP01 TONGUE04")
+				*eventTag		(0 "DEF_OPT_FRAME"	"7")
+				*eventSFX	(2	"FWA_ATTACK"	EMPTY_SLOT	)
+				*eventPFX       ( 3    1   "FLAMETHROWER"   "Bip01 tongue03"   ATTACH)
+				*eventPFXStop	(12	1)
+			}
+	}
+

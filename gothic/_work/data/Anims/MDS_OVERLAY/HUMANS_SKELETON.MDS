@@ -1,0 +1,108 @@
+/////// Skeleton Dead
+Model ("HuS")
+{
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+	aniEnum
+	{
+		
+	
+		
+			
+//////////////////////////
+// RUN
+//////////////////////////
+			ani			("t_Run_2_RunL"			1	"s_RunL"		0.0	0.0	M.	"Ske_RunLoop_M01.asc"	F	1	11)
+			ani			("s_RunL"				1	"s_RunL"		0.0	0.0	M.	"Ske_RunLoop_M01.asc"	F	12	31)
+			{
+				*eventSFX	(12	"SKE_RUN"	EMPTY_SLOT	)
+				*eventSFX	(25	"SKE_RUN"	EMPTY_SLOT	)
+			}
+			ani			("t_RunL_2_Run"			1	"s_Run"			0.0	0.0	M.	"Ske_RunLoop_M01.asc"	F	32	38)
+			{
+				*eventSFX	(35	"SKE_RUN"	EMPTY_SLOT	)
+			}
+			aniBlend	("t_RunR_2_Run"				"s_Run"			0.2	0.2)
+			
+			
+			aniAlias	("t_FistRun_2_FistRunL"	1	"s_FistRunL"	0.1	0.0	M.	"t_Run_2_RunL"			F)
+			aniAlias	("s_FistRunL"			1	"s_FistRunL"	0.0	0.0	M.	"s_RunL"				F)
+			aniAlias	("t_FistRunL_2_FistRun"	1	"s_FistRun"		0.0	0.2	M.	"t_Run_2_RunL"			F)
+			aniBlend	("t_FistRunR_2_FistRun"		"s_FistRun"		0.2	0.2)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// STUMBLE (für Treffer im Kampf)
+
+			ani			("t_Stumble"			1	""				0.1 0.1 M.	"Hum_Stumble_M01.asc"	F	1	9)
+			{
+				*eventSFXGrnd	(3	"Run")
+				*eventSFXGrnd	(7	"Run")
+				*eventSFX	(2	"SKE_HURT"	EMPTY_SLOT	)
+			}
+
+			ani			("t_StumbleB"			1	""				0.1 0.1 M.	"Hum_StumbleB_M01.asc"	F	1	9)
+			{
+				*eventSFXGrnd	(3	"Run")
+				*eventSFXGrnd	(7	"Run")
+				*eventSFX	(2	"SKE_HURT"	EMPTY_SLOT	)
+			}
+
+			ani			("t_GotHit"				2	""				0.1	0.2	M.	"Hum_StumbleN_M01.asc"	F	6	14)
+			{
+				*eventSFX	(7	"SKE_HURT"	EMPTY_SLOT	)
+			}
+
+
+///////////////////////
+// FIGHTING
+///////////////////////
+
+// Skelette sind im Fistmode. Damit es aussieht wie Schwertkampf, sind dafür Schwert-Anis eingetragen
+
+			ani			("s_FistAttack"				1	"s_FistAttack"	0.0	0.2	M.	"Hum_1hAttackComboT0_M01.asc"		F	1	20)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"5")
+				*eventTag		(0 "DEF_HIT_END"	"37")
+				*eventTag		(0 "DEF_WINDOW"		"18 19")
+				*eventSFX		(5	"WHOOSH"	EMPTY_SLOT	)
+				*eventSFX		(18	"BACK"	EMPTY_SLOT	)
+			}
+
+		// Parade
+			ani			("t_FistParade_O"			1	""		0.0	0.0	M.	"Hum_1hParadeT0_M01.asc"	F	1	29)
+			{
+				*eventTag		(0 "DEF_WINDOW"		"1 27")
+			}
+
+			ani			("t_FistParadeJumpB"		1	""		0.0	0.0	M.	"Hum_1hParadeJumpT0.asc"	F	1	14)
+
+
+
+//////////////////////////
+// DIE
+//////////////////////////
+			ani			("t_Dead"				1	"s_Dead"		0.2 0.0 M.	"Ske_Dead_M01.asc"		F	 1	20)
+			{
+				*eventSFX	(3	"SKE_Die"	EMPTY_SLOT	)
+			}
+			ani			("s_Dead"				1	"s_Dead"		0.0 0.1 M.	"Ske_Dead_M01.asc"		F	21	21
+
+			aniAlias	("t_DeadB"				1	"s_DeadB"		0.2 0.0 M.	"t_Dead"				F)
+			aniAlias	("s_DeadB"				1	"s_DeadB"		0.0 0.1 M.	"s_Dead"				F)
+
+
+			aniAlias	("t_Dive_2_Drowned"		1	"s_Drowned"		0.2	0.0	MF	"t_Dead"				F)
+			aniAlias	("s_Drowned"			1	"s_Drowned"		0.0	0.0	MF	"s_Dead"				F)
+
+			ani			("t_Warn"				1	""				0.0	0.1 M.	"Ske_Warn_A01.asc"			F	0	50)
+			{
+				*eventSFX	(18	"SKE_AMBIENT"	EMPTY_SLOT	)
+			}
+			ani			("t_Perception"			1	""				0.0	0.1 M.	"Ske_Perception_A01.asc"	F	0	50)
+
+			
+	// Spawn
+			ani			("t_Spawn"				1	""				0.1	0.2	M.	"Ske_Spawn_A02.asc"			F	51	99)
+	}
+

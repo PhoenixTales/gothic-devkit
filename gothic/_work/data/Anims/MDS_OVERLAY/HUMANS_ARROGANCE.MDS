@@ -1,0 +1,79 @@
+// ARROGANCE (EBR ONLY???)
+
+// OVERLAYED ANIS: WALKLOOP, CHAIR, BENCH, SIT
+
+
+Model ("HuS")
+{
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+
+	aniEnum
+	{
+
+//////////////////////////
+// NORMAL MOVEMENT
+//////////////////////////
+//	WALK-Mode
+			ani			("s_Walk"				1	"s_Walk"		0.0	0.0	M.	"Hum_Amb_EbrWalk_M01.asc"	F	0	50	FPS:5)
+			ani			("t_Walk_2_WalkL"		1	"s_WalkL"		0.0	0.0	M.	"Hum_EbrWalk_Jue00.asc"		F	1	12)
+			{
+				*eventSFXGrnd	(7	"Run")
+			}
+//	Walk-Loop (linker Fuﬂ vorn)
+			ani			("s_WalkL"				1	"s_WalkL"		0.0	0.1	M.	"Hum_EbrWalk_Jue00.asc"		F	13	55)
+			{
+				*eventSFXGrnd	(28	"Run")
+				*eventSFXGrnd	(48	"Run")
+			}
+
+			ani			("t_WalkL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"Hum_EbrWalk_Jue00.asc"		F	56	69)
+			{
+				*eventSFXGrnd	(63	"Run")
+				*eventSFXGrnd	(69	"Run")
+			}
+			aniBlend	("t_WalkR_2_Walk"			"s_Walk"		0.2	0.2)
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// Auf Stuhl setzen
+			ani			("t_Chair_Stand_2_S0"		1	"s_Chair_S0"	0.2	0.0	M.	"Hum_SitChairA1_M01.asc"		F	0	4)
+			ani			("s_Chair_S0"				1	"s_Chair_S0"	0.0	0.0	M.	"Hum_SitChairA1_M01.asc"		F	5	5)
+			aniAlias	("t_Chair_S0_2_Stand"		1	""				0.0	0.2	M.	"t_Chair_Stand_2_S0"		R)
+
+			ani			("t_Chair_S0_2_S1"			1	"s_Chair_S1"	0.0	0.0	M.	"Hum_SitChairA1_M01.asc"		F	5	39)
+			ani			("s_Chair_S1"				1	"s_Chair_S1"	0.0	0.0	M.	"Hum_SitChairA1_M01.asc"		F	40	79)
+			aniAlias	("t_Chair_S1_2_S0"			1	"s_Chair_S0"	0.0	0.1	M.	"t_Chair_S0_2_S1"			R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Auf Boden setzen (FP)
+			ani			("t_Stand_2_Sit"			1	"s_Sit"			0.1	0.0	M.	"Hum_SitGround4_M01.asc"	F	1	39	FPS:15)
+			ani			("s_Sit"					1	"s_Sit"			0.0	0.0	M.	"Hum_SitGround4_M01.asc"	F	40	79)
+			aniAlias	("t_Sit_2_Stand"			1	""				0.0	0.2	M.	"t_Stand_2_Sit"				R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Auf Bank setzen
+			ani			("t_Bench_Stand_2_S0"		1	"s_Bench_S0"	0.2	0.0	M.	"Hum_SitBenchA1_M01.asc"		F	0	4)
+			ani			("s_Bench_S0"				1	"s_Bench_S0"	0.0	0.0	M.	"Hum_SitBenchA1_M01.asc"		F	5	5)
+			aniAlias	("t_Bench_S0_2_Stand"		1	""				0.0	0.2	M.	"t_Bench_Stand_2_S0"		R)
+
+			ani			("t_Bench_S0_2_S1"			1	"s_Bench_S1"	0.0	0.0	M.	"Hum_SitBenchA1_M01.asc"		F	6	39)
+			ani			("s_Bench_S1"				1	"s_Bench_S1"	0.0	0.0	M.	"Hum_SitBenchAmbientA1_M01.asc"		F	1	39)
+			aniAlias	("t_Bench_S1_2_S0"			1	"s_Bench_S0"	0.0	0.0	M.	"t_Bench_S0_2_S1"			R)
+			
+//---------------------------
+// WATCH FIGHT
+			ani			("t_Stand_2_WatchFight"		1	"s_WatchFight"	0.1	0.0	M.	"Hum_P_Walk2P_Gaff_Ambient_Jue02a.asc"	F	1	14)
+			ani			("s_WatchFight"				1	"s_WatchFight"	0.0	0.0	M.	"Hum_P_Walk2P_Gaff_Ambient_Jue02a.asc"	F	14	64)
+			ani			("t_WatchFight_2_Stand"		1	""				0.0	0.1	M.	"Hum_P_Walk2P_Gaff_Ambient_Jue02a.asc"	F	64	76)
+			
+			ani			("t_WatchFightRandom1"		2	""				0.0	0.0	M.	"Hum_Gaff_Loops_Jue02a.asc"				F	0	30)
+			ani			("t_WatchFightRandom2"		2	""				0.0	0.0	M.	"Hum_Gaff_Loops_Jue02a.asc"				F	30	75)
+			ani			("t_WatchFightRandom3"		2	""				0.0	0.0	M.	"Hum_Gaff_Loops_Jue02a.asc"				F	75	117)
+			ani			("t_WatchFightRandom4"		2	""				0.0	0.0	M.	"Hum_Gaff_Loops_Jue02a.asc"				F	117	167)
+			ani			("t_WatchFightRandom5"		2	""				0.0	0.0	M.	"Hum_Gaff_Loops_Jue02a.asc"				F	167	200)
+			
+			ani			("t_WatchFight_Yeah"		2	""				0.0	0.0	M.	"Hum_Gaff_Yeah!!_Jue02.asc"				F	0	54)
+			ani			("t_WatchFight_OhNo"		2	""				0.0	0.0	M.	"Hum_Gaff_OhNo!_Jue02a.asc"				F	0	60)
+
+	}
+}

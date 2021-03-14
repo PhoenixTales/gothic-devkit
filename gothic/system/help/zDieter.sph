@@ -1,0 +1,698 @@
+// Format:
+//
+// "//" leitet Kommentarzeilen ein
+//
+// [TOPIC type 'name']
+// Text
+//
+// wobei:
+// type = CLASS | MEMBER | WINDOW | MENU | ...
+// name = z.B. 'classname:membername' oder 'windowname'
+// 
+// Informelle Vereinbarung:
+//
+// Die erste Zeile enthaelt Typ, Wertebereich und Einheit im Format
+// typ bereich einheit
+//
+// z.B:
+// STRING
+// FLOAT 0..1
+// INT 0..100 sec
+//
+// Bei Enumeration auch mehrzeilig
+// ENUM:
+// - VALUE1: Description1
+// - VALUE2: Description2
+//
+
+// Revision:
+// -NEW: 27.9.2000
+// - In einige Klassen dazugeschrieben, welche zCEventMessage Klassen sie verstehen (zCTrigger, zCMover, zCCodeMaster)
+// - zCVobScreenFX, zCEventScreenFX
+// - zCEventCommon
+// - zCEventMover
+
+// -NEW: 16.3.2000
+// - zCMoverControler
+// - zCTriggerUntouch
+// - zCCodeMaster
+// - zCMessageFilter
+// - zCTriggerBase
+// - zCTriggerWorldStart
+// - changed: zCTrigger
+// - changed: zCVobAnimate
+
+//
+// -NEW: 5.1.2000
+// - zCTouchDamage
+// - zCTouchAnimate, zCTouchAnimateSound
+// - zCVobAnimate
+// - zCVobLensFlare
+// - zCVobStair
+// - zCZoneReverb, zCZoneReverbDefault
+// - changed: zCVob (dynShadow)
+// - changed: zCVobSound
+// - changed: zCVobSoundDayTime
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVob']
+Ein Vob ist "virtuelles Objekt". Es hat eine Position und Orientierung im Raum und kann durch explizit wählbares "Visual" visualisiert werden.
+Die Welt wird mit Objekten (= Vob, "virtuelles Objekt") bevoelkert. Jedes Objekt gehört einer Klasse an, die die Eigenschaften und Fähigkeiten dieses Objektes festlegt (z.B. Klasse "oCNPC", oder "zCTrigger"). Die Objekte kommunizieren untereinander und mit der Engine über einen festgelegten Satz von Nachrichten (= Messages oder EventMessages). Beim Design der Klassen und Nachrichten wurde das Ziel verfolgt eher viele spezialisierte verschiedene Klassen zu haben, die über relativ wenige Arten von Nachrichten kommunizieren, als wenige übermächtige Klassen, die über eine Unzahl von verschiedenen Nachrichten angesteuert werden müssen. So ist z.B. eine häufig benutzte Nachricht die "OnTrigger" Nachricht, die ein Objekt "anstößt" bzw. aktivieren soll. Was nun genau ein Objekt tut, das eine solche Nachricht empfängt, hängt von der Klasse des jeweiligen Objektes ab. Ein Vob Objekt der Klasse zCMover würde sich in Bewegung setzen, während ein Vob Objekt der Kasse zCEarthquake ein lokales Erdbeben auslösen würde. Man kann eine Vob-Klasse auch als ein "Modul" sehen, das geschrieben worden ist, um ganz bestimmte Aufgaben in der Welt zu erfüllen. Die Vob Klassen sind in einer Hierarchie angeordnet, wobei eine Klasse an einer bestimmten Position in der Hierarchie alle Eigenschaften und Fähigkeiten aller Klassen beerbt, die sich in der Hierarchie _über_ sie befinden.
+
+[TOPIC MEMBER 'zCVob::vobName']
+STRING
+Name des Vobs. Verschiedene Vobs koennen denselben Namen besitzen.
+
+[TOPIC MEMBER 'zCVob::visual']
+STRING
+Name des Visuals, durch das der Vob in der Welt sichbar ist.
+
+[TOPIC MEMBER 'zCVob::showVisual']
+BOOL
+Legt fest, ob das Visual des Vobs beim Rendern angezeigt werden soll
+oder nicht.
+
+[TOPIC MEMBER 'zCVob::visualCamAlign']
+ENUM
+Das Visual eines Vobs kann zur betrachtenden Kamera ausgerichtet werden: NONE=keine Ausrichtung, YAW=Y-Achse des Vobs ausrichten, FULL=alle 3 Achsen des Vobs ausrichten.
+
+[TOPIC MEMBER 'zCVob::cdStatic']
+BOOL
+Legt fest, ob die statische Collision Detection mit den Polygonen der statischen Welte fuer das Vob durchgefuehrt werden soll.
+
+[TOPIC MEMBER 'zCVob::cdDyn']
+BOOL
+Legt fest, ob die dynamische Collision Detection mit anderen Vobs fuer dieses Vob durchgefuehrt werden soll.
+
+[TOPIC MEMBER 'zCVob::staticVob']
+BOOL
+Legt fest, ob ein Vob auf Physik (Collision, Gravity) reagieren soll oder nicht.
+
+[TOPIC MEMBER 'zCVob::dynShadow']
+ENUM
+Der Vob kann einen dyn. Schatten werfen. DS_NONE deaktiviert den Schatten, DS_BLOB aktiviert einen einfachen, runden Bodenschatten.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobSound']
+VobSound Objekte sind frei im Raum positionierbare, punktförmige "Geräuschquellen". Eine OnTrigger Nachricht schaltet sie ein, während eine OnUnTrigger Nachricht sie ausschaltet.
+
+[TOPIC MEMBER 'zCVobSound::sndVolume']
+FLOAT [0;100]
+Lautstärke des Sounds.
+
+[TOPIC MEMBER 'zCVobSound::sndMode']
+ENUM
+LOOPING: Sound wird endlos wiederholt
+ONCE: Sound spielt einmal und verstummt dann
+RANDOM: Nach jedem Abspielen des Sounds folgt ein Zeit Intervall zufaelliger Laenge, dies wiederholt sich endlos
+
+[TOPIC MEMBER 'zCVobSound::sndRandDelay']
+FLOAT sec
+Im sndMode "RANDOM" ist dies die durchschnittliche Wartezeit bis zum erneuten Starten des Sounds.
+
+[TOPIC MEMBER 'zCVobSound::sndRandDelayVar']
+FLOAT sec
+Im sndMode "RANDOM" ist dies die maximale +/- Abweichung von der durchschnittliche Wartezeit bis zum erneuten Starten des Sounds.
+
+[TOPIC MEMBER 'zCVobSound::sndStartOn']
+BOOL
+Der Sound kann beim Starten der Welt entweder gleich aktiv sein, oder muß sonst z.B. über eine OnTrigger Nachricht erst aktiviert werden.
+
+[TOPIC MEMBER 'zCVobSound::sndAmbient3D']
+BOOL
+Wenn dieses Flag gesetzt ist, wird der Sound nicht aus einer besonderen Richtung, sondern als "ambient" allumgebend wahrgenommen. Allerdings nimmt die Lautstärke des Sounds mit der Entfernung zu dem Vob ab.
+
+[TOPIC MEMBER 'zCVobSound::sndObstruction']
+BOOL
+Wenn dieses Flag gesetzt ist wird der Sound gedämpft, sobald keine direkte (Sicht-/Hör-) Verbindung mehr zur Soundquelle besteht.
+
+[TOPIC MEMBER 'zCVobSound::sndConeAngle']
+BOOL		[0;360]
+Wenn dieser Wert größer als 0 ist, wird der Raum, in den die Soundquelle abschallt durch eine "Cone" mit angegebenem Winkel um den At-Vektor (Hauptrichtung) des SoundVobs beschränkt. Ausserhalb der angegebenen Cone ist der Sound dann nicht mehr hörbar.
+
+[TOPIC MEMBER 'zCVobSound::sndVolType']
+ENUM
+Legt den Volumentyp der Soundquelle fest, also die Form des Raumes, den die Soundquelle beschallt und hörbar ist. Mögliche Werte sind: SV_SPHERE, SV_ELLIPSOID. Wenn man z.B. SV_ELLIPSOID aktiviert und die BBox der Soundquelle zu einem langgezogenem Quader verziehen würde, so wäre der Sound auch nur in dem maximalen Ellipsoid hörbar, der in den BBox-Quader hineinpasst.
+
+[TOPIC MEMBER 'zCVobSound::sndRadius']
+FLOAT		cm
+Sound ist in diesem Radius hörbar.
+
+[TOPIC MEMBER 'zCVobSound::sndName']
+STRING
+Name oder Script-Instanz des Sounds.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobSoundDaytime']
+Diese Geräuschquellen sind nur zu der angebenen Tages/Nachtzeit vernehmbar. Es kann optional unter "sndName2" der Name eines zweiten Sounds angegeben werden, der genau außerhalb der angegeben Tages/Nachtzeit gespielt wird. An den Zeitgrenzen werden die Sounds im Verlauf langsam ein- und ausgeblendet. Die Zeiten sind in Stunden anzugeben. Achtung: 13.5 = 13:30 ! (Praktisches Beispiel: tagsüber Vogelgezwitscher, nachts Grillen).
+
+[TOPIC MEMBER 'zCVobSoundDaytime::sndStartTime']
+FLOAT		h
+Tagszeit, ab der der Sound vernehmbar ist (immer KLEINER als sndEndTime).
+
+[TOPIC MEMBER 'zCVobSoundDaytime::sndEndTime']
+FLOAT		h
+Tagszeit, bis der der Sound vernehmbar ist (immer GRÖSSER als sndStartTime).
+
+[TOPIC MEMBER 'zCVobSoundDaytime::sndName2']
+STRING
+Optional: Name oder Script-Instanz des Sounds, der außerhalb des angegebenen Zeitintervalls gespielt wird.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCZoneReverb']
+Mit Objekten dieser Klasse wird die Halleigenschaften des Raumes festgelegt, der sich als maximaler Ellipsoid innerhalb der BBox des zCZoneReverb Vobs befindet. Der Einfluss des Halleffektes ist zum Zentrum des Volumens maximal und nimmt du den Rändern hin ab. Mit einer Einstellung von "innerRangePerc" >=1 könnte aber z.B. bewirkt werden, daß der Effekt überall im Volumen gleichstark ist.
+
+[TOPIC MEMBER 'zCZoneReverb::reverbPreset']
+ENUM
+Hier stehen eine Reihe von fertigen Hallpresets zur Wahl.
+
+[TOPIC MEMBER 'zCZoneReverb::reverbWeight']
+FLOAT		[0;1]
+Dies ist die maximale Stärke des Effektes (1 maximal).
+
+[TOPIC MEMBER 'zCZoneReverb::innerRangePerc']
+FLOAT		[0;1]
+Hiermit gibt man prozentual den Bereich innerhalb der Zone vom Zentrum aus an, in dem die Stärke des Halleffektes konstant sein soll.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCZoneReverbDefault']
+Dieses Objekt bezieht sich auf die Klasse zCZoneReverb und setzt den levelweiten Defaultwert. Falls sich die Kamera nicht in einem Objekt der Klasse zCZoneReverb befindet, werden die Werte aus einem Objekt dieser Klasse entnommen. Die BBox von Objekten dieser Klasse ist irrelevant, es kann nur ein solches Objekt pro Level geben.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobLight']
+Lichtquellen. Dynamische Lichtquellen lassen sich explizt per Nachricht OnTrigger ein- un per OnUntrigger ausschalten.
+
+[TOPIC MEMBER 'zCVobLight::range']
+FLOAT		cm
+
+[TOPIC MEMBER 'zCVobLight::color']
+COLOR
+
+[TOPIC MEMBER 'zCVobLight::lightStatic']
+BOOL
+Lichter koennen entweder static oder dynamic sein. Statische Lichter koennen nicht bewegt werden und ihre Range und Color laesst sich nicht animieren, im Gegensatz zu dynamischen Lichtern. Statische Lichter sind schneller als dynamische.
+
+[TOPIC MEMBER 'zCVobLight::lightQuality']
+ENUM
+Regelt die Qualitaet aber auch entscheident die Performance eines dynLights. Moeglich ist diese Regelung z.Z. in 3 Stufen.
+
+[TOPIC MEMBER 'zCVobLight::lensflareFXNo']
+INT
+
+[TOPIC MEMBER 'zCVobLight::rangeAniScale']
+STRING
+Die Range eines dynLights kann animiert werden. "list" ist hierbei eine Liste von Scale-Werten, die sich auf den bei "range" (s.o.) festgelegten Werte relativ bezieht. Ein scale von 1.0 bedeutet Original-Range, 2.0 doppelte und 0.5 halbe Range. Beispiel: rangeAniScale (1.0 0.9 0.93)
+
+[TOPIC MEMBER 'zCVobLight::rangeAniFPS']
+FLOAT		fps
+FPS-Rate, mit der die "rangeAniScale"-Liste durchlaufen wird.
+
+[TOPIC MEMBER 'zCVobLight::rangeAniSmooth']
+BOOL
+Legt fest, ob zwischen den einzelnen angegebenen Scale-Werten einer "RangeAni" weich interpoliert (z.B. soft-swell), oder hart umgeschaltet (z.B. Strobo) werden soll.
+
+[TOPIC MEMBER 'zCVobLight::colorAniList']
+STRING
+Die Farbe eines dynLights kann animiert werden. "list" ist hierbei eine Liste von RGB Farben, die der Reihe nach durchlaufen werden.
+Eine nicht-weisse Farbe wird dabei durch ein Tripel "[red green blue]" angegeben, wobei die Komponenten im Wertebhereich [0..255] liegen. Fuer eine weisse Farbe muss lediglich ein einzelner Werte angegeben werden. Beispiele: colorAniList ( [255 0 0] 0 [255 50 128] )
+
+[TOPIC MEMBER 'zCVobLight::colorAniFPS']
+FLOAT		fps
+FPS-Rate, mit der die "colorAniList"-Liste durchlaufen wird.
+
+[TOPIC MEMBER 'zCVobLight::colorAniSmooth']
+BOOL
+Legt fest, ob zwischen den einzelnen angegebenen Color-Werten einer "ColorAni" weich interpoliert (z.B. soft-swell), oder hart umgeschaltet (z.B. Strobo) werden soll.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTrigger']
+Die Aufgabe eines Triggers ist es Nachrichten zu empfangen und zu filtern ("ActivationFilter"). Nachrichten, die durch den Filter gelangen, führen zu dem Verschicken von OnTrigger Nachrichten an weitere Vobs ("FireBehavior"). Sobald eine Nachricht durch den Filter gelangt gilt der Trigger als "aktiviert". Das Verschicken der OnTrigger Nachricht heisst auch "feuern". "respondTo" Filter sind logisch "oder" verknuepft.
+ActivationFilter und FireBehavior beziehen sich auf eingehende OnTrigger, OnTouch und OnDamage Nachrichten. Eingehende OnUntrigger und OnUntouch Nachrichten werden direkt verarbeitet und fuehren in beiden Faellen zu ausgehenden OnUntrigger Nachrichten. Das Senden von OnUntrigger Nachrichten ist per Flag ausschaltbar.
+zCTrigger Objekte verstehen folgende Nachrichtenuntertypen der zCEventCommon Klasse: zEVENT_ENABLE, zEVENT_DISABLE, zEVENT_TOGGLE_ENABLED.
+
+[TOPIC MEMBER 'zCTrigger::reactToOnTrigger']
+BOOL
+Trigger reagiert auf OnTrigger Nachricht.
+
+[TOPIC MEMBER 'zCTrigger::reactToOnTouch']
+BOOL
+Trigger reagiert auf OnTouch Nachricht.
+
+[TOPIC MEMBER 'zCTrigger::reactToOnDamage']
+BOOL
+Trigger reagiert auf OnDamage Nachricht.
+
+[TOPIC MEMBER 'zCTrigger::respondToObject']
+BOOL
+Trigger reagiert auf Nachrichten von unbelebten Objekten.
+
+[TOPIC MEMBER 'zCTrigger::respondToPC']
+BOOL
+Trigger reagiert auf Nachrichten von Player Characters.
+
+[TOPIC MEMBER 'zCTrigger::respondToNPC']
+BOOL
+Trigger reagiert auf Nachrichten von Non Player Characters.
+
+[TOPIC MEMBER 'zCTrigger::respondToVobName']
+STRING
+Trigger reagiert auf Nachrichten von Vobs mit diesem Namen.
+
+[TOPIC MEMBER 'zCTrigger::numTriggerToActivate']
+INT
+Wie oft muss der Trigger Nachrichten bekommen, bevor er feuert.
+
+[TOPIC MEMBER 'zCTrigger::numCanBeActivated']
+INT
+Wie oft kann ein Trigger feuern. (-1 = unendlich)
+
+[TOPIC MEMBER 'zCTrigger::retriggerWaitSec']
+FLOAT		sec
+Wieviel Zeit nach einem Feuern des Triggers muss vergehen, bevor er wieder aktiviert werden kann.
+
+[TOPIC MEMBER 'zCTrigger::damageThreshold']
+FLOAT
+Wieviel Schaden muss eine OnDamage Nachricht zufuegen, damit der Trigger aktiviert wird.
+
+[TOPIC MEMBER 'zCTrigger::fireDelaySec']
+FLOAT		sec
+Wieviel Zeit nach dem Aktivieren des Triggers muss vergehen, bevor er wirklich feuert.
+
+[TOPIC MEMBER 'zCTrigger::startEnabled']
+BOOL
+Vobs koennen sich in den Zustaenden 'enabled' und 'disabled' befinden. Im Zustand 'enabled' sind sie voll funktionsfaehig, sie nehmen empfangene Nachrichten wahr und verschicken selbst welche. Im Zustand 'disabled' hingegen sind sie voellig 'taub' und reagieren nicht auf eingehende Nachrichten.
+Mit dem Flag 'startEnabled' kann man angeben, ob der Vob inital 'enabled' oder 'disabled' sein soll. Im weiteren Verlauf koennte der Vob ueber entsprechende Nachrichten von aussen zu einem Zustandswechsel bewegt werden.
+
+[TOPIC MEMBER 'zCTrigger::sendUntrigger']
+BOOL
+Das Senden von OnUntrigger Nachrichten kann hiermit unterbunden werden. Das zCTrigger Objekt verschickt per Default OnUntrigger Nachrichten bei eingehenden OnUntrigger und OnUntouch Nachrichten.
+
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCMover']
+Die wichtigste Eigenschaft eines Movers ist die Fähigkeit sich zu bewegen, entweder auf einer Kette von Keyframes, oder falls das Visual des Movers ein Model ist, durch die Animation des Models. Die Animationen eines Models müssen folgende festgelegte Namen haben: "S_OPEN", "S_CLOSED", "T_CLOSED_2_OPEN", "T_OPEN_2_CLOSED", "S_LOCKED", "S_UNLOCKED", "T_UNLOCKED_2_LOCKED", "T_LOCKED_2_UNLOCKED".
+Ein Mover befindet sich entweder im Zustand "OPEN", im Zustand "CLOSED", oder in einer Transition von einem Zustand zum anderen. Keyframe 0 entspricht dem Zustand "OPEN", der letzte Keyframe enspricht dem Zustand "CLOSED". Bei Transitionen wird die Kette der Keyframes durchlaufen. Eine Ausnahme bilden Mover mit dem moverBehavior "NSTATE_SINGLE_KEYS". Bei ihnen entspricht jeder Keyframe einem einzelnen Zustand, der extern explizit angesteuert werden kann.
+Ein Mover ist ein spezieller Trigger. D.h., dass der Mover eingehende Nachrichten erst durch den "ActivationFilter" des Triggers filtert. Ein Aktivierung führt zu einer Bewegung des Movers. Am Ende des Öffnens "feuert" der Mover und verschickt eine OnTrigger Nachricht, so wie es das "FireBehavior" des Triggers vorgibt. Am Ende des Schliessens "feuert" der Mover wieder, verschickt in diesem Fall allerdings eine OnUntrigger Nachricht.
+zCMover verstehen alle Nachritenuntertypen der zCEventMover Klasse.
+zCMover Objekte verstehen folgende Nachrichtenuntertypen der zCEventCommon Klasse: zEVENT_ENABLE, zEVENT_DISABLE, zEVENT_TOGGLE_ENABLED, zEVENT_RESET.
+
+[TOPIC MEMBER 'zCMover::moverBehavior']
+ENUM
+Legt das Verhalten des Movers fest, speziell wie auf OnTrigger und OnUntrigger Messages reagiert wird. 
+
+2STATE_TOGGLE: 
+OnTrigger und OnUntrigger bewirken jeweils das Wechseln von einem Zustand in den anderen. Während eines Zustandwechsels wird die Bewegungsrichtung umgekehrt.
+
+2STATE_TRIGGER_CTRL:
+OnTrigger bewirkt ein Öffnen des Movers. Nur ein OnUntrigger kann ein Schliessen auslösen.
+
+2STATE_OPEN_TIMED:
+OnTrigger bewirkt ein Öffnen des Movers, das Schliessen erfolgt nach angegebener Zeit automatisch.
+
+NSTATE_LOOP:
+Der Mover bewegt sich auf einer sich wiederholenden Bahn zwischen seinen n Keyframes.
+
+NSTATE_SINGLE_KEYS:
+Der Mover kann jeden seiner n Keyframes einzelnd und gezielt ansteuern. [TODO]
+
+[TOPIC MEMBER 'zCMover::touchBlockerDamage']
+FLOAT
+Schaden, der einem im Weg stehenden Objekt zugefuegt werden soll.
+
+[TOPIC MEMBER 'zCMover::stayOpenTimeSec']
+FLOAT		sec
+Die Zeit, die ein Mover mit dem Behavior "2STATE_OPEN_TIME" offen stehen soll.
+
+[TOPIC MEMBER 'zCMover::moverLocked']
+BOOL
+Soll der Move zu Beginn verschlossen oder offen sein.
+
+[TOPIC MEMBER 'zCMover::moveSpeed']
+FLOAT		cm/msec
+Bewegungsgeschwindigkeit bei der Bewegung zwischen Keyframes.
+
+[TOPIC MEMBER 'zCMover::posLerpType']
+ENUM
+Art der Interpolation der Position des Movers. Die Interpolation der Rotation bleibt unbeeinflusst.
+
+[TOPIC MEMBER 'zCMover::speedType']
+ENUM
+Steuert das Beschleunigungs und Abbremsverhalten des Movers. Es kann eingestellt werden, ob der Mover sich mit konstanter Geschwindigkeit bewegen soll, beim Start beschleunigen oder bei der Ankunft abbremsen soll. Das Beschleunigungsverhalten kann sich wahlweise auf die gesamte Länge des Keyframe-Pfades oder auf jedes einzelne Segment zwischen den Keyframes beziehen.
+
+[TOPIC MEMBER 'zCMover::sfxOpenStart']
+STRING
+Sound, der am Anfang des Öffnens gespielt wird.
+
+[TOPIC MEMBER 'zCMover::sfxOpenEnd']
+STRING
+Sound, der am Ende des Öffnens gespielt wird.
+
+[TOPIC MEMBER 'zCMover::sfxMoving']
+STRING
+Sound, der während jeglicher Bewegung geloopt wird.
+
+[TOPIC MEMBER 'zCMover::sfxCloseStart']
+STRING
+Sound, der am Anfang des Schliessens gespielt wird.
+
+[TOPIC MEMBER 'zCMover::sfxCloseEnd']
+STRING
+Sound, der am Ende des Schliessens gespielt wird.
+
+[TOPIC MEMBER 'zCMover::sfxLock']
+STRING
+Sound, der beim Verschliessen gespielt wird.
+
+[TOPIC MEMBER 'zCMover::sfxUnlock']
+STRING
+Sound, der beim Aufschliessen gespielt wird.
+
+[TOPIC MEMBER 'zCMover::sfxUseLocked']
+STRING
+Sound, der beim erfloglosen Versuch des Aufschliessens eines Movers gespielt wird.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCEarthquake']
+Reagiert auf OnTrigger und OnUntrigger Messages und loest ein Erdbeben aus (Camera-Tremor).
+
+[TOPIC MEMBER 'zCEarthquake::radius']
+FLOAT		cm
+In angegebenen Radius ist das Erdbeben spürbar.
+
+[TOPIC MEMBER 'zCEarthquake::timeSec']
+FLOAT		sec
+Das Beben dauert die angegebene Zeit.
+
+[TOPIC MEMBER 'zCEarthquake::amplitudeCM']
+VEC3		cm
+Das Beben bewirkt eine Verschiebung der Kamera mit angebener, maximale Amplitude.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCDecal']
+Decals sind Texturen, die auf ein rechteckiges Polygon gespannt sind.
+
+[TOPIC MEMBER 'zCDecal::decalDim']
+VEC2		cm
+
+[TOPIC MEMBER 'zCDecal::decal2Sided']
+BOOL
+Macht nur Sinn, wenn das beherbergende Decal-Vob kein CamAlignment hat (z.B. Ranken, Spinnenweben).
+
+[TOPIC MEMBER 'zCDecal::decalOffset']
+VEC2		cm
+Legt fest, wo das Decal-Quadrat im eigenen lokalen Koordinatensystem liegt. Per Default ist das Decal-Quadrat im Ursprung zentriert (xoff=yoff=0). Sinnvoll bzw. unbedingt noetig um z.B. Feuer-Decals korrekt auf einem Fackel-Holz auszurichten.
+
+[TOPIC MEMBER 'zCDecal::decalAlphaFunc']
+ENUM
+
+[TOPIC MEMBER 'zCDecal::decalTexAniFPS']
+FLOAT		fps
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCPFXControler']
+Objekte dieser Klasse beherbergen Partikel-Effekt Visuals und steuern diese über OnTrigger (einschalten) bzw. OnUntrigger (ausschalten).
+
+[TOPIC MEMBER 'zCPFXControler::pfxName']
+zSTRING
+Name des zu steuernden Partikel-Effekts.
+
+[TOPIC MEMBER 'zCPFXControler::killVobWhenDone']
+BOOL
+Bei TRUE löschen sich Vob und Partikel-Effekt selbstständig, wenn ein zeitlich begrenzter Partikel-Effekt abläuft oder der Effekt über ein OnUntrigger abgeschaltet wird.
+
+[TOPIC MEMBER 'zCPFXControler::pfxStartOn']
+BOOL
+Legt fest, ob der Effekt zu Levelstart aktiviert werden soll oder nicht.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTriggerList']
+Diese Klasse ist eine Erweiterung der zCTrigger Klasse. Statt nur einem TriggerTarget kann hier eine ganze Liste von TriggerTargets mit dazugehörigen FireDelays angegeben werden. Die Abarbeitung der Liste kann auf verschiedene Weisen erfolgen (siehe "listProcess"). Die TriggerTarget und FireDelay Felder des zCTrigger sind zu ignorieren. Die Deaktivierung (z.B. über OnUntrigger Nachrichten) führt zur Sendung einer OnUntrigger Nachricht an aller TriggerTargets der Liste.
+
+[TOPIC MEMBER 'zCTriggerList::listProcess']
+ENUM
+Legt die Abarbeitung der TriggerTarget Liste fest.
+LP_ALL: Die Liste wird bei der Aktivierung von Anfang bis Ende komplett durchlaufen, wobei sich das Bearbeiten eines bestimmten Listeneintrags genau um die Summe aller vorhergehenden FireDelays verzögert.
+LP_NEXT_ONE: Bei einer Aktivierung wird der nächste Eintrag der Liste bearbeitet.
+LP_RAND_ONE: Bei einer Aktivierung wird der nächste Eintrag per Zufall ermittelt und bearbeitet.
+
+[TOPIC MEMBER 'zCTriggerList::triggerTarget0']
+STRING
+Listeneintrag: Name des Vobs, der beim Feuern des Triggers eine OnTrigger oder OnUntrigger Nachricht erhalten soll. 
+
+[TOPIC MEMBER 'zCTriggerList::fireDelay0']
+FLOAT		sec
+Listeneintrag: Wieviel Zeit nach dem Aktivieren des Triggers muss vergehen, bevor er wirklich feuert.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCZoneZFog']
+Mit Objekten dieser Klasse werden in der Welt Volumina angelegt, in denen sich der Tiefen-Z-Nebel steuern laesst. Die Volumen werden über die BoundingBox der Objekte angegeben und koennen beliebige Formen haben. Es koennen sich auch mehrere Fog-Zonen durchdringen. Beim Rendern einer Szene werden alle Fog-Zonen ermitteln, in denen sich die Kamera befindet, und der Einfluess einer jeden Zone wird zu einem Wert verrechnet, der die sichtbare Zone-Distanz festlegt.
+Falls sich die Kamera in keiner Zone befindet, werden die Werte einer evtl. in der Welt vorhandenen zCZoneZFogDefault benutzt.
+
+[TOPIC MEMBER 'zCZoneZFog::fogRangeCenter']
+FLOAT		cm
+Maximale Distanz, in der mann im Zentrum der Zone Dinge durch den Nebel erkennen kann.
+
+[TOPIC MEMBER 'zCZoneZFog::innerRangePerc']
+FLOAT		[0;1]
+Hiermit gibt man prozentual den Bereich innerhalb der Zone vom Zentrum aus an, in dem der Nebel konstant sein soll.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCZoneZFogDefault']
+Dieses Objekt bezieht sich auf die Klasse zCZoneZFog und setzt den levelweiten Defaultwert. Falls sich die Kamera nicht in einem Objekt der Klasse zCZoneZFog befindet, werden die Werte aus einem Objekt dieser Klasse entnommen. Die BBox von Objekten dieser Klasse ist irrelevant, es kann nur ein solches Objekt pro Level geben.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobLensFlare']
+Diese Vob-Klasse verhält sich genau wie die zCVob Basisklasse. Allerdings kann der Name eines LensFlare-Effektes angegeben werden, der mit dem Objekt zusammen dargestellt werden soll. LensFlare-Effekte werden in dem File "lensflare.zen" definiert.
+
+[TOPIC MEMBER 'zCVobLensFlare::lensFlareFX']
+STRING
+Name des LensFlare-Effektes.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTouchDamage']
+Objekte dieser Klasse fügen anderen Objekten, die sie berühren Schaden zu (praktisches Beispiel: Feuer).
+
+[TOPIC MEMBER 'zCTouchDamage::damage']
+FLOAT
+Größe des Schadens, der zugefügt wird.
+
+[TOPIC MEMBER 'zCTouchDamage::damageType']
+ENUM
+Art des zugefügten Schadens. (Derzeit sind auf Engine-Ebene keine Schadens-Typen festgelegt).
+
+[TOPIC MEMBER 'zCTouchDamage::damageRepeatDelaySec']
+FLOAT		sec
+Wenn dieser Wert 0 ist, wird der Schaden bei einer Berührung genau einmal zugefügt. Ist dieser Wert größer als 0 und ist der Kontakt mitdem zCTouchDamage Objekt über einen Zeitraum hinweg, so gibt dieser Wert die Verzögerung an, nach der weiterer Schaden zugefügt wird.
+
+[TOPIC MEMBER 'zCTouchDamage::damageCollType']
+ENUM
+Hier kann feiner eingestellt werden, wie die Erkennung ob sich die Objekte berühren arbeiten soll. 
+CT_NONE: Berührungs-Erkennung ist ausgeschaltet, kein Schaden wird zugefügt.
+CT_BOX: Die BBox des zCTouchDamage Objektes wird mit "damageVolDownScale" skaliert und gegen die BBox des 2. Objektes getestet.
+CT_POINT: Die BBox des zweiten Objektes wird mit "damageVolDownScale" skaliert und gegen den Mittelpunkt des zCTouchDamage Objektes getestet. Falls des Visual des TouchDamage Objektes ein Partikel-Effekt ist, so wird gegen jeden einzelnen punktförmigen Partikel getestet.
+
+[TOPIC MEMBER 'zCTouchDamage::damageVolDownScale']
+FLOAT		[0;2]
+Legt einen Skalierungswert fest, der im Zusammenhang mit dem "damageCollType" benutzt wird.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTouchAnimate']
+Objekte dieser Klasse spielen eine Animation ihres Visuals ab, wenn sie von anderen Objekten berührt werden (praktisches Beispiel: Büsche). Das einem solchen Vob zugewiesene Visual sollte Animationen abspielen können, wie z.B. Visuals der Klassen zCModel oder zCMorphMesh. Bei Berührung wird eine beliebige Animation des Visuals abgespielt. Zusätzlich wird ein SoundEffekt abgespielt, der den Namen des Visuals trägt. Es wird nach einem .wav oder einer SoundInstanz mit dem Namen des Visuals gesucht, wenn nichts gefunden wird, wird kein Sound abgespielt.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTouchAnimateSound']
+Diese Klasse verhält sich wie die Basisklasse zCTouchAnimate, mit dem Unterschied, daß explizit der Name des zu spielenden Sounds angegeben werden kann.
+
+[TOPIC MEMBER 'zCTouchAnimateSound::sfxTouch']
+STRING
+Name des bei Berührung abzuspielenden Sounds.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobAnimate']
+Objekte dieser Klasse sollte ein Visual zugewiesen bekommen, das Animationen abspielen kann (z.B: zCModel oder zCMorphMesh). Beim Levelstart wird bei Objekten dieser Klasse eine beliebige Animation des Visuals gestartet, wenn das Flag 'startOn' gesetzt ist. Wenn diese loopend ist, ist sie die ganze Lebensdauer des Objektes über sichtbar (praktisches Beispiel: Flagge im Wind).
+Die Animation des Objektes kann explizit ueber OnTrigger gestartet und ueber OnUntrigger gestoppt werden.
+
+[TOPIC MEMBER 'zCVobAnimate::startOn']
+BOOL
+Bei gesetztem Flag startet die direkt Animation bei Levelstart, ansonsten nur explizit bei Erhalt der OnTrigger Nachricht.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobStair']
+Objekte die eine Treppe repräsentieren müßen explizit als solche kenntlich gemacht werden, indem sie Objekte diese Klasse sind.
+
+// ============================================================================================
+// ============================================================================================
+
+[TOPIC CLASS 'zCVobScreenFX']
+Mit einem Effekt-Vob dieser Klasse können spezielle Bildschirmeffekte ausgelöst und gesteuert werden, wie z.B. Blenden, "Kino-Balken" und FOV-Morphs. Diese Effekte werden durch Nachrichten der Klasse zCEventScreenFX an dieses Objekt gesteuert, z.B. innerhalb Cutscenes.
+
+[TOPIC CLASS 'zCEventScreenFX']
+Mit diesem Nachrichtentyp werden Bildschirmeffekte der Klasse zCVobScreenFX angesteuert, z.B. innerhalb von Cutscenes. Im einzelnen sind dies:
+zEVENT_BLEND_FADEIN: komplette Bildschirmblende, ein FADEIN hier läßt das Bild sichtbar werden
+zEVENT_BLEND_FADEOUT: komplette Bildschirmblende, ein FADEIN hier läßt das Bild hinter der Blende verschwinden
+zEVENT_CINEMA_FADEIN: "Kino-Balken" oben/unten, ein FADEIN hier läßt die Balken hereinfahren
+zEVENT_CINEMA_FADEOUT: "Kino-Balken" oben/unten, ein FADEIN hier läßt die Balken herausfahren
+zEVENT_FOV_MORPH: verändert den Field-of-View der Kamera über die Zeit
+
+[TOPIC MEMBER 'zCEventScreenFX::duration']
+FLOAT		sec
+Dauer des Effektes.
+
+[TOPIC MEMBER 'zCEventScreenFX::color']
+COLOR
+Bei Blenden (z.B. zEVENT_BLEND_FADEIN/OUT und zEVENT_CINEMA_FADEIN/FADEOUT) Farbe der Blende.
+
+[TOPIC MEMBER 'zCEventScreenFX::fovDeg']
+FLOAT		deg
+Bei Fov-Morphs (zEVENT_FOV_MORPH) die Grad des FOV, auf die über nach der duration erreicht werden soll.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCEventMover']
+Mit diesem Nachrichtentyp können spezielle Anweisungen an zCMover gegeben werden. Im einzelnen sind dies:
+zEVENT_GOTO_KEY_FIXED_DIRECTLY,		// e.g. directly from key 2 to key 6
+zEVENT_GOTO_KEY_FIXED_ORDER,		// e.g. from key 2 to key 6, passing keys 3,4,5
+zEVENT_GOTO_KEY_NEXT,				// wraps around
+zEVENT_GOTO_KEY_PREV,				// wraps around
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCEventCommon']
+Mit diesem Nachrichtentyp können allgemeine Anweisungen an Vobs gegeben werden. Welche Vobs im einzelnen diese Nachrichten verstehen und wie sie darauf reagieren ist in den Dokumentationen der jeweiligen Vobs nachzulesen. Einige der Nachrichtenuntertypen steuern den 'enabled/disabled' Zustand von Objekten. Z.B. verstehen zCTrigger Objekte diese Nachrichten, sie könnten dann z.B. per Default disabled sein, also auf keine eingehende Nachricht reagieren, und würden durch das Empfangen der zEVENT_ENABLE Nachricht in den aktivierten Zustand gelangen und auf nachfolgende Nachrichten reagieren können.
+Mögliche Nachrichtenuntertypen sind:
+zEVENT_ENABLE: aktiviert in der Regel das empfangende Objekt
+zEVENT_DISABLE: deaktiviert in der Regel das empfangende Objekt
+zEVENT_TOGGLE_ENABLED: kehrt den Aktivierungszustand um
+zEVENT_RESET: führt ein Zurücksetzen auf dem Objekt aus
+
+// ============================================================================================
+ 
+[TOPIC CLASS 'zCTriggerBase']
+Dies ist ein einfacher Trigger, der auf Beruehrung reagiert. Bei Beruehrung (OnTouch) und bei eingehender OnTrigger Nachricht wird eine OnTrigger Nachricht an alle Vobs mit dem Namen 'triggerTarget' verschickt. Bei Beendung einer Beruehrung (OnUntouch) und einegehender OnUntrigger Nachricht werden OnUntrigger Nachrichten verschickt.
+
+[TOPIC MEMBER 'zCTriggerBase::triggerTarget']
+STRING
+Name des Vobs, der beim Feuern des Triggers eine OnTrigger Nachricht erhalten soll. Alle Vobs mit demselben Namen bekommen eine Nachricht.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCMessageFilter']
+Eingehende OnTrigger und OnUntrigger Nachrichten werden in andere Nachrichten umgewandelt, die dann an das angegebene triggerTarget weitergeschickt werden. 
+Bei Angabe von MT_NONE als ausgehender Nachrichtentyp in den umgewandelt werden soll, wird gar nichts verschickt.
+Beispiele:
+1) Die eingehenden Nachrichten werden negiert.
+onTrigger   = MT_UNTRIGGER
+onUntrigger = MT_TRIGGER
+2) Nur OnTrigger Nachrichten werden durchgelassen, OnUntrigger Nachrichten kommen nicht durch.
+onTrigger   = MT_UNTRIGGER
+onUntrigger = MT_NONE
+3) Aus einem OnTrigger wird eine 'Aktivierung', aus einem onUntrigger eine 'Deaktivierung' (Ziele waeren hier z.B. zCMover oder zCTrigger).
+onTrigger   = MT_ENABLE
+onUntrigger = MT_DISABLE
+
+[TOPIC MEMBER 'zCMessageFilter::onTrigger']
+ENUM
+Hier wird der Nachrichtentyp festgelegt, der bei eingehender onTrigger Nachricht an das triggerTarget verschickt werden soll.
+MT_NONE: keine Nachricht
+MT_TRIGGER: OnTrigger Nachricht
+MT_UNTRIGGER: OnTrigger Nachricht
+MT_ENABLE: Enable Nachricht (z.B. die Klassen zCMover und zCTrigger reagieren darauf)
+MT_DISABLE: Disable Nachricht (z.B. die Klassen zCMover und zCTrigger reagieren darauf)
+MT_TOGGLE_ENABLED: ToggleEnabled Nachricht, Enabled Zustand umkehren (z.B. die Klassen zCMover und zCTrigger reagieren darauf)
+MT_RESET: Reset Nachricht, Ziel-Objekte werden dazu angehalten sich in einer ihnen moeglichen Form zu 'reseten'
+
+[TOPIC MEMBER 'zCMessageFilter::onUntrigger']
+ENUM
+Hier wird der Nachrichtentyp festgelegt, der bei eingehender onUntrigger Nachricht an das triggerTarget verschickt werden soll.
+MT_NONE: keine Nachricht
+MT_TRIGGER: OnTrigger Nachricht
+MT_UNTRIGGER: OnTrigger Nachricht
+MT_ENABLE: Enable Nachricht (z.B. die Klassen zCMover und zCTrigger reagieren darauf)
+MT_DISABLE: Disable Nachricht (z.B. die Klassen zCMover und zCTrigger reagieren darauf)
+MT_TOGGLE_ENABLED: ToggleEnabled Nachricht, Enabled Zustand umkehren (z.B. die Klassen zCMover und zCTrigger reagieren darauf)
+MT_RESET: Reset Nachricht, Ziel-Objekte werden dazu angehalten sich in einer ihnen moeglichen Form zu 'reseten'
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCCodeMaster']
+Bei einem CodeMaster kann eine Liste von Namen von sogen. 'slaveVobs' angegeben werden. Wenn ein CodeMaster
+die OnTrigger Nachricht von einem SlaveVob bekommt, merkt es sich dieses Ereignis.
+Der CodeMaster 'feuert', d.h. sendet OnTrigger an das triggerTarget, wenn es von allen 'slaveVobs' OnTrigger Nachrichten erhalten hat. Dabei kann u.a. eingestellt werden, ob die Reihenfolge der eingehenden Nachrichten relevant ist oder nicht. Ein CodeMaster reagiert auf eine Nachricht vom Typ zCEventCommon zEVENT_RESET mit einem 'Reset'.
+
+[TOPIC MEMBER 'zCCodeMaster::orderRelevant']
+BOOL
+Bei relevanter Reihenfolge feuert der CodeMaster nur, wenn von den SlaveVobs in exakt der angebenen Reihenfolge OnTrigger Nachrichten erhalten wurden. Doppelte Aktivierungen werden hierbei mitgezaehlt.
+Bei nicht relevanter Reihenfolge feuert der CodeMaster, sobald von jedem SlaveVob mindestens einmal das OnTrigger Signal kam.
+
+[TOPIC MEMBER 'zCCodeMaster::untriggerCancels']
+BOOL
+Dieses Flag ist nur bei nicht relevanter Reihenfolge aktiv. Falls ein SlaveVob bereits eine OnTrigger Nachricht an den CodeMaster geschickt hat, kann der SlaveVob per Sendung von OnUntrigger dieses wieder 'rueckgaengig' machen und der CodeMaster wartet auf eine erneute OnTrigger Nachricht des SlaveVobs um feuern zu koennen.
+
+[TOPIC MEMBER 'zCCodeMaster::firstFalseIsFailure']
+BOOL
+Dieses Flag ist nur bei relevanter Reihenfolge aktiv. Wenn dieses Flag gesetzt ist, gilt eine CodeMaster Aktivierungs-Sequenz durch Senden von OnTrigger Nachrichten der SlaveVobs als gescheitert, sobald der erste SlaveVob in falscher Reihenfolge aktiviert wurde.
+Bei nicht gesetztem Flag gilt die Sequenz erst als gescheitert, wenn genau soviele Aktivierungen von SlaveVobs erhalten wurden, wie in der slaveVob Liste eingetragen, und am Ende festgestellt wird, dass die Reihenfolge nicht korrekt ist.
+
+[TOPIC MEMBER 'zCCodeMaster::triggerTargetFailure']
+STRING
+Dieses Flag ist nur bei relevanter Reihenfolge aktiv. Beim Scheitern einer Aktivierungssequenz wird eine OnTrigger Nachricht an alle Vobs mit hier angegebenen Namen geschickt.
+
+[TOPIC MEMBER 'zCCodeMaster::slaveVobName0']
+STRING
+Hier sind die Namen aller SlaveVobs aufgefuehrt, von denen Nachrichten erwartet werden.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCMoverControler']
+Objekte dieser Klasse werden benutzt, um speziell zCMover anzusteuern, die sich im MoverBehavior 'MB_NSTATE_SINGLE_KEYS' befinden. Bei diesen Movern ist jeder Keyframe ein einzelner State und kann gezielt angesteuert werden. Objekte der Klasse zCMoverControler reagieren auf OnTrigger Nachrichten und verschicken dann an ihr triggerTarget, dass i.d.R. ein zCMover sein sollte, eine einstellbare Nachricht.
+
+[TOPIC MEMBER 'zCMoverControler::moverMessage']
+ENUM
+Hier wird die Nachricht eingestellt, die bei eingehender OnTrigger Nachricht dem Mover geschickt werden soll.
+GOTO_KEY_FIXED_DIRECTLY: Der Mover soll sich direkt, ohne Umwege von seinem aktuellen Keyframe auf den Keyframe 'gotoFixedKey' bewegen. Bsp: Mover geht direkt von Key 2 auf Key6.
+GOTO_KEY_FIXED_ORDER: Der Mover soll sich aktuellen Keyframe auf den Keyframe 'gotoFixedKey' bewegen, wobei alle dazwischenliegenden Keyframes passiert werden. Bsp: Mover geht von Key 2 zu Key 6, wobei Keys 3,4,5 passiert werden.
+GOTO_KEY_NEXT: Mover bewegt sich von seinem aktuellen in den naechsten Keyframe (wrap around: vom letzten wird direkt den ersten gegangen).
+GOTO_KEY_PREV: Mover bewegt sich von seinem aktuellen in den vorhergehenden Keyframe (wrap around: vom ersten wird direkt den letzten gegangen).
+
+[TOPIC MEMBER 'zCMoverControler::gotoFixedKey']
+INT
+Bei den Messagetypen 'GOTO_KEY_FIXED_DIRECTLY' und 'GOTO_KEY_FIXED_ORDER' kann hier die Nummer des Ziel-Keyframes eingestellt werden, auf den sich der Mover hinbewegen soll.
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTriggerUntouch']
+Dieser Trigger sendet eine OnTrigger Nachricht an sein triggerTarget, sobald sich die Beruehrung zu dem letzten nicht-lebenden Objekt loest wird. Dieses Objekt reagiert nicht auf eingehende OnTrigger und OnUntrigger Nachrichten.
+Beispiel: 2 NPCs und 2 Aepfel befinden sich in dieser TriggerBox. Wenn nacheinander die beiden Aepfel aus der Box entfernt werden feuert der Trigger sobald der zweite Apfel die Box verlaesst. (anderes Beispiel: "Indy-Raetsel").
+
+
+// ============================================================================================
+
+[TOPIC CLASS 'zCTriggerWorldStart']
+Dieser Trigger feuert immer dann ein OnTrigger an sein triggerTarget, wenn die Welt/der Level in dem sich der Trigger befindet geladen und gestartet wird. Falls dies nur beim ersten Betreten der Fall sein soll kann das per Flag eingestellt werden. (Dieser Trigger feuert allerdings nicht bei WorldStarts im Spacer).
+
+[TOPIC MEMBER 'zCTriggerWorldStart::fireOnlyFirstTime']
+BOOL
+Wenn dieses Flag gesetzt ist, feuert der Trigger nur beim ersten Betreten der World.
+
+// ============================================================================================
+

@@ -1,0 +1,29 @@
+Model ("HuS")
+{
+
+
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+
+	aniEnum
+	{
+		modelTag	("DEF_HIT_LIMB"		"zs_RightHand")
+
+
+// ---------------------------------------------------------------------------------------------------------------
+// langsam Schwimmen
+		ani			("s_Swim"				1	"s_Swim"		0.0	0.2	M.	"Hum_Swim_M02.asc"		F	0	47 FPS:5)
+			{
+				*eventSFX	(10  "SwimWaves")
+			}
+
+		aniBlend	("t_Swim_2_SwimF"			"s_SwimF"		0.3	0.3)
+
+		ani			("s_SwimF"				1	"s_SwimF"		0.0	0.0	M.	"Hum_Swim_M02.asc"		F	62	101 FPS:10)
+			{
+				*eventSFX	(70	"Swim")
+			}
+
+		aniBlend	("t_SwimF_2_Swim"			"s_Swim"		0.3	0.3)
+	}
+}
+

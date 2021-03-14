@@ -1,0 +1,32 @@
+// 
+// Spacer Help File
+// 
+// Script Trigger
+
+[TOPIC CLASS 'oCTriggerScript']
+Die Klasse oCTriggerScript ergänzt (!) den zCTrigger um eine zusätzliche Eigenschaft: Das Verhalten von zCTrigger bleibt also ohne Einschränkung erhalten (siehe 'triggerTarget').
+Im Feld 'scriptFunc' kann eine Scriptfunktion angegeben werden, die im Falle eines Triggerns ausgeführt wird. 
+Ein Untrigger macht für diese Scriptfunktion natürlich keinen Sinn, ist aber weiterhin für das triggerTarget aktiv.
+
+[TOPIC MEMBER 'oCTriggerScript::scriptFunc']
+Hier wird der Name der Scriptfunktion eingetragen, die beim Triggern gestartet werden soll. 
+Zusätzlich zur Scriptfunktion kann ein TriggerScript-Objekt aber auch andere Objekte triggern, genau wie die Basisklasse zCTrigger auch. Der Name dieser Objekte wird wie gewohnt in 'triggerTarget' eingetragen. So kann ein oCTriggerScript also eine Scriptfunktion UND eine Menge von Objekten triggern.
+
+[TOPIC MEMBER 'oCTriggerScript::triggerTarget']
+Der Name von Objekten, die getriggert werden sollen, wird in 'triggerTarget' eingetragen. 
+Zusätzlich zur Scriptfunktion kann ein TriggerScript-Objekt also auch andere Objekte triggern, genau wie die Basisklasse zCTrigger auch. So kann ein oCTriggerScript also eine Scriptfunktion UND eine Menge von Objekten triggern.
+
+//
+// Change Level Trigger
+//
+
+[TOPIC CLASS 'oCTriggerChangeLevel']
+Dieser Trigger aktiviert einen Levelwechsel. Dabei wird der Levelname im Feld 'levelName' eingetragen (inklusive Unterverzeichnisse und Endung). In 'startVobName' steht der Name des Vobs, wo der Spieler im neuen Level erscheint. 
+Die Verwendung von 'triggerTarget' ist möglich macht, aber wenig Sinn, da der Level beim Triggern ja eh gewechselt wird. 
+
+[TOPIC MEMBER 'oCTriggerChangeLevel::levelName']
+Hier wird der komplette Name (inklusive eventuelles Unterverzeichnis und Dateiendung) des zu ladenden Level eingetragen.
+
+[TOPIC MEMBER 'oCTriggerChangeLevel::startVobName']
+Der Spieler erscheint im neuen Level genau an der Stelle, wo ein Vob mit dem hier angegebenen Namen gefunden wurde. Zuerst wird nach einem Startvob (zCVobStartpoint) mit dem Namen gesucht. Wird ein solcher nicht gefunden, sucht das Game dann nach einem entsprechenden Wegpunkt (zCVobWaypoint) und zu allerletzt nach einem beliebigen Vob mit diesem Namen. Schlägt auch diese Suche fehl, erscheint der Spieler am Ursprung (0,0,0).
+

@@ -1,0 +1,29 @@
+// 
+// Spacer Help File
+// Engine Klassen (zCWaynet.cpp) 
+// 
+
+[TOPIC CLASS 'zCVobWaypoint']
+Ein Waypoint beschreibt eine Position und Orientierung im Raum. Waypoints werden mit anderen Waypoints 
+zu einem Wegnetz verbunden werden, auf dem dann später Pfadsuchalgorithmen ausgeführt werden können.
+
+[TOPIC MEMBER 'zCVobWaypoint::vobName']
+string
+Name des Waypoint. Jeder Wegpunkt muss einen eindeutigen Namen haben.
+
+[TOPIC CLASS 'zCVobStartpoint']
+An dem Startpoint wird der Spieler beim Start eines Levels eingefügt, wobei er Position und Ausrichtung übernimmt. 
+
+[TOPIC MEMBER 'zCVobStartpoint::vobName']
+string
+Der Name eines Startpoints muss den Instanznamen des Spielers enthalten, der an diesem Punkt starten soll. 
+Format: Beispiel: START_PC_HERO für die Instanz "PC_HERO" oder START_OLD_MAN ...
+
+[TOPIC CLASS 'zCVobSpot']
+Ein VobSpot beschreibt eine Position und Orientierung im Raum. An diesen Positionen können dann im Spiel zur
+Laufzeit entsprechende Objekte eingefügt oder hinbewegt werden. Eine andere Bezeichnung ist auch 'Freepoint'.
+
+[TOPIC MEMBER 'zCVobSpot::vobName']
+string
+Name des zCVobSpots (oder auch 'Freepoint')
+Jeder zCVobSpots sollte einen eindeutigen Namen haben, um ihn später im Programm referenzieren zu können.

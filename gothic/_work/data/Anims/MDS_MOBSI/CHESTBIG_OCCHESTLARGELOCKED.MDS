@@ -1,0 +1,50 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("CHESTBIG_OCCHESTLARGELOCKED")
+{
+	meshAndTree ("CHESTBIG_OCCHESTLARGELOCKED.asc")
+
+	aniEnum
+	{
+
+// geschlossene Truhe
+			ani			("s_S0"					1	"s_S0"	0.0	0.0	M.	"CHESTBIG_USE.asc"	F	20	20)
+
+// Truhe ˆffnen 
+			ani			("t_S0_2_S1"			1	"s_S1"	0.0	0.0	M.	"CHESTBIG_USE.ASC"	F	50	79)
+			{
+				*eventSFX	(50	"chest_try")
+				*eventSFX	(55	"chest_open")
+			}
+
+// offene Truhe
+			ani			("s_S1"					1	"s_S1"	0.0	0.0	M.	"CHESTBIG_USE.asc"	F	80	80)
+
+// Truhe schlieﬂen
+			ani			("t_S1_2_S0"			1	"s_S0"	0.0	0.0	M.	"CHESTBIG_USE.asc"	R	50	79)
+			{
+				*eventSFX	(78	"chest_close")
+			}
+// Truhenschloﬂ aufschlieﬂen/knacken
+			ani			("t_S0_Unlock"			1	"s_S0"	0.0	0.0	M.	"CHESTBIG_USE_LOCKED.asc"			F	21	49)
+			{
+				*eventSFX	(30	"chest_unlock")
+			}
+
+// Truhenschloﬂ abschlieﬂen
+			aniAlias	("t_S0_Lock"			1	"s_S0"	0.0	0.0	M.	"t_S0_Unlock"					R)
+
+// Scheitern des Versuchs
+			ani			("t_S0_Try"				1	"s_S0"	0.0	0.0	M.	"CHESTBIG_USE.asc"			F	96	124)
+			{
+				*eventSFX	(100	"chest_try")
+				*eventSFX	(115	"Hammer")
+			}
+	}
+}

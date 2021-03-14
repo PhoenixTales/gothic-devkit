@@ -1,0 +1,239 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: Gothic-Skripte</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Gothic-Skripte
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Ulf Wohlers
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  15.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+		<ul>
+		<li><a href="#01"><b>Wofür wird die Skriptsprache verwendet?</b></a>
+		<li><a href="#02"><b>Aufbau der Skriptsprache</b></a>
+		<li><a href="#03"><b>Einschränkungen der Skriptsprache</b></a>
+		<li><a href="#04"><b>Die Externals</b></a>
+		<li><a href="#05"><b>Wie wird das NSC-Verhalten in den Skripten festgelegt?</b></a>
+		<li><a href="#06"><b>Wie gelangt der NSC in seine Skriptzustände?</b></a>
+		<li><a href="#07"><b>Wie gebe ich dem NSC in einem Skriptzustand Befehle?</b></a>
+		<li><a href="#08"><b>Wie werden NSCs in die Welt eingefügt?</b></a>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<p>Diese Dokumentation soll einen kurzen Überblick über die bei Gothic verwendeten Skripte liefern, mit Augenmerk auf die Gothic-MOD-Erstellung. Die Grundfunktionalitäten werden kurz erläutert und auf Besonderheiten der Skriptsprache hingewiesen. Diese Dokumentation soll allerdings nicht den kompletten Umfang und alle Möglichkeiten der Skriptsprache umfassen, sondern den Einstieg erleichtern und auf einige Kniffe hinweisen. Viele Kleinigkeiten, die hier nicht erklärt werden, sind in den veröffentlichten Skripten aus dem "Gothic-MOD-Kit" ersichtlich.  Siehe auch die Dokumentation zur <a href="gothic_skriptsprache.htm">Syntax der Skriptsprache</A></p>
+
+
+<a name="01"><H1>Wofür wird die Skriptsprache verwendet?</H1></a>
+
+<p>
+Die Skriptsprache in Gothic hat diverse Aufgaben. Die wichtigsten sind:
+<ul>
+<li> Eigenschaften von Gegenständen und Nichtspielercharakteren (NSCs) festlegen.
+<li> Festlegen der NSC - AI. Das Verhalten bei bestimmten Spieleraktionen (durch Wahrnehmungen werden Skripte ausgeführt).
+<li> Definieren der NSC - Tagesabläufe.
+<li> Dialoge mit NSCs steuern.
+<li> Auswirkungen von Magie definieren.
+<li> Kameraverhalten in bestimmten Situationen.
+<li> Aussehen der Partikeleffekte festlegen.
+<li> Eigenschaften von Soundeffekten festelegen.
+<li> Menüdarstellung
+<li> etc...
+</ul>
+</p>
+
+<p>Die einzelnen Skriptfiles besitzen die Endung ".d" (D-File). Dies sind normale Textfiles und enthalten den Skriptsource, der dann von einem Parser übersetzt wird und als File mit der Endung ".DAT" im compilierten Format auf der Festplatte gespeichert wird. 
+Welche Skriptfiles übersetzt werden sollen, teilt man Gothic in einem File mit der Endung ".SRC" mit. Dies ist wiederum ein normales Textfile, in dem die zu parsenden Files aufgelistet werden. Hier sind Unterverzeichnisse und Wildcards erlaubt. Auch die Reihenfolge der dort angegebenen Files kann wichtig werden, da einige Symbole vor anderen definiert werden müssen. Als erstes sollten immer die Klassendefinitionen und globalen Konstanten geparst werden, da die meisten anderen Skriptfiles darauf Bezug nehmen.</p>
+
+<a name="02"><H1>Aufbau der Skriptsprache</H1></a>
+
+<p>Die Skriptsprache benutzt sogenannte "Klassen", die festlegen, welche Eigenschaften der Spielobjekte in den Skripten abfragbar oder veränderbar sind. </p>
+
+<p>Solche Klassen beginnen mit dem Schlüsselwort <font class="cmd">CLASS</font> und dürfen nicht verändert werden</u>. Sie bilden die Schnittstelle zwischen dem Skript und dem eigentlichen Programm (Gothic) und müssen deshalb exakt übereinstimmen.  Sollten trotzdem die Variablentypen oder die Reihenfolge der Variablen verändert werden, wird sich Gothic unverhersehbar verhalten oder im schlimmsten Fall abstürzen, da Gothic die benötigten Werte an die falsche Stelle schreibt... </p>
+
+<p>Die einzelnen Klassen sind im "content\_intern"-Order im File "classes.d" zu finden. Dort findet Ihr auch eine kurze Beschreibung der einzelnen Variablen (na ja, zumindest bei einigen).</p>
+
+<p>Wichtige Klassen sind:
+<ul>
+<li> C_NPC   (Welche Eigenschaften eines NSCs kann man in den Skripten verändern)
+<li> C_ITEM (Welche Eigenschaften von Gegenständen kann man in den Skripten verändern)
+<li> C_INFO (Eine Information, die während eines Dialoges ausgegeben werden kann)
+</ul>
+</p>
+
+<p>Klassen sind natürlich wertlos ohne die <u>Instanzen</u> der jeweiligen Klassen. Instanzen sind im Spiel vorkommende Objekte dieser Klasse, z.B. ist ein NSC im Spiel eine Instanz der Klasse "C_NPC".</p>
+
+<p>Instanzen werden mit den Schlüsselwort <font class="cmd">INSTANCE</font> eingeleitet. Hier werden dann die Eigenschaften des Objektes festgelegt, indem die einzelnen Variablen, die in der Klasse festgelegt wurden, mit Werten initialisiert werden. Jedes D-File im Ordner "story/npc/" initialisiert auf diese Weise einen im Spiel vorkommenden NSC.</p>
+
+
+
+<a name="03"><H1>Einschränkungen der Skriptsprache</H1></a>
+
+
+<p>Die Gothic Skriptsprache besitzt einige Einschränkungen und Besonderheiten, die besonders für programmiererfahrene Nutzer interessant sein dürften:
+<ul>
+<li> Es gibt keine FOR- oder WHILE- Schleifen.
+<li> Die Operatorenpriorität stimmt mit der von C++ überein.
+<li> Einige Zuweisungsoperatoren für Integer-Typen sind nicht vorhanden (+=, -=,..).
+<li> Auf einzelne Arrayelemente kann nur mit einer Konstante als Index zugegriffen werden :               erlaubt ist "ArrayName[10] = 1234", Fehlermeldung bei "ArrayName[VarName] = 1234".
+<li> Arrays können nicht als Funktionensparameter übergeben werden.
+<li> Es gibt nur den Zuweisungsoperator bei den Fliesskommazahlen (keine Rechnungen mit FLOATs möglich).
+<li> Alle globalen Variablen oder in den Funktionen definierten lokalen Variablen sind automatisch mit Null initialisiert. Dies gilt auch für nichtbelegte Variablen bei den meisten Instanzen.
+<li> Lokale Variablen in Funktionen werden wie globale Variablen behandelt und behalten ihren Wert bei Verlassen der Funktion. Sie werden also nicht temporär erzeugt und anschliessend wieder gelöscht, wie es bei C++ der Fall ist.
+</ul>
+</p>
+
+<a name="04"><H1>Die Externals</H1></a>
+
+<p>Die "Externals" oder auch "BuildIn" - Funktionen liefern Funktionalitäten, die nur schwer im Skript zu implementieren wären. Hier liefert Gothic einen Satz von Funktionen, die aus der Skriptsprache heraus aufgerufen werden können. Eine Liste dieser Funktionen mit einer kurzen Beschreibung befindet sich in der "content\AI\AI_intern\externals.d" - Datei.</p>
+
+<a name="05"><H1>Wie wird das NSC-Verhalten in den Skripten festgelegt?</H1></a>
+ 
+<p>Die meisten NSCs in Gothic sind skriptgesteuert. Jeder NSC befindet sich in einem Skriptzustand, der sein Verhalten festlegt. Diese Skriptzustände unterliegen gewissen Konventionen, die unbedingt eingehalten werden müssen.</p>
+
+<p>Ein Skiptzustand besteht in der Regel aus drei Skriptfunktionen, die den Zustand in drei Phasen untereilten. Die erste Phase ist die "Begin"-Phase. Hier werden alle vorbereitenden Befehle für die NSC-Aktionen gegeben, zB. den NSC erst mal zum Zielpunkt gehen lassen, an der er seine Aktionen verrichten soll.</p>
+
+<p>Die zweite Phase ist die "Loop"-Phase. Solange sich der NSC in diesem Zustand befindet wird diese Skriptfunktion immer wieder ausgeführt und der NSC wiederholt die darin programmierten Aktionen, bis der Zustand beendet oder unterbrochen wird. Diese Phase kann optional auch einen Rückgabewert liefern, der besagt, ob dieser Zustand beendet werden soll oder nicht. Ist der Rückgabewert dann größer Null, wird der Zustand beendet und die "End"-Phase aufgerufen.
+Die letzte Phase ist die "End".Phase. Hier werden noch nötige Skriptbefehle abgesetzt, um den NSC sauber die Aktion beenden zu lassen, zB. aufstehen, nachdem er auf einer Bank gesessen hat.</p>
+
+<p>Die Namen der drei Skriptfunktionen, die zusammen den Skriptzustand ergeben, müssen immer mit "ZS_" beginnen. Für die jeweiligen Zustandsphasen müssen auch noch bestimmte Endungen an den Funktionsnamen angefügt werden. Die drei Skriptfunktionen sehen im Skript generell so aus:</p>
+
+<pre>
+FUNC VOID ZS_[Zustandsname] ()
+{
+	// Dies ist die Beginphase.
+	// Sie wird nur einmal bei Start des Zustandes durchlaufen
+};
+
+FUNC VOID ZS_[Zustandsname]_LOOP ()
+{
+	// Dies ist die Loop-Phase.
+	// sie wird solange wiederholt,
+	// bis der Zustand unterbrochen
+	// oder beendet wird.
+};
+
+
+FUNC VOID ZS_[Zustandsname]_END () 
+{
+	// Die End-Phase.
+	// Den NSC seine Aktion beenden lassen.
+};
+</pre>
+
+<p>
+Einen einfachen Skriptzustand findet Ihr z.B. Im Skriptfile "content\story\zs\zs_guard.d".
+</p>
+
+<a name="06"><H1>Wie gelangt der NSC in seine Skriptzustände?</H1></a>
+
+<p>Viele der NSCs haben einen Tagesablauf, in dem festgelegt wird, zu welcher Spielzeit sie welchen Skriptzustand ausführen sollen. Ein gutes Beispiel ist dafür im File "content\story\npc\bau_904_bauer.d" zu finden. In der Skriptmethode "Rtn_start_904" wird der Tagesabluf des NSCs definiert. Hier werden durch die "TA_"-Befehle weitere Skriptmethoden aufgerufen, die dann per Build-In-Funktion den Zustand den der NSC um diese Tageszeit ausführen soll, an Gothic übergeben. Solche NSCs sind dann Tagesablaufgesteuert.</p>
+
+<p>Viele Monster sind zustandsgesteuert und haben nur einen Zustand (Tagesabäufe sind teurer, weil diese von Gothic vorausberechnet werden müssen), zu sehen in den Monster-Skripten.
+Bei Spielstart startet Gothic die Skriptzustände der NSCs entsprechend ihrem Tagesablauf, bzw. den Tagesablaufzustand bei den Monstern.</p>
+
+<p>Der NSC kann durch <u>Wahrnehmungen</u> aus seinem aktuellen Zustand "herausgerissen" werden. Er entdeckt z.B. den Spieler beim Klauen, sieht ein Monster oder einen Kampf. Dies sind Wahrnehmungen, die einen Zustandswechsel zur Folge haben können. Auf welche Wahrnehmungen der NSC reagieren soll, wird ihm in der Begin-Phase des Zustandes mitgeteilt. Hier wird mit dem Build-In Befehl "Npc_PercEnable" der Skriptzustand, der bei Auftreten dieser Wahrnehmung aktiviert werden soll, mitgeteilt. Tritt diese Wahrnehmung im Laufe des Zustandes auf, wechselt der NSC in den entsprechenden neuen Zustand. Natürlich ist es auch möglich den Zustand "von Hand" zu ändern. Dies kann mit der Build-In-Funktion "AI_StartState" erreicht werden.</p>
+
+<a name="07"><H1>Wie gebe ich dem NSC in einem Skriptzustand Befehle?</H1></a>
+
+<p>Zu diesem Zweck gibt es die Build-In-Funktionen, die mit dem Kürzel "AI_" beginnen. Hier sind komplexere NSC-Aktionen möglich (siehe dazu die "externals.d"-Datei), die sich über einen längeren Zeitraum erstrecken, sprich : die länger als einen Frame dauern, z.B. zu einen Zielpunkt gehen, hinsetzen auf einer Bank, etc... 
+Da eine Skriptmethode immer in einem Frame komplett abgearbeitet wird, werden diese AI-Befehle in eine Liste gespeichert und dort nacheinander abgearbeitet (sofern der NSC nicht durch eine Wahrnehmung unterbrochen wird). Erst danach wird die nächste Skriptzustandsmethode aufgerufen.</p>
+
+<p>Es gibt einige globale Variablen über die der NSC und weitere wichtige Objekte im Skript angesprochen werden können. In den Zuständen ist dies immer die "self"-Variable, die den aktuellen NSC enthält, der gerade diesen Zustand ausführt. Diese Variablen werden automatisch von Gothic initialisiert.</p>
+
+<p>Wird ein Zustand durch eine Wahrnehmung aktiviert, kommen je nach Wahrnehmung noch weitere Variablen hinzu, die Ihr für Abfragen benutzen könnt:
+<ul>
+<li>C_NPC hero      : Diese Variable enthält immer den aktuellen Spieler
+<li>C_NPC self	: Der aktuelle NSC, der diesen Zustand durchläuft
+<li>C_NPC other	: Der wahrgenommene NSC (z.B. der Spieler bei Dialogen, Täter)
+<li>C_NPC victim	: Das Opfer der wahrgenommenen Aktion (z.B. der von einem dritten angegriffene NSC)
+<li>C_ITEM item    : Der wahrgenommene Gegenstand.
+</ul>
+</p>
+	
+<p>Ob eine von dieseen Variablen von Gothic initialisiert wurde und in der Skriptfunktion gültig ist, kann man mit der Build-In-Methode "Hlp_IsValidNpc" oder "Hlp_IsValidItem" erfragen.
+Diese globalen Variablen befinden sich in der Date "content\_intern\classes.d" und dürfen nicht verändert werden.</p>
+
+
+<a name="08"><H1>Wie werden NSCs in die Welt eingefügt?</H1></a>
+
+<p>NSCs werden mit Hilfe der Skripte in die Welt eingefügt. Hierzu werden beim Start eines Spieles oder beim Betreten eines neuen Levels automatisch Skriptmethoden aufgerufen, in denen dann die NSCs eingefügt werden sollten.</p>
+
+<p>Die erste dieser Skriptfunktion ist die Startup-Funktion. Sie wird einmal beim Spielstart, bzw. beim erstmaligen Betreten eines Levels ausgeführt. Hier werden dann die in diesem Level vorkommenden NSCs an einem Waypoint eingefügt. Sollte der NSC einen  Tagesablauf haben, so kann er aber von Gothic (bzw. von der Tagesablaufvorausberechnung) an eine andere Stelle, entsprechend dem Tagesablauf, eingefügt werden.</p>
+
+<p>Der Name dieser Skriptfunktion setzt sich aus dem vorangestellen "STARTUP_" und dem Namen des entspechenden Level-Zen-Files zusammen.
+Eine weitere Funktion ist die Init-Funktion (Name : Init_[Zen-File-Name]). Sie wird bei jedem (auch wiederholten) Betreten eines Levels aufgerufen und sollte nicht für das Einfügen von NSCs benutzt werden, da diese sonst bei jedem Betreten erneut in den Level eingefügt werden... 
+Das eigentliche Einfügen der NSCs passiert mit der Build-In-Methode "Wld_InsertNpc". Dort gibt man den Instanznamen und den Waypoint als Parameter an, , zu sehen ist das in dem "content\story\startup.d"-File.</p>
+
+<br>
+
+</td>
+</tr>
+</table> 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

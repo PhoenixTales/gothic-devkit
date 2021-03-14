@@ -1,0 +1,62 @@
+[TOPIC CLASS 'zCMaterial']
+Die Klasse zCMaterial beschreibt die Eigenschaften von Materialien.
+
+[TOPIC MEMBER 'zCMaterial::texture']
+Legt den Filenamen der zugewiesenen Texture-Bitmap fest.
+Ob eine Textur animiert ist oder nicht wird durch den Filenamen festgelegt.
+Eine animierte Textur wird durch ein angehaengtes "_0" kenntlich gemacht.
+Beispiel:
+	s = WASSER_0.TGA
+Diese Textur stellt den ersten Frame einer Animation dar. Die Engine sucht 
+dann automatisch auf der Platte nach den restlichen Frames der Animation,
+also nach den Files "WASSER_1.TGA", "WASSER_2.TGA", etc. 
+
+[TOPIC MEMBER 'zCMaterial::texScale']
+(x y)
+Skalierungsfaktoren in x und y fuer die Vergabe von Mapping-Koordinaten auf
+Polygonen.
+
+[TOPIC MEMBER 'zCMaterial::texAniFPS']
+(fps)
+Falls eine Textur in mehreren Frames animiert ist (NAME_0.*), dann wird hier
+die FPS-Rate der Animation festgelegt.
+
+[TOPIC MEMBER 'zCMaterial::texAniMapMode']
+bool
+Legt fest, ob eine die Animation der Texture-Koordinaten eingeschaltet ist,
+z.B. fuer eine fliessende Wasser-Textur.
+- NONE
+- LINEAR
+
+[TOPIC MEMBER 'zCMaterial::texAniMapDir']
+(x y)
+Legt bei eingeschalteter Texture-Koordinaten Animation die Bewegungsrichtung
+und Geschwindigkeit fest, mit der die Texturen auf dem Poly gleiten.
+Je hoeher die Werte, desto hoeher die Geschwindigkeit.
+Wichtig: Die Werte sollten weit unter 1 liegen (z.B. 0.00005)
+Die Animation wird nur eingeschaltet, wenn texAniMapMode entsprechend gesetzt ist.
+
+[TOPIC MEMBER 'zCMaterial::color']
+RGBA (r g b a)
+Legt die Farbe des Materials fest, falls keine Textur zugewiesen ist. Der
+Wertebereich aller Parameter liegt von 0 bis 255. 
+Desweitern wird hier der Alpha-Wert des Materials festgelegt (auch falls eine 
+Textur aktiv ist !). a steht fuer Alpha und gibt den Transparenz-Grad des
+Materials an, 0=vollkommen durchsichtig, 255=vollkommen opak.
+
+[TOPIC MEMBER 'zCMaterial::smooth']
+bool
+Legt das Smoothing fuer dieses Material fest.
+-FALSE = keine Smoothing
+-TRUE = Smoothing
+
+[TOPIC MEMBER 'zCMaterial::smoothAngle']
+(angle)
+Falls das Smoothing fuer dieses Material eingschaltet ist, legt mann hier den 
+Winkel fest, den 2 aneinandergrenzende Flaechen nicht uebrschreiten duerfen, 
+um noch 'gesmoothed' zu werden.
+
+[TOPIC MEMBER 'zCMaterial::matGroup']
+(groupString)
+Zur sind gibt es folgende Gruppen:
+UNDEF, METAL, STONE, WOOD, EARTH, WATER

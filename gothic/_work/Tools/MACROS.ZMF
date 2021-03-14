@@ -1,0 +1,18 @@
+[World create]
+// *******************************
+// *          "World"            *
+// *******************************
+// spacer macro "World create"
+reset
+set error 3
+Load world _work\oldcamp.zen
+Load world _work\psicamp.zen
+Load world _work\newcamp.zen
+Load world _work\freeminecamp.zen
+Load world _work\demontower.zen
+Load world _work\surface.zen
+compile world outdoor
+compile light high
+// *******************************************
+// *******************************************
+// *******************************************

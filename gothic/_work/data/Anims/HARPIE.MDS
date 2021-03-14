@@ -1,0 +1,257 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Model ("Harpie")
+{
+
+	meshAndTree ("Har_Body.asc" DONT_USE_MESH)
+
+	registerMesh ("Har_Body.ASC")
+
+	aniEnum
+	{
+
+//	|	KEYWORD		|	ANI-NAME					|LAYER|	NEXT-ANI	  |	BI | BO |F	|ASC-FILE				|	DIR |FF |LF
+//----------------------------------------------------------------------------------------------------------------------------
+//////////////////////////
+// FIST MOVEMENT
+//////////////////////////
+//	Fist-RUN
+			ani			("s_FistRun"					1	"s_FistRun"		0.1	0.0	M.	"Harpie_v5_Stand.asc"		F	0	29)
+			{
+				*eventSFX   ( 15     "DEM_WINGFLAP"           )
+				*eventSFX   ( 5      "HAR_AMBIENT"            )
+			}
+
+			aniBlend	("t_FistRun_2_FistRunL"				"s_FistRunL"	0.2	0.2)
+
+			ani			("s_FistRunL"					1	"s_FistRunL"	0.0	0.0	M.	"Harpie_v5_fly.asc"			F	1	20)
+			{
+				*eventSFX	(8	"DEM_WingFlap"	EMPTY_SLOT	)
+			}
+			aniBlend	("t_FistRunL_2_FistRun"				"s_FistRun"		0.2	0.2)
+			aniBlend	("t_FistRunR_2_FistRun"				"s_FistRun"		0.2	0.2)
+
+//			aniAlias	("t_FistJumpB"					1	"s_FistRun"		0.1	0.3	M.	"s_FistRunL"				R)
+			ani			("t_FistJumpB"					1	"s_FistRun"		0.1	0.3	M.	"Harpie_v5_parade.asc"		F	1	15)
+
+//	Fist-WALK
+			ani			("s_FistWalk"					1	"s_FistWalk"	0.0	0.0	M.	"Harpie_v5_sitDown.asc"		F	40	99	FPS:5)
+			
+			aniAlias	("t_FistWalk_2_FistWalkL"		1	"s_FistWalkL"	0.1	0.1	M.	"t_FistRun_2_FistWalk"		R)
+			aniAlias	("s_FistWalkL"					1	"s_FistWalkL"	0.0	0.0	M.	"s_FistRunL"				F)
+			aniAlias	("t_FistWalkL_2_FistWalk"		1	"s_FistWalk"	0.1	0.1	M.	"t_FistRun_2_FistWalk"		F)
+			aniAlias	("t_FistWalkR_2_FistWalk"		1	"s_FistWalk"	0.1	0.1	M.	"t_FistRun_2_FistWalk"		F)
+
+//	Fist-Walk Backwards Movement
+			aniBlend	("t_FistWalk_2_FistWalkBL"			"s_FistWalkBL"	0.2	0.2)
+			aniAlias	("s_FistWalkBL"					1	"s_FistWalkBL"	0.0	0.0	M.	"s_FistRunL"				R)
+			aniBlend	("t_FistWalkBL_2_FistWalk"			"s_FistWalk"	0.2	0.2)
+			aniBlend	("t_FistWalkBR_2_FistWalk"			"s_FistWalk"	0.2	0.2)			
+
+			ani			("t_FistRunStrafeL"				1	"t_FistRunStrafeL"		0.1	0.0	M.	"Harpie_v5_strafeL.asc"	F	1	30)
+			{
+       			*eventSFX	( 10     "DEM_WINGFLAP"		     )
+			}
+
+			ani			("t_FistRunStrafeR"				1	"t_FistRunStrafeR"		0.1	0.0	M.	"Harpie_v5_strafeR.asc"	F	1	30)
+			{
+       			*eventSFX	( 10     "DEM_WINGFLAP"		     )
+			}
+
+			aniAlias	("t_FistWalkStrafeL"			1	"t_FistWalkStrafeL"		0.0	0.0	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_FistWalkStrafeR"			1	"t_FistWalkStrafeR"		0.0	0.0	M.	"t_FistRunStrafeR"		F)
+
+
+
+// Transitions
+			ani			("t_FistRun_2_FistWalk"			1	"s_FistWalk"	0.1	0.0	M.	"Harpie_v5_sitDown.asc"			F	3	39)
+			{
+				*eventSFX       ( 3     "DEM_WINGFLAP"      )
+			}
+			aniAlias	("t_FistWalk_2_FistRun"			1	"s_FistRun"		0.0	0.1	M.	"t_FistRun_2_FistWalk"			R)
+
+
+
+/////////////////////
+//	FIST TURNING
+/////////////////////
+
+// sieht ohne Ani am besten aus!
+
+
+/////////////////
+// SWIM
+/////////////////
+
+// wird nicht mehr benötigt, da bei fliegenden Monstern Wasserpolys auch als "solide" gelten
+
+
+/////////////////////////////////
+// JUMPUPLOW / JUMPUPMID / CLIMB
+/////////////////////////////////
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+//	JUMPUPLOW	(Ohne Benutzung der Hände, rechter Fuß setzt zuerst auf. Höhe: 50-100cm)
+//      ani1: Schwung holen, ani2: Flugphase, ani3: Kontakt mit Kante
+			ani			("t_Stand_2_JumpUpLow"		1	"s_JumpUpLow"				0.1	0.0	M.	"Harpie_v5_JumpUp.asc"	F	2	4)
+			ani			("s_JumpUpLow"				1	"t_JumpUpLow_2_Stand"		0.0	0.0	MF	"Harpie_v5_JumpUp.asc"	F	5	15)
+			{
+       			*eventSFX	( 9     "DEM_WINGFLAP"		     )
+			}
+
+			ani			("t_JumpUpLow_2_Stand"		1	""							0.0	0.1	MF	"Harpie_v5_JumpUp.asc"	F	16	30)
+
+			ani			("jumptest"					1	""							0.0	0.1	MF	"Harpie_v5_JumpUp.asc"	F	1	30)
+
+
+//////////////////////////
+// FALL
+//////////////////////////
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+//	FALLDN
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	// Freier Fall
+			aniAlias	("s_FallDn"						1	"s_FallDn"		0.0	0.0	MF	"s_FistRun")
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Landung auf den Beinen ohne Schaden
+			aniAlias	("t_FallDn_2_Stand"				1	""				0.1	0.1	M.	"s_FistRun"				F)
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+///////////////////
+// STUMBLE
+///////////////////
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Vorwärts Stolpern
+			ani			("t_Stumble"					1	""				0.1 0.3 M.	"Harpie_v5_hit.asc"		F	1	10)
+			{
+       			*eventSFX	( 2     "DEM_WINGFLAP"          )
+				*eventSFX	(3	"HAR_HURT"	EMPTY_SLOT	)
+			}
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Rückwärts Stolpern
+			aniAlias	("t_StumbleB"					1	""				0.1 0.1 M.	"t_Stumble"				F)
+
+
+
+//////////////////////////
+// DIE
+//////////////////////////
+
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DEAD
+			ani			("t_Dead"						1	"s_Dead"		0.1	0.0	M.	"Harpie_v5_death.asc"		F	1	34)
+			{
+       			*eventSFX	( 2     "DEM_WINGFLAP"           )
+				*eventSFX	(3	"HAR_DIE"	EMPTY_SLOT	)
+       			*eventSFX	(12	"M_FALL_HUGE"	EMPTY_SLOT	)
+			}
+			ani			("s_Dead"						1	"s_Dead"		0.0	0.0	M.	"Harpie_v5_death.asc"		F	35	35)
+
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DEADB
+			aniAlias	("t_DeadB"						1	"s_DeadB"		0.1	0.0	M.	"t_Dead"					F)
+			aniAlias	("s_DeadB"						1	"s_DeadB"		0.0	0.0	M.	"s_Dead"					F)
+			
+
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// WhirlAround
+	// WhirlAround CCW
+//			ani   		("t_surprise_CCW"      			1	"s_surprise"	0.2	0.2	M.	"Dem_SurpriseL_A02.asc"		F	1	22)
+	// WhirlAround CW
+//			ani			("t_surprise_CW"				1	"s_surprise"	0.2	0.2	M.	"Dem_SurpriseR_A02.asc"		F	1	22)
+	// Surprise
+			aniAlias	("s_surprise"					1	"s_surprise"	0.1	0.1	M.	"s_FistRun"	F)
+
+
+//////////////////////////
+// LOOK Autoaiming
+//////////////////////////
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	0	0)
+			ani			("c_look_2"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	1	1)
+			ani			("c_look_3"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	2	2)
+			ani			("c_look_4"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	3	3)
+			ani			("c_look_5"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	4	4)
+			ani			("c_look_6"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	5	5)
+			ani			("c_look_7"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	6	6)
+			ani			("c_look_8"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	7	7)
+			ani			("c_look_9"						9	""				0.0	0.0	.	"Harpie_v5_look.asc"	F	8	8)
+
+			aniComb		("t_look"						9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+
+
+/////////////////
+//	ATTACK
+/////////////////
+			ani			("s_FistAttack"					1	"s_FistAttack"	0.1	0.2	M.	"Harpie_v5_attack.asc"		F	4	28)
+			{
+				*eventTag	(0	"DEF_HIT_LIMB"	"BIP01 R HAND")
+				*eventTag	(0	"DEF_OPT_FRAME"	"20")
+				*eventTag	(0	"DEF_HIT_END"	"25")
+				*eventTag	(0	"DEF_WINDOW"	"16	25")
+//				*eventTag	(0	"DEF_DIR"		"O")
+				*eventSFX	(5	"HAR_ATTACK"	EMPTY_SLOT	)
+				
+			}
+
+			ani			("t_FistAttackMove"				2	""				0.1	0.1	M.	"Harpie_v5_moveattack.asc"		F	4	25)
+			{
+				*eventTag	(0		"DEF_HIT_LIMB"	"BIP01 R HAND")
+				*eventTag	(0		"DEF_OPT_FRAME"	"20")
+			}
+
+//	Paraden
+			aniAlias	("t_FistParadeJumpB"			1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+			aniAlias	("t_FistParade_O"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+
+//			aniAlias	("t_FistParade_U"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_L"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_R"				1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+
+
+
+/////////////////
+//	SCRIPT ANIS
+/////////////////
+			ani			("t_Warn"						1	""				0.1	0.2	M.	"Harpie_v6_drohen.asc"			F	1	29)
+			{
+				*eventSFX	(2	"HAR_WARN"	EMPTY_SLOT	)
+				*eventSFX	(15	"DEM_WINGFLAP"	EMPTY_SLOT	)
+			}
+
+//			ani			("t_Perception"					2	""				0.1	0.1	M.	"Dem_Perception_M01.asc"		F	1	74 FPS:12.5)
+
+
+// Eat
+			ani			("t_Stand_2_Eat"				1	"s_Eat"			0.2	0.0	M.	"Harpie_v5_sitDown.asc"	F	101	124	FPS:12.5)
+			ani			("s_Eat"						1	"s_Eat"			0.0	0.0	M.	"Harpie_v5_sitDown.asc"	F	125	174	FPS:12.5)
+			{
+				*eventSFX	(130	"M_EAT"	EMPTY_SLOT	)
+			}
+			ani			("t_Eat_2_Stand"				1	""				0.0	0.3	M.	"Harpie_v5_sitDown.asc"	F	175	199	FPS:12.5)
+
+
+///////////////////////
+// MAGIC VICTIMS
+///////////////////////
+
+// kein Feuerschaden 
+
+// Lightning, Chainlightning, Thunderbolt, Thunderball
+			aniAlias	("s_Lightning_Victim"		1	"s_Lightning_Victim"	0.0	0.0	M.	"s_FistRun"			F)
+
+// IceCube, IceWave
+			aniAlias	("s_Freeze_Victim"			1	"s_Freeze_Victim"		0.0	0.0	M.	"s_FistRun"			F)
+
+		
+// kein Sleep Victim
+
+

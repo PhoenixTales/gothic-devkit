@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: ZenGin Portale</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                ZenGin: Portale
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Dieter Hildebrandt
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  15.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+		<li><a href="#01"><b>1. Einleitung</b></a>
+		<li><a href="#02"><b>2. Outdoor-Level</b></a>
+			<ul>
+			<li>2.1 Portal Benennungen
+			<li>2.2 Ghostoccluder
+			</ul>
+		<li><a href="#03"><b>3. Indoor-Level</b></a>
+			<ul>
+			<li>3.1 Hinweise für das Modeling
+			<li>3.2 Portale in Indoor-Leveln
+			</ul>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<a name="01"><H1>1. Einleitung</H1></a>
+
+<p>Statische Level-Meshes werden in i.d.R. in professionellen Modeling-Programmen erstellt (z.B. Lightwave oder 3DS-Studio MAX) und dann als Dateien im .3DS Format innerhalb des Editors <u>Spacer</u> importiert. Zur Steigerung der Render-Performance werden bereits beim Modeling der Level-Meshes bestimmte zusammenhängende Bereiche des Levels als Sektoren kenntlich gemacht und durch Portale voneinander getrennt. Zur Laufzeit ist es der Engine dann möglich, diejenigen Sektoren zu ermitteln und vom Render-Prozeß auszuschließen, die von der aktuellen Kameraposition aufgrund von Verdeckung nicht sichtbar oder weit entfernt sind.</p>
+
+<p>In Outdoor-Leveln werden lediglich die Innenräume von Gebäuden, Höhlen etc. als Sektoren gekennzeichnet, wohingegen das gesamte Areal unter freiem Himmel selbst als ein großer Sektor "Außenwelt" behandelt wird. In Indoor-Leveln sollte der gesamte Level in eine Menge von Sektoren partitioniert wird. Die Unterscheidung Outdoor-/Indoor-Level ist bei der Kompilierung eines Levels innerhalb des Editors Spacer explizit zu wählen. Derzeit unterscheiden sich noch die Konventionen zur Ausstattung von Leveln mit Sektoren/Portalen für Outdoor- und Indoor -Level, wobei im folgenden das Grundsätzliche zusammengefasst ist. Eine einheitliche Konvention ist geplant, die sowohl bei Outdoor- als auch Indoor-Leveln anwendbar ist.</p>
+
+<a name="02"><H1>2. Outdoor-Level</H1></a>
+
+<H2>2.1 Portal Benennungen</H2>
+
+<p>Die Materialnamen von Portal-Polys entsprechen folgender Benennung: <i>"P[N]:Front_Back"</i>  ist das Schema (Case-unsensitiv, N ist otional, siehe unten). <i>"Front"</i> ist der Name des Raumes, in das die Portal-Poly Normale hineinzeigt. <i>"Back"</i> ist der Name des Raumes hinter dem Portal. Der Name des "Außenwelt-Raumes" ist "" (Ein Leerstring, siehe Beispiel).</p>
+
+<p>Materialnamen mit dem Präfix "PN:" ("N" für NoFade") "öffnen" sich zwar visuell beim Nähern der Kamera, faden allerdings nicht wie die übrigen "P:"-Portale aus. Das ist z.B. sinnvoll, wenn auf einem solchen Portal eine Textur mit Alphakanal liegt.</p>
+
+<pre>
+Beispiel:
+  "<" und ">" geben die Richtungen der Normalen an.
+
+  **************
+  *      *     *
+  *    A * B  C*D
+  *     <|>   <|>
+  *      *     *
+  *      *     *
+  *Raum1 *Raum2* 	Außenwelt
+  **************
+
+  Material A: "P:Raum1_Raum2"  von Raum2 nach Raum1
+  Material B: "P:Raum2_Raum1"  von Raum1 nach Raum2
+  Material C: "P:Raum2_"       von Außenwelt nach Raum2
+  Material D: "P:_Raum2"       von Raum2 nach Außenwelt
+</pre>
+
+<H2>2.2 Ghostoccluder</H2>
+
+<p>Ghostoccluder sind in Outdoor Leveln Polys, die ein Material mit dem Namen "GHOSTOCCLUDER" besitzen. Diese Polys werden niemals gerendert, sondern dienen nur der Verstärkung der bereits automatisch stattfinden Eliminierung von nicht zu rendernden Level-Bereichen durch Verdeckung bzw. "Occlusion". Ghostoccluder Polys unterliegen im Gegensatz zu "normalen" Polys im Outdoor keiner Größenbeschränkung, müssen also nicht wie Wasser segmentiert werden.</p>
+
+<a name="03"><H1>3. Indoor-Level</H1></a>
+
+<H2>3.1 Hinweise für das Modeling</H2>
+   
+<p>
+<ul>
+<li>Polys dürfen sich nicht durchdringen
+<li>Es müssen alle Polys eliminiert werden, die vom Spieler aus keiner erlaubten, legalen Position / Blickwinkel gesehen werden können.
+<li>Es ist darauf zu achten, dass zwischen Polygonen, die eine lückenlose Oberfläche bilden sollen auch wirklich kein Zwischenraum vorhanden ist. Beispielsweise sollte die untere Kante einer Wand mit einer Kante des Bodens identisch sein und damit direkt auf den Boden aufliegen. Im Grunde ist mit dieser Forderung eine genaue Vertex-Plazierung gemeint ist. Diese könnte z.B. mit einem feinem Raster bei der Vertex-Plazierung erreicht werden.
+<li>Indoor Level (im Gegensatz zu Outdoor Level) sollten so modelliert werden, dass sie komplett geschlossen sind. D.h. wenn man (rein theoretisch) einen Level mit Wasser füllen würde, dann würde das Mesh des Levels keine Lücken und kein 'Leck' haben, aus dem Wasser entweichen könnte. Dieser Punkt ist sehr wichtig! Es sollte sehr sorgfältig darauf geachtet werden, dass keine Lücken zwischen den Polys entstehen. 'wasserdicht' bzw. 'leckfrei' kann so definiert werden:
+	<ul>
+	<li>Alle T-Junctions sind laut 3.8 behandelt.
+	<li>Mann kann keine Sichtlinie zwischen einem Punkt innerhalb des Levels und einem Punkt außerhalb des Levels aufstellen.
+	<li>Es gibt keine 'Papierwände', bzw. Polys, auf deren nicht sichtbare Rückseite man von innerhalb des Levels blicken kann.
+	<li>Es darf keine Polys geben, auf deren Vorderseite man von keiner Position aus innerhalb des Levels blicken kann. Oder anders gesagt: kein Poly darf mit der Vorderseite Kontakt zu dem den Level umgebenden 'Nichts' haben. Ein Negativ-Beispiel: ein Kubus mit 4 nach außen gekehrten Wänden wird mitten in dem leeren Raum um den Level platziert  => darf nicht!
+	</ul>
+<li>Im Allgemeinen sollten sogenannte 'T-Junctions' durch Einfügen von kolinearen Vertices in Polygonen vermieden werden. 
+</ul>
+</p>
+
+<H2>3.2 Portale in Indoor-Leveln</H2>
+   
+<p>
+<ul>
+<li>Portale trennen zusammenhängende Bereiche, die Sektoren, voneinander ab. 
+<li>Portale müssen Materialien haben, deren Namen mit dem Präfix <i>"PI:"</i> beginnen. Der Rest des Namens ist derzeit egal. Die bisher im Outdoor nötigen Angaben von Sektoren Namen entfallen hier.
+<li>Portale müssen konvexe Polygone sein (triangle, quad, npoly). Genauer: ein Portal zwischen zwei Sektoren besteht aus genau einem konvexen Polygon.
+<li>Portale im Indoor ("PI:") sind im Gegensatz zu Outdoor-Portalen single-sided. Das Programm generiert automatisch die intern immer noch nötige zweite Seite hinzu.
+<li>Portale brauchen nicht mehr mit den Polys/Verts des statischen Level-Meshes verschmolzen werden.
+<li>Portale werden typischerweise an Durchgängen/Türen oder an Tunnelanfängen und Tunnelenden platziert. Sie müssen an dem Ort, an dem sie platziert sind, alle Polys des Durchgangs schneiden bzw. berühren, also die Polys der Wände, Decken und Boden. Das Programm weiß damit, wo die Begrenzung des Sektors ist. Allerdings darf das Portal-Poly außer den direkt anliegenden Polys des Durchgangs KEINE weiteren Polys berühren. Das Portal-Poly darf demnach ein wenig größer sein, als der Durchgang, allerdings nicht so übermäßig groß, dass weitere, nicht beteiligte Polys, berührt werden. Auch ist es für die Leistung des Occlusion-Cullings wichtig, dass Portale nicht unnötig groß sind.
+<li>Ein Poly des Levels darf maximal ein Portal-Poly durchdringen.
+</ul>
+</p>
+
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

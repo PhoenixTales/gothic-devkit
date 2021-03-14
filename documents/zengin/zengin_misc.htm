@@ -1,0 +1,334 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: ZenGin Misc</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                ZenGin: Verschiedene Hinweise
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Dieter Hildebrandt
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  27.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+		<li><a href="#01"><b>1. Einleitung</b></a>
+		<li><a href="#02"><b>2. LensFlare Skript</b></a>
+		<li><a href="#03"><b>3. Datei-Formate</b></a>
+		<li><a href="#04"><b>4. Texturen</b></a>
+			<ul>
+			<li>4.1 Texture Format Hints
+			<li>4.2 Namen für Multi-Texturen
+			</ul>
+
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+
+<!---
+Revision History
+v0.02
+- kleinere Updates
+v0.01
+- erste Version
+---->
+
+
+<a name="01"><H1>1. Einleitung</H1></a>
+
+<p>Dieser Text dokumentiert die Möglichkeiten und Benutzung einzelner, kleinerer Systeme der Engine.</p>
+
+<a name="02"><H1>2. LensFlare Skript</H1></A>
+
+<p>Die Definitionen von Lensflare-Effekten werden in dem File "_WORK\DATA\PRESETS\lensFlare.zen" abgelegt. Dieses File ist ein Archiver-ZEN-File. Es läßt sich textuell editieren, wobei allerdings die Einhaltung des Formates und der Syntax sehr wichtig ist. Der Hauptteil des Files könnte z.B. so aussehen:</p>
+
+<pre>
+[LensFlareFXList % 0 0]
+  [% zCLensFlareFX 0 0]
+    name=string:ZSUN_FLARE
+    numFlares=int:5
+    [% % 0 0]
+      texName=string:unsun5.tga
+      type=enum;FT_CORONA;FT_GLOW;FT_FLARE:2
+      size=float:0.8
+      alpha=float:60
+      rangeMin=float:0
+      posScale=float:0.3
+    []
+... (3 Flares ausgelassen) ...
+    [% % 0 0]
+      texName=string:unsun5.tga
+      type=enum;FT_CORONA;FT_GLOW;FT_FLARE:2
+      size=float:0.7
+      alpha=float:60
+      rangeMin=float:0
+      posScale=float:2.1
+    []
+  []
+  [% zCLensFlareFX 0 0]
+    name=string:GLOW0
+    numFlares=int:1
+    [% % 0 0]
+      texName=string:zflare1.tga
+      type=enum;FT_CORONA;FT_GLOW;FT_FLARE:1
+      size=float:1.5
+      alpha=float:150
+      rangeMin=float:100
+      posScale=float:0.0
+    []
+  []
+  [% zCLensFlareFX 0 0]
+    name=string:CORONA0
+    numFlares=int:1
+    [% % 0 0]
+      texName=string:zflare1.tga
+      type=enum;FT_CORONA;FT_GLOW;FT_FLARE:0
+      size=float:1.0
+      alpha=float:155
+      rangeMin=float:100
+      posScale=float:0.0
+    []
+  []
+[]
+</pre>
+
+<p>LensFlare-Effekte haben Namen und werden über diese referenziert. So kann z.B. in den Eigenschaften von Lichtquellen im Spacer (Klasse zCVobLight) der Name eines Lensflare-Effektes angegeben werden. Der Effekt mit dem entsprechendem Namen wird dann dargestellt, wenn die Lichtquelle sichtbar ist. Ein Lensflare-Effekt besteht aus einer Anzahl von "Flares", wobei jeder Flare von einem der Typen Glow, Corona oder LensFlare ist. Es lassen sich LensFlare-Effekte grob nach den in ihnen enthaltenen Flares in Glow-, Corona- und LensFlare-Effekte einteilen. Nun eine Beschreibung der einzelnen Flare-Typen.</p>
+
+<ul>
+<li>Glows<br>
+Das Licht einer Lichtquelle erleuchtet die sich in unmittelbarer Umgebung der Lichtquelle befindlichen Partikel in der Luft, die das Licht reflektieren und dadurch sichtbar werden. Dieser Effekt wird mit Glows-Textures simuliert. Glows haben die Farbe der Lichtquelle und werden mit Zbuffer gerendert, sie werden also in die Szene "einsortiert" und verschwinden somit auch hinter Wänden. Sie werden kleiner wenn man sich von ihnen wegbewegt.
+<li>Coronas <br>
+Beim Betrachten von  starkem Licht nimmt der Mensch eine grelle Überblendung wahr, die sich über die wahrgenommene Szene legt. Dieser Effekt wird mit Corona-Textures simuliert. Coronas haben die Farbe der Lichtquelle und werden ohne Zbuffer "über" die Szene gerendert. Sie sind nur sichtbar, wenn direkter Sichtkontakt zu der Lichtquelle besteht (Linie). Sie behalten ihre Größe, unabhängig davon, wie weit sich der Betrachter von dem Ort der Lichtquelle befindet.
+<li>LensFlare<br>
+Flare-Effekte ergeben sich durch Lichtbrechungen in realen Kameras z.B. beim Filmen der Sonne. Sie werden simuliert, indem eine Anzahl von Flare-Bitmaps auf einer Linie zwischen der Lichtquelle und dem Mittelpunkt des Bildschirms in verschiedenen Abständen und Größen gerendert werden.
+</ul>
+
+<p>Innerhalb eines LensFlare-Effektes lassen sich die verschiedenen Flare-Typen auch mischen. So können sich z.B. sowohl Corona- als auch Glow-Flare in einem Effekt befinden.</p>
+
+<p>Die Definition eines Lensflare-Effektes wird mit der Zeile</p>
+<pre>
+  [% zCLensFlareFX 0 0]
+</pre>
+<p>eingeleitet. Der Name des Effekts wird in der folgenden Zeile mit dem Schlüsselwort "name" festgelegt. "numFlares" legt die Anzahl der Flares fest, aus die der Effekt besteht. Bei Glow und Corona Effekten ist diese Zahl typischerweise 1 und bei Lensflare Effekten größer als 1. Dann folgen die Definitionsblöcke der einzelnen Flares, deren Anzahl gleich "numFlares" ist.<p>
+
+<p>Eine Flare-Definition wird mit der Zeile </p>
+<pre>
+  [% % 0 0]
+</pre>
+<p>eingeleitet (Die Angaben zwischen den Klammern haben interne Bedeutung und müssen wie im Beispiel angegeben werden).</p>
+
+<p>Der Texturname des Flares wird unter dem Schlüsselwort "texName" angegeben. "type" legt den Typ des Flares fest (Corona, Glow oder Flare) und "size" dessen Größe (meist Werte um 1.0). "alpha" ist die maximale Opazität des Flares (0 völlig transparent, 255 völlig opak). "rangeMin" ist nur bei Glows und Coronas wirksam und gibt die minimale Distanz in cm an, bis der ein Glow oder eine Corona noch sichtbar ist. Glows und Coronas sind sichtbar, solange sie sich von der Kamera nicht weiter weg als die FarClipPlane und nicht näher als die "rangeMin" befinden. Innerhalb dieser beiden Grenzen ist ihr maximales Alpha gleich dem Wert "alpha" und sie faden sanft aus, wenn sich einer der beiden Grenzen nähern. "rangeMin" kann auch negative Werte haben. In diesem Fall ist das Flare nicht ausgefadet, wenn sich die Kamera am selben Ort wie der Flare befindet.</p>
+<p>"posScale" ist nur bei Flares wirksam und gibt die Position des Flares auf der Linie zwischen der Lichtquelle und dem Mittelpunkt des Bildschirmes an. "0.0" ist die Position der Lichtquelle "1.0" der Bildschirmmittelpunkt "2.0" der Ort der Lichtquelle direkt gegenüber etc.</p>
+<p>Sowohl der LensFlare-Effekt Definitionsblock, als auch der Flare Definitionsblock werden mit den Zeilen "[]" abgeschlossen.</p>
+
+<p>Anmerkungen:
+<ul>
+<li>Die für die Flares benutzten Texturen sollten quadratisch sein, da sie sonst als "Eier"  dargestellt werden.
+<li>Der Falloff der Flares läßt sich über die Texturen regeln. 
+<li>Für einige Effektes ist es ratsam den "rangeMin" Wert etwas weiter von der Kamera weg zu legen. Negativ-Beispiel: Der Flare ist ein "Glow" und "rangeMin" ist gleich 0. Wenn sich nun die Kamera in minimaler Distanz vor dem Glow befindet ist dieser kaum sichtbar und sogut wie ausgeblendet, wird allerdings trotzdem über den ganzen Bildschirm gerendert und frisst Performance.
+</ul>
+</p>
+
+<a name="03"><H1>3. Datei-Formate</H1></a>
+
+<table cellpadding=2 border=2>
+<tr>
+	<th>Endung</th>
+	<th>Name</th>
+	<th>Beschreibung</th>	
+</tr>
+<tr>
+	<td>.MAN</td>
+	<td>ModelAnimation</td>
+	<td>Enthält die Animation eines Models</td>	
+</tr>
+<tr>
+	<td>.MDH</td>
+	<td>ModelHierarchie</td>
+	<td>Enthält die Hierarchie eines Models</td>	
+</tr>
+<tr>
+	<td>.MDM</td>
+	<td>ModelMesh</td>
+	<td>Enthält das Mesh eines Models</td>	
+</tr>
+<tr>
+	<td>.MDL</td>
+	<td>Model (complete)</td>
+	<td>Enthält die Hierarchie und das Mesh eines Models</td>	
+</tr>
+<tr>
+	<td>.MDS</td>
+	<td>ModelScript</td>
+	<td>Enthält das Script eines Models, das zugehörige Hierarchie, Meshes und
+Animationen festlegt</td>	
+</tr>
+<tr>
+	<td>.MMS</td>
+	<td>MorphMeshScript</td>
+	<td>Enthält das Script eines MorphMeshes, das zugehörige Hierarchie, Meshes und Animationen festlegt</td>	
+</tr>
+<tr>
+	<td>.MMB</td>
+	<td>MorphMeshBinary</td>
+	<td>Enthält ein komplettes MorphMesh in compilierter Form: Hierarchie, Meshes und Animationen</td>	
+</tr>
+<tr>
+	<td>.MRM</td>
+	<td>MultiResolutionMesh</td>
+	<td>Enthält ein statisches Mesh, dessen Polygonzahl zur Laufzeit kontinuierlich reduzierbar ist (CLOD)</td>	
+</tr>
+<tr>
+	<td>.MSH</td>
+	<td>Mesh</td>
+	<td>Enthält die Animation eines Meshes. Altes Format</td>	
+</tr>
+<tr>
+	<td>.ASC</td>
+	<td>ACII, 3DS-MAX Export</td>
+	<td>Enthält aus 3DS-MAX exportierte Daten in textueller Form. Die Engine kann dieses Format einlesen und in kompilierte Format übersetzen</td>	
+</tr>
+<tr>
+	<td>.DAT</td>
+	<td>compiled scripts</td>
+	<td>Die in .SRC Files aufgeführten Quelltext .D Files werden kompiliert und in ein .DAT File gespeichert</td>	
+</tr>
+<tr>
+	<td>.SRC</td>
+	<td>list of script files</td>
+	<td>Enthält eine Auflistung von .D Script-Files</td>	
+</tr>
+<tr>
+	<td>.D</td>
+	<td>Ein Script-File</td>
+	<td> </td>	
+</tr>
+<tr>
+	<td>.DLS, .SGT, .STY</td>
+	<td>DirectMusic Format</td>
+	<td>Kann vom DirectMusic Producer gelesen und geschrieben werden</td>	
+</tr>
+<tr>
+	<td>.ZEN</td>
+	<td>ZenGin Archive</td>
+	<td>.ZEN Files können beliebige Daten einhalten (Teil des OOP-Persistenz Mechanismus), enthalten aber meistens einen kompletten Level, oder ein Hierarchie von Level-Objekten</td>	
+</tr>
+<tr>
+	<td>.BIN, .CSL</td>
+	<td> </td>
+	<td>Enthalten Text und Cutscene Daten</td>	
+</tr>
+<tr>
+	<td>.TEX</td>
+	<td>Texture</td>
+	<td>Enthält eine Textur samt MipMap (Standard-Format: DXTC/S3TC)</td>	
+</tr>
+<tr>
+	<td>.FNT</td>
+	<td>Font</td>
+	<td>Enthält die UV-Koordinaten aller Buchstaben eines Fonts (bzgl. einer korrespondierenden Textur)</td>	
+</tr>
+
+</table>
+
+
+<a name="04"><H1>4. Texturen</H1></a>
+
+<H2>4.1 Texture Format Hints</H2>
+
+<p>Grafiker legen die Texturen im Quellformat in ein Unterverzeichnis von "_WORK\DATA\TEXTURES\" an. Für ein möglichst hohe Performance zur Laufzeit wird jede Ursprungs-Textur bei erstmaliger Benutzung (oder zu Programmstart per Kommandozeilen-Option) in ein internes Format (DXTC/S3TC) konvertiert und als Datei mit der Endung ".TEX" im Verzeichnis "_WORK\DATA\_COMPILED" abgelegt. Siehe dazu auch die Dokumentation zum GothicStarter.</p>
+
+<p>Auf die Konvertierung von Quell- nach internem Format kann man mit "Hints" Einfluss nehmen. Hints sind textuelle Schlüsselwörter, die im Namen oder Pfad der Ursprungs-Textur abgelegt sind:</p>
+
+<ul>
+<li><u>Farbtiefe</u><br>
+Texturen werden per Default in das komprimierte Format DXTC/S3TC konvertiert, das in etwa der Qualität einer Auflösung von 16 Bit per Pixel entspricht, aber nur 4 Bit Per Pixel an Speicher benötigt. Um die Engine dazu zu veranlassen, eine Textur in anderem Pixelformat zu benutzen, muss in dem Namen der Textur oder eines der Oberverzeichnisse eines der Zeichenketten "16bit" oder "32bit" vorkommen. Die Benutzung von expliziten 16/32 Bit Texturen kann Sinn machen, um bestimmten visuellen Problemen und Artefakten des DXTC-Formates aus dem Weg zu gehen. Beispiel:
+"_WORK\DATA\TEXTURES\SKY\NOMIP_16BIT\CLOUDS.TGA", belegt jedoch mehr Hauptspeicher.
+
+<li><u>"nomip"</u><br>
+Per Default werden für alle Texturen MipMaps erzeugt. Wenn aber in dem kompletten Pfad der Textur das Schlüsselwort "nomip" vorkommt, werden für die Textur keine MipMaps erzeugt. Die Verwendung macht Sinn, um bestimmten visuellen Problemen und Artefakten bei der Verwendung von MipMaps aus dem Weg zu gehen, oder etwas Speicher und Bandbreite zu sparen, falls eine Textur nie oder selten verkleinert dargestellt wird. Beispiel:
+"_WORK\DATA\TEXTURES\EFFECTS\NOMIP\LIGHTNING.TGA"
+</ul>
+
+<H2>4.2 Namen für Multi-Texturen</H2>
+
+<p>Ein Textur-Name mit dem Format</p>
+
+<pre>
+"NAME_[BUCHSTABE0][ZAHL0]_..[BUCHSTABEn][ZAHLn].TGA"
+(Beispiel: "HUM_HEAD_HAIR1_C0_V0.TGA")
+</pre>
+
+<p>steht für eine Multitextur, also eine ganze Reihe von Texturen, die über das Namensschema verbunden sind. Dieses Format sollte ausschließlich für Multitexturen verwendet werden. Demnach ist folgender Texturname für eine einzelne Textur nicht zulässig : "w_s2_v1.TGA". Die Engine fängt solche "falschen" Namen zwar ab, ist beim Laden allerdings langsamer.</p>
+
+<p>Multitexturen werden z.B. benutzt für framebasierte Textur-Animationen (z.B. kann sich bewegendes Wasser durch das Abspielen einer Sequenz von Texturen dargestellt werden "WATER_A0.TGA" ...), oder um alle Textur-Variationen in einen gemeinsamen Zusammenhang zu bringen, die auf dem Mesh eines Model angewandt werden können. In Gothic z.B. werden auf die Körper-Meshes der Menschen Multitexturen gelegt, um diese zur Laufzeit auf demselben Mesh austauschen zu können. Die verwendeten Multitexturen haben zwei Kanäle: der Kanal "C" steht für die Hauttönung, der Kanal "V" für die Variation. Die Textur "Hum_Body_Naked_V2_C3.tga" bezeichnet z.B. die Körpertextur eines Menschen ohne Rüstung in der Variation 2 und der Hauttönung 3 (= dunkelhäutig). Die Wahl einer konkrete Texturvariation für ein gegebenes Model findet in den Skripten statt.</p>
+
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

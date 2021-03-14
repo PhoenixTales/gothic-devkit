@@ -1,0 +1,510 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: GothicMODs erstellen, installieren und starten</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                GothicMODs erstellen, installieren und starten
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version: 26.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#1"><b>Wie modifiziere ich Gothic?</a></b>
+        <li><a href="#2"><b>Wie erstelle ich ein GothicMOD?</a></b>
+        <li><a href="#3"><b>Installieren eines GothicMOD</a></b>
+        <li><a href="#4"><b>Spielen eines GothicMOD</a></b>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<a name="1">
+<H1>Wie modifiziere ich Gothic?</H1>
+</a>
+
+
+<p>
+Die meisten Gothic-Daten sind in den VDF-Dateien im Verzeichnis /data/ 
+gespeichert. Ausnahmen sind die Skriptdateien und (aus technischen Gründen)
+Videos und Musikdaten.
+</p>
+<p>
+Das eigentliche Datenverzeichnis von Gothic ist /_work/data/ (ab jetzt nur noch
+[GDATA] genannt); nicht zu verwechseln mit /data/, in dem die VDF-Dateien
+abgelegt sind. VDF-Dateien enthalten die komplette Verzeichnisstruktur in
+&quot;[GDATA]/&quot; ... sie sind also virtuelle Abbilder dieser Verzeichnisse.
+</p>
+<p>
+Das Programm <B>\VDFS-Tool\GothicVDFS.exe</B> kann benutzt werden, 
+um den Inhalt von VDF-Dateien anzuzeigen oder zu extrahieren. Um Daten zu verändern,
+die in VDF-Dateien enthalten sind, müssen diese vorher extrahiert werden.
+</p>
+<p>Es ist also möglich eine VDF-Datei nach &quot;[GDATA]/&quot; zu entpacken
+und dann zu löschen. Nun wird Gothic die Dateien zwar nicht mehr per
+VDF-System (VDFS) finden, sucht dann aber in den entsprechenden Verzeichnissen
+auf der Festplatte, was allerdings länger dauert.
+</p>
+<p>Fast jedes Datenformate von Gothic liegt in einer compilierten Form vor.
+Auf die einzelnen Formate gehen die folgenden Abschnitte etwas genauer ein.
+An dieser Stelle sei nur erwähnt, dass compilierte Daten jeweils in den
+entsprechenden COMPILE-Verzeichnissen liegen.
+</p>
+<p>
+<font color="red">
+Hinweis: Im SYSTEM-Verzeichnis befindet sich auch eine Datei paths.d, in der die
+einzelnen besonders wichtigen Verzeichnisse aufgeführt sind. Die Datei darf
+allerdings  nicht verändert werden, sonst ist nicht mehr
+damit zu rechnen,  dass Gothic weiterhin funktioniert.
+</font>
+</p>
+
+<H1>Texturen</H1>
+
+<p>
+Verzeichnisse für Texturen:
+<UL>
+<LI>Allgemein: [GDATA]/textures
+<LI>Compilierte Texturen (*.TEX): [GDATA]/textures/_compiled
+</UL>
+</p>
+
+<p>
+Die Texturen von Gothic liegen im TEX-Format vor. Dieses Format kann von Gothic
+automatisch erzeugt werden. Dabei  dient das TGA-Format als Ausgangsformat. TGAs
+sucht Gothic  übrigens quer durch die Unterverzeichnisse. Identische
+Texturnamen  sollten also vermieden werden, selbst wenn die Texturen in
+verschiedenen Verzeichnissen stecken.
+</p>
+
+<H2>Texturen konvertieren</H2>
+
+<p>
+Neue Texturen im TGA-Format werden von Gothic automatisch erkannt und konvertiert. 
+Die konvertierten Texturen im TEX-Format landen im COMPILED-Verzeichnis.
+Wenn ihr vorhandenen Texturen ändert, müsst ihr zum konvertieren die 
+<a href="../tools/gothic_tools_starter.htm#4">GothicStarter.exe</a> (Advanced-Options: convert textures)
+benutzen. 
+</p>
+
+
+<H1>Sounds</H1>
+    
+<p>
+Verzeichnisse für Sounds:
+<ul>
+<li>Allgemein: [GDATA]/sounds
+</ul>
+</p>
+
+<p>
+Für Sounds gilt das gleiche wie für Texturen: Sie werden quer durch
+alle Unterverzeichnisse gesucht.  Auch hier sollten identische Dateinamen
+vermieden werden. Die Sounds werden direkt als WAV-Datei verwendet.
+Eine Konvertierung findet nicht statt.
+</p>
+
+<H1>Welten/Level</H1>
+
+<p>
+Verzeichnisse für Level:
+<ul>
+<li>Allgemein: [GDATA]/worlds
+</ul>
+</p>
+
+<p>
+Level werden als ZEN-Dateien abgelegt. Hier eine knappe übersicht, wie man
+zu solchen ZEN-Dateien kommt:
+</p>
+
+<ol>
+<li>Ein Levelmesh (3DS-Format) im Spacer einladen
+<li>Zum Texturieren im Editor-Modus compilieren (Indoor/Outdoor beachten!)
+        <ul>
+        <li>Texturieren
+        </ul>
+<li>Zum Objektieren ohne Editor-Modus compilieren (Indoor/Outdoor beachten!)
+        <ul>
+        <li>Default-Zonen setzen (DefaultFogZone und DefaultMusicZone)
+        <li>Objekte einfügen: Bäume, Items (keine NPCs!)
+        <li>Beleuchten und Beschallen: Licht und Soundobjekte
+        <li>Rätsel bauen
+        <li>...
+        </ul>
+<li>Licht compilieren
+<li>Level als ZEN-Datei speichern
+</ol>
+
+<p>
+Weitere Informationen zum Level-Editing findet ihr in folgenden Docs:
+<li><a href="../tutorials/level/level-tutorial.htm"><b>Tutorial: Outdoor-Level</b></a>
+
+</p>
+
+<H1>Skripte</H1>
+    
+<p>
+Verzeichnis für Skripte:
+
+<ul>
+<li>Allgemein: [GDATA]/scripts
+<li>Compiliert (*.DAT): [GDATA]/scripts/_compiled
+<li>Content (*.D, *.SRC): [GDATA]/scripts/content
+<li>System (*.D, *.SRC): [GDATA]/scripts/system
+</ul>
+</p>
+
+<p>
+Als Content bezeichnen wir alle Scripte, die etwas mit dem Spielinhalt zu tun
+haben: NPCs, Items, Quests, AI; System-Skripte beschreiben Menüs, Effekte
+u.a.
+</p>
+
+<p>
+Es gibt im Rahmen unserer Scriptsprache drei verschiedene Arten von Dateien:</p>
+
+<UL>
+<li><B>D-Skripte</B> (Endung &quot;.d&quot;) sind die eigentlichen Scripte, die
+vom Gothic-Parser  compiliert werden. Sie sind in einer Sprache geschrieben, die
+(entfernt) an  C erinnert. Es gibt IF-Abfragen, logische Ausdrücke,
+Variablen  und -type, sowie Funktionen. Zusätzlich wird ein sehr einfaches
+Klassen- und Instanzen-Konzept verwendet. Nähere  Informationen zur
+Scriptsprache entnehmt bitte dem entsprechenden  Dokument.
+<li><B>SRC-Listen</B> (Endung &quot;.src&quot;) sind einfache Auflistungen von
+D- und SRC-Scripten und  können vielleicht am ehesten mit
+INCLUDE-Blöcken  verglichen werden: Die dort aufgelisteten Dateien
+(Wildcards sind erlaubt)  werden vom Parser zu einem DAT-File gelinkt.
+<li><B>DAT-Files</B> (Endung &quot;.dat&quot;) sind compilierte Versionen der
+SRC-Listen.
+</ul>
+
+<H4>Scripte compilieren und testen</H4>
+
+<p>
+Um geänderte Scripte in ein neues aktuelles DAT-File zu
+überführen, muss Gothic mit dem Parameter -zreparse gestartet werden.
+Auch dies kann die <a href="../tools/gothic_tools_starter.htm">GothicStarter.exe</a> übernehmen (Advanced-Options: reparse
+all scripts).
+</p>
+
+<p>
+Dann werden alle Scripte im Scriptverzeichnis komplett neu geparsed und zu
+aktualisierten DAT-Files  gelinkt.
+</p>
+
+<p>
+Mehr zu den Scripten und ihrer Arbeitsweise findet Ihr in folgenden Dokumenten:</p>
+
+<li><a href="../skripte/gothic_skriptsprache.htm"><b>Die Skriptsprache (<i>Deadalus</i>)</b></a>
+<li><a href="../skripte/gothic_skripte.htm"><b>Gothic-Skripte</b></a>
+<li><a href="../tutorials/script/script-tutorial.htm"><b>Skript-Tutorial</b></a>
+
+        	
+<H2>Wie findet Gothic meine Dateien?</H2>
+
+<p>Der Mechanismus ist eigentlich ganz einfach:
+<ol>
+<li>Gothic schaut nach, ob die gesuchte Datei in einem der VDF-Dateien zu finden
+ist
+<li>Ist sie in genau einer VDF-Datei zu finden, so wird diese verwendet
+<li>Ist sie in mehreren VDF-Dateien vorhanden, so wird sie aus der aktuellsten
+genommen (auf diese Weise sind Patches möglich)
+<li>Ist sie in keiner VDF-Datei zu finden, so wird im entsprechenden Verzeichnis
+auf der Festplatte gesucht
+<li>Schlägt auch das fehl, so gibt es eine Fehlermeldung
+</ol>
+</p>
+
+<p>
+Das führt natürlich zu einem Problem:<br>
+Eine Datei, die schon in einem VDF-File zu finden ist, wird nie von der
+Festplatte gelesen, was natürlich das Testen von geänderten Dateien
+(z.B. Texturen) erschwert.
+</p>
+              
+<p>
+Aber mal Schritt für Schritt:
+<ol>
+<li><U>Neue Dateien</U>, wie z.B. ein neuer Level oder darin referenzierte
+Texturen, Sounds etc. werden ja  nicht in den VDF-Dateien gefunden, also auf der
+Festplatte  gesucht. Wunderbar!
+<li>Von Euch <U>Geänderte Dateien</U>, die auch in den offiziellen VDFs
+vorhanden sind, werden dort gefunden  und die einzelne Datei auf der Festplatte
+ignoriert.  Möglichkeiten zur Lösung des Problems:
+        <ol>
+        <li>Immer ein eigenes VDF erstellen (das GothicMOD-VDF, siehe
+nächstes Kapitel) und damit  Testen.
+        <li>Die neue Option vdfs:physicalfirst nutzen. Im <a href="../tools/gothic_tools_starter.htm">GothicStarter</a> ist
+hierfür eine Einstellung vorgesehen (physicalfirst). Damit kann man Gothic dazu
+zwingen, zuerst direkt auf der Festplatte nachzuschauen.
+        <li>Mit entpackten VDFs arbeiten: Die  Einzeldateien
+aus den VDFs also nach &quot;[GDATA]/&quot; entpacken und das VDF
+löschen.
+        </ol>
+</ol>
+</p>
+
+<p>
+Das war eine kurze Beschreibung, aller Dinge, die man innerhalb eines MODs ändern, bzw. neu erstellen kann.
+Bevor ihr beginnt, ein eigenes MOD zu machen, lest bitte auch die ausführliche Doku zur Scriptsprache, zur ZenGin und die Tutorials.
+</p>
+
+<a name="2">
+<H1>Wie erstelle ich ein GothicMOD?</H1>
+</a>
+
+<H2>Inhalt eines GothicMOD</H2>
+
+<p>
+In diesem Abschnitt wird erklärt, wie geänderte Daten zu einem MOD zusammengestellt werden können, um sie an andere weiterzugeben.
+Dabei gehe ich weniger auf die einzelnen Daten ein,
+sondern mehr  darauf, wie man die Daten nun zu einem GothicMOD verpackt.
+</p>
+           
+<p>
+Ein GothicMOD besteht in der Regel aus zwei Dateien:
+
+<pre>
+   ./system/modname.ini
+   ./data/modvdf/modname.mod
+</pre>
+
+<ul>
+<li><B>GothicMOD-INI <BR></B>Zu jedem GothicMOD gehört eine Datei
+<i>modname.ini</i>, in der diverse Dateinamen und Einstellungen festgelegt
+ sind. Diese Datei wird im SYSTEM-Verzeichnis erwartet. 
+Eine genaue Beschreibung aller Einträge in der INI findet ihr im Dokument <a href="../mod/gothic_mod_ini.htm">GothicMOD-INI</a>
+<li><B>GothicMOD-VDF<BR></B>Die eigentlichen Daten eines MODs (Sounds, Texturen,
+Level, Scriptdateien)  werden in eine VDF-Datei gepackt. Diese Datei hat aber,
+anders als die  bei Gothic mitgelieferten VDF-Dateien, nicht die Endung .VDF,
+sondern die Endung .MOD und ist in einem anderen Verzeichnis (/data/modvdf/) zu
+speichern. Jedes MOD sollte nur <u>ein</u> solches GothicMOD-VDF besitzen.
+<p>
+Zum Erstellen eines GothicMOD-VDFs benötigt ihr das Programm
+<B>\VDFS-Tool\GothicVDFS.exe</B> 
+</p>
+
+<p>
+Mit diesem Programm müsst ihr nun alle geänderten, bzw. neuen Daten, die zu eurem MOD gehören, in eine VDF-Datei (.mod) einpacken.
+Dabei braucht ihr nur die compilierten Daten, d.h. bei den Scripten nur die DAT-Files, nicht die einzelnen Scripte (.d)!
+</p>
+
+
+<li>Im Abschnitt <B>&quot;Ausnahmen&quot;</B> findet Ihr Hinweise zur Verwendung
+eigener Musikstücke und  Videos, die nicht in das GothicMOD-VDF gepackt
+werden  dürfen.
+</ul>
+</p>
+
+<H2>Ausnahmen</H2>
+
+<P>Einige Dateien von Gothic befinden sich nicht in den
+VDF-Files. Dies sind zum einen die Scriptdateien (DAT-Files), die Ihr
+aber unbedingt in Euer GothicMOD-VDF packen solltet; zum anderen
+können aber aus technischen Gründen keine Videos und
+Musikdateien für DirectMusic (DirectX) in einem VDF-File
+verwaltet werden. Deshalb mü&szlig;t ihr solche Dateien, solltet
+Ihr welche erstellt haben, als Einzeldateien in das MOD-Packet
+aufnehmen:
+</p>
+
+<pre>
+Beispielinhalt von <I>modname</I>.exe (z.B. ein ZIP- oder RAR-EXE):
+   ./system/modname.ini
+   ./data/modvdf/modname.mod
+   ./_work/data/music/modname/file1.sgt
+   ./_work/data/music/modname/file2.dls
+   ./_work/data/videos/modname/video1.bik
+   ./_work/data/videos/modname/video2.bik
+</pre>
+
+<p>
+<font color="#660000">
+<u>Noch einmal:</u> Alle Dateien für ein MOD gehören in das
+GothicMOD-VDF mit dem Namen <I>modname.mod</i>. Ausnahmen sind nur Musikdateien
+und Videos.
+</font>
+</p>
+
+<H2>GothicMOD-EXE erstellen</H2>
+
+<P>Ein GothicMOD ist im Idealfall ein selbstextrahierendes Archiv:</p>
+
+<pre>
+Inhalt von modname.exe (ein ZIP- oder RAR-EXE):
+   ./system/modname.ini
+   ./data/modvdf/modname.mod
+</pre>
+
+<p>
+Diese selbstextrahierende EXE-Datei darf nur relative
+Pfade (relativ zum Gothic-Verzeichnis) enthalten.
+</p>
+
+<p><b>Dabei geht ihr wie folgt vor:</b></p>
+
+<p>
+Erstellt Euch eine kleine eigene Verzeichnisstruktur, in der ihr Eure fertigen
+MOD-Dateien (und nur die) ablegt:
+</p>
+
+<pre>
+Beispielsweise folgenderma&szlig;en:
+   c:/mymod/system/mymod.ini
+   c:/mymod/data/modvdf/mymod.mod
+</pre>
+
+<p>
+Nun mü&szlig;t Ihr noch das Archiv-EXE anlegen (Achtung, der Standardweg
+mit WinZIP/WinRAR führt nicht zum gewünschten Ergebnis!)
+</p>
+
+<p>
+<b>So geht's mit WinZIP:</b>
+<OL>
+<li>WinZIP starten</p>
+<li>Ein neues Archiv mit dem Dateinamen <I>modname.zip</I> anlegen
+<li>Versichert Euch, dass die Option &quot;<U>Store full path info</U>&quot;
+<B>nicht</B> aktiviert ist.
+<li>Navigiert in (!) das eben angelegte Verzeichnis (z.B. c:/mymod/)
+<li>Markiert die darin befindlichen Verzeichnisse system/ und data/ und
+drückt den ADD-Button
+<li>Nun sollten in der übersicht das GothicMOD-VDF und die GothicMOD-INI
+auftauchen. Achtet bitte darauf, dass in der Spalte &quot;path&quot; die
+korrekten Pfade stehen (data\modfvdf\) und (system\)
+<li>Mit dem Menüpunkt &quot;ACTIONS/MAKE .EXE FILE&quot; die
+selbstextrahierende Datei erzeugen.
+<li>Gebt als &quot;Default to&quot;-Pfad folgendes an: &quot;./&quot;
+<li>Fertig: Die erstellte EXE-Datei mit dem Namen <I>modname.exe</I> solltet
+Ihr selber einmal testen. Siehe auch den Abschnitt &quot;Installieren eines
+GothicMODs&quot;.
+</OL>
+</p>
+ 
+<p>
+<B>So geht's mit WinRAR:</B>
+<OL>
+<li>Startet WinRAR</p>
+<li>Navigiert mit WinRAR in das eben angelegte Verzeichnis (c:/mymod/)
+<li>Markiert alle darin enthaltenen Verzeichnisse system/ und data/
+<li>Drückt den Knopf ADD in der Toolbar
+<li>Versichert Euch, dass auf der Dialogseite &quot;FILES&quot; die Option
+&quot;Store relative paths&quot; ausgewählt ist.
+<li>Gebt dem Archiv den Namen <I>modname.rar</I> und wählt die Option
+&quot;Create SFX archive&quot; (modname.rar wird zu modname.exe)
+<li>Mit OK bestätigt Ihr und fertig ist das EXE. Testen nicht vergessen
+:-)  Siehe auch den Abschnitt &quot;Installieren eines GothicMODs&quot;
+</OL>
+</p>
+
+<a name="3">
+<H1>Installieren eines GothicMOD</H1>
+</a>
+
+<p>
+Mit einem solchen korrekt erstellten GothicMOD-EXE ist es nun sehr leicht
+möglich, den MOD zu installieren.
+</p>
+
+<p>
+<OL>
+<li>GothicMOD-EXE in das Gothic-Hauptverzeichnis kopieren
+<li>Das EXE starten
+</OL>
+</p>
+
+<p>
+Dann werden alle enthaltenen Dateien in die richtigen Verzeichnisse kopiert.
+</p>
+
+<a name="4">
+<H1>Spielen eines GothicMOD</H1>
+</a>
+
+<p>
+Nachdem ein GothicMOD korrekt installiert wurde, kann
+es mit dem Programm GothicStarter.exe gestartet werden. Dieses
+Programm zeigt alle vorhandenen MODs in einer Liste und bietet noch
+einige weitere Funktionen. Wenn ihr GOTHIC-MODs benutzt, solltet ihr
+Gothic nur noch mit diesem Tool starten.
+Dazu empfehle ich auch die <a href="../tools/gothic_tools_starter.htm">GothicStarter-Dokumentation</a>.
+</p>
+
+
+
+
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table> 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

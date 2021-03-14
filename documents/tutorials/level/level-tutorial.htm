@@ -1,0 +1,245 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: ZenGin Models</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Tutorial: Outdoor-Level
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Markus Kark
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  19.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+		<li><a href="#01"><b>1. Einleitung</b></a>
+		<li><a href="#02"><b>2. Modellierung eines einfachen Levelmeshes</b></a>
+		<li><a href="#03"><b>3. Erstellung eines ZENs</b></a>
+		<li><a href="#04"><b>4. Erster Testlauf</b></a>
+		<li><a href="#05"><b>5. Ein Portalraum</b></a>
+		<li><a href="#06"><b>6. Einfügen von Objekten</b></a>
+        </ul>
+        </b>
+        <a href="../../gothic.htm"><b><i>Zum Index</i></b></A>
+        <br><br><br>
+        <b>Hinweis: Einige Bilder werden verkleinert dargestellt. Ein Mausklick reicht, und das Bild erscheint in voller Größe!</b>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<!---- History
+19.07.01: NEU
+----->
+<a name="01"><H1>1. Einleitung</H1></a>
+<p>In diesem Tutorial wird die Erstellung eines Gothic-Levels - ein sogenanntes ZEN - vorgeführt. Es werden Grundlagen im Umgang mit 3D Studio MAX 3.1 vorausgesetzt. Die Unit-Einstellung von 3D Studio sollte auf cm sein.</p>
+
+<p>Benötigte Software:
+<ul>
+	<li>GOTHIC MOD Development Kit
+	<li>modifizierte 3DS-Exporter aus dem Dev Kit (den alten Exporter überschreiben!!!)
+	<li>3D Studio MAX 3.1
+</ul>
+</p>
+
+<a name="02"><H1>2. Modellierung eines einfachen Levelmeshes</H1></a>
+<p>Aller Anfang ist schwer, und deswegen fangen wir mit etwas leichtem an. Ein einfacher Outdoor-Level für Gothic. Zunächst starten wir 3D Studio, mit dem wir unsere 3DS-Datei - das Levelmesh - erstellen werden. </p>
+<ul>
+<li><p>a) Wir beginnen mit einer einfachen Plane mit den Massen 1000x1000, sowie einer Grid-Unterteilung von 3x3. Diese plazieren wir so, das sie genau im Koordinatenursprung liegt. Das stellt nachher den Boden unseres Levels dar.</p>
+ 	<a href="pics/plane_01.jpg"><img src="pics/plane_01.jpg" width="320" height="200"></A>
+<br> 
+<li><p>b) Wir collapsen die Plane zu einem EditableMesh Objekt und öffnen den Material-Editor. Dort erstellen wir im ersten Slot ein <b>Standard</b>-Material mit dem Namen <b>BODEN</b>. In den <b>Diffuse</b>-Slot des Materials legen wir eine <b>Bitmap</b>. Im Dialogfeld wählen wir uns nun eine Textur aus dem <b>GOTHIC MOD Development Kit\3DS MAX Stuff\Level-Texturen</b> Verzeichnis aus, und zwar <b>OtFlTile01.tga</b>.</p>
+ 	<a href="pics/plane_02.jpg"><img src="pics/plane_02.jpg" width=320 height=200></A>
+<p>Wir aktivieren das Kästchen "Show Map in Viewport' und weisen der Plane das Material zu. Auf den Modifier Stack legen wir noch einen UVW Map Modifier, Planar mit den Massen 200x200. Die Plane sollte jetzt in etwa so aussehen.</p>
+	<a href="pics/plane_03.jpg"><img src="pics/plane_03.jpg" width=320 height=200></A>
+
+<p>Dies reicht auch schon für den ersten Test unseres Levels aus.</p>
+<br>
+<li><p> c) Nun exportiert man die Datei über <b>File\Export...</b>. Wir wählen als Dateityp <b>3DS</b> aus als Speicherpfad <b>GOTHIC\_WORK\DATA\MESHES\LEVEL\</b> auswählen. Als Namen für das 3DS nehmen wir <b>MyLevel.3ds</b>.</p> 
+  	<a href="pics/plane_04.jpg"><img src="pics/plane_04.jpg" width=320 height=200></A>
+<p>Die Option <b>Preserve MAX Texture Coordinates</b> muss aktiviert sein, da sonst die Texturierung nicht korrekt übernommen wird.</p>
+  	<a href="pics/plane_05.jpg"><img src="pics/plane_05.jpg" width=320 height=200></A>
+ ansch
+</ul><br>
+<p> Wir haben nun ein einfaches Level-Mesh erzeugt und können es nun ins ZEN-Format umwandeln. Den Level sollten wir zusätzlich noch als MAX-Datei sichern.</p>
+<br><br><br>
+
+<a name="03"><H1>3. Erstellung eines ZENs</H1></a>
+<p>Nun kommt der Schritt vom 3DS-File zum ZEN, dem Gothic-eigenen Level-Format (siehe hierzu auch <a href="../../zengin/zengin_portale.htm">ZenGin-Doku</a>). Dazu benötigen wir den Gothic-Level Editor <b>SPACER</b>. Zunächst öffnen wir den zSpy (VERZEICHNIS) um Debug-Informationen erhalten zu können, falls beim Editieren des Levels Fehler auftreten. Danach starten wir den SPACER über die <b>Gothic-Starter</b>.</p>
+ 	<a href="pics/spacer_01.jpg"><img src="pics/spacer_01.jpg" width=320 height=200></A>
+
+<ul>
+<li><p>a) Als ersten Schritt laden wir nun unser 3DS über <b>File/Open Mesh...</b>.</p>
+ 	<img src="pics/spacer_02.jpg">
+  	<p>und wählen aus <b>GOTHIC\_WORK\DATA\MESHES\LEVEL\</b> die Datei die wir vorhin exportiert haben <b>MyLevel.3ds</b></p>
+	<img src="pics/spacer_03.jpg">
+	<br>
+	<p>b) Nach dem Laden muss das Mesh kompiliert werden, damit es angezeigt wird. Hierzu whält man aus dem Menü 'World' den Punkt 'Compile World'. Im folgenden Dialog stellt man die Eninge-Auswahl auf <b>Outdoor</b>, Editor-Mode aktiv und wählt den Button <b>COMPILE</b>.</p>
+	<img src="pics/spacer_04.jpg">
+	<p>Das kann je nach Grösse des Levels und Kapazität des Rechners einige Zeit dauern.
+	<p>Jetzt wird unser Level auch im 3D-View angezeigt.Über die Cursor-Tasten kann man die Kamera bewegen.</p>
+	<a href="pics/spacer_05.jpg"><img src="pics/spacer_05.jpg" width=320 height=200></A>
+	<br>
+	<p>c) Jetzt speichern wir das Level-Mesh wieder. Es wird wieder ein 3DS gespeichert, aber es enthält diesmal die speziellen Material-Informationen für die Engine (Soundgeräusche, Opazität der Materialien usw.). In diesem Fall haben wir aber keine Materialdefinitionen angelegt. Im Menü <b>File</b> wählen wir nun <b>Save Mesh...</b> und überschreiben die alte 3DS-Datei <b>MyLevel.3ds</b>. Der 3DS-Export Vorgang kann eine Weile dauern, je nach Grösse und Komplexität des Meshes.</p>
+	<br>
+
+<li><p>d) Jetzt muss der Spacer über den Befehl <b>File/Reset</b> "rebootet"
+werden. Dann wählen wir aus dem <b>File</b>-Menü wieder den Punkt <b>Open
+Mesh...</b> und laden unser neues 3DS-File <b>MyLevel.3DS</b>. Diesmal wird das
+Mesh wieder kompiliert, ABER der Editor-Modus wird im Dialog deaktiviert. Somit
+erzeugen wir kein 3DS File mehr sondern ein ZEN.</p>
+<img src="pics/spacer_06.jpg">
+
+<p>In der 3D Ansicht hat sich augenscheinlich zu vorher nichts verändert.Es
+wird weiterhin "nur" die texturierte Fläche angezeigt.</p>
+<br>
+
+<li><p>e) Nun müssen wir noch einen Startpunkt <b>zCVobStartpoint</b> setzen. Hierzu gehen wir ins Fenster 'Objects' und selektieren aus der Liste den Eintrag 'zCVobStartpoint'.</p>
+	<img src="pics/spacer_07.jpg">
+	<p>Dann klicken wir mit der rechten Maustaste in den 3D-View und wählen aus dem Kontextmenü 'Insert (zCVovStartpoint)'.</p>
+	<img src="pics/spacer_08.jpg">
+	<p>Damit haben wir einen Startpunkt in den Level gesetzt.</p>
+	<img src="pics/spacer_09.jpg">
+	<p>Jetzt verschieben wir diesen Startpunkt noch ein wenig, so das er ungefähr so sitzt wie auf dem unteren Bild. Hierzu selektieren wir das zCVobStartpoint Objekt im 3D-View und wählen 'Move selected vob' aus der rechten Toolbar aus (oder wahlweise die Taste 'M' drücken). Jetzt können wir das ausgewählte Objekte mit den Cursortasten ,den Tasten 'A' und 'Y' verschieben, und mit dem Sechser-Block (Einfg,Entf,Pos1,Ende,PageUp, PageDn) rotieren.</p>
+	<img src="pics/spacer_10.jpg">
+	<br>
+<li><p>f) Jetzt können wir unseren Level mal ausprobieren. Hierzu wählen wir aus dem 'File'-Menü den Unterpunkt 'Save ZEN'.(Zu den Dateiformaten siehe auch <a href="../anmerkungen.html#05">Hinweise zu Spacer-Dateiformaten</a>)</p>
+	<img src="pics/spacer_11.jpg">
+<p>Im Dialog darauf speichern wir den Level im Ordner <b>GOTHIC\_WORK\DATA\WORLDS\</b> unter dem Namen <b>MyLevel.zen</b>. Als Dateiformat nehmen wir <b>Compiled ZEN (ascii)</b>.</p>
+	<img src="pics/spacer_12.jpg">
+	<br>
+</ul>
+<p> Somit hätten wir unser erstes eigenes ZEN geschaffen. Jetzt wollen wir uns doch auch einmal umschauen. Ist zwar noch nicht viel zu sehen, aber das werden wir später noch eingehender behandeln. Wir können den Spacer jetzt beenden.</p>
+<p><b>WICHTIG:</b>Nach dem Compile erzeugt der Spacer erneut ein 3DS. Er legt es aber im Ordner <b>GOTHIC\_WORK\DATA\MESHES\</b> ab. Hier ist Handarbeit angesagt, und es sollte von dort in den Ordner <b>LEVEL</b> verschoben werden und man muss das alte überschreiben.</p>
+
+<a name="04"><H1>4. Erster Testlauf</H1></a>
+<p> Um den Level jetzt starten zu können, benutzen wir den <b>Gothic-Starter</b>. Zur Benutzung des Start-Programms siehe <a href="../../tools/gothic_tools_starter.htm">Der GothicStarter</a>
+</p>
+<p> Wir können uns nun unseren Level anschauen. Dazu müssen wir im <b>GothicStarter</b>. Nach dem Laden sollte es ungefähr so aussehen.</p>                      
+<a href="pics/level_01.jpg"><img src="pics/level_01.jpg" width=320 height=200></A>
+<p> Sieht ein bisschen leer und dröge aus, wie ? Aber daran werden wir im nächsten Abschnitt was ändern..</p>
+<br><br><br>
+
+<a name="05"><H1>5. Ein Portalraum</H1></a>
+<p> Jetzt werden wir erstens unseren Level ein wenig grösser machen, 10x10 ist ja ein bisschen wenig, und zum anderen werden wir einen Portalraum in diesen Level modellieren.</p>
+<ul>
+<li><p>a) Zuerst starten wir wieder 3D Studio MAX und laden unsere Level-Datei wieder ein (na ? abspeichern vergessen ? In diesem Fall nochmal von vorne anfangen :) ).</p>
+<p>Jetzt vergrössern wir erstmal den Level indem wir die 4 Eckpunkte weiter auseinander ziehen, bis unser Levelmesh in etwa so aussieht.</p>
+	<a href="pics/plane2_01.jpg"><img src="pics/plane2_01.jpg" width=320 height=200></a><br>
+<li><p>b) Nun verziehen wir die innersten 4 Punkte (die in der Mitte diese Quad bilden) so wie auf dem Bild unten angegeben. Dies stellt die Ausgangsbasis für den Portalraum dar.</p>
+	<a href="pics/plane2_02.jpg"><img src="pics/plane2_02.jpg" width=320 height=200></a>
+	<br>
+<li><p>c) Jetzt modellieren wir erstmal die Aussenseite des Portalraums zurecht wie auf der folgenden Abbildung (ein einfaches Extrudieren um ca. 300-350 Units des Quads reicht da aus).</p>
+	<a href="pics/plane2_03.jpg"><img src="pics/plane2_03.jpg" width=320 height=200></a>
+	<br>
+<li><p>d) Mit Hilfe von Divide Edge und Verschieben von Vertices erzeugen wir in der langen Wand ein Quad, das uns später als Durchgang in den Innenraum dienen wird.</p>
+	<a href="pics/plane2_04.jpg"><img src="pics/plane2_04.jpg" width=320 height=200></a>
+	<br>
+<li><p>e) Nun wirds hart... :). Wir extrudieren jetzt ausgehend von unserem "Durchgang" den Innenraum des Portalraumes. Zunächst selektieren wir die beiden Triangles (oder das Quad) die den Durchgang bilden. Diesen extrudieren wir ca. 50.0 Einheiten nach innen.</p>
+	<a href="pics/plane2_05.jpg"><img src="pics/plane2_05.jpg" width=320 height=200></a>
+	<p> Dann extrudieren wir die Fläche erneut um 1 Einheit nach innen, dies wird die erste grosse Innenwand werden. Dann skalieren wird die Fläche in der Breite und verziehen die 4 Eckpunkte so, das sie ein Rechteck bilden (s. Abbildung).</p>
+	<a href="pics/plane2_06.jpg"><img src="pics/plane2_06.jpg" width=320 height=200></a>
+	<p> Und nochmal wird die selektierte Fläche nach innen extrudiert. Jetzt erkennt man bereits denn Innenraum. Sie sollte soweit extrudiert werden, das wir ungefähr überall die gleiche "Mauerdicke" haben.</p>
+	<a href="pics/plane2_07.jpg"><img src="pics/plane2_07.jpg" width=320 height=200></a>
+	<p> Damit hätten wir unseren ersten Schritt zum Portalraum getan. Der Raum selbst ist fertig. Es ist darauf zu achten, das wie in der Zengin-Dokumentation zum Portalraum, keine Polygone oder Vertices die "Aussenwand" unseres Raumes durchdringen. Jetzt können wir auf das gesamte Objekt einmal den UVW-Map Modifier anwenden, und zwar als Box-Mapping.</p>
+	<a href="pics/plane2_08.jpg"><img src="pics/plane2_08.jpg" width=320 height=200></a>
+<li><p>f) Jetzt kommt der Trick mit den Portalen. Wir müssen 2 Polys in den Durchgang ziehen, der die Aussenwelt vom Portal trennen soll. Hierzu bauen wir ein Polygon mit dem Befehl 'Create' in den hinteren Teil unseres Durchgangs.</p>
+	<a href="pics/plane2_09.jpg"><img src="pics/plane2_09.jpg" width=320 height=200></a>
+	<p> Dieses Poly bekommt ein besonderes Material zugewiesen, das es als Portal-Polygon klassifiziert. Wir erstellen im Material-Editor ein <b>Standard</b>-Material mit dem Namen <b>P:_ROOM1</b> (zur Nomenklatur von Portal-Polygon siehe <a href="../../zengin/zengin_portale.htm#02">ZenGin-Doku</a>). Während das Portal-Polygon noch selektiert ist, wird das Material diesem Sub-Object zugewiesen (3D Studio erstellt automatisch intern ein Multi-Material für das gesamte Mesh).</p>
+	<a href="pics/plane2_10.jpg"><img src="pics/plane2_10.jpg" width=320 height=200></a>
+	<p> Um das Polygon für die andere Seite des Portals zu erzeugen, klicken wir einfach bei gedrückter SHIFT-Taste und aktiviertem Move-Modus in 3D Studio auf das P:_ROOM1-Polygon und wählen im Dialog "Clone to Element" aus und flippen dieses neue Polygon. Dann erstellen wir ein weiteres <b>Standard</b>-Material, diesmal mit dem Namen <b>P:ROOM1_</b> und weisen es dem nach innen zeigenden Portal-Polygon zu.</p> 
+	<a href="pics/plane2_11.jpg"><img src="pics/plane2_11.jpg" width=320 height=200></a>
+	<p> Jetzt sollten noch die Vertices der Polygone verschmolzen werden. Am einfachsten geht das, indem man im Vertex-Modus aus dem Menü <b>Edit/Select All</b> auswählt und dann in der Toolbar <b>Weld Selected</b>. Damit das Portal-Polygon auch richtig "funktioniert" muss es planar sein. Daher wählen wir im Polygon-Modus den Button <b>Make Planar</b> (sofern das Portal-Polygon noch selektiert war).</p>
+	<p>g) So sollte es dann abschliessend aussehen. Jetzt können wir die MAX-Datei wieder speichern und ein neues 3DS-File für unseren Level exportieren. Wir überschreiben einfach das alte 3DS-File im <b>GOTHIC\_WORK\DATA\MESHES\LEVEL\</b>-Verzeichnis.</p>
+	<a href="pics/plane2_12.jpg"><img src="pics/plane2_12.jpg" width=320 height=200></a>
+</ul>
+<p><b>Anmerkung:</b> Damit im Level später die Portalpolygone nicht bunt schimmern, wenn man sich weiter von ihnen entfernt, kann man den Materialien der Portale auch noch eine Diffuse-Bitmap zuweisen. Von der Optik her eignet sich <b>OC_W_FARDOOR_128.TGA</b>, die sich im selben Verzeichnis befindet wie die Boden-Textur.</p>
+
+<a name="06"><H1>6. Einfügen von Objekten</H1></a>
+<p>Wir brauchen nun wieder den <b>Spacer</b>, um unser neues Level-Mesh in das ZEN-File was wir im ersten Schritt erstellt haben einzubinden. Dies geht auf folgende Weise:</p>
+<ul>
+<li><p>a) Im Menü <b>File</b> wählen wir die Option <b>Open ZEN...</b>. Im folgenden Dialog stellen wir den Dateityp auf <b>World uncompiled(*.zen)</b>. Das führt dann dazu, das beim Einladen des ZENs nicht die Mesh-Daten aus dem ZEN sondern aus dem entsprechenden 3DS gelesen werden.</p>
+	<img src="pics/spacer2_01.jpg">
+<li><p>b) Nach dem Laden als <b>Uncompiled ZEN</b> erscheint der Dialog für <b>Compiled World</b> automatisch. Hier deaktivieren wir die Option <b>Editormode</b> und wählen <b>Compile</b>.</p>
+<li><p>c) So sieht dann der Level mit dem neuen Mesh aus. Wie man sieht, werden die Polygon-Portale nicht angezeigt. Das ist auch gut so, denn dann haben wir alles richtig gemacht. :)</p>
+	<a href="pics/spacer2_02.jpg"><img src="pics/spacer2_02.jpg" width=320 height=200></a>
+<li><p>d) Damit der Level nicht wieder so unglaublich laaaaaangweilig ist, werden wir nun noch ein Objekt setzen. Und zwar eine Bank. Vor dieses schmucke 1-Raum-Eigenheim, was wir da aus dem Boden gestampft haben. Als erstes aber, verschieben wir den Startpunkt wieder ein wenig, wir wollen ja nicht direkt im Haus anfangen. Also, <b>zCVobStartpoint</b> selektieren, <b>M</b> für Verschieben drücken und das Objekt vor die Hütte manövrieren.</p>
+	<a href="pics/spacer2_03.jpg"><img src="pics/spacer2_03.jpg" width=320 height=200></a>
+<li><p>e) Jetzt werden wir unsere Bank plazieren. Dazu begeben wir uns zum <b>Objects</b>-Fenster. Hier öffnen wir die Liste die mit <b>oCVob(abstract)</b> beschriftet ist. Dann hangeln wir uns über <b>oCMOB</b> hinunter bis zu <b>oCMobInter</b>. Das ist es, was wir haben wollen. Wir selektieren den Eintrag mit einem Linksklick.</p>
+	<a href="pics/spacer2_04.jpg"><img src="pics/spacer2_04.jpg" width=320 height=200></a>
+	<p> Dann klicken wir wie beim Startpunkt ein paar Seiten vorher mit der rechten Maustaste in den 3D-View und wählen <b>Insert (oCMobInter)</b>. Dies erzeugt eine Koordinaten-Axis mit dem Vermerk 'oCMobInter' im Fenster.</p>
+	<a href="pics/spacer2_05.jpg"><img src="pics/spacer2_05.jpg" width=320 height=200></a>
+	<p> Nun mussen wir noch ein paar Felder im <b>Objects</b>-Fenster füllen. Siehe hierzu folgende Abbildung:</p>
+	<a href="pics/spacer2_06.jpg"><img src="pics/spacer2_06.jpg" width=320 height=200></a>
+	<p> Für den Eintrag unter <b>visual:</b> wählt man den Menüpunkt aus, und sucht dann über den Button <b>File</b> das entsprechende File heraus. In diesem Fall findet man es unter <b>GOTHIC\_WORK\DATA\ANIMS\MDS_MOBSI\</b> und es hat den Namen <b>BENCH_1_NC.MDS</b>. In dem Ordner befinden sich noch weitere Objekte. Man kann sowohl Mesh-ASCIIs, Mobsi-MDS und 3DS-Files als Visual angeben.</p>
+	<p> Nach einem Klick auf <b>Apply</b> werden die Daten aus der Eingabemaske verarbeitet und nach kurzer Ladezeit, sollte ungefähr so etwas im 3D-View erscheinen (ausser man hat natürlich ein anderes Visual ausgewählt).</p>
+	<a href="pics/spacer2_07.jpg"><img src="pics/spacer2_07.jpg" width=320 height=200></a>
+	<p> Jetzt sollten wir die Bank auch noch an eine passende Stelle manövrieren. Hierzu benutzen wir wieder die Taste <b>M</b> und schieben unsere Bank mit vereinten Kräften Richtung Häuschen und auf den Boden zu. Fertig.</p>
+	<a href="pics/spacer2_08.jpg"><img src="pics/spacer2_08.jpg" width=320 height=200></a>
+</ul>
+<p> Jetzt haben wir unseren Level um einen Portalraum erweitert und ein Objekt eingefügt. Zeit, uns das mal wieder im Spiel anzugucken. Diesmal gucken wir aber, das es nicht mehr so dunkel ist. Wir wählen aus dem Menü <b>World</b> den Punkt <b>Compile Light</b> und aktivieren das <b>Vertexlighting only</b>. Das geht schnell und sieht ok aus, zumal wir ja noch keine Lichtquellen gesetzt haben.</p>
+<p> Danach können wir wie gehabt den Level speichern, als <b>Compiled ZEN(ascii)</b>. Und nicht vergessen, das 3DS aus dem <b>GOTHIC\_WORK\DATA\MESHES\</b>-Verzeichnis hinterher wieder in den <b>LEVEL</b>-Unterordner zu kopieren. :)</p>
+
+
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

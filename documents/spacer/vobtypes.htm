@@ -1,0 +1,274 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Vob-Klassen</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Verzeichnis der Vob-Klassen
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version: 1.August 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+
+<!---
+ Inhalt
+ --->
+
+<table width="100%" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<H1>Das Verzeichnis der Vob-Klassen</H1>
+</a>
+
+Die Basisklasse für alle Objekte, die Ihr in der Welt sehen könnt, und einige,
+die Ihr nicht sehen könnt, ist <b>zVob</b>. Davon leiten sich zahlreiche Klassen
+ab, die ihre eigenen speziellen Eigenschaften mitbringen.
+<br><br>
+
+<img src="pics/object_tree.jpg" align=right>
+
+Aber hier einmal eine Erläuterung, was ein Vob eigentlich ist:<br>
+<hr noshade size=2>
+<i>
+Ein Vob ist "virtuelles Objekt". Es hat eine Position und Orientierung im Raum
+und kann durch ein explizit wählbares "Visual" visualisiert werden.
+<br><br>
+Die Welt wird mit Objekten (= Vob, "virtuelles Objekt") bevölkert.
+Jedes Objekt gehört einer Klasse an, die die Eigenschaften und Fähigkeiten
+dieses Objektes festlegt (z.B. Klasse "oCNPC", oder "zCTrigger"). Die Objekte
+kommunizieren untereinander und mit der GothicEngine über einen festgelegten Satz
+von Nachrichten (= Messages oder EventMessages).
+<br><br>
+Beim Design der Klassen und Nachrichten wurde das Ziel verfolgt eher
+viele spezialisierte verschiedene  Klassen zu haben, die über relativ
+wenige Arten von Nachrichten kommunizieren, als wenige übermächtige Klassen,
+die über eine Unzahl von verschiedenen Nachrichten angesteuert werden müssen.
+So ist z.B. eine häufig benutzte
+Nachricht die "OnTrigger" Nachricht, die ein Objekt "anstößt" bzw.
+aktivieren soll. Was nun genau ein Objekt tut, das eine solche
+Nachricht empfängt, hängt von der Klasse des jeweiligen Objektes ab.
+<br><br>
+Ein Vob-Objekt der Klasse zCMover würde sich in Bewegung setzen, während
+ein Vob-Objekt der Kasse zCEarthquake ein lokales Erdbeben auslösen würde.
+Man kann eine Vob-Klasse auch als ein "Modul" sehen, das geschrieben worden
+ist, um ganz bestimmte Aufgaben in der Welt zu erfüllen. Die Vob-Klassen
+sind in einer Hierarchie angeordnet, wobei eine Klasse an einer bestimmten
+Position in der Hierarchie alle Eigenschaften und Fähigkeiten aller Klassen
+beerbt, die sich in der Hierarchie <u>über</u> ihr befinden.
+</i>
+<hr noshade size=2>
+
+<br><br>
+Im Folgenden habe ich einmal die wichtigsten Klassen in einem Hierarchiebaum
+aufgelistet. Wie gesagt, alle Klassen sind von zCVob eingeleitet. Nicht fett
+gedruckte Vob-Klassen werden in der Regel nicht direkt in die Welt eingefügt.
+Einige Vob-Klassen, die für das Editieren der Welt völlig unwichtig sind, habe
+ich weggelassen.
+<br><br>
+Im Spacer werden (teilweise) weitaus ausführlichere Erläuterungen auch
+im Hilfefenster sichtbar, wenn man die entsprechende Klasse im Vob-Hierarchiebaum
+des Objekt-Fensters selektiert. Auch zu den zahlreichen Eigenschaften eines Objektes
+gibt es oft gute Informationen.
+
+
+<ul>
+  <li>oCVob<br>
+    <ul>
+    <li><b><u>oCNpc</u></b><br>
+        oCNpc repraesentiert die immens wichtige Klasse der NPCs. Ein NPC-Objekt wird in den Scripten angelegt und nicht (anders als alle Gegenstände) im Spacer sondern über eine Scriptfunction an den jeweiligen Wegpunkten in die Welt eingefügt.
+    <li><b><u>oCItem</u></b><br>
+        Ein Gegenstand, den ein (N)PC mit sich herumtragen kann und mit dem je nach Einstellung verschiedene Dinge gemacht werden können (Essen, Anziehen etc.). Ein Item-Objekt wird in den Scripten angelegt.
+    <li><u>oCMOB</u><br>
+      Ein Objekt, das optional bewegt und/oder getragen werden kann.
+      <ul>
+      <li><u>oCMobInter</u><br>
+        Ein Objekt mit dem (N)SCs nach dem Interaktionsschema interagieren können.
+        <ul>
+        <li><b><u>oCMobBed</u></b><br>
+            Ein Bett zum reinlegen
+        <li><b><u>oCMobFire</u></b><br>
+            Eine Feuerstelle
+        <li><b><u>oCMobLadder</u></b><br>
+            Eine Leiter zum hochklettern
+        <li><b><u>oCMobSwitch</u></b><br>
+            Ein Schalter mit zwei Zuständen ( an/aus )
+        <li><b><u>oCMobWheel</u></b><br>
+            Ein Drehrad mit 4 Zuständen
+        <li><u>oCMobLockable</u><br>
+          <ul>
+          <li><b><u>oCMobContainer</u></b><br>
+              Objekte, die Items beinhalten
+          <li><b><u>oCMobDoor</u></b><br>
+          </ul>
+        </ul>
+      </ul>
+    </ul>
+  <li><u>zCCSCamera</u><br>
+  <li><u>zCCamTrj_KeyFrame</u><br>
+  <li><u>zCEffect</u><br>
+      <ul>
+      <li><b><u>zCEarthquake</u></b><br>
+          Reagiert auf OnTrigger und OnUntrigger Messages und loest ein Erdbeben aus (Camera-Tremor).
+      <li><b><u>zCPFXControler</u></b><br>
+          Objekte dieser Klasse beherbergen Partikel-Effekt Visuals und steuern diese über OnTrigger (einschalten) bzw. OnUntrigger (ausschalten).
+      <li><b><u>zCVobAnimate</u></b><br>
+          Objekte dieser Klasse sollte ein Visual zugewiesen bekommen, das Animationen abspielen kann (z.B: zCModel oder zCMorphMesh) ...
+      <li><b><u>zCVobLensFlare</u></b><br>
+          Diese Vob-Klasse verhält sich genau wie die zCVob Basisklasse. Allerdings kann der Name eines LensFlare-Effektes angegeben werden, der mit dem Objekt zusammen dargestellt werden soll. LensFlare-Effekte werden in dem File "lensflare.zen" definiert.
+      <li><b><u>zCVobScreenFX</u></b><br>
+          Mit einem Effekt-Vob dieser Klasse können spezielle Bildschirmeffekte ausgelöst und gesteuert werden, wie z.B. Blenden, "Kino-Balken" und FOV-Morphs. Diese Effekte werden durch Nachrichten der Klasse zCEventScreenFX an dieses Objekt gesteuert.
+      <li><u>oCVisualFX</u><br>
+          <ul>
+          <li><b><u>oCVisFX_Lightning</u></b><br>
+          <li><b><u>oCVisFX_MultiTarget</u></b><br>
+          </ul>
+      <li><b><u>zCTouchDamage</u></b><br>
+          <ul>
+          <li><b><u>oCTouchDamage</u></b><br>
+              Objekte dieser Klasse fügen anderen Objekten, die sie berühren, Schaden zu (praktisches Beispiel: Feuer).
+          </ul>
+      </ul>
+  <li><u>zCTriggerBase</u><br>
+      Dies ist ein einfacher Trigger, der auf Berührung reagiert. Bei Berührung (OnTouch) und bei eingehender OnTrigger Nachricht wird eine OnTrigger Nachricht an alle Vobs mit dem Namen 'triggerTarget' verschickt. Bei Beendung einer Berührung (OnUntouch) oder eingehender OnUntrigger Nachricht werden OnUntrigger Nachrichten verschickt.
+      <ul>
+      <li><b><u>zCCodeMaster</u></b><br>
+          Bei einem CodeMaster kann eine Liste von Namen von sogen. 'slaveVobs' angegeben werden. Ein CodeMaster schickt erst dann ein OnTrigger-Event, wenn alle slaveVob ihm eine gesendet haben ...
+      <li><b><u>zCMessageFilter</u></b><br>
+          Eingehende OnTrigger und OnUntrigger Nachrichten werden in andere Nachrichten umgewandelt, die dann an das angegebene triggerTarget weitergeschickt werden.
+      <li><b><u>zCMoverControler</u></b><br>
+          Objekte dieser Klasse werden benutzt, um speziell zCMover anzusteuern, die sich im MoverBehavior 'MB_NSTATE_SINGLE_KEYS' befinden. Bei diesen Movern ist jeder Keyframe ein einzelner State und kann gezielt angesteuert werden. Objekte der Klasse zCMoverControler reagieren auf OnTrigger Nachrichten und verschicken dann an ihr triggerTarget, dass i.d.R. ein zCMover sein sollte, eine einstellbare Nachricht.
+      <li><b><u>zCTriggerUntouch</u></b><br>
+          Dieser Trigger sendet eine OnTrigger Nachricht an sein triggerTarget, sobald sich die Berührung zu dem letzten nicht-lebenden Objekt loest wird. Dieses Objekt reagiert nicht auf eingehende OnTrigger und OnUntrigger Nachrichten.
+      <li><u>zCTrigger</u><br>
+            Die Aufgabe eines Triggers ist es Nachrichten zu empfangen und zu filtern ("ActivationFilter"). Nachrichten, die durch den Filter gelangen, führen zu dem Verschicken von OnTrigger Nachrichten an weitere Vobs ("FireBehavior").
+          <ul>
+          <li><b><u>zCMover</u></b><br>
+              Die wichtigste Eigenschaft eines Movers ist die Fähigkeit sich zu bewegen, entweder auf einer Kette von Keyframes, oder falls das Visual des Movers ein Model ist, durch die Animation des Models.
+          <li><b><u>oCTriggerChangeLevel</u></b><br>
+              Dieser Trigger aktiviert einen Levelwechsel. Dabei wird der Levelname im Feld 'levelName' eingetragen (inklusive Unterverzeichnisse und Endung). In 'startVobName' steht der Name des Vobs, wo der Spieler im neuen Level erscheint.
+          <li><b><u>oCTriggerScript</u></b><br>
+              Die Klasse oCTriggerScript ergänzt den zCTrigger um eine zusätzliche Eigenschaft: Beim Triggern kann zusaetzlich eine Scriptfunktion ausgeführt werden.
+          <li><b><u>zCTriggerList</u></b><br>
+              Diese Klasse ist eine Erweiterung der zCTrigger Klasse. Statt nur einem TriggerTarget kann hier eine ganze Liste von TriggerTargets mit dazugehörigen FireDelays angegeben werden. Die Abarbeitung der Liste kann auf verschiedene Weisen erfolgen (siehe "listProcess"). Die TriggerTarget und FireDelay Felder des zCTrigger sind zu ignorieren. Die Deaktivierung (z.B. über OnUntrigger Nachrichten) führt zur Sendung einer OnUntrigger Nachricht an aller TriggerTargets der Liste.
+          <li><b><u>zCTriggerTeleport</u></b><br>
+          </ul>
+      </ul>
+  <li><u>zCVobLevelCompo</u><br>
+  <li><b><u>zCVobLight</u></b><br>
+       dyamische oder statische Lichtquellen
+  <li><b><u>zCVobSpot</u></b><br>
+      Ein VobSpot beschreibt eine Position und Orientierung im Raum. An diesen Positionen können dann im Spiel zur Laufzeit entsprechende Objekte eingefügt oder hinbewegt werden. Eine andere Bezeichnung ist auch 'Freepoint'.
+  <li><b><u>zCVobStartpoint</u></b><br>
+      An dem Startpoint wird der Spieler beim Start eines Levels eingefügt, wobei er Position und Ausrichtung übernimmt.
+  <li><b><u>zCVobWaypoint</u></b><br>
+      Ein Waypoint beschreibt eine Position und Orientierung im Raum. Waypoints werden mit anderen Waypoints zu einem WayNet verknüpft.
+  <li><u>zCZone</u><br>
+      <ul>
+      <li><b><u>oCZoneMusic</u></b><br>
+          Mit Objekten dieser Klasse werden in der Welt Volumina angelegt, in denen sich die Wiedergabe eines Musikthemas steuern laesst.
+          <ul>
+          <li><b><u>oCZoneMusicDefault</u></b><br>
+              Dieses Objekt bezieht sich auf die Klasse oCZoneMusic und setzt den levelweiten Defaultwert. Es muss genau ein solches Objekt im Level vorhanden sein.
+          </ul>
+      <li><b><u>zCVobSound</u></b><br>
+           VobSound Objekte sind frei im Raum positionierbare, punktförmige "Geräuschquellen". Eine OnTrigger Nachricht schaltet sie ein, während eine OnUnTrigger Nachricht sie ausschaltet.
+          <ul>
+          <li><b><u>zCVobSoundDaytime</u></b><br>
+              Diese Geräuschquellen sind nur zu der angebenen Tages/Nachtzeit vernehmbar. Es kann optional unter "sndName2" der Name eines zweiten Sounds angegeben werden, der genau außerhalb der angegeben Tages/Nachtzeit gespielt wird. An den Zeitgrenzen werden die Sounds im Verlauf langsam ein- und ausgeblendet. Die Zeiten sind in Stunden anzugeben. Achtung: 13.5 = 13:30 ! (Praktisches Beispiel: tagsüber Vogelgezwitscher, nachts Grillen).
+          </ul>
+      <li><b><u>zCZoneReverb</u></b><br>
+          Mit Objekten dieser Klasse wird die Halleigenschaften des Raumes festgelegt, der sich als maximaler Ellipsoid innerhalb der BBox des zCZoneReverb Vobs befindet. Der Einfluss des Halleffektes ist zum Zentrum des Volumens maximal und nimmt du den Rändern hin ab. Mit einer Einstellung von "innerRangePerc" >=1 könnte aber z.B. bewirkt werden, daß der Effekt überall im Volumen gleichstark ist.
+          <ul>
+          <li><b><u>zCZoneReverbDefault</u></b><br>
+              Dieses Objekt bezieht sich auf die Klasse zCZoneReverb und setzt den levelweiten Defaultwert. Falls sich die Kamera nicht in einem Objekt der Klasse zCZoneReverb befindet, werden die Werte aus einem Objekt dieser Klasse entnommen. Die BBox von Objekten dieser Klasse ist irrelevant, es kann nur ein solches Objekt pro Level geben.
+          </ul>
+      <li><b><u>zCZoneVobFarPlane</u></b><br>
+          <ul>
+          <li><b><u>zCZoneVobFarPlaneDefault</u></b><br>
+          </ul>
+      <li><b><u>zCZoneZFog</u></b><br>
+           Mit Objekten dieser Klasse werden in der Welt Volumina angelegt, in denen sich der Tiefen-Z-Nebel steuern laesst. Die Volumen werden über die BoundingBox der Objekte angegeben und koennen beliebige Formen haben. Es koennen sich auch mehrere Fog-Zonen durchdringen. Beim Rendern einer Szene werden alle Fog-Zonen ermitteln, in denen sich die Kamera befindet, und der Einflüss einer jeden Zone wird zu einem Wert verrechnet, der die sichtbare Zone-Distanz festlegt.
+          <ul>
+          <li><b><u>zCZoneZFogDefault</u></b><br>
+              Dieses Objekt bezieht sich auf die Klasse zCZoneZFog und setzt den levelweiten Defaultwert. Falls sich die Kamera nicht in einem Objekt der Klasse zCZoneZFog befindet, werden die Werte aus einem Objekt dieser Klasse entnommen. Die BBox von Objekten dieser Klasse ist irrelevant, es kann nur ein solches Objekt pro Level geben.
+          </ul>
+      </ul>
+    </ul>
+  </ul>
+</ul>
+
+<table>
+<tr><td>
+<img src="pics/object_props.jpg" align=left>
+
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+Alle VOBs haben Eigenschaften. Diese werden im Objects-Dialog angezeigt und
+können dort auch verändert werden. Bei der Selektion einiger Eigenschaften
+erscheint im Hilfefenster ein Informationstext zu dieser Eigenschaft.
+
+<br><br>
+
+In diesem Bild sieht man zum Beispiel die Eigenschaften eines EarthQuake-Objektes.
+Im Ordner "Vob" befinden sich die grundlegenden zCVob-Eigenschaften. Weitere spezielle
+Einstellungen sind im Ordner EarthQuake zu finden, wie z.B. die Dauer, der Radius und
+die Amplitude des Bebens.
+</td></tr>
+</table>
+
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

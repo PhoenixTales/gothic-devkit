@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: GothicStarter</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Der GothicStarter
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  26.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#1"><b>Ein Spiel starten</a></b>
+        <li><a href="#2"><b>Ein GothicMOD starten</a></b>
+        <li><a href="#3"><b>Optionen</a></b>
+        <li><a href="#4"><b>Aktionen und erweiterte Optionen</a></b>
+        <li><a href="#5"><b>Den Spacer starten</a></b>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<a name="1">
+<H1>Ein Spiel starten</H1>
+</a>      
+
+<p> 
+Wenn ihr GOTHIC-MODs benutzt, solltet ihr Gothic nicht mehr direkt über das Programm gothic.exe zu starten, sondern dazu die GothicStarter.exe benutzen. Dieses Programm ist Bestandteil des MOD PLAYER-KITs. Für den GothicStarter ist es zwar egal, ob ihr auch die Gothic.exe nutzt, doch bei der Verwendung von GothicMODs kann es ohne den GothicStarter zu Kollisionen zwischen verschiedenen MODs kommen. Diese kann der GothicStarter verhindern (solange die Vorgehensweise beim <a href="../mod/gothic_mod.htm">Erstellen eines GothicMODs</a> eingehalten wird)
+</p>
+
+<p> 
+Legt Euch also eine Verknüpfung zum GothicStarter.exe im Gothic-SYSTEM-Verzeichnis an. Im GothicStarter können alle installierten MODs sowie das Originalspiel ausgewählt und gestartet werden. Ausserdem sind einige nützliche Optionen wählbar.
+</p>
+
+<a name="2">
+<H1>Ein GothicMOD starten</H1>
+</a>
+    
+<p>
+Ein GothicMOD besteht in der Regel aus zwei Dateien (siehe auch die <a href="../gothic_mod.htm">Dokumentation zu GothicMODs</a>):
+<ul> 
+<li>Ein <b>GothicMOD-VDF</b>, das die MOD-Daten enthält und im Verzeichnis [GOTHIC]/data/modvdf gespeichert wird. Wundert Euch aber nicht, wenn mal die eine oder andere GothicMOD-VDF (Endung .mod) im Verzeichnis [GOTHIC]/data auftaucht. Darum kümmert sich der GothicStarter automatisch.
+<li>Eine <b>GothicMOD-INI</b>, in der wichtige Informationen, Dateipfade und Optionen gespeichert werden. Diese Datei mit der Endung .ini wird vom GothicStarter im Gothic-SYSTEM-Verzeichnis gesucht.
+</ul>
+</p>
+
+<p> 
+Beim Start wird der GothicStarter also die GothicMOD-INIs im SYSTEM-Verzeichnis suchen und analysieren. Er zeigt die gefundenen MODs dann in einer Liste an. Wählt nun das gewünschte MOD aus und drückt den "Start Gothic"-Knopf.
+</p>
+
+
+<a name="3">
+<H1>Optionen</H1>
+</a>
+
+<p> 
+Der GothicStarter bietet Euch auch einige nützliche Einstellungen an:
+<ul> 
+<li><b>no music</b>: Synonym zur nosound-Option wird mit dieser Checkbox das Musiksystem deaktiviert. 
+<li><b>no sound</b>: Damit deaktiviert ihr das Soundsystem von Gothic. Auch im Spiel ist Sound dann nicht mehr aktivierbar. Diese Option ist nur zu empfehlen, um beim Testen eines MODs einen (kleinen) Geschwindgkeitvorteil beim Gothic-Start und Spielen zu erhalten. Eventuell lassen sich auch so Probleme mit der Soundkarte lokalisieren.
+<li><b>start in a window</B>: Zum Testen von Gothic und vor allem zum gleichzeitigen Beobachten des zSpy (siehe <a href="gothic_tools_spy.htm">zSpy-Dokumentation</a>) ist es sinnvoll, Gothic im Fenster zu starten. Im Spiel könnt ihr dies erreichen, indem Ihr im devmode ("Marvin-Mode") die Taste F3 drückt.
+</ul>
+</p>
+
+<p> 
+Um Gothic beim Programmstart weitere <b>Parameter</b> zu übergeben, gibt es eine Eingabezeile. Wenn man mehrere Parameter angeben will, müssen diese durch ein Leerzeichen getrennt sein.
+</p>
+
+<p> 
+Hier ein paar nützliche Parameter: 
+</p>
+<li><b>-devmode</b>: GOTHIC wird im devmode gestartet (die Konsole ist verfügbar) 
+<li><b>-time:xx:xx</b>: Legt eine Startzeit für den Spielstart fest. Damit es bei Spielstart im Spiel 16 Uhr ist, gibt man z.B. -time:16:00 ein.
+<li><b>-nomenu</b>: Das Spiel wird ohne Menu gestartet. Nützlich zum schnellen Testen in einem kleinen Level. Nachteil: Ein Druck auf ESC und das Spiel wird beendet.
+
+<p> 
+<b>Bis auf die <u>Aktionen</u> unter <u>MOD Development</u> werden alle anderen Eintellungen des GothicStarters gespeichert.</b>
+</p>
+
+
+<a name="4">
+<H1>Aktionen und erweiterte Optionen</H1>
+</a>
+
+<p> 
+Weitere Einstellungen verbergen sich hinter dem <b>MOD Development</b>-Knopf. Beachtet bitte, dass diese Optionen die Performance von Gothic mehr oder weniger negativ beeinflussen und im normalen Betrieb nicht aktiviert sein sollten. Für die Erstellung von GothicMODs sind sie aber je nach Situation notwendig.
+</p>
+
+<p>
+Es gibt 4 mögliche Aktionen:
+<ul> 
+<li><b>reparse all scripts</b>: Scriptdateien (*.src, *.d) müssen geparsed und zu DAT-Files gelinkt werden, damit Gothic etwas mit ihnen anfangen kann. Die Aktion "reparse all" erledigt dies. Beim Start von GOTHIC werden alle SourceDateien (*.src), die im GothicMOD-INI angegeben sind, geparsed und aktuelle DAT-Files angelegt. Zur Fehlerdiagnose sollten dabei (wie auch bei allen anderen Aktionen) der Spy sowie das SpyLogging aktiviert sein.
+<li><b>autoconvert data</b>: Wenn aktiviert, wird Gothic während der Laufzeit Rohdateien (z.B. TGA) bei Bedarf konvertieren, wenn es keine konvertierte Version (z.B. TEX) gibt. Ändert ihr also z.B. ein TGA, und löscht vor dem nächsten Start von GOTHIC das dazugehörige TEX-File im Compiled-Verzeichnis, dann wird bei der nächsten Benutzung dieser Textur im Spiel ein aktuelles TEX File angelegt. Dies funktioniert leider nicht bei Multi-Texturen (siehe <a href="../zengin/zengin_misc.htm">ZenGin Doku zu Texturen</a>). Habt ihr eine solche Textur, z.B. eine Gesichts- oder Körper-Textur geändert, müsst ihr den Parameter <b>convert textures</b> benutzen!
+<li><b>convert all</b>: Diese Option zwingt Gothic zu einer kompletten Konvertierung aller Rohdaten im GOTHIC-Verzeichnis. Ihr könnt damit also alle Texturen, Meshes und Animationen (TGAs, 3DS, ASC) in die Gothic-internen Formate (z.B. TEX, MRM, MAN, etc.) konvertieren lassen. Die konvertierten Dateien landen im jeweiligen COMPILED-Verzeichnis (siehe dazu auch die <a href="../tools/gothic_mod.htm">Dokumentation zu GothicMODs</a>). Damit kann sichergestellt werden, daß vor der Veröffentlichung eines MODs auch wirklich alle geänderten Rohdaten in einer konvertierten Form vorliegen, wenn sehr viele verschiedene Daten geändert wurden. 
+<li><b>convert textures</b>: Mit dieser Option erreicht ihr das gleiche wie mit "convert all", nur beschränkt sich Gothic dabei auf alle Texturen.
+</ul>
+Weitere Einstellmöglichkeiten sind:
+<ul>
+<li><b>process physical files on disk first</b>: Normalerweise wird von VDFS eine einzelne Datei auf der Festplatte, die auch schon in einem VDF-File zu finden ist, nie von der Festplatte gelesen. Diese Option zwingt Gothic dazu, zuerst auf der Festplatte nach Dateien zu suchen und erst bei Misserfolg in den entsprechenden VDF-Dateien. Dadurch wird es möglich, geänderte GOTHIC-Daten, die auch in den Original VDF-Dateien vorhanden sind, testen zu können ohne jedes mal ein eigenes MOD-VDF erstellen zu müssen.
+<li><b>zSpy-Messages</b>: Mit dieser Listbox wählt ihr die Genauigkeit mit der Gothic seine Aktivität im zSpy ausgibt. Schaut dazu bitte auch in der <a href="../tools/gothic_tools_spy.htm">Dokumentation zum zSpy</a>.
+</ul>                      
+</p>
+
+<a name="5">
+<H1>Den Spacer starten</H1>
+</a>
+
+<p>
+Eine Option wurde noch nicht erwähnt: Ihr könnt nämlich auch die zu startetende Applikation auswählen. Wichtig ist dies vor allem für die Wahl zwischen dem Spiel "Gothic" und seinem Welteneditor "Spacer". Auch der Spacer sollte über den GothicStarter genutzt werden. Wählt also in der Application-Listbox die zu startende Anwendung (der Start-Knopf verändert entsprechend seine Beschriftung) bevor ihr diese dann startet.
+</p>
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+    
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

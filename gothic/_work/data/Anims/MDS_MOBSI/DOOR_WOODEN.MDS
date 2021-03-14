@@ -1,0 +1,49 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("DOOR_WOODEN")
+{
+	meshAndTree ("DOOR_WOODEN.asc")
+
+	aniEnum
+	{
+
+// geschlossene Tür
+			ani			("s_S0"					1	"s_S0"	0.0	0.0	M.	"DOOR_WOODEN_USE.asc"		F	5	5)
+
+// Tür öffnen 
+			ani			("t_S0_2_S1"			1	"s_S1"	0.0	0.0	.	"DOOR_WOODEN_USE.asc"		F	6	29)
+			{
+				*eventSFX	(10	"Door_open")
+			}
+
+// offene Tür
+			ani			("s_S1"					1	"s_S1"	0.0	0.0	M.	"DOOR_WOODEN_USE.asc"		F	30	30)
+
+// Tür schließen
+			ani			("t_S1_2_S0"			1	"s_S0"	0.0	0.0	.	"DOOR_WOODEN_USE.asc"		F	31	59)
+			{
+				*eventSFX	(31	"Door_close")
+			}
+
+// Türschloß aufschließen/knacken
+			ani			("t_S0_Unlock"			1	"s_S0"	0.0	0.0	M.	"DOOR_WOODEN_USE.asc"		F	5	5)
+			{
+				*eventSFX	(5	"Door_unlock")
+			}
+
+// Türschloß abschließen
+			aniAlias	("t_S0_Lock"			1	"s_S0"	0.0	0.0	M.	"t_S0_Unlock"				F)
+
+// Scheitern des Versuchs
+			ani			("t_S0_Try"				1	"s_S0"	0.0	0.0	M.	"DOOR_WOODEN_USE.asc"		F	5	5)
+			{
+				*eventSFX	(5	"Door_try")
+			}
+	}
+}

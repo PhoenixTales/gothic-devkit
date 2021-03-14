@@ -1,0 +1,244 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Materialien im Spacer</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Materialien und Texturen
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version: 14.August 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<ul>
+<li>1 Texturieren
+<li>2 Materialien
+    <ul>
+    <li>2.1 Materialpool und Materialliste
+    <li>2.2 Material Editor
+    <li>2.3 Materialeigenschaften
+    </ul>
+</uL>
+
+
+<hr noshade size=2>
+
+<H1>1 Texturieren</H1>
+
+Um einen Level oder auch Gegenstände zu texturieren, geht man wie folgt vor:
+
+<ol>
+<li>Den Level oder den Gegenstand (.3DS oder .ZEN) in den Spacer laden
+<li>Das Mesh compilieren. Dabei die Checkbox "EditorModus" aktivieren
+</ol>
+
+Nach dem Compilieren können nun mit der Maus einzelne oder auch ganze Polygongruppen
+selektiert werden:
+<ul>
+<li>Mit einem Mausklick können einzelne Polygon selektiert bzw. deselektiert werden.
+<li>Bei gedrückter Maustaste kann man mit der Maus über mehrere Polygone "fahren" und diese so nacheinander selektieren bzw. deselektieren.
+<li>Mit der Taste X wird eine Selektion entfernt
+<li>Mit der Leertaste wird die Selektion verborgen, die Texturierung wird also kurzzeitig sichtbar
+</ul>
+
+Um den selektierten Polygonen nun ein Material (inklusive seiner Textur) zuzuweisen, benutzt
+man die beiden oberen Button in der vertikalen Toolbar:
+<ul>
+<li>"Apply material with mapping" weist den Polygonen das im Materialeditor ausgewählte Material zu und wendet das eingestellte Mapping (Art und Weise, wie die Textur auf die Polygone "tapeziert" wird) an.
+<li>"Apply material without mapping" führt kein erneutes Mapping durch. Dadurch bleibt die Positionierung, Skalierung und Rotation der Textur auf den Polygonen erhalten.
+</ul>
+
+Bei gedrückter Leertaste können die Texturen auf den Polygonen verschoben,
+skaliert und rotiert werden. Mit der Taste G kann dabei ein LockGrid eingeschaltet werden (einstellbar in den Spacer-Settings):
+<ul>
+<li>Die Cursortasten <u>verschieben</u> die Textur
+<li>Mit dem Ziffernblock wird die Textur <u>skaliert</u>
+<li>ENTF und BILDAB <u>rotiert</u> die Texur, ebenso wie EINFG und BILDAUF (andere Schrittweite)
+<li>Mit PAD_DIV und PAD_MUL kann man die Texur horizontal <u>scheren</u>
+<li>Mit PAD_MINUS und PAD_PLUS kann man die Texur vertikal <u>scheren</u>
+<li>Schliesslich kann man mit PAD_EINFG und PAD_ENTF die Textur <u>spiegeln</u>
+</ul>
+
+<H1>2 Materialien</H1>
+
+<p>
+Der Materialeditor ist ein wichtiges Werkzeug im EditorModus des Spacers.
+Ein Material besitzt als wohl wichtigste Eigenschaft eine Textur.
+Weitere wichtige Eigenschaften lassen sich entweder im Materialeditor
+oder im Objects-Dialog festlegen.
+</p>
+
+<H2>2.1 Materialpool und Materialliste</H2>
+
+<img src="pics/material_list.jpg">
+
+<p>
+In der Materialliste werden die zur Verfügung stehenden Materialien aufgelistet.
+Der Spacer verwaltet einen Materialpool, der in verschiedene Material-Filter
+unterteilt ist. In der Datei Matlib.ini (in _work/tools/data) werden die einzelnen Filter
+gespeichert. Pro Filter wird dort eine pml-Datei angelegt, die alle Materialien enthält. Das Speichern
+des Materialpools kann über das Settings-Menü durchgeführt werden (Save Materialfilter).
+</p>
+
+<p>
+Kann eine Textur aus dem Level keinem Filter zugeordnet werden, landet diese
+erst einmal im TRASH-Filter. Mit den beiden Buttons NEW und DEL in der Materialliste
+können neue Filter angelegt bzw. vorhandene entfernt werden. Das Zuordnen von Materialien
+zu einem Filter geschieht im Materialeditor.
+</p>
+
+<p>
+Um ein Material in den Materialeditor bzw. den Objects-Dialog zu laden, reicht ein einfacher Mausklick
+auf das gewünschte Material in der Liste.
+</p>
+
+
+<H2>2.2 Material Editor</H2>
+
+<img src="pics/material_ed.jpg">
+
+Der Materialeditor bietet einige Möglichkeiten, die hier kurz aufgezählt sind:
+<ul>
+<li>Anlegen neuer Materialien
+<li>Zweisung von Texturen
+<li>Filterzuordnung
+<li>Gruppenzuordnung
+<li>Zuordnung zu Quickslots
+</ul>
+
+<p>
+Wir wollen nun einmal ein <u>neues Material anlegen</u>. Dazu klicken wir auf den Button NEW
+und geben einen Namen für das Material ein. Danach können wir noch wählen, in welchen
+Materialfilter es gespeichert werden soll. (Bugalarm: Das Fenster nicht über das
+Schliessen-Kreuz beenden!). Nun können wir dem Material noch eine Textur (Button "...")
+und andere Eigenschaft zuweisen.
+</p>
+
+<p>
+Das Material kann einfach dadurch wieder <u>entfernt</u> werden, indem man Ihr den Filter
+"TRASH" (daher der Name) zuordnet.
+</p>
+
+<p>
+Nun wollen wir einen etwas einfacheren Weg einschlagen um Materialien zu erzeugen. Vor
+allem wollen wir gleich mehrere mit einem Schlag anlegen. Dazu benutzen wir den ADD-Button im
+Materialeditor. Nun öffnet sich ein Dateiauswahl-Dialog, mit dem wir uns die Texturen auswählen,
+die wir als neues Material in den Materialpool laden möchten. Eine Auswahl mehrerer Texturen ist möglich. Nachdem wir die ausgewählten Texturen bestätigt haben, erscheint wieder der bekannte
+Dialog zur Auswahl eines Filters. Man kann die Materialien
+</p>
+<ul>
+<li>erst einmal in den TRASH legen (wenn man das Material nur kurzzeitig benötigt),
+<li>einen vorhandenen Filter zuordnen oder
+<li>gleich in einen neuen Filter speichern.
+</ul>
+
+<p>
+Nun wollen wir vorhandene <u>Materialien einem Filter zuordnen</u>. Dazu gibt es im
+Materialeditor die Auswahlbox "Filter". Nun, es ist einfach, ein einzelnes Material in einen
+Filter zu verschieben. Doch wird es umständlicher, wenn wir dies mit einer ganzen Menge von
+Materialien machen wollen. Dazu können wir bei einer Textur aus dem Zielfilter den Button FIX
+aktivieren. Dann wird beim jedem Mausklick in der Materialliste das angeklickte Material in den fixierten
+Filter geschoben.
+</p>
+
+<p>
+Eine weitere Unterteilung der Materialien findet in Form von fest vorgegebenen <u>Materialgruppen</u> statt.
+Diese bestimmen einige weitere Eigenschaften des Materials (z.B. Schrittgeräusche).
+</p>
+
+<p>
+Die <u>QuickSlots</u> wurden eingeführt, um das einfache Texturieren im Freelook-Modus (Taste F3)
+zu ermöglichen. In diesem Modus können die Polygone nämlich sehr bequem mit der Maus selektiert (linke Maustaste)
+und einer ausgewählten Textur zugewiesen (rechte Maustaste) werden. Mit den Quickslot-Tasten (1-9) lassen sich
+nun maximal 9 Materialien direkt auswählen, ohne aus dem Freelook-Modus auszusteigen.
+</p>
+
+<p>
+Weitere Einstellungen im Materialeditor bestimmen das <u>Mapping</u>, mit dem die Material-Textur auf die
+Polygone gelegt wird (siehe "Texturierung") sowie die Feinheit, mit der Texturen bewegt werden können ("<u>Tex.Move</u>").
+Diese Einstellung hat bei eingeschaltetem Grid (Taste G) alledings eine Wirkung.
+</p>
+
+<p>
+Die <u>Farbe</u> eines Materials gibt an, wie dieses gezeichnet werden soll, wenn die Textur nicht dargestellt wird
+(z.B. wenn die Textur nicht gefunden wurde). Hier bietet sich in den meisten Fällen die Durchschnittsfarbe (Avg.Color)
+an. Die Farbe wird als entsprechend farbiger Rand um die Texur im Materialeditor angezeigt.
+</p>
+
+<p>
+Der <u>Alpha-Wert</u> einer Textur gibt schliesslich die Transparenz einer Textur an: 0=Komplett
+durchsichtig, 255 = komplett undurchsichtig.
+
+</p>
+
+<H2>2.3 Materialeigenschaften</H2>
+
+<img src="pics/material_props.jpg">
+
+<p>
+Ein paar weitere Einstellungen können im Objects-Dialog vorgenommen werden
+(beim Editieren nicht den Button APPLY vergessen!). Die einzelnen Felder sind
+in der Online-Hilfe des Spacers (siehe Help-Fenster) eigentlich recht gut erklärt.
+</p>
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

@@ -1,0 +1,503 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("Scavenger")
+{
+
+	meshAndTree ("Sca_Body.asc" DONT_USE_MESH)
+
+	registerMesh ("Sca_Body.ASC")
+	registerMesh ("Sc2_Body.ASC")
+
+
+	aniEnum
+	{
+			modelTag	("DEF_HIT_LIMB"		"BIP01 PONYTAIL1")
+
+//////////////////////////
+// BEWEGUNGEN
+//////////////////////////
+	
+//////////////////
+// RUN
+//////////////////
+
+	// Ambient
+			ani			("s_FistRun"				1	"s_FistRun"			0.0	0.0	M.	"Sca_Ambient_KS_01.asc"		F	0	30)
+			{
+				*eventSFX	(2	"SCA_AMBIENT_SHORT"	EMPTY_SLOT	)
+			}
+	// Start Running
+			ani			("t_FistRun_2_FistRunL"		1	"s_FistRunL"		0.1	0.0	M.	"Sca_Run_KS_01.asc"		F	1	8)
+
+	// Cycle
+			ani			("s_FistRunL"				1	"s_FistRunL"		0.0	0.0	M.	"Sca_Run_KS_01.asc"		F	9	34)
+			{
+				*eventSFX	(10	"SCA_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(20	"Run"	)
+				*eventSFXGrnd	(33	"Run"	)
+			}
+
+	// End Running
+			ani	("t_FistRunL_2_FistRun"	1	"s_FistRun"	0.0	0.1	M.	"Sca_Run_KS_01.asc"	F	35	64		)
+			{
+				*eventSFXGrnd	(36	"Run"	)
+				*eventSFXGrnd	(48	"Sneak"	)
+			}
+			ani	("t_FistRunR_2_FistRun"	1	"s_FistRun"	0.0	0.0	M.	"Sca_Run_KS_01.asc"	F	47	64		)
+			{
+				*eventSFXGrnd	(48	"Run"	)
+			}
+
+	// Backwards
+			ani			("t_FistJumpB"				1	"s_FistRun"			0.1	0.1	M.	"sca_jumpB_hor_01.asc"	F	0	18	FPS:25)
+			{
+				*eventSFXGrnd	(10	"Run"	)
+				*eventSFXGrnd	(15	"Sneak"	)
+				//*eventTag	(0 "DEF_PAR_FRAME"	"1 23")		// Parade Frames
+			}
+
+	// Turning
+			ani			("t_FistRunTurnR"			20	"t_FistRunTurnR"	0.1	0.1	M.	"Sca_Turn_Jue00.ASC"	F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn"	)
+				*eventSFXGrnd	(18	"Turn"	)
+			}
+			ani			("t_FistRunTurnL"			20	"t_FistRunTurnL"	0.1	0.1	M.	"Sca_Turn_Jue00.ASC"	F	25	49)
+			{
+				*eventSFXGrnd	(30	"Turn"	)
+				*eventSFXGrnd	(42	"Turn"	)
+			}
+
+//////////////////
+// WALK
+//////////////////
+
+	// Ambient
+			aniAlias	("s_FistWalk"				1	"s_FistWalk"		0.0	0.0	M.	"s_FistRun"					F)
+
+	// Start Walking
+			ani			("t_FistWalk_2_FistWalkL"	1	"s_FistWalkL"		0.0	0.1	M.	"Sca_Walk_KS_01.asc"		F	1	12)
+
+	// Walk-Cycle
+			ani			("s_FistWalkL"				1	"s_FistWalkL"		0.0	0.0	M.	"Sca_Walk_KS_01.asc"		F	13	65	FPS:15)
+			{
+				*eventSFXGrnd	(19	"Run"	)
+				*eventSFXGrnd	(46	"Run"	)
+			}
+	// End Walking
+			ani			("t_FistWalkL_2_FistWalk"	1	"s_FistWalk"		0.0	0.0	M.	"Sca_Walk_KS_01.asc"		F	66	108	FPS:15)
+			{
+				*eventSFXGrnd	(76	"Run"	)
+				*eventSFXGrnd	(96	"Sneak"	)
+			}
+			aniBlend	("t_FistWalkR_2_FistWalk"		"s_FistWalk"		0.2	0.2)
+
+	// Backward Walk
+			aniAlias	("t_FistWalk_2_FistWalkBL"	1	"s_FistWalkBL"		0.0	0.2	M.	"t_FistWalkL_2_FistWalk"	R)
+			aniAlias	("s_FistWalkBL"				1	"s_FistWalkBL"		0.0	0.0	M.	"s_FistWalkL"				R)
+			aniAlias	("t_FistWalkBL_2_FistWalk"	1	"s_FistWalk"		0.2	0.2	M.	"t_FistWalk_2_FistWalkL"	R)
+			aniBlend	("t_FistWalkBR_2_FistWalk"		"s_FistWalk"		0.2	0.2)
+
+	// Turning
+			aniAlias	("t_FistWalkTurnL"			20	"t_FistWalkTurnL"	0.1	0.1	M.	"t_FistRunTurnL"	)
+			aniAlias	("t_FistWalkTurnR"			20	"t_FistWalkTurnR"	0.1	0.1	M.	"t_FistRunTurnR"	)
+
+/////////////////
+// TRANSITIONS MOVEMENT MODES
+/////////////////
+	// Walk <-> Run
+			aniBlend	("t_FistRun_2_FistWalk"			"s_FistWalk")
+			aniBlend	("t_FistWalk_2_FistRun"			"s_FistRun")
+			aniBlend	("t_FistWalkL_2_FistRunL"		"s_FistRunL"		0.1	0.1)
+			ani			("t_FistRunL_2_FistWalkL"	1	"s_FistWalkL"		0.1	0.1	M.	"Sca_RunToWalk_KS_01.asc"	F	1	24)
+			{
+				*eventSFXGrnd	(10	"Run"	)
+				*eventSFXGrnd	(17	"Sneak"	)
+			}
+
+/////////////////
+//	JUMP / STRAFING
+//////////////////
+	//	Jump
+			ani			("t_Stand_2_Jump"			1	"s_Jump"		0.1	0.0	M.	"Sca_JumpForward_KS_01.asc"		F	1	20)
+			ani			("s_Jump"					1	"s_Jump"		0.0	0.0	MF	"Sca_JumpForward_KS_01.asc"		F	21	21)
+			ani			("t_Jump_2_Stand"			1	""				0.0 0.1	M.	"Sca_JumpForward_KS_01.asc"		F	22	35)
+			{
+				*eventSFXGrnd	(23	"Run"	)
+				*eventSFXGrnd	(26	"Sneak"	)
+			}
+		
+			ani			("t_FistRunL_2_Jump"		1	"s_Jump"		0.2	0.1	M.	"Sca_RunToJump_KS_01.asc"		F	9	23)
+			aniAlias	("t_FistRunR_2_Jump"		1	"s_Jump"		0.2	0.0	M.	"t_FistRunL_2_Jump"				F)
+			aniBlend	("t_Jump_2_FistRunL"			"s_FistRunL"	0.2	0.2)
+
+	//	JumpUpLow
+			ani			("t_Stand_2_JumpUpLow"		1	"s_JumpUpLow"			0.1	0.0	M.	"Sca_JumpUpLow_M01.asc"	F	1	8)
+			
+			ani			("s_JumpUpLow"				1	"t_JumpUpLow_2_Stand"	0.0	0.0	MF	"Sca_JumpUpLow_M01.asc"	F	8	12)
+			ani			("t_JumpUpLow_2_Stand"		1	""						0.0	0.1	MF	"Sca_JumpUpLow_M01.asc"	F	12	30)
+			{
+				*eventSFXGrnd	(14	"Run"	)
+				*eventSFXGrnd	(16	"Sneak"	)
+			}
+
+	// Strafing
+			ani			("t_FistRunStrafeL"			1	"t_FistRunStrafeL"		0.0	0.1	M.	"sca_strafel_hor.ASC"	F	0	19)
+			{
+				*eventSFX	(1	"SCA_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(14	"Turn"	)
+//				*eventSFXGrnd	(16	"Turn"	)
+			}
+			ani			("t_FistRunStrafeR"			1	"t_FistRunStrafeR"		0.0	0.1	M.	"sca_strafer_hor.ASC"	F	0	19)
+			{
+				*eventSFX	(1	"SCA_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(14	"Turn"	)
+//				*eventSFXGrnd	(16	"Turn"	)
+			}
+			
+			aniAlias	("t_FistWalkStrafeL"		1	"t_FistWalkStrafeL"		0.0	0.1	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_FistWalkStrafeR"		1	"t_FistWalkStrafeR"		0.0	0.1	M.	"t_FistRunStrafeR"		F)
+			
+			aniAlias	("t_WalkWStrafeL"			1	"t_WalkWStrafeL"		0.0	0.1	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_WalkWStrafeR"			1	"t_WalkWStrafeR"		0.0	0.1	M.	"t_FistRunStrafeR"		F)
+			
+//////////////////////////
+// FALL
+//////////////////////////
+
+//	FallDn
+			aniBlend	("t_Jump_2_FallDn"			"s_FallDn"		0.0	0.2)
+
+			ani			("s_FallDn"				1	"s_FallDn"		0.1	0.1	MF	"Sca_FallDn_M01.asc"		F	7	7)
+
+// Landen und stehenbleiben
+			ani			("t_FallDn_2_Stand"		1	""				0.0	0.1	M.	"Sca_FallDn_M01.asc"		F	8	29)
+			{
+				*eventSFXGrnd	(9	"Run"	)
+				*eventSFX	(15	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+
+//	wenn Falltiefe zu tief um unbeschadet auf den Füßen zu landen
+			aniBlend	("t_FallDn_2_Fall"			"s_Fall"		0.5	0.5)
+			aniBlend	("t_FallDn_2_FallB"			"s_FallB"		0.5	0.5)
+
+//	Bei s-Fall und s_FallB "fliegt" die Figur durch die Luft.
+//	Bei s_Fallen + s_FallenB liegt der Spieler flach. Soll solange liegen bleiben bis eine CURSORTASTE gedrückt wird
+			ani			("s_Fall"				1	"s_Fall"		0.2 0.1 MF	"Sca_Fallen_M01.asc"		F	0	0)
+
+			ani			("t_Fall_2_Fallen"		1	"s_Fallen"		0.0 0.0 MF	"Sca_Fallen_M01.asc"		F	1	29)
+			{
+				*eventSFX	(7	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+
+			ani			("s_Fallen"				1	"s_Fallen"		0.0 0.0 M.	"Sca_Fallen_M01.asc"		F	30	30)
+			ani	("t_Fallen_2_Stand"				1	""				0.0	0.2	M.	"Sca_Fallen_M01.asc"		F	31	46)
+
+			aniAlias	("s_FallB"				1	"s_FallB"		0.1 0.0 MF	"s_Fall"					F)
+			aniAlias	("t_FallB_2_FallenB"	1	"s_FallenB"		0.0 0.0 MF	"t_Fall_2_Fallen"			F)
+
+			aniAlias	("s_FallenB"			1	"s_FallenB"		0.0 0.0 M.	"s_Fallen"					F)
+			aniAlias	("t_FallenB_2_Stand"	1	""				0.0 0.2 M.	"t_Fallen_2_Stand	"		F)
+
+//////////////////////////
+// UMSEHEN / ZEIGEN
+//////////////////////////
+// LOOK Autoaiming
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	0	0)
+			ani			("c_look_2"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	1	1)
+			ani			("c_look_3"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	2	2)
+			ani			("c_look_4"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	3	3)
+			ani			("c_look_5"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	4	4)
+			ani			("c_look_6"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	5	5)
+			ani			("c_look_7"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	6	6)
+			ani			("c_look_8"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	7	7)
+			ani			("c_look_9"				9	""				0.0	0.0	.	"Sca_Look_KS_01.asc"	F	8	8)
+
+			aniComb		("t_look"				9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+	// WhirlAround CCW
+			ani			("t_surprise_CCW"		1	"s_surprise"	0.2	0.2	M.	"Sca_Whirl.asc"			F	1	14)
+			{
+			}
+	// WhirlAround CW
+			aniAlias	("t_surprise_CW"		1	"s_surprise"	0.2	0.2	M.	"t_surprise_CCW"		R)
+
+			aniAlias	("s_surprise"			1	"s_surprise"	0.1	0.1	M.	"s_FistRun"				F)
+
+//////////////////////////
+// STUMBLE / SLIDE / FALL 
+//////////////////////////
+	// Stumble
+			ani			("t_StumbleB"			1	""				0.1 0.1	M.	"Sca_StumbleB_KS01.asc"		F	1	11)
+			{
+				*eventSFX	(1	"SCA_HURT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(8	"Run"	)
+				*eventSFXGrnd	(10	"Sneak"	)
+			}
+			ani			("t_Stumble"			1	""				0.1 0.1	M.	"Sca_Stumbleforeward_KS_01.asc"	F	0	15)
+			{
+				*eventSFX	(1	"SCA_HURT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(9	"Run"	)
+				*eventSFXGrnd	(11	"Sneak"	)
+			}
+
+//////////////////////////
+// SWIM - DIVE - WWALK
+//////////////////////////
+// -------------------------------------------------------------------------------------------------------------------------------------
+// WALKWATER
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	// Forward
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Ambient -> Loop
+			aniAlias	("t_Walk_2_WalkWL"			1	"s_WalkWL"		0.1	0.0	M.	"t_FistWalk_2_FistWalkL"	F)
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Loop
+			aniAlias	("s_WalkWL"					1	"s_WalkWL"		0.0	0.0	M.	"s_FistWalkL"				F)
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Loop -> Ambient
+			aniAlias	("t_WalkWL_2_Walk"			1	"s_FistWalk"	0.0	0.0	M.	"t_FistWalkL_2_FistWalk"	F)
+			aniBlend	("t_WalkWR_2_Walk"				"s_FistWalk"	0.1	0.1)	
+			
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	// Backward
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Ambient -> Loop			
+			aniAlias	("t_Walk_2_WalkWBL"			1	"s_WalkWBL"		0.0	0.0	M.	"t_FistWalkL_2_FistWalk"	R)
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Loop
+			aniAlias	("s_WalkWBL"				1	"s_WalkWBL"		0.0	0.0	M.	"s_FistWalkL"				R)
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Loop -> Ambient
+			aniAlias	("t_WalkWBL_2_Walk"			1	"s_FistWalk"	0.0	0.0	M.	"t_FistWalk_2_FistWalkL"	R)
+			aniBlend	("t_WalkWBR_2_Walk"				"s_FistWalk"	0.1	0.1)
+	
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+// SWIM
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Ambient
+			ani			("s_Swim"				1	"s_Swim"		0.0	0.0	M.	"Sca_SwimAmbient_A01.asc"			F	1	39	FPS:10)
+		// ---------------------------------------------------------------------------------------------------------------------------------
+		// Forward
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Ambient -> Loop
+				aniBlend	("t_Swim_2_SwimF"			"s_SwimF")
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Loop
+				ani			("s_SwimF"				1	"s_SwimF"		0.0	0.0	M.	"Sca_Swim_Jue01.asc"			F	6	23)
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Loop -> Ambient	
+				aniBlend	("t_SwimF_2_Swim"			"s_Swim")
+				
+		// ---------------------------------------------------------------------------------------------------------------------------------
+		// Backward
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Ambient -> Loop
+				aniBlend	("t_Swim_2_SwimB"			"s_SwimB")
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Loop
+				ani			("s_SwimB"				1	"s_SwimB"		0.0	0.0	M.	"Sca_Swim_Jue01.asc"			R	6	23)
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Loop -> Ambient	
+				aniBlend	("t_SwimB_2_Swim"			"s_Swim")
+				
+
+///////////////////////////////////
+// TRANSITIONS WATER MOVE MODES
+///////////////////////////////////	
+
+			aniAlias	("t_WalkWL_2_RunL"			1	""				0.0	0.1	M.	"s_FistWalkL"				F)
+			ani			("t_WalkWL_2_SwimF"			1	"s_SwimF"		0.1	0.1	MF	"Sca_Walk2Swim_M01.asc"	F	1	4)
+			ani			("t_SwimF_2_WalkWL"			1	"s_WalkWL"		0.1	0.1	MF	"Sca_Walk2Swim_M01.asc"	F	6	9)
+
+
+//////////////////////////
+// DIVE
+//////////////////////////
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Ambient
+			ani			("s_Dive"				1	"s_Dive"		0.0	0.0	MF	"Sca_DiveAmbient_KS_01.asc"			F	0	39	FPS:10)
+			
+		// ---------------------------------------------------------------------------------------------------------------------------------
+		// Forward
+		// -----------------------------------------------------------------------------------------------------------------------------
+			// Ambient -> Loop
+				aniBlend	("t_Dive_2_DiveF"			"s_DiveF"	)
+			
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Loop
+				ani			("s_DiveF"				1	"s_DiveF"		0.0	0.1	MF	"Sca_Dive_A01.asc"		F	1	39)
+			 
+			// -----------------------------------------------------------------------------------------------------------------------------
+			// Loop -> Ambient
+				aniBlend	("t_DiveF_2_Dive"			"s_Dive"	)
+	
+		
+			ani			("t_FallDn_2_Dive"		1	"s_Dive"		0.0	0.0	M.	"Sca_Drown_M01.asc"			F	1	29)
+			ani			("t_Swim_2_Dive"		1	"s_Dive"		0.0	0.0	M.	"Sca_SwimToDiveToSwim_KS_01.asc"	F	1	19)
+			aniAlias	("t_SwimF_2_Dive"		1	"s_Dive"		0.1	0.1	MF	"t_Swim_2_Dive"			F)
+
+
+
+///////////////////
+//	TURNING
+///////////////////
+// WALKWATER
+			aniAlias	("t_WalkWTurnL"			20	"t_WalkWTurnL"	0.0	0.0	M.	"t_FistRunTurnL"				F)
+			aniAlias	("t_WalkWTurnR"			20	"t_WalkWTurnR"	0.0	0.0	M.	"t_FistRunTurnR"				F)
+
+//	SWIM
+			ani			("t_SwimTurnL"			20	"t_SwimTurnL"	0.1	0.1	M.	"Sca_SwimTurn_L_Jue00_fr24.ASC"	F	1	23)
+			ani			("t_SwimTurnR"			20	"t_SwimTurnR"	0.1	0.1	M.	"Sca_SwimTurn_R_Jue00_fr24.ASC"	F	1	23)
+			
+//  DIVE
+			ani			("t_DiveTurnL"			20	"t_DiveTurnL"	0.1	0.1	M.	"Sca_DiveTurnL_A01.asc"			F	1	24)
+			ani			("t_DiveTurnR"			20	"t_DiveTurnR"	0.1	0.1	M.	"Sca_DiveTurnR_A01.asc"			F	1	24)
+
+
+
+		
+	
+//////////////////////////
+// DIE / DIE_B / DROWN
+//////////////////////////
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DEAD
+			ani			("t_Dead"					1	"s_Dead"		0.1	0.0	M.	"Sca_dieback_KS_01.asc"			F	1	39)
+			{
+				*eventSFX	(1	"SCA_DIE"	EMPTY_SLOT	)
+				*eventPFX	(5	1	"BFX_Scavenger_Dead"	"BIP01"		ATTACH	)
+				*eventSFX	(20	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+			ani			("s_Dead"					1	"s_Dead"		0.0	0.0	M.	"Sca_dieback_KS_01.asc"			F	40	40)
+	
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DEADB
+			ani			("t_DeadB"					1	"s_DeadB"		0.1	0.0	M.	"Sca_DeadB_M03.asc"				F	1	32)
+			{
+				*eventSFX	(1	"SCA_DIE"	EMPTY_SLOT	)
+				*eventPFX	(5	1	"BFX_Scavenger_Dead"	"BIP01"		ATTACH	)
+				*eventSFX	(23	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+
+			ani			("s_DeadB"					1	"s_DeadB"		0.0	0.0	M.	"Sca_DeadB_M03.asc"				F	33	33)
+
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DROWN
+			ani			("t_Dive_2_Drowned"		1	"s_Drowned"		0.0	0.0	M.	"Sca_Drown_KS_01.asc"			F	1	59)
+			ani			("s_Drowned"			1	"s_Drowned"		0.0	0.0	M.	"Sca_Drown_KS_01.asc"			F	60	60)
+
+
+//////////////////////////
+// Kampf / Zuschnappen
+//////////////////////////
+			ani			("s_FistAttack"				1	"s_FistAttack"	0.0	0.0	M.	"Sca_Attack_M01.asc"	F	1	19)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"Bip01 PONYTAIL1")
+				*eventTag		(0 "DEF_OPT_FRAME"	"12")
+				*eventTag		(0 "DEF_HIT_END"	"19")
+				*eventTag		(0 "DEF_WINDOW"		"12 19")
+//				*eventTag		(0 "DEF_DIR"		"O")
+				*eventSFX	(2	"SCA_ATTACK"	EMPTY_SLOT	)
+			}
+	// während des Laufens zuschlagen
+			ani			("t_FistAttackMove"			2	""				0.2	0.2	M.	"Sca_AttackMove_M01.asc"	F	1	23)			
+			{
+				*eventTag	(0 "DEF_HIT_LIMB"	"Bip01 PONYTAIL1")
+				*eventTag	(0 "DEF_OPT_FRAME"	"15")
+				*eventSFX	(2	"SCA_ATTACK"	EMPTY_SLOT	)
+			}
+
+//	Paraden
+
+			aniAlias	("t_FistParadeJumpB"	1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+			aniAlias	("t_FistParade_O"		1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_U"		1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_L"		1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+//			aniAlias	("t_FistParade_R"		1	""				0.0	0.0	M.	"t_FistJumpB"					F)
+
+
+//////////////////////////
+// SCRIPT / RANDOM
+//////////////////////////
+			ani			("t_Perception"			2	""					0.0	0.0	M.	"Sca_Perception_M01.asc"	F	1	74	FPS:15)
+			{
+				*eventSFX	(5	"SCA_SHAKEHEAD"	EMPTY_SLOT	)
+				*eventSFXGrnd	(18	"Sneak"	)
+				*eventSFXGrnd	(73	"Sneak"	)
+			}
+			ani			("t_Warn"				2	""					0.1	0.1	M.	"Sca_Warn_M01.asc"	F	0	50	FPS:15)
+			{
+				*eventSFX	(1	"SCA_WARN"	EMPTY_SLOT	)
+			}
+//---------------------------------------------------------------------------------------------------------------------------------
+			ani			("t_Stand_2_Sleep"		1	"s_Sleep"			0.0	0.0	M.	"Sca_Sleep_M01.asc"			F	1	39	FPS:15)
+			ani			("s_Sleep"				1	"s_Sleep"			0.0	0.0	M.	"Sca_Sleep_M01.asc"			F	40	76	FPS:5)
+			ani			("t_Sleep_2_Stand"		1	""					0.0	0.0	M.	"Sca_Sleep_M01.asc"			F	77	109	FPS:15)
+//---------------------------------------------------------------------------------------------------------------------------------
+			ani			("t_Stand_2_Eat"		1	"s_Eat"				0.0	0.0	M.	"Sca_PickGround_M01.asc"	F	1	44	FPS:15)
+			ani			("s_Eat"				1	"s_Eat"				0.0	0.0	M.	"Sca_PickGround_M01.asc"	F	45	144	FPS:15)
+			{
+				*eventSFX	(67	"CS_IHL_ST_SA"	EMPTY_SLOT	)
+				*eventSFX	(76	"CS_IHL_ST_SA"	EMPTY_SLOT	)
+				*eventSFX	(88	"CS_IHL_ST_SA"	EMPTY_SLOT	)
+				*eventSFX	(97	"SCA_SLURPDOWN"	EMPTY_SLOT	)
+			}
+			ani			("t_Eat_2_Stand"		1	""					0.0	0.0	M.	"Sca_PickGround_M01.asc"	F	145	158	FPS:15)
+//---------------------------------------------------------------------------------------------------------------------------------
+			ani			("r_lookcurious"		2	""					0.2	0.2	M.	"Sca_attackstandrandom_KS_01.asc"	F	0	30	FPS:15)
+			ani			("r_shakehead"			2	""					0.3	0.3	M.	"Sca_stumblebackrandom_KS_01.asc"	F	0	50	)
+			{
+				*eventSFX	(4	"SCA_SHAKEHEAD"	EMPTY_SLOT	)
+			}
+			ani			("r_pickfly"			2	""					0.2	0.2	M.	"Sca_Pick_KS_01.asc"				F	1	51	)
+			{
+				*eventSFX	(18	"SCA_FLY"	EMPTY_SLOT	)
+				*eventSFX	(35	"SCA_SLURPDOWN"	EMPTY_SLOT	)
+			}
+			ani			("r_scratch"			2	""					0.2	0.2	M.	"Sca_Scratch_KS_01.asc"				F	1	33	FPS:15)
+			{
+				*eventSFX	(9	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(22	"SCRATCH"	EMPTY_SLOT	)
+			}
+			ani			("r_Happy"				2	""					0.1	0.1	M.	"Sca_Happy_KS_01.asc"	F	1	51	FPS:15)
+			{
+				*eventSFX	(2	"SCA_GACKER"	EMPTY_SLOT	)
+			}
+
+// ***************************************************************************************
+// MM DAYCYCLE
+// ***************************************************************************************
+			aniAlias	("r_Roam1"			2	""			0.1 0.1 M.	"r_Happy"		F)	
+			aniAlias	("r_Roam2"			2	""			0.1 0.1 M.	"r_shakehead"	F)	
+			aniAlias	("r_Roam3"			2	""			0.1 0.1 M.	"r_pickfly"		F)
+// ***************************************************************************************
+			
+///////////////////////
+// MAGIC VICTIMS
+///////////////////////
+
+// Feuerschaden allgemein, z.B. Fireball, Pyrokinesis, ...
+			aniAlias	("s_Fire_Victim"			1	"s_Fire_Victim"			0.0	0.0	M.	"s_Lightning_Victim"		F)
+
+// Lightning, Chainlightning, Thunderbolt, Thunderball
+			ani			("t_Stand_2_Lightning_Victim"	1	"s_Lightning_Victim"	0.0	0.0	M.	"Sca_VicLightning_M02.asc"	F	0	7)
+			ani			("s_Lightning_Victim"		1	"s_Lightning_Victim"	0.0	0.0	M.	"Sca_VicLightning_M02.asc"		F	7	45)
+
+// IceCube, IceWave
+			ani			("t_Stand_2_Freeze_Victim"	1	"s_Freeze_Victim"		0.1	0.0	M.	"Sca_StumbleB_KS01.asc"		F	1	3)
+			ani			("s_Freeze_Victim"			1	"s_Freeze_Victim"		0.0	0.0	M.	"Sca_StumbleB_KS01.asc"		F	4	4)
+
+// Sleep Victim
+			aniAlias	("t_Stand_2_Victim_Sle"		1	"s_Victim_Sle"			0.1	0.0	M.	"t_Stand_2_Sleep"	F)
+			aniAlias	("s_Victim_Sle"				1	"s_Victim_Sle"			0.0	0.0	M.	"s_Sleep"			F)
+			aniAlias	("t_Victim_Sle_2_Stand"		1	""						0.0	0.2	M.	"t_Sleep_2_Stand"	F)
+
+}

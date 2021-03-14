@@ -1,0 +1,17 @@
+// 
+// Spacer Help File
+// Engine Klassen (zCWaynet.cpp) 
+// 
+// Cutscenes (Gothicgame)
+// 
+
+[TOPIC CLASS 'oCCSTrigger']
+Dieser spezielle Trigger reinterpretiert den zCTrigger: Statt einer Menge von Vobs wird eine Cutscenes getriggert. In das Feld 'triggerTarget' wird also der Name der entsprechenden Cutscene (ohne Endung) eingetragen. Diese muss bereits 'Schlummern' und auf eine Trigger-Nachricht warten; sie wird also nicht (!) per oCCSTrigger geladen. 
+
+Eine Untrigger-Nachricht wird vom Cutscene-System nicht berücksichtigt!
+
+[TOPIC MEMBER 'oCCSTrigger::triggerTarget']
+In diesem Feld wird der Name der Cutscene (ohne Endung) eingetragen, die getriggert werden soll.
+
+[TOPIC MEMBER 'oCCSTrigger::sendUntrigger']
+Ein Untrigger wird vom oCCSTrigger zwar verschickt, aber vom Cutscene-System nicht berücksichtigt. Wir empfehlen trotzdem, dieses Flag immer auf FALSE zu stellen.

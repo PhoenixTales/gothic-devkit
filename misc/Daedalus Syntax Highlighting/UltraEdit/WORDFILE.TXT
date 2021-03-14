@@ -1,0 +1,220 @@
+/L1"PB Feedback" Block Comment On = <U Block Comment Off = > String Chars = | File Extensions = PBF
+/Delimiters = ~@$^&*=|\[]:;"' ,	.?
+/C1
++1+
+-1-
+!1!
+/C2
++2+
+-2-
+!2!
+/C3
++3+
+-3-
+!3!
+/C4
++4+
+-4-
+!4!
+%%%
+/L2"Phoenix Script" Line Comment = // Block Comment On = /* Block Comment Off = */ File Extensions = D SRC
+/C1
+C_ITEM C_Item CLASS C_NPC C_Npc CONST
+class const
+ELSE EXTERN
+else extern
+FLOAT FOR FUNC FUNCREF
+float for func funcref
+GOTO 
+goto
+IF INSTANCE INT
+if instance int
+LABEL
+label
+PROTOTYPE
+prototype
+RETURN
+return
+STRING STRINGP
+string stringp
+THEN
+then
+VAR VECTOR VOBREF VOID
+var vector vobref void
+WHILE
+while
+/C2
+ATR_ARCANE ATR_CONSTITUTION ATR_DEXTERITY ATR_HITPOINTS ATR_HITPOINTS_MAX ATR_MADNESS ATR_MADNESS_MAX ATR_MANA ATR_MANA_MAX ATR_PROTECTION ATR_RESIST_FIRE ATR_RESIST_MAGIC ATR_RESIST_POISON ATR_RESIST_WEAPON ATR_STRENGTH ATR_SWORDSMANSHIP ATR_THIEVERY ATR_WILL ATR_WILL_MAX ATT_ANGRY ATT_FRIENDLY ATT_HOSTILE ATT_NEUTRAL
+BS_AIMFAR BS_AIMNEAR BS_CASTING BS_CLIMB BS_CONTROLLING BS_CRAWL BS_DEAD BS_DIVE BS_DROPITEM BS_FALL BS_FLAG_INTERRUPTABLE BS_HIT BS_INVENTORY BS_ITEMINTERACT BS_JUMP BS_LIE BS_MAX BS_MOBINTERACT BS_MOBINTERACT_INTERRUPT BS_PARADE BS_PETRIFIED BS_PICKPOCKET BS_RUN BS_SIT BS_SNEAK BS_SPRINT BS_STAND BS_STUMBLE BS_SWIM BS_TAKEITEM BS_THROWITEM BS_UNCONSCIOUS BS_WALK
+C_GILVALUES CHAPTER_1 CHAPTER_2 CHAPTER_3 CHAPTER_4 CHAPTER_5 CHAPTER_6 CHAPTER_ALL CLIMB_GROUND_ANGLE CLIMB_HEADING_ANGLE CLIMB_HORIZ_ANGLE
+DAM_BLUNT DAM_EDGE DAM_FIRE DAM_FLY DAM_MAGIC DAM_POINT DISABLE_AUTOROLL DIVE_TIME
+FAI_ATTACK FAI_CRAWLER FAI_DEFEND FAI_GOBBO FAI_MEATBUG FAI_ORC FAI_PASSIVE FAI_SCAVENGER FAI_SHADOW FAI_SKELETON FAI_SNAPPER FAI_TROLL FAI_WOLF FAI_ZOMBIE FALLDOWN_DAMAGE FALLDOWN_HEIGHT FALSE FIGHT_ATTACK_LENGTH FIGHT_RANGE_1HA FIGHT_RANGE_1HS FIGHT_RANGE_2HA FIGHT_RANGE_2HS FIGHT_RANGE_DAG FIGHT_RANGE_FIST FIGHT_RUN2WALK_LENGTH FIGHT_STEP_LENGTH FMODE_FAR FMODE_FIST FMODE_MAGIC FMODE_MELEE FMODE_NONE
+GIL_BAU GIL_BLOODFLY GIL_DEMON GIL_DMB GIL_DOG GIL_EBR GIL_FLL GIL_GOBBO GIL_GOLEM GIL_GRD GIL_GUR GIL_HUMAN GIL_KDF GIL_KDW GIL_LURKER GIL_MAX GIL_MEATBUG GIL_MINECRAWLER GIL_MOLERAT GIL_MRL GIL_BAB GIL_NONE GIL_NOV GIL_NPCMAX GIL_ORCDOG GIL_ORCSCOUT GIL_ORCSHAMAN GIL_ORCSLAVE GIL_ORCWARRIOR GIL_ORG GIL_SEPERATOR_HUM GIL_SEPERATOR_ORC GIL_SCAVENGER GIL_SCORPION GIL_SFB GIL_SHADOWBEAST GIL_SKELETON GIL_SLD GIL_SLF GIL_SNAPPER GIL_STT GIL_SWAMPSHARK GIL_TPL GIL_TROLL GIL_UNDEAD GIL_UNDEADORC GIL_VLK GIL_WARAN GIL_WOLF GIL_ZOMBIE
+INF_BEINGS INF_GUILD INF_ITEMS INF_MISSION INF_PERSON INF_PLACE INF_TELL INF_UNKNOWN ITEM_BURN ITEM_CREATEAMMO ITEM_DRINK ITEM_EAT ITEM_KAT_ARMOR ITEM_KAT_DOCS ITEM_MISSION ITEM_MULTI ITEM_SWIM ITEM_THROW ITEM_TORCH ITEM_2HD_AXE ITEM_2HD_SWD ITEM_AXE ITEM_BB ITEM_BOW ITEM_CROSSBOW ITEM_DAG ITEM_FF ITEM_FT ITEM_KAT_ARMOR ITEM_KAT_DOCS ITEM_KAT_FF ITEM_KAT_FOOD ITEM_KAT_KEYS ITEM_KAT_LIGHT ITEM_KAT_MUN ITEM_KAT_NF ITEM_KAT_NONE ITEM_KAT_TRAPS ITEM_LB ITEM_LS ITEM_MI ITEM_NF ITEM_RU ITEM_SB ITEM_SHIELD ITEM_SO ITEM_SWD ITEM_VS ITEM_VZ ITEM_ZF
+JUMPLOW_HEIGHT JUMPMID_HEIGHT JUMPUP_FORCE
+LP_ATR LP_FIGHT_TAL LP_MAG LP_TAL
+NEWS_ATTACK NEWS_DEFEAT NEWS_INTERFERE NEWS_MURDER NEWS_NERVE NEWS_SOURCE_GOSSIP NEWS_SOURCE_WITNESS  NEWS_THEFT NPC_FLAG_FRIEND NPC_FLAG_IMMORTAL NPC_PERC_AIM NPC_PERC_BLOCK_MOB NPC_PERC_BLOCK_NPC NPC_PERC_CALL NPC_PERC_DRAW_WEAPON NPC_PERC_ENEMY NPC_PERC_ENEMY_DOWN NPC_PERC_INFRINGE_GUILD NPC_PERC_INFRINGE_PERS NPC_PERC_ITEM NPC_PERC_MOB NPC_PERC_MURDER NPC_PERC_NPC NPC_PERC_REMOVE_WEAPON NPC_PERC_SOUND_FAR NPC_PERC_SOUND_NEAR NPC_PERC_TALK NPC_PERC_THEFT NPC_PERC_WARNED NPC_PERC_WASHIT NPC_PERC_WITNESS_ATTACK NPC_PERC_WITNESS_THEFT NPC_RUN NPC_RUN_WEAPON NPC_SNEAK NPC_SNEAK_WEAPON NPC_SOUND_DRAWWEAPON NPC_SOUND_DROPTAKE NPC_SOUND_FIGHT NPC_SOUND_SCREAM NPC_SOUND_SPEAK NPC_SOUND_STEPS NPC_SOUND_THROWCOLL NPC_WALK NPC_WALK_WEAPON
+MAT_CLAY MAT_GLAS MAT_LEATHER MAT_METAL MAT_STONE MAT_WOOD MAX_ATTRIBUTE MAX_DAMAGE MAX_GUILDS MAX_MISSIONS MAX_PROT MAX_SPELL MAX_TALENT MIS_FAILED MIS_FREE MIS_REFUSED MIS_RUNNING MIS_SUCCESS MUN_BLZ MUN_PFL MUN_THROW
+OBJ_CLOSED OBJ_FLAG_CONTAINER OBJ_FLAG_HIDE OBJ_FLAG_INDESTRUCTABLE OBJ_FLAG_LIEDOWN OBJ_FLAG_MOVEABLE OBJ_FLAG_SITDOWN OBJ_FLAG_SWITCH OBJ_FLAG_TAKEABLE OBJ_LOCKED OBJ_OPEN
+PC_MANIPULATES_ITEM PC_MANIPULATES_MOB PD_ZS_CHECK PD_ZS_FRAME PERC_ASSESSBODY PERC_ASSESSCALL PERC_ASSESSCASTER PERC_ASSESSDAMAGE PERC_ASSESSDEFEAT PERC_ASSESSENEMY PERC_ASSESSFAKEGUILD PERC_ASSESSFIGHTER PERC_ASSESSFIGHTSOUND PERC_ASSESSGIVENITEM PERC_ASSESSITEM PERC_ASSESSMAGIC PERC_ASSESSMURDER PERC_ASSESSOTHERSDAMAGE PERC_ASSESSPLAYER PERC_ASSESSQUIETSOUND PERC_ASSESSREMOVEWEAPON PERC_ASSESSSTOPMAGIC PERC_ASSESSSURPRISE PERC_ASSESSTALK PERC_ASSESSTHEFT PERC_ASSESSTHREAT PERC_ASSESSWARN PERC_CATCHTHIEF PERC_DIST_DIALOG PERC_DIST_FLEE PERC_DIST_INTERMEDIAT PERC_DIST_MAX PERC_DRAWWEAPON PERC_MOVEMOB PERC_MOVENPC PERC_NPCCOMMAND PERC_OBSERVEINTRUDER PERC_OBSERVESUSPECT PROT_BLUNT PROT_EDGE PROT_FIRE PROT_FLY PROT_MAGIC PROT_POINT
+SC_ANNOYED SC_ATTACKED SC_FURIOUS SC_KILLED SC_KNOWN SC_RECRUIT SC_STOLE SC_UNKNOWN SENSE_HEAR SENSE_SEE SENSE_SMELL SLIDE_ANGLE SLIDE_ANGLE2 SPELL_BAD SPELL_GOOD SPELL_NEUTRAL SPL_DEAMON SPL_DONTINVEST SPL_EARTHQUAKE SPL_FIREBALL SPL_FORGET SPL_HEAL SPL_HUMANCONTROL SPL_INSANE SPL_INVISIBLE SPL_LIGHT SPL_LIGHTNING SPL_PETRIFY SPL_RECEIVEINVEST SPL_SENDCAST SPL_SENDSTOP SPL_STOPTIME SPL_TELEKINESIS SPL_TELEPORTATION SPL_TELESTORM SPL_TRANSFORM SPL_TURN2ANIMAL SPL_UNUSED SPL_UNUSED2 SPL_WINDFIST STEP_HEIGHT SURFACE_ALIGN SWIM_TIME
+TAL_1H_AXE TAL_1H_AXE2 TAL_1H_AXE3 TAL_1H_SWORD TAL_1H_SWORD2 TAL_1H_SWORD3 TAL_2H_AXE TAL_2H_AXE2 TAL_2H_AXE3 TAL_2H_SWORD TAL_2H_SWORD2 TAL_2H_SWORD3 TAL_ACROBAT TAL_ASSASSIN TAL_BOW TAL_BOW2 TAL_BOW3 TAL_CLIMB TAL_CROSSBOW TAL_CROSSBOW2 TAL_CROSSBOW3 TAL_DAGGER TAL_DAGGER2 TAL_DAGGER3 TAL_HEAL TAL_HIDE TAL_IRONWILL TAL_MANA TAL_MUSHROOMS TAL_NIGHTSIGHT TAL_PICKLOCK TAL_SEVENTHSENSE TAL_SNEAK TAL_SPEAKORK TAL_STEAL TAL_SWIM TAL_TAMEANIMALS TAL_TRAPS TEMP_ANGRY TEMP_HOSTILE TEMP_NEUTRAL TEMP_STRAINED TIME_AFTERNOON TIME_DAWN TIME_EVENING TIME_FORENOON TIME_INFINITE TIME_MIDNIGHT TIME_MORNING TIME_NIGHT TIME_NOON TRUE
+WATER_DEPTH_CHEST WATER_DEPTH_KNEE WEAR_EAR WEAR_HEAD WEAR_NECK WEAR_TORSO
+/C3
+answer
+AI_AlignToWP AI_Ask AI_Attack AI_ContinueRoutine AI_Dodge AI_DrawWeapon AI_DropItem AI_EquipArmor AI_EquipBestArmor AI_EquipBestMeleeWeapon AI_EquipBestRangedWeapon AI_EquipMeleeWeapon AI_EquipRangedWeapon AI_FinishingMove AI_GotoFP AI_GotoItem AI_GotoNextFP AI_GotoNpc AI_GotoSound AI_GotoWP AI_LookAt AI_LookAtNpc AI_LookForItem AI_PlayAni AI_PlayAniSnd AI_PlayCutscene AI_PlayCutsceneEx AI_PointAtNpc AI_PointAtObj AI_Quicklook AI_QuickLook AI_RemoveFromHand AI_RemoveWeapon AI_Seek AI_SetNpcsToState AI_SetToIdle AI_StandUp AI_StopLookAt AI_Output AI_OutputSVM AI_PlayAniBS AI_PointAt AI_ReadyMeleeWeapon AI_ReadyRangedWeapon AI_StopPointAt AI_SetWalkmode AI_SetWalkModeRoutine AI_StartState AI_TakeItem AI_TrollCallsGobbo AI_TurnAway AI_TurnToNpc AI_TurnToSound AI_UnequipArmor AI_UnequipWeapons AI_UseItem AI_UseItemToState AI_UseMob AI_Wait AI_WaitForQuestion AI_WaitTillEnd AI_WhirlAround
+C_AmIStronger C_CanTalkTo C_MageTest C_WantItem CastSpell CreateInMob CreateInvItem CreateInvItems CreateItem3D CreateLearn CreateMob3D CreateNpc3D 
+Doc_Font Doc_MapCoordinates Doc_Open Doc_Print
+EquipItem
+Flee
+GetValue GiveItem
+Hlp_ClrBit Hlp_CutscenePlayed Hlp_GetInstanceID Hlp_GetNpc Hlp_HasBit Hlp_IsItem Hlp_IsValidItem Hlp_IsValidNpc Hlp_Random Hlp_SetBit Hlp_StrCmp
+ID
+JoinParty
+KnowsInfo 
+Mdl_ApplyNewStandAni Mdl_ApplyOverlayMds Mdl_ApplyRandomAni Mdl_ApplyRandomAniFreq Mdl_ApplyRandomFaceAni Mdl_RemoveOverlayMDS Mdl_SetModelFatness Mdl_SetModelScale Mdl_SetVisual Mdl_SetVisualBody Mdl_StartFaceAni Mis_CancelMission Mis_GetStatus Mis_OfferMission Mis_OnTime Mis_PlayerHasCompleted Mis_PlayerHasFailed Mis_PlayerIsOnMission Mis_SetStatus Mob_CreateItems Mob_HasItems
+Npc_AreWeStronger Npc_CanSeeItem Npc_CanSeeNpc Npc_CanSeeNpcFreeLOS Npc_CanSeeSource Npc_CanTrollCallGobbo Npc_ChangeAttribute Npc_CheckAvailableMission Npc_CheckInfo Npc_CheckOfferMission Npc_CheckRunningMission Npc_ClearAIQueue Npc_CreateSpell Npc_DisableReactions Npc_EnableReactions Npc_ExchangeRoutine Npc_GetActiveSpell Npc_GetActiveSpellCat Npc_GetAttitude Npc_GetDistToPlayer Npc_GetBodyState Npc_GetDetectedMob Npc_GetDistToItem Npc_GetDistToNpc Npc_GetEquippedArmor Npc_GetEquippedMeleeWeapon Npc_GetEquippedRangedWeapon Npc_GetGuildAttitude Npc_GetInvItem Npc_GetNearestWP Npc_GetNewsOffender Npc_GetNewsVictim Npc_GetNewsWitness Npc_GetNextTarget Npc_GetNextWP Npc_GetPermAttitude Npc_GetReadiedWeapon Npc_GetStateTime Npc_GetTarget Npc_GetTempAttitude Npc_GetTrueGuild NPC_GiveInfo Npc_GiveItem Npc_HasBodyFlag Npc_HasDetectedNpc Npc_HasEquippedArmor Npc_HasEquippedMeleeWeapon Npc_HasEquippedRangedWeapon Npc_HasEquippedWeapon Npc_HasFightTalent Npc_HasItems Npc_HasNews Npc_HasOffered Npc_HasReadiedMeleeWeapon Npc_HasReadiedRangedWeapon Npc_HasReadiedWeapon Npc_HasTalent Npc_IncreaseAttitude Npc_IncreaseTempAttitude Npc_IsAiming Npc_IsAnnoyed Npc_IsDead Npc_IsDetectedMobOwnedByGuild Npc_IsDetectedMobOwnedByNpc Npc_IsEnemyBehindFriend Npc_IsFurious Npc_IsInCutscene Npc_IsInFightMode Npc_IsInRoutine Npc_IsInState Npc_IsNear Npc_IsNewsGossip Npc_IsNextTargetAvailable Npc_IsOnFP Npc_IsPlayer Npc_IsPlayerInMyRoom Npc_IsWayBlocked Npc_KnowsInfo Npc_KnowsPlayer Npc_LearnSpell Npc_LearnFightTalent Npc_LearnTalent Npc_MemoryEntry Npc_MemoryEntryGuild Npc_OwnedByGuild Npc_OwnedByNpc Npc_PercDisable Npc_PerceiveAll Npc_PercEnable Npc_RefuseTalk Npc_SendPassivePerc Npc_SendSinglePerc Npc_SetActiveSpellInfo Npc_SetAttitude Npc_SetKnowsPlayer Npc_SetPerception Npc_SetPercTime Npc_SetPermAttitude Npc_SetRefuseTalk Npc_SetStateTime Npc_SetTarget Npc_SetTeleportPos Npc_SetTempAttitude Npc_SetToDrunk Npc_SetToFightMode Npc_SetToFistMode Npc_SetToMad Npc_SetTrueGuild Npc_StartItemReactModules Npc_WarnFriends Npc_WasInState Npc_WasPlayerInMyRoom
+OpenDocument
+PC_IsNearFriendlyPC Perc_SetRange PrintDebug
+Print PrintDebug PrintDebugNpc PrintDoc PrintMulti
+Quit
+RotateMob Rtn_Exchange
+SCPrint SetDamage ShowPic Snd_GetDistToSource Snd_IsSourceItem Snd_IsSourceNpc Snd_Play Snd_Play3D Steal
+TA TA_ArenaBet TA_ArenaFight TA_Barkeeper TA_Beggar TA_BeginOverlay TA_Board TA_BodyGuard TA_CollectRoots TA_Cook TA_CookForAll TA_CookForMe TA_CS TA_DrinkAlcohol TA_Drunk TA_Eat TA_EndOverlay TA_ExchangeOre TA_FightTraining TA_GiveOrders TA_GotoWP TA_Guard TA_GuardDigger TA_GuardPassage TA_GuardPatrol TA_HangAround TA_HerbAlchemy TA_HerbDealer TA_HerbRolling TA_Highwaymen TA_Hunt TA_Listen TA_Lookout TA_MakeBooze TA_MCHunting TA_MCMilking TA_Min TA_OperateLift TA_PickOre TA_PickRice TA_PlayDice TA_PlayInstrument TA_PlayMusic TA_Plunder TA_PotionAlchemy TA_PracticeBow TA_PracticeDisciple TA_PracticeLeader TA_PracticeMagic TA_Pray TA_Preach TA_ReadBook TA_RemoveOverlay TA_RepairHut TA_Schutzgeld TA_SearchPerson TA_SharpenBlade TA_Sleep TA_SleepingGuard TA_Smith TA_Smoke TA_Speech TA_SpreadNews TA_Tattoo TA_Teaching TA_Think TA_TradeElixier TA_TradeOreToFood TA_TradeWeaponToOre TA_WalkAround TA_WashSelf TA_WoodCarving
+wld_hour wld_min 
+Wld_AssignRoomToGuild Wld_AssignRoomToNpc Wld_DetectItem Wld_DetectNpc Wld_DetectPlayer Wld_ExchangeGuildAttitudes Wld_GetDay Wld_GetFormerPlayerPortalGuild Wld_GetFormerPlayerPortalOwner Wld_GetGuildAttitude Wld_GetPlayerPortalGuild Wld_GetPlayerPortalOwner Wld_InsertItem Wld_InsertNpc Wld_IsFPAvailable Wld_IsMobAvailable Wld_IsNextFPAvailable Wld_IsTime Wld_SetGuildAttitude Wld_SetMobRoutine Wld_SetObjectRoutine 
+
+/C4
+answer_yes
+item
+mob
+other other.aivar other.attribute other.guild 
+self self.aivar self.attribute self.guild self.wp self_weapon
+this
+victim victim.guild
+
+/C5
+AIF_MOCKED AIF_MOURNED AIF_ON_DUTY AIF_PLUNDERED AIV_ASKED_FOR_GO AIV_ASKED_FOR_INFO AIV_ASKED_FOR_SHEATH AIV_ASKED_FOR_STOP AIV_FLAGS AIV_GIVEN AIV_PERMISSION AIV_SPECIFIC 
+B_AssessAndMemorize B_AssessBody B_CheerFight B_DrawWeapon B_HealSelf B_LookAround B_NpcIsInFightMode B_Say
+CAUSE_PC_AIMED CAUSE_PC_ATTACKED CAUSE_PC_BLOCKED_WAY CAUSE_PC_DELAYED_MISSION CAUSE_PC_DIDNT_GIVE CAUSE_PC_DIDNT_GO CAUSE_PC_DIDNT_SHEATH CAUSE_PC_DIDNT_SHUT_UP CAUSE_PC_DIDNT_STOP CAUSE_PC_FAILED_MISSION CAUSE_PC_INFRINGED CAUSE_PC_SPECIAL CAUSE_PC_STOLE Ct_ClearMocked Ct_ClearMourned Ct_ClearPlundered Ct_DecreaseAttitudeToCold Ct_DecreaseAttitudeToNeutral Ct_IncreaseAttitudeToCold Ct_IncreaseAttitudeToNeutral Ct_ItemIsArmor Ct_ItemIsMeleeWeapon Ct_ItemIsRangedWeapon Ct_NpcWasMocked Ct_NpcWasMourned Ct_NpcWasPlundered Ct_OtherIsMightier Ct_PCHasAttacked Ct_PCHasKilledCampNpc 
+Ct_PCHasKilledGuildNpc Ct_PCHasStolen Ct_SetMocked Ct_SetMourned Ct_SetPlundered 
+PrintDebugF PrintDebugS
+ZS_ArenaBet ZS_ArenaBet_End ZS_ArenaBet_Loop ZS_ArenaFight ZS_ArenaFight_End ZS_ArenaFight_Loop ZS_AssessMurder ZS_AssessMurder_Loop ZS_AssessMurder_End ZS_Barkeeper ZS_Barkeeper_End ZS_Barkeeper_Loop ZS_Beggar ZS_Beggar_End ZS_Beggar_Loop ZS_Board ZS_Board_End ZS_Board_Loop ZS_BodyGuard ZS_BodyGuard_End ZS_BodyGuard_Loop ZS_CollectRoots ZS_CollectRoots_End ZS_CollectRoots_Loop ZS_Cook ZS_CookForMe ZS_CookForMe_End ZS_CookForMe_Loop ZS_Cook_End ZS_Cook_Loop ZS_DrinkAlcohol ZS_DrinkAlcohol_End ZS_DrinkAlcohol_Loop ZS_Drunk ZS_Drunk_End ZS_Drunk_Loop ZS_Eat ZS_Eat_End ZS_Eat_Loop ZS_ExchangeOre ZS_ExchangeOre_End ZS_ExchangeOre_Loop ZS_FightTraining ZS_FightTraining_End ZS_FightTraining_Loop ZS_GiveOrders ZS_GiveOrders_End ZS_GiveOrders_Loop ZS_GotoWP ZS_GotoWP_End ZS_GotoWP_Loop ZS_Guard ZS_GuardDigger ZS_GuardDigger_End ZS_GuardDigger_Loop ZS_GuardPassage ZS_GuardPassage_End ZS_GuardPassage_Loop ZS_GuardPatrol ZS_GuardPatrol_End ZS_GuardPatrol_Loop ZS_Guard_End ZS_Guard_Loop ZS_HangAround ZS_HangAround_End ZS_HangAround_Loop ZS_HerbAlchemy ZS_HerbAlchemy_End ZS_HerbAlchemy_Loop ZS_HerbDealer ZS_HerbDealer_End ZS_HerbDealer_Loop ZS_HerbRolling ZS_HerbRolling_End ZS_HerbRolling_Loop ZS_Highwaymen ZS_Highwaymen_End ZS_Highwaymen_Loop ZS_Hunt ZS_Hunt_End ZS_Hunt_Loop ZS_Listen ZS_Listen_End ZS_Listen_Loop ZS_Lookout ZS_Lookout_End ZS_Lookout_Loop ZS_MCHunting ZS_MCHunting_End ZS_MCHunting_Loop ZS_MCMilking ZS_MCMilking_End ZS_MCMilking_Loop ZS_MakeBooze ZS_MakeBooze_End ZS_MakeBooze_Loop ZS_OperateLift ZS_OperateLift_End ZS_OperateLift_Loop ZS_PickOre ZS_PickOre_End ZS_PickOre_Loop ZS_PickRice ZS_PickRice_End ZS_PickRice_Loop ZS_PlayDice ZS_PlayDice_End ZS_PlayDice_Loop ZS_PlayInstrument ZS_PlayInstrument_End ZS_PlayInstrument_Loop ZS_PlayMusic ZS_PlayMusic_End ZS_PlayMusic_Loop ZS_Plunder ZS_Plunder_End ZS_Plunder_Loop ZS_PotionAlchemy ZS_PotionAlchemy_End ZS_PotionAlchemy_Loop ZS_PracticeBow ZS_PracticeBow_End ZS_PracticeBow_Loop ZS_PracticeDisciple ZS_PracticeDisciple_End ZS_PracticeDisciple_Loop ZS_PracticeLeader ZS_PracticeLeader_End ZS_PracticeLeader_Loop ZS_PracticeMagic ZS_PracticeMagic_End ZS_PracticeMagic_Loop ZS_Pray ZS_Pray_End ZS_Pray_Loop ZS_Preach ZS_Preach_End ZS_Preach_Loop ZS_ReadBook ZS_ReadBook_End ZS_ReadBook_Loop ZS_RepairHut ZS_RepairHut_End ZS_RepairHut_Loop ZS_SearchPerson ZS_SearchPerson_End ZS_SearchPerson_Loop ZS_SharpenBlade ZS_SharpenBlade_End ZS_SharpenBlade_Loop ZS_Sleep ZS_Sleep_End ZS_Sleep_Loop ZS_SleepingGuard ZS_SleepingGuard_End ZS_SleepingGuard_Loop ZS_Smith_Anvil ZS_Smith_Anvil_End ZS_Smith_Anvil_Loop ZS_Smith_Cool ZS_Smith_Cool_End ZS_Smith_Cool_Loop ZS_Smith_Fire ZS_Smith_Fire_End ZS_Smith_Fire_Loop ZS_Smith_Sharp ZS_Smith_Sharp_End ZS_Smith_Sharp_Loop ZS_Smoke ZS_Smoke_End ZS_Smoke_Loop ZS_Speech ZS_Speech_End ZS_Speech_Loop ZS_SpreadNews ZS_SpreadNews_End ZS_SpreadNews_Loop ZS_Tattoo ZS_Teaching ZS_Teaching_End ZS_Teaching_Loop ZS_Think ZS_Think_End ZS_Think_Loop ZS_TradeElixier ZS_TradeElixier_End ZS_TradeElixier_Loop ZS_TradeOreToFood ZS_TradeOreToFood_End ZS_TradeOreToFood_Loop ZS_TradeWeaponToOre ZS_TradeWeaponToOre_End ZS_TradeWeaponToOre_Loop ZS_WalkAround ZS_WalkAround_End ZS_WalkAround_Loop ZS_WashSelf ZS_WashSelf_End ZS_WashSelf_Loop ZS_WoodCarving ZS_WoodCarving_End ZS_WoodCarving_Loop 
+
+/L3"Phoenix Animation" Line Comment = // Block Comment On = /* Block Comment Off = */ File Extensions = MDS
+/C1
+aniEnum
+Model
+meshEnum
+/C2
+..
+F
+M M. ME MF MR
+R
+/C3
+MeshLib
+ani aniAlias aniBlend aniComb aniSync
+eventSwapMesh
+/L4"C/C++" Line Comment = // Block Comment On = /* Block Comment Off = */ String Chars = "' File Extensions = C CPP H HPP AWK
+/Delimiters = ~!@%^&*()-+=|\/{}[]:;"'<> ,	.?
+/C1
+auto
+break
+case char const continue
+default do double
+else enum extern
+float for
+goto
+if int
+long
+register return
+short signed sizeof static struct switch
+typedef
+union unsigned
+void volatile
+while
+__asm __fastcall __self __segment __based __segname __fortran __cdecl __huge __far __saveregs __export __pascal __near __loadds __interrupt __inline
+#define #error #include #elif #if #line #else #ifdef #pragma #endif #ifndef #undef
+/C2
+class
+delete
+friend
+inline
+new
+operator
+private protected public
+this try
+virtual
+__multiple_inheritance __single_inheritance __virtual_inheritance
+/L5"HTML" Nocase Noquote HTML_LANG Block Comment On = <! Block Comment Off = > File Extensions = HTM HTML ASP
+/Delimiters = ~!@$%^&*()-+=|\{}[]:;"'<> ,	.?
+/C1
+<A </A> <ABOVE> <ADDRESS> </ADDRESS> <APPLET </APPLET> <ARRAY> <AREA </AREA
+<B> </B> <BASE <BASEFONT <BGSOUND <BIG> </BIG> <BLINK> </BLINK> <BLOCKQUOTE> </BLOCKQUOTE> <BODY <BODY> </BODY> <BOX> <BR <BR>
+<CAPTION> </CAPTION> <CENTER> </CENTER> <CITE> </CITE> <CODE> </CODE>
+<DD> <DFN> <DIR> </DIR> <DIV </DIV> <DL> </DL> <DT>
+<EM> </EM> <EMBED
+<FIG> <FONT </FONT> <FORM> <FORM </FORM> <FRAME <FRAMESET </FRAMESET>
+<H <H1> <H2> <H3> <H4> <H5> <H6> </H1> </H2> </H3> </H4> </H5> </H6> <HEAD> </HEAD> <HR> <HR <HTML> </HTML>
+<I> </I> <IMG <INPUT> <INPUT <ISINDEX>
+<KBD> </KBD>
+<LI> <LINK </LI>
+<MAP </MAP> <MARQUEE </MARQUEE> <MENU> </MENU> <META
+<NEXTID <NOBR> </NOBR> <NOFRAMES> </NOFRAMES> <NOTE> </NOTE>
+<OL> </OL> <OPTION> <OPTION
+<P <P> </P> <PRE> </PRE> <PARAM>
+<RANGE> <ROOT>
+<SAMP> </SAMP> <SCRIPT </SCRIPT> <SELECT> </SELECT> <SMALL> </SMALL> <SOUND <SQRT> <STYLE> <STRIKE> </STRIKE> <STRONG> </STRONG> <SUB> </SUB> <SUP> </SUP> <SELECT
+<TABLE> <TABLE </TABLE> <TD <TD> </TD> <TEXT> <TEXTAREA <TEXTAREA> </TEXTAREA> <TH <TH> </TH> <TITLE> </TITLE> <TR <TR> </TR> <TT> </TT>
+<U> </U> <UL> </UL>
+<VAR> </VAR>
+<WBR>
+/C2
+ACTION= ALIGN= ALINK ALT
+BACKGROUND= BEHAVIOR BELOW BGCOLOR= BORDER=
+CELLPADDING CELLSPACING COLOR= COLS COLSPAN CONTENT=
+DIRECTION
+FACE= FRAMEBORDER= FRAMESPACING=
+HEIGHT= HREF= HSPACE= HTTP-EQUIV=
+ISMAP
+LANGUAGE LINK
+METHOD= MARGINHEIGHT= MARGINWIDTH= MULTIPLE
+NAME= NORESIZE NOSHADE
+ONBLUR ONCLICK ONFOCUS ONLOAD ONMOUSEOUT ONMOUSEOVER
+REV= ROWS ROWSPAN
+SCROLLING SIZE= SRC= START
+TARGET= TEXT= TOPMARGIN TYPE=
+URL=
+VALIGN= VALUE= VLINK= VSPACE=
+WIDTH=
+
+/L6"Spy-Logfile" File Extensions = LOG
+/Delimiters = ~@$^*=|\:;"' ,    .?<>()
+/C1
+[i]
+/C2
+[w]
+/C3
+[f]
+/C4
+[F]
+
+/L7"Phoenix Cutscenes" Line Comment = ; String Chars = " File Extensions = CSS
+/Delimiters = ~@$^*=|\:;"' ,    .?<>()
+/C1
+zCCSAtomicBlock zCCSBlock
+/C2
+AI_PLAYANI AI_PLAYSND
+/C3
+STRING
+/L8"VDFS-Script" Line Comment = ; String Chars = " File Extensions = VM
+/Delimiters = ~@$^*=|\:;"' ,    .?<>()
+/C1
+[EXCLUDE] [FILES] [INCLUDE]
+/C2
+[BEGINVDF] [ENDVDF] 
+/C3
+BaseDir
+Comment
+VDFName
+VolName 

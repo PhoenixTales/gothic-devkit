@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: INI-Datei fuer GothicMODs</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Die INI-Datei für GothicMODs
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  26.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#01"><b>Die INFO-Sektion</a></b>
+        <li><a href="#02"><b>Die FILES-Sektion</a></b>
+        <li><a href="#03"><b>Die SETTINGS-Sektion</a></b>
+        <li><a href="#04"><b>Die OPTIONS-Sektion</a></b>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<p>Jedes GothicMOD wird durch eine INI-Datei <b>"modname.ini"</b> repräsentiert.
+Auch diese INI-Datei befindet sich im <u>System-Verzeichnis</u> von Gothic!
+Dadurch können nun mehrere GothicMODs parallel installiert sein.
+Der <a href="../tools/gothic_tools_starter.htm">GothicStarter</a> verwendet
+diese Datei, um eine Auswahl aller GothicMODs anzuzeigen. </p>
+
+
+<a name="01"><H1>Die INFO-Sektion</H2></A>
+
+<pre>
+[INFO]
+title=FunnyMod
+description=Einige lustige Ergaenzungen zu Gothic
+authors=M.Mustermann
+version=0.31
+webpage=http:://www.musterseite.de
+</pre>
+
+<p>In der INFO-Sektion sind allgemeine Informationen zu dem jeweiligen Spiel(MOD) abgelegt.
+Titel, Beschreibung, Autoren, Versionsnummer und eventuelle Webseite können
+hier eingetragen werden.</p>
+
+<a name="02"><H1>Die FILES-Sektion</H2></A>
+
+<pre>
+[FILES]
+; Dont attach file-extensions to these files.
+game=content\gothic
+fightai=content\fight
+menu=system\menu
+camera=system\camera
+music=system\music
+soundeffects=system\sfx
+particleseffects=system\particlefx
+visualeffects=system\visualfx
+outputunits=content\outputunits\ou
+; List of vdf-files which have been added to the original gothic
+; [separate them by spaces, include their extension ".mod"]
+vdf=FunnyMod.mod
+</pre>
+
+<p>Die FILES-Sektion enthält die wichtigsten Daten. Hier sind alle Script-Dateien im
+Verzeichnis [GOTHIC]/_work/data/scripts aufgeführt, die möglicherweise verändert werden.
+Alle Pfadangaben sind relativ zum Scriptverzeichnis angegeben. Es ist sehr wichtig,
+dass eine Dateiendung nicht erlaubt ist. Diese wird vom Programm automatisch hinzugefügt.</p>
+
+<p>Kandidat Nummer 1 für eine Anpassung ist der Wert fuer "game". Diese Datei enthält so
+ziemlich alle Scripte aus dem content-Ordner. Dabei erkennt Gothic automatisch, ob die Datei
+<i>system/gothic.src</i> benutzt werden muss (und damit neu compiliert wird), oder
+bereits eine aktuelle (compilierte) gothic.dat im Order "_compiled" vorliegt.</p>
+
+<p>Der nächste Kandidat ist der Eintrag <i>"outputunits"</i>. Dies sind in unserem Fall
+die beiden Dateien "ou.bin" und "ou.csl".</p>
+
+<p><i>Alle anderen Dateien sind nicht so interessant.</i></p>
+
+<center>
+<table width=96% align=center cellpadding=8 cellspacing=0 bgcolor="#eeeedd">
+<tr><td>
+<b>Besonders wichtig:</b><br>
+Der Eintrag fuer <i>"vdf"</i> muss alle <u>VDF-Dateien</u> aufführen, die zusätzlich zu denen
+von GOTHIC verwendet werden. Wenn dies mehrere sind, werden sie durch Leerzeichen
+getrennt aufgeführt (FunnyMod1.mod FunnyMod2.mod ...). Wir empfehlen aber, nur eine
+VDF-Datei zu verwenden.<br>
+Siehe dazu auch <a href="../mod/gothic_mod.htm">"Wie erstelle ich ein GothicMOD"</A>.
+</td></tr>
+</table>
+</center>
+
+
+
+<a name="03"><H1>Die SETTINGS-Sektion</H2></A>
+
+<pre>
+[SETTINGS]
+world=test.zen
+player=PC_HERO
+</pre>
+
+<p>Der <i>world</i>-Parameter gibt den bei "NEW GAME" zu ladenden Level an
+(relativ zum Verzeichnis _work/data/worlds/). Die Variable <i>"player"</i>
+zeigt auf eine NSC-Instanz, die als Spielercharakter (SC) verwendet wird.
+In unserem Fall also unser allseits bekannter <u>"PC_HERO"</u>. Diego beispielsweise
+wäre PC_THIEF, der Ricelord ware BAU_900_RICELORD. So kann man also selbst
+"geschusterte" Spielercharakter angeben oder vielleicht gar Mud?! :-)</p>
+
+<a name="04"><H1>Die OPTIONS-Sektion</H2></A>
+
+<pre>
+[OPTIONS]
+force_parameters=
+force_subtitles=0
+show_info=0
+</pre>
+
+<p>Die letzte Sektion enthält diverse weitere Optionen:</p>
+
+<p><i>"force_parameters"</i> enthält Kommandozeilenparameter, die beim Start
+von Gothic automatisch verwendet werden; ohne, dass man sie angeben muss.
+Vielleicht möchte man ja, dass keine Musik gespielt wird
+(dann z.B.: "force_parameters=-znomusic").</p>
+
+<p><i>"force_subtitles"</i> sollte von der Bedeutung klar sein.
+Ist der Wert auf 1 gesetzt wird die Einstellung in den Menueeinstellungen
+überschrieben, so dass Untertitel in jedem Fall ausgegeben werden.
+Das ist sinnvoll, wenn keine akustische Sprachausgabe vorliegt.</p>
+
+<p><i>"show_info"</i> zeigt Titel und Versionsnummer im Spielmenü an,
+wenn der Wert auf 1 gesetzt wird.</p>
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

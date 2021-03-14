@@ -1,0 +1,576 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: ZenGin ParticleEffects</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                ZenGin: Partikel-Effekte
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Dieter Hildebrandt
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  15.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+
+		<li><a href="#01"><b>1 Einleitung</b></a>
+		<li><a href="#02"><b>2 ParticleFX Parameter</b></a>
+			<ul>
+			<li>2.1 Emitter: Zeitliches Ausstoss-Verhalten
+			<li>2.2 Emitter: Räumliches Ausstoss-Verhalten
+			<li>2.3 Partikel: Start Richtung und Geschwindigkeit
+			<li>2.4 Partikel: Lebensdauer
+			<li>2.5 Partikel: Flugverhalten
+			<li>2.6 Partikel: Visualisierung
+			<li>2.7 Weitere Effekte
+			</ul>		
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<!---
+Revision History
+v0.03, 13.07.2001
+- kleine Updates
+
+v0.02, 17.8.1999
+- Implementiert ab Engine Version 0.80c
+- flyCollDet_B
+- Kapitel 2.7
+
+v0.01
+- erste Version
+---->
+
+<a name="01"><H1>1 Einleitung</H1></a>
+
+
+<p>Die Partikel-Effekte (ParticleFX, PFX), die sich durch das Partikel-System der ZenGin ab Version 0.71 erzeugen lassen, werden durch einen Satz von Parametern festgelegt. Die Definitionen der Partikel-Effekte mitsamt ihren Parametern werden in D-Scripten abgelegt. Folgende D-Scripte sind in diesem Zusammenhang wichtig:
+<ul>
+<li>_WORK\DATA\SCRIPTS\ParticleFX.src<br>
+In dieser Datei sind alle für das Partikel-System relevanten .d Files aufgelistet.
+<li>_WORK\DATA\SCRIPTS\CONFIG\ParticleFX.d<br>
+Diese Datei enthält die Parameter-Definitionen von Partikel-Effekten.
+<li>_WORK\DATA\SCRIPTS\_INTERN\ParticleFXDef.d<br>
+Hier ist die Partikel-Effekt-Klasse " C_PARTICLEFX" deklariert. Konkrete Partikel-Effekte sind Instanzen dieser Klasse (siehe auch Dokumentation zur Skriptsprache).
+<li>_WORK\DATA\SCRIPTS\_INTERN\ParticleFXEngine.d<br>
+Diese Datei enthält die Parameter-Definitionen von Partikel-Effekten.
+</ul>
+</p>
+
+<p>Die Instanzen-Parameter von Partikel-Effekten werden in einer speziellen Console editiert und auch dort durch den Befehl <i>save</i> gespeichert. Zugang zu dieser Console bekommt man im Editor Spacer oder auch direkt aus Gothic heraus. Hinweise zur Benutzung von Consolen gibt es an anderer Stelle.</p>
+
+<p>Partikel-Effekte können u.a. auch aus .MDS Files heraus gestartet und mit Animationen synchronisiert werden. Siehe dazu die entsprechende Dokumentation.</p>
+
+<p>Zur Performance ist zu sagen, daß ein Partikel-Effekt weniger Rechenzeit beansprucht, je weniger Partikel er enthält, je weiter er von der Kamera entfernt ist und je weniger zeitintensive Einstellungen bei den Parametern gewählt worden sind (dazu unten mehr). Interessant ist, wie groß die Bedeutung der Entfernung der Partikel von der Camera  für die Performance ist.</p>
+
+<p>Die Aktivierung folgender Features steigert den Rechenzeitbedarf deutlich:
+<ul>
+<li>Kollisionserkennung
+<li>Marks
+<li>Trails
+</ul>
+</p>
+
+<!---- nicht releant fuer GothicMOD-Ersteller
+<p>Auf der C++ Programmebene kann eine auf die ZenGin aufsetzende Applikation Partikel-Effekte in einer Art und Weise manipulieren, die über die reine Festlegung der Parameter hinausgeht (siehe dazu das Interface der C++ Klasse zCParticleFX). Einige dieser Möglichkeiten sind:</p>
+<ul>
+<li>Animation der Position und/oder Orientierung des Partikel-Effekt Emitters auf beliebige Weise (z.B. auch Splines)
+<li>Erstellung komplexer Effekte durch die räumliche Überlagerung mehrer verschiedener Partikel-Effekte 
+<li>Variation der PFX-internen Zeit-Skalierung; auf diese Weise kann z.B. ein PFX aus dem normalen Ablauf langsam auf Stillstand gebracht werden (lerp des TimeScales von 1 auf 0); "dramatische" Effekte könnten dadurch erzielt werden, daß die Skalierung in kurzen Intervallen und abrupt zwischen 1 und 0 wechselt
+<li>Das Target innerhalb des "dirMode = TARGET" (siehe unten) kann durch das Programm auf beliebige Punkte und Objekte gesetzt oder auch räumlich animiert werden (z.B. könnte der Emitter des PFX auf den Kopf des ersten Models gesetzt werden, während das Target auf den Kopf des zweiten Models sitzt)
+<li>...
+</ul>
+----->
+
+<a name="02"><H1>2 ParticleFX Parameter</H1></a>
+
+<p>Die Parameter der Partikel-Effekte werden in der Regel über die Console innerhalb des Spacers editiert, können aber auch in den entsprechenden .d Sourcefiles geändert werden. </p>
+
+<p>In diesem Abschnitt werden die über 40 Parameter eines Partikel-Effekts thematisch zusammengefaßt erläutert. Die Tabelle führt für jeden Parameter dessen Name, D-Type, erwartete/gültige Werte und schließlich beispielhafte Werte auf. Parameter, deren Namen mit einem "_S" enden, sind vom Typ String und erwarten als Eingabe entweder einen von mehreren vorgegebenen Bezeichnern, die in der Spalte "erwartete Werte" durch Anführungszeichen geklammert und durch Kommata getrennt aufgeführt sind, oder eine Liste von Zahlen. Falls für einen Parameter aus einer Liste von vorgegebenen Bezeichnern auszuwählen ist und der Parameter entweder einen leeren oder falsch geschriebenen Wert enthält, wird die erste Alternative aus der Liste der möglichen gewählt. Ein "_S" Parameter ohne Wert ist also kein Fehler.</p>
+
+<p>"BOOL" deutet daraufhin, daß ein boolescher Wahrheitswert erwartet wird, 0 für FALSCH, oder 1 für WAHR. "VECn" steht für einen n-dimensionalen Vektor aus Real-Zahlen, "ANGLE" steht für Winkel Angaben in Grad.</p>
+
+<p>Parameter, die das Kürzel "FOR" enthalten, fassen die Angabe einer "Frame-of-Reference", also Bezugssystem-Angabe. Gültig sind hier "world" und "object", wobei letzteres mehr Rechenzeit kostet und nur wenn nötig gewählt werden sollte.</p>
+
+<H2>2.1 Emitter: Zeitliches Ausstoss-Verhalten</H2>
+
+<table cellpadding=2 border=2>
+<tr>
+<th>D-Type</th><th>Parameter</th><th>Erwartete Werte</th><th>Beispiele</th>
+</tr>
+<tr><td>VAR FLOAT</td><td>PpsValue;</td><td>&nbsp;</td><td>64</td></tr>
+<tr><td>VAR STRING</td><td>PpsScaleKeys_S;</td><td>&nbsp;</td><td>"1 0.2 0 16 0.1"</td></tr>
+<tr><td>VAR INT</td><td>PpsIsLooping;</td><td>BOOL</td><td>1</td></tr>
+<tr><td>VAR INT</td><td>PpsIsSmooth;</td><td>BOOL</td><td>0</td></tr>
+<tr><td>VAR FLOAT</td><td>PpsFPS;</td><td>&nbsp;</td><td>0.5</td></tr>
+</table>
+
+<p>"pps" steht für "particles per second". Diese Parameter steuern das zeitliche Ausstoss-Verhalten des Emitters, daß auch über die Zeit durch Angabe von ScaleKeys animiert werden kann. Falls ScaleKeys angegeben werde, wird die Liste dieser Keys mit einer gewissen Geschwindigkeit (ppsFPS) durchlaufen, wobei optional zwischen den einzelnen Keys interpoliert wird (ppsIsSmooth). Wenn PpsIsLooping auf 1 gesetzt ist, wird der Durchlauf durch die Liste fortwährend wiederholt, ansonsten wird die Liste nur ein einziges mal durchlaufen und der PFX stirbt am Ende, sobald der letzte Partikel verschwunden ist. Die einzelnen ScaleKeys variieren über die Zeit den unter PpsValue angegebenen Wert. In diesem Fall ist die Einheit dieses Wertes "particles per second". Falls keine ScaleKeys angegeben sind und auch das Flag PpsIsLooping den Wert 0 hat, so wird der Wert des PpsValue nicht als "pps" interpretiert, sondern als die Anzahl Partikel, die auf einmal zu Beginn des Effektes erzeugt werden.</p>
+
+<p>Beachte: PpsIsLooping=0;	=> Effekt löscht sich am Ende selbst</p>
+
+<pre>
+Beispiele:
+
+ONCE
+PpsValue        = 40;
+PpsScaleKeys_S  = "";
+PpsIsLooping    = 0;  
+PpsIsSmooth     = 0;  
+PpsFPS          = 0;  
+
+NONSTOP  
+PpsValue        = 40;  
+PpsScaleKeys_S  = "";  
+PpsIsLooping    = 1;  
+PpsIsSmooth     = 0;  
+PpsFPS          = 0;  
+
+TIMESPAN  
+PpsValue        = 40;  
+PpsScaleKeys_S  = "1.0";  
+PpsIsLooping    = 0;  
+PpsIsSmooth     = 0;  
+PpsFPS          = 5;  
+
+PUFFS  
+PpsValue        = 40;  
+PpsScaleKeys_S  = "1.0 0 0 0 1.0 16.0 0.2 0.5";  
+PpsIsLooping    = 1;  
+PpsIsSmooth     = 1;  
+PpsFPS    	    = 0.8;
+</pre>
+
+
+<H2>2.2 Emitter: Räumliches Ausstoss-Verhalten</H2>
+
+<table cellpadding=0 border=2>
+<tr>
+	<th>D-Type</th>
+	<th>Parameter</th>
+	<th>Erwartete Werte</th>
+	<th>Beispiele</th>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpType_S;</td>
+	<td>"Point, line, box, circle, sphere, mesh"</td>
+	<td>mesh</td>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpFOR_S;</td>
+	<td>"World, Object"</td>
+	<td>&nbsp;</td>
+	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpOffsetVec_S;</td>
+	<td>VEC3</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpDistribType_S;</td>
+	<td>"Rand, uniform, walk"</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>ShpDistribWalkSpeed;</td>
+	<td>&nbsp;</td>
+	<td>0.0001</td>
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>ShpIsVolume;</td>
+	<td>BOOL</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpDim_S;</td>
+	<td>VEC1/3</td>
+	<td>"10", "23 32 20"</td>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpMesh_S;</td>
+	<td>&nbsp;</td>
+	<td>"Cross.3ds"</td>
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>ShpMeshRender_B;</td>
+	<td>BOOL</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>ShpScaleKeys_S;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>ShpScaleIsLooping;</td>
+	<td>BOOL</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>ShpScaleIsSmooth;</td>
+	<td>BOOL</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>ShpScaleFPS;</td>
+	<td>&nbsp;</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+
+<p>Diese Parameter legen die Orte fest, an denen neue Partikel erschaffen werden. Zu diesem Zweck werden Formen/Shapes mitsamt einiger Eigenschaften angegeben, auf denen die Partikel generiert werden. Die Größe, der lokale Offset und die über die Zeit variierte Skalierung der Shapes kann ebenfalls festgelegt werden.
+<ul>
+<li>ShpType_S wählt einen der möglichen ShapeTypen aus. Im Fall "mesh" werden die Partikel auf der Oberfläche des Meshes erzeugt. "point" ist der schnellste ShapeTyp.
+<li>ShpFOR legt fest, ob die Shape den Rotationen des Emitters folgen soll ("object") oder nicht ("world"). 
+<li>ShpOffsetVec legt im lokalen Koordinatensystem des Emitters einen 3D Offset -Vektor fest (wichtig um einen PFX korrekt an Model-Nodes/Limbs auszurichten). 
+<li>ShpDistribType legt fest, wie neu generierte Partikel auf der Shape angeordnet werden. "rand" wählt den Ort zufällig, "uniform" wählt den Ort geordnet&gleichmässig (allerdings nur bei "line" und "circle"), "walk" wählt den Ort geordnet&gleichmässig, aber nur auf einem gewissen Teilstück der Shape (nur bei "line" und "circle"). Im Falle des Distributions-Modus "walkw" legt ShpDistribWalkSpeed fest, wie schnell der Ort der Partikel-Generierung über die Shape wandert. 
+<li>ShpIsVolume legt fest, ob die Partikel auf dem Rand oder auf der Fläche/in dem Volumen der Shape generiert werden sollen. 
+<li>ShpDim legt die Größe der Shape fest (nicht bei "mesh") und ist je nach ShapeType ein 1 oder 3 dimensionaler Vektor (line,circle, sphere 1D, box 3D).
+</ul>
+</p>
+
+<p>Falls als ShapeType "mesh" gewählt wurde, kann unter ShpMesh der Name des Meshes als .3ds File spezifiziert werden. Falls ShpMeshRender auf 1 gesetzt ist, wird das Mesh zusammen mit den Partikeln gerendert.</p>
+<p>Die Parameter ShpScale* legen die über die Zeit variierte Skalierung der Shape fest und verhalten sich ähnlich wie die entsprechenden pps* Parameter.</ul>
+
+<H2>2.3 Partikel: Start Richtung und Geschwindigkeit</H2>
+
+<table cellpadding=2 border=2>
+<tr>
+	<th>D-Type</th>
+	<th>Parameter</th>
+	<th>Erwartete Werte</th>
+	<th>Beispiele</th>
+</tr>
+<tr>	
+	<td>VAR STRING</td>
+	<td>DirMode_S;</td>
+	<td>"none, dir, target, mesh"</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR STRING</td>
+	<td>DirFOR_S;</td>
+	<td>"world, object"</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR STRING</td>
+	<td>DirModeTargetFOR_S;</td>
+	<td>"world, object"</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR STRING</td>
+	<td>DirModeTargetPos_S;</td>
+	<td>VEC3</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR FLOAT</td>
+	<td>DirAngleHead;</td>
+	<td>ANGLE [0..359]</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR FLOAT</td>
+	<td>DirAngleHeadVar;</td>
+	<td>ANGLE [0..179]</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR FLOAT</td>
+	<td>DirAngleElev;</td>
+	<td>ANGLE [-90..+90]</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR FLOAT</td>
+	<td>DirAngleElevVar;</td>
+	<td>ANGLE [-90..+90]</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>VAR FLOAT</td>
+	<td>VelAvg;</td>
+	<td>CM/MSEC</td>
+	<td>0.3</td>
+</tr>
+<tr>	
+	<td>VAR FLOAT</td>
+	<td>VelVar;</td>
+	<td>CM/MSEC</td>
+	<td>0.1</td>
+</tr>
+</table>
+
+<p>Diese Parameter legen die Flugrichtung und Geschwindigkeit neuer Partikel fest. </p>
+<p>Im DirMode "none" wird eine rein zufällige Flugrichtung festgelegt, was bedeutet, daß die Partikel kugelförmig vom Emitter abstrahlen.</p>
+<p>Der DirMode "dir" legt fest, daß sich die Flugrichtung eines neuen Partikels aus den Werten der Parameter DirAngleHead und DirAngleElev ergibt, wobei ersterer die Heading angibt und zweiterer die Elevation. Diese beiden werden werden jeweils um die Werte der Parameter DirAngleHeadVar und DirAngleHeadVar variiert (+/- Varianz). Es ist anzumerken, daß aus Optimierungs-Gründen die Winkel nicht exakt eingehalten werden, sondern evtl. streuen, sich nicht-uniforme Verteilungen ergeben, oder sogar völlig unerwartete Ergebnisse liefern. In diesen Fällen sollten sich allerdings trotzdem durch kleine Justierungen die gewünschten Effekte erzielen lassen.</p>
+<p>Im DirMode "target" wird die Flugrichtung aller neu erzeugter Partikel auf ein gemeinsames Ziel hin asugerichtet. Die Koordinaten dieses Ziels werden entweder in lokalen oder Weltkoordinaten (DirModeTargetFOR) als Parameter DirModeTargetPos angegeben.</p>
+<p>Im DirMode "mesh" werden die Partikel von den Polys des Meshes mit der Varianz DirAngleHeadVar und DirAngleElevVar abgestrahlt.</p>
+<p>VelAvg und velVar legen die durchschnittliche Geschwindigkeit und die +/- Varianz davon fest.</p>
+
+<H2>2.4 Partikel: Lebensdauer</H2>
+
+<table cellpadding=2 border=2>
+<tr>
+	<th>D-Type</th>
+	<th>Parameter</th>
+	<th>Erwartete Werte</th>
+	<th>Beispiele</th>
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>lspPartAvg;</td>
+	<td>MSEC</td>
+	<td>700</td>
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>lspPartVar;</td>
+	<td>MSEC</td>
+	<td>300</td>	
+</tr>
+</table>
+
+<H2>2.5 Partikel: Flugverhalten</H2>
+
+<table cellpadding=2 border=2>
+<tr>
+	<th>D-Type</th>
+	<th>Parameter</th>
+	<th>Erwartete Werte</th>
+	<th>Beispiele</th>
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>flyGravity_S;</td>
+	<td>VEC3</td>
+	<td>0 -0.0001 0</td>
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>flyCollDet_B;</td>
+	<td>[0,1,2,3,4]</td>
+	<td>&nbsp;</td>	
+</tr>
+</table>
+
+
+<p>Der unter flyGravity anzugebene Kraft-Vektor bezieht sich auf das Weltkoordinaten-System.</p>
+<p>FlyCollDet_B legt das Kollisionsverhalten der Partikel fest: 0= kein Test auf Kollision, 1= bremsende Reflektion, 2= beschleunigende Reflektion, 3= Geschwindigkeit auf null setzen, 4= Partikel entfernen. Eine aktivierte Kollisionserkennung benötigt relativ viel Rechenzeit.</p>
+
+<H2>2.6 Partikel: Visualisierung</H2>
+
+
+<table cellpadding=2 border=2>
+<tr>
+	<th>D-Type</th>
+	<th>Parameter</th>
+	<th>Erwartete Werte</th>	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>visName_S;</td>
+	<td>Fire_a0.tga</td>	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>VisOrientation_S;</td>
+	<td>"none, velo, velo3d"</td>	
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>VisTexIsQuadPoly;</td>
+	<td>BOOL</td>	
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>visTexAniFPS;</td>
+	<td>&bsp;</td>	
+</tr>
+<tr>
+	<td>VAR INT</td>
+	<td>VisTexAniIsLooping;</td>
+	<td>BOOL</td>	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>VisTexColorStart_S;</td>
+	<td>RGB [0..255,0..255,0..255]</td>	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>VisTexColorEnd_S;</td>
+	<td>RGB [0..255,0..255,0..255]</td>	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>visSizeStart_S;</td>
+	<td>VEC3</td>	
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>VisSizeEndScale;</td>
+	<td>[0..1..x] </td>	
+</tr>
+<tr>
+	<td>VAR STRING</td>
+	<td>visAlphaFunc_S;</td>
+	<td>"none, blend, add, mul"</td>	
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>visAlphaStart;</td>
+	<td>[0..255]</td>	
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>visAlphaEnd;</td>
+	<td>[0..255]	</td>	
+</tr>
+</table>
+
+
+<p>VisName gibt den Filenamen des für die Partikel zu benutzenden Visuals an. [Zur Zeit funkionieren nur (animierte) Textures, Meshes folgen evtl. noch. Auch werden alle Partikel mit demselben Visual ausgestattet].</p>
+<p>VisOrientation legt fest, mit welcher Orientierung die Visuals gerendert werden. "none" rendert Textures als zum Bildschirm ausgerichtete Decals, während "velo" die Texture-Decals an dem Geschwindigkeits-Vektor der Partikel ausrichtet.</p>
+<p>Parameter, die ein "tex" im Namen enthalten, wirken sich nur aus, wenn alsVisuals Textures benutzt werden.</p>
+<p>VisTexIsQuadPoly legt fest, ob für die Partikel Tris oder Quads benutzt werden sollen. Tris sind i.A. wesentlich schneller als Quads. Quads sollten nur in absoluten Ausnahmefällen benutzt werden.</p>
+<p>VisTexAniIsLooping legt fest, ob eine animierte Partikel-Textur geloopt auf dem letzten Frame gestoppt werden soll.</p>
+<p>Die Partikel Attribute "color", "size" und "alpha" werden über die gesamte Lebensdauer des Partikels hinweg linear zwischen Start und Endwert interpoliert. Die Bedeutung der Parameter sollte klar sein. </p>
+
+<H2>2.7 Weitere Effekte</H2>
+
+<table cellpadding=2 border=2>
+<tr>
+	<th>D-Type</th>
+	<th>Parameter</th>
+	<th>Erwartete Werte</th>	
+	<th>Beispiel</th>	
+</tr>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>trlFadeSpeed;</td>
+	<td>ALPHA/MSEC [0..x]</td>
+	<td>0.4</td>
+<tr>
+	<td>VAR STRING</td>
+	<td>trlTexture_S;</td>
+	<td>Trail.tga</td>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>TrlWidth;</td>
+	<td>CM</td>
+	<td>5</td>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>mrkFadeSpeed;</td>
+	<td>ALPHA/MSEC [0..x]</td>
+	<td>0.1</td>
+<tr>
+	<td>VAR STRING</td>
+	<td>mrkTexture_S;</td>
+	<td>&bsp;</td>
+	<td>Mark.tga</td>
+<tr>
+	<td>VAR FLOAT</td>
+	<td>mrkSize;</td>
+	<td>CM</td>
+	<td>50</td>
+</table>
+
+<p>
+<u>Trail:</u><br>
+Die Flugbahn eines jeden Partikels durch einen "Trail" visualisiert werden. Dieser Trail hat eine gewisse Dicke trlWidth, wird mit einer der Textur trlTexture_S gerendert und fadet mit der Geschwindigkeit trlFadeSpeed aus. Trails werden nur erzeugt, wenn trlFadeSpeed einen Wert größer null hat.
+Trails benötigen relativ viel Rechenzeit.</p>
+
+<p>
+<u>Mark:</u><br>
+Wenn Partikel mit ihrer Umgebung kollidieren können sie auf dieser Spuren, sogennante "Marks" hinterlassen. Diese Marks sind vierseitige Polygone, die am Ort der Kollision erzeugt werden und sich exakt der dort vorgefundenen Oberfläche anpassen. Marks habe eine gewisse Größe mrkSize, werden mit einer bestimmten Textur mrkTexture_S gerendert und faden mit der Geschwindigkeit mrkFadeSpeed aus. Marks werden nur erzeugt, wenn mrkFadeSpeed einen Wert größer null hat und Kollisionserkennung für den Partikeleffekt aktiviert ist (siehe flyCollDet_B).
+Marks benötigen relativ viel Rechenzeit.</p>
+
+
+
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

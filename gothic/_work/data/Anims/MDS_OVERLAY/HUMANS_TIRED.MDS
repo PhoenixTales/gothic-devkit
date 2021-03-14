@@ -1,0 +1,42 @@
+// TIRED
+
+// OVERLAYED ANIS:	WALKLOOP, SIT, BENCH
+
+Model ("HuS")
+{
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+
+	aniEnum
+	{
+
+//////////////////////////
+// NORMAL MOVEMENT
+//////////////////////////
+//	WALK-Mode
+			ani			("t_Walk_2_WalkL"		1	"s_WalkL"		0.0	0.0	M.	"Hum_WalkTired_M01.asc"		F	1	14)
+//	Walk-Loop (linker Fuﬂ vorn)
+			ani			("s_WalkL"				1	"s_WalkL"		0.0	0.1	M.	"Hum_WalkTired_M01.asc"		F	15	40)
+			{
+				*eventSFXGrnd	(15	"Run")
+				*eventSFXGrnd	(28	"Run")
+			}
+
+			ani			("t_WalkL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"Hum_WalkTired_M01.asc"		F	41	47)
+			aniBlend	("t_WalkR_2_Walk"			"s_Walk"		0.2	0.2)
+
+// Auf Boden setzen (FP)
+			ani			("t_Stand_2_Sit"			1	"s_Sit"			0.1	0.0	M.	"Hum_SitOnFloor_MW03.asc"	F	1	49	FPS:15)
+			ani			("s_Sit"					1	"s_Sit"			0.0	0.0	M.	"Hum_SitOnFloor_MW03.asc"	F	50	99	FPS:5
+			ani			("t_Sit_2_Stand"			1	""				0.0	0.2	M.	"Hum_SitOnFloor_MW03.asc"	F	101	149	FPS:15)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Auf Bank setzen
+			ani			("t_Bench_Stand_2_S0"		1	"s_Bench_S0"	0.2	0.0	M.	"Hum_SitBenchA4_M01.asc"		F	0	4)
+			ani			("s_Bench_S0"				1	"s_Bench_S0"	0.0	0.0	M.	"Hum_SitBenchA4_M01.asc"		F	5	5)
+			aniAlias	("t_Bench_S0_2_Stand"		1	""				0.0	0.2	M.	"t_Bench_Stand_2_S0"		R)
+
+			ani			("t_Bench_S0_2_S1"			1	"s_Bench_S1"	0.0	0.0	M.	"Hum_SitBenchA4_M01.asc"		F	6	39)
+			ani			("s_Bench_S1"				1	"s_Bench_S1"	0.0	0.0	M.	"Hum_SitBenchAmbientA4_M01.asc"		F	1	39)
+			aniAlias	("t_Bench_S1_2_S0"			1	"s_Bench_S0"	0.0	0.0	M.	"t_Bench_S0_2_S1"			R)
+	}
+}

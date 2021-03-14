@@ -1,0 +1,142 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Anmerkungen</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Anmerkungen
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Markus Kark
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  26.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#01"><b>1. Einleitung</b></a>
+        <li><a href="#02"><b>2. Die Gothic-World zusammenbauen</b></a>
+        <li><a href="#03"><b>3. 3DS-Beschränkungen</b></a>
+        <li><a href="#04"><b>4. ASCII-Exporter Known Bugs</b></a>
+        <li><a href="#05"><b>5. Hinweise zu Spacer-Dateiformaten</b></a>
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+        <br><br><br>
+        <b>Hinweis: Einige Bilder werden verkleinert dargestellt. Ein Mausklick reicht, und das Bild erscheint in voller Größe!</b>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<!---- History
+18.07.01: NEU
+----->
+
+<a name="01"><H1>1. Einleitung</H1></a>
+<p> Im folgenden noch ein paar Anmerkungen und Hinweise für Eigenentwicklungen mit dem Gothic MOD Kit.</p>
+
+<a name="02"><H1>2. Die Gothic-World zusammenbauen</H1></a>
+<p> Die komplette Oberwelt von Gothic ist <b>kein</b> einzelnes Mesh. Vielmehr wird sie aus verschiedenen 3DS-Files und ZEN-Files verschweisst. Die Welt umfasst folgende Dateien - die dazugehörigen Mesh-Dateien haben die Endung .3DS anstatt .ZEN:</p>
+<ul>
+<li>SURFACE.ZEN
+<li>OLDCAMP.ZEN
+<li>PSICAMP.ZEN
+<li>NEWCAMP.ZEN
+<li>FREEMINECAMP.ZEN
+<li>DEMONTOWER.ZEN
+</ul>
+<p>Aus diesen Einzel-ZENs wird dann das komplette WORLD.ZEN gebaut. Da dies von Hand sehr mühsam und langwierig ist, gibt es die Möglichkeit im <b>Spacer</b> ein Makro names <b>World create</b> dazu zu starten. Dies erstellt aus den Einzeldaten das WORLD.ZEN.</p>
+<p> Nach dem Durchlauf des Makros, was auf kleineren Rechnersystemen gut eine Stunde dauern kann, muss der Level noch als <b>Compiled ZEN(ascii)</b> gespeichert werden (<b>Files/Save ZEN</b>) Der Name des Oberwelt-Levels lautet standardmässig <b>WORLD.ZEN</b>.Der Speichervorgang kann auch hier sehr lange dauern, also nicht zu früh die Flinte ins Korn werfen :).</p>
+
+<a name="03"><H1>3. 3DS-Beschränkungen</H1></a>
+<p>Das 3DS-Dateiformat bringt einige Nachteile beim Levelbau mit sich.  Bei sehr grossen Leveln wie z.b. dem SURFACE.3DS stösst man an die Obergrenze von 65536 Polygonen pro Objekt, die in einer 3DS-Datei zugelassen sind. Um dieses Problem zu umgehen geht man wie folgt vor: man "zerschneidet" das Mesh einfach in mehrere kleine Teile, die unterhalb der 64K-Poly-Grenze liegen. So wurde z.B. das SURFACE.3DS in 4 in etwa gleich grosse Teile zerlegt und dann komplett exportiert. Im Spacer wird dieses Mesh dann wieder zu einem Objekt zusammengeschmolzen. Dies passiert aufgrund von überlappenden Vertices.</p>
+
+<a name="04"><H1>4. ASCII-Exporter Known Bugs</H1></a>
+<p> Auf einigen System kann es zu einem Absturz von 3D Studio MAX 3.1 beim <b>Mesh Export</b> mit dem neusten ASCII-Exporter kommen, wenn in der Datei ein <b>Physique-Modifier</b> vorliegt. Hier sollte dann der Exporter aus dem <b>3DS MAX Stuff\Plugins\alternative ZenExp</b>-Verzeichnis benutzt werden. Für den Export von reinen Animations-Daten ist allerdings die neuere Version des Exporters vorzuziehen.</p>
+<p> Sollten bei exportierten Animationsdaten unerwünschte Verzerrungen in extremen Formen bei den Modellen auftauchen, so sollte man versuchen die Animationen erneut zu exportieren und dabei die Checkbuttons <b>Force Anim Output</b> und <b>Objectspace Anim Check</b> aktivieren. Dies führt zwar zu einer Vergrösserung der Daten, aber somit wird auf jeden Fall ein kompletter Export "erzwungen".</p>
+
+<a name="05"><H1>5. Hinweise zu Spacer-Dateiformaten</H1></a>
+<p>Wenn ein Level aus dem Spacer heraus in ein File (mit Suffix ".ZEN") gespeichert werden soll, kann der Benutzer grob festlegen, was in welcher Form in dem File auftauchen soll. Ein solches File kann erstens den statischen Teil eines Levels in binaerer Form enthalen, also das compilierte statische Levelmesh inkl. aller Informationen ueber Materialien, BSP, Portale, Sektoren etc. Zweitens kann das File den dynamischen Teil eines Levels enthalten, also Daten ueber die Objekte ("Vobs") innerhalb des Levels, wie z.B. Bewuchs, aufnehmbare Gegenstaende ("Items"), Interaktions-Objekte ("Mobs"), Partikel-Effekte,Zonen etc. Der dynamische Anteil kann entweder textuell/ASCII (menschenlesbar, langsame Performance) oder binaer (schnellere Performance, geringerer Platzbedarf) ausgeschrieben werden.</p>
+
+<ul>
+<li><p><b>Uncompiled ZEN (ascii)</b></p>
+<p>Das statische Levelmesh wird nicht geschrieben. Die Objekte werden ASCII
+geschrieben. Dieses Format eignet sich gut zum debuggen, um alle
+Objektdefinitionen eines Levels textuell einsehen zu koennen.</p>
+
+<li><p><b>Compiled ZEN (binary safe)</b></p>
+<p>Das statische Levelmesh wird geschrieben. Die Objekte werden in einem
+kompaktem binaeren Format geschrieben.
+ACHTUNG: die in dem GoldMaster von Gothic verwendeten Level befinden
+sich in diesem Format! Finale Versionen von Leveln sollten immer in
+diesem Format gespeichert werden.</p>
+
+<li><p><b>Compiled ZEN (ascii)</b></p>
+<p>Das statische Levelmesh wird geschrieben. Die Objekte werden ASCII
+geschrieben. Dieses Format eignet sich gut zum debuggen, um alle
+Objektdefinitionen eines Levels textuell einsehen zu koennen.</p>
+</ul>
+
+<br>&nbsp;
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

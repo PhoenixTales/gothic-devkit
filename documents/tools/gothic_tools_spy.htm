@@ -1,0 +1,170 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: zSpy</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Der zSpy
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  26.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#1"><b>Anmerkungen</a></b> 
+        <li><a href="#2"><b>zSpy Log-Level</a></b>
+        <li><a href="#3"><b>zSPY-Ausgaben</a></b>             
+        <li><a href="#4"><b>zSPY-Konfiguration</a></b>                             
+        </ul>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<a name="1">
+<H1>Anmerkungen</H1>
+</a>
+
+<p>Der zSpy ist ein Debugging-Tool, in dem beim Programmstart und während der Laufzeit von GOTHIC, Meldungen ausgegeben werden. Wir empfehlen dringend, den zSpy immer zu benutzen, wenn an MODs gearbeitet wird!</p>
+<p><font color="red">ACHTUNG:  Der zSpy muss vor dem Start von Gothic gestartet sein, damit das Programm diesen findet.</font></p>
+
+<p>Damit man die Meldungen im Spy auch mitverfolgen kann, sollte Gothic im Fenster gestartet werden. Die entsprechende Option <b>start in a window</b> findet Ihr im <a href="gothic_tools_starter.htm">GothicStarter</a>. Wird dort auch der Parameter <b>-devmode</b> eingetragen, kann man in GOTHIC jederzeit mit der Taste F3 zwischen Fenster- und Vollbild-Modus wechseln.</p>
+
+
+
+
+<a name="2">
+<H1>zSpy Log-Level</H1>
+</a>
+
+<p>Mit dem Parameter <b>-zlog:#,s</b> kann man angeben, wie viele Meldungen im zSpy ausgegeben werden.</p>
+
+<p>Für <b>#</b> kann eine Zahl (Level) zwischen -1 und 9 eingesetzt werden:</p>
+<ul>
+<li>-1 unterdrückt jede Meldung (bis auf Fatals)
+<li>0 zeigt nur Warnungen und Faults
+<li>1-9 zeigt weitere Informationen. Dabei erhält man mit 1 nur sehr wenige Meldungen, mit 5 schon reichlich und mit 9 so ziemlich alles, was Gothic zu melden hat.
+</ul> 
+
+<p><b>Für allgemeines Debugging empfehlen wir Level 5.</b></p>
+
+<p>Ihr müsst diesen Parameter im GothicStarter.exe nicht unbedingt von Hand eingeben. Dort kann der Log-Level auch über die zSpy-Messages-Listbox eingestellt werden. Schaut dazu in die <a href="gothic_tools_starter.htm">Dokumentation des GothicStarters</a>.</p>
+            
+<a name="3">
+<H1>zSPY-Ausgaben</H1>
+</a>
+
+<p>Der Spy gibt seine Meldungen in folgender Form aus:</p>
+<pre>
+05:06 Info: 5 B: Meldung ... &lt;dateiname,#line&gt;
+</pre>
+
+<p>Als erstes folgt die Zeit, seit dem Start der gothic.exe</p>
+
+<p>Dann folgt eine Kennung der Art der Nachricht:</p>
+<ul>
+<li>FATAL: Fataler Fehler (Führt sofort zum Abbruch)
+<li>FAULT: Normaler Fehler, der kein Abbruch verursacht, aber entweder in der Darstellung oder Funktionsweise Folgen nach sich zieht.
+<li>WARN: Eine Warnung vor möglichen Folgen. Ein bald darauf folgender Fehler könnte (!) damit zu tun haben.
+<li>INFO: Allgemeine Informationen zum Ablauf des Programmes.
+</ul>
+
+<p>Danach wird der Level der Nachricht angegeben, gefolgt von einer Benutzerkennung: D(ieter), U(ulf), B(ert), C(arsten), A(ndre), X=Kurt. Nun folgt der wichtigste Teil: Die Meldung selber, nicht selten mit einem Kürzel zur Kennzeichnung des Programmmoduls (z.B. MDL = 3D-Modelle). Am Ende ist der Ort der Meldung angegeben.</p>
+
+<p>Tipp: In der Konsole führt die Eingabe von "HELP" zur Ausgabe aller benutzbaren Konsolen-Kommandos im zSpy. 
+Eine Auflistung dieser Kommandos findet ihr auch in <a href="../misc/console.htm">Konsolen-Befehle</a>.</p>
+
+<p>Mit zweien dieser Konsolenbefehle kann man den zSpy beeinflussen:</p>
+<ul>
+<li>ZERR LEVEL: Den Level neu setzen
+<li>ZERR SEARCHSPY: Den Spy suchen, damit die Meldungen in einen nach dem Spielstart gestarteten Spy ausgegeben werden.
+</ul>
+
+<a name="4">
+<H1>zSPY-Konfiguration</H1>
+</a>
+<p>Sowohl der Font als auch die verschiedenen Farben können im zSpy konfiguriert werden: Das Programm färbt die Zeile entsprechend der Kennung der Nachricht (Fatal, Fault, Warn, Info) ein. Weiterhin können in den Logging-Settings diverse Einstellungen vorgenommen werden. Dies sind im Einzelnen:</p>
+
+<ul>
+<li>1. Das Filtern diverser Nachrichten (Info, Warn, Fault, Critical=Fatal)
+<li>2. Automatisches Anzeigen/Verstecken des Spy beim Starten/Beenden von Gothic
+<li>3. Das Mitloggen in einer anzugebenen Datei
+</ul>
+
+<p>Das Remote-Logging ist nicht aktivierbar!</p>
+
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

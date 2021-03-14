@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Der Spacer</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Der Spacer
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version: 12.August 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<a name="1">
+<H1>Was kann der Spacer?</H1>
+</a>
+
+Es ist einfacher zu beschreiben, was der Spacer nicht kann. Deshalb fange ich damit einmal an:
+<br><br>
+Der Spacer kann also nicht:
+<ul>
+<li>Eine 3D-Welt erstellen<br>
+    Dazu ist ein Programm zur Erstellung von 3D-Meshes nötig. Allen voran 3D-Studio Max.
+<li>Die Welt mit Menschen und Monstern (NPCs) beleben<br>
+    Das übernehmen komplett die Scripte. Der Spacer kann die Welt nur für lebende Wesen vorbereiten, beispielsweise ein Wegnetz verlegen.
+<li>Die Story gestalten<br>
+    Auch das wird vollständig von den Scripten erledigt, und auch hier bereitet der Spacer nur vor: Events in die Welt einfügen, Gegenstände verteilen etc....
+</ul>
+Eines ist also klar: Der Spacer ist nur ein Tool von vielen, das bei der
+Entwicklung von Gothic zur Verfügung stand. Ganz vereinfacht betrachtet
+sieht die Entwicklung eines Spiels wie Gothic wie folgt aus:
+
+<ol>
+<li><b>Die 3D-Welten und Gegenstände, Wesen etc. mit 3D-Studio erstellen und
+    dabei zahlreiche Vorgaben beachten</b><br>
+    Solche Vorgaben sind z.b.
+    <ul>
+    <li>Welche Höhe können (N)PCs erklettern?
+    <li>Welche Schrägen können der (N)PCs noch begehen?
+    <li>Welche "Gräben" können der (N)PCs überspringen?
+    <li>Wie gross darf ein maximales Polygon sein?
+    <li>Wo liegt die vertretbare Obergrenze für die Polygonanzahl?
+    <li>und vieles andere ...
+    </ul>
+    Neben Leveln werden auch alle anderen 3D-Objekte mit 3D-Studio erstellt:
+    <ul>
+    <li>Bäume und Sträucher
+    <li>Zäune, Steine, Feuerstellen
+    <li>Items und MOBs (Winden etc.)
+    <li>vieles mehr ...
+    </ul>
+<li><b>Weitere benötigte Daten erstellen</b><br>
+    <ul>
+    <li>Texturen
+    <li>Item-Instanzen (werden in den Scripten erzeugt)
+    </ul>
+<li><b>Die erstellte 3D-Welt als 3DS-Datei in den Spacer laden und mit den
+    anderen erstellten Gegenständen und Texturen beleben.</b><br>
+    Hier ein Ausschitt aus den Aufgaben:
+    <ul>
+    <li>Die Welt texturieren: d.h. Texturen auf Polygone legen und ausrichten.
+        Dabei kann ein Texture-Pool verwaltet werden.
+    <li>Bäume, Zäune, Sträucher, Fackeln und mehr in die Welt einfügen
+    <li>Items (Tränke, Waffen etc.) und Truhen mit Items entsprechend der
+        geplanten Story einsetzen
+    <li>Das Wegenetz für die NPC-AI erstellen. NPCs können sich zwar frei
+        bewegen, benötigen aber ein solches Wegenetz, um auch weiter entfernte
+        (>10m?!) ohne Probleme zu finden.
+    <li>Geräusche (Sounds und Daytime-Sounds) platzieren
+    <li>Die Welt ausleuchten, d.h. Lichtobjekte setzen
+    <li>Ereignisse (Events) für die Story erstellen. Das sind z.B. die
+        berüchtigten Winden, Schalter, Fallen, Rätsel u.v.m.
+    <li>und einige andere Dinge: Kamerafahrten,
+    </ul>
+<li><b>Die Story in den Scripten niederschreiben und mit der Welt verknüpfen</b><br>
+    Dies ist ein wesentlicher Teil, der aus einer recht statischen Welt, erst
+    ein lebendiges Etwas ... ein Spiel ... erstellt:
+    <ul>
+    <li>NPC-Instanzen (Menschen und Monster) erzeugen. Diese werden mit Körpermeshes, Animationen etc. versorgt
+    <li>Den NPCs Tagesabläufe verpassen. Sie z.B. am Tage zu einer Arbeitsstelle zu schicken und am Abend zurück ins Bett.
+    <li>Die Reaktion der NPCs auf den Spieler programmieren: Das ist zum einen die allgemeine NPC-AI sowie diverse Sonderreaktionen (ich sage nur "Mud")
+    <li>Dialoge mit dem Spieler scripten und in Quests (Aufträge) einbinden.
+    <li>Die NPCs über ein zentrales Script in die Level einfügen.
+    </ul>
+</ol>
+Ihr seht: Der Spacer übernimmt das Ausstatten der Welt mit allem, was nicht lebt
+(ausgenommen die Pflanzen vielleicht). So wird aus einem schnöden langweiligen
+3D-Mesh eine schon richtig gemütliche oder ungemütliche Welt, der
+allerdings noch ein wesentlicher Bestandteil fehlt: Die Lebendigkeit von
+Menschen und Monstern.
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

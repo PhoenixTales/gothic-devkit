@@ -1,0 +1,55 @@
+// 
+// Cutscenes (Engine)
+// 
+
+[TOPIC CLASS 'zCCSProps']
+Hier werden Einstellungen für einzelne Cutscenes vorgenommen.
+
+[TOPIC MEMBER 'zCCSProps::csLoop']
+bool (TRUE/FALSE)
+Legt fest, ob die Cutscene immer wieder von vorne begonnen werden soll, bis die Startbedingungen nicht mehr zutreffen.
+Im Falle einer loopenden Cutscene ist die Distance zum Spieler auch beim Ablauf der Cutscene entscheidend, so dass die CS abgebrochen wird, wenn der Spieler aus dieser heraus tritt. Nicht loopende Cutscenes werden immer zuende gespielt.
+Loopende TA-Cutscenes werden innerhalb eines Tagesablaufpunktes immer wieder neu gestartet, wenn die Startbedingungen zutreffen. 
+
+[TOPIC MEMBER 'zCCSProps::runBehaviour']
+Startbedingung: enum
+- RUN_ALWAYS: Die Cutscene wird immer gestartet
+- RUN_TIMES: Die Cutscenes wird maximal n-mal gestartet.
+- RUN_PER_HOUR: Die Cutscenes wird maximal n-mal in der Stunde gestartet.
+- RUN_PER_DAY: Die Cutscenes wird maximal n-mal am Tag gestartet.
+Der Wert n wird durch 'runBehaviourValue' festgelegt.
+Bei nichtloopenden Cutscenes, die an einen Tagesablaufpunkt geknüpft sind, wird die Cutscene innerhalb des TAs nicht noch ein weiteres mal gestartet. Erst bei einem neuen TA mit dieser Cutscene ist die runBehaviour entscheidend.
+
+[TOPIC MEMBER 'zCCSProps::runBehaviourValue']
+int
+Startbedingung: Dieser Wert legt entsprechend 'runBehaviour' fest, wie oft eine Cutscene maximal gestartet wird. Im Falle von RUN_ALWAYS wird dieser Wert ignoriert.
+
+[TOPIC MEMBER 'zCCSProps::hasToBeTriggerd']
+bool
+Startbedingung: Ist dieser Wert auf TRUE gesetzt, so startet die Cutscene erst, wenn sie eine Triggernachricht bekommt (und natürlich alle anderen Startbedingungen erfüllt sind).
+
+[TOPIC MEMBER 'zCCSProps::distance']
+int
+Startbedingung: Der Spieler muß die hier angegebene Distanz unterschreiten, damit eine schlummernde Cutscene auch gestartet wird. 
+Ein Wert von -1 bedeutet unendliche Distanz. Sie ist damit nicht mehr entscheidend für das Starten einer Cutscene. Ist 'globalCutscene' auf TRUE gesetzt, so ist der Distanzwert ebenfalls unerheblich.
+Im Falle einer loopenden Cutscene ist die Distance zum Spieler auch beim Ablauf der Cutscene entscheidend, so dass die CS abgebrochen wird, wenn der Spieler aus dieser heraus tritt. Nicht loopende Cutscenes werden immer zuende gespielt.
+
+
+[TOPIC MEMBER 'zCCSProps::range']
+int
+Startbedingung: Alle wichtigen Rollen müssen sich in der hier angegebenen Zone um die Hauptrolle befinden, damit die Cutscene gestartet wird. Ein Wert von -1 bedeutet unendliche Range.
+
+[TOPIC MEMBER 'zCCSProps::globalCutscene']
+bool	
+Eine globale Cutscene hat spezielle Eigenschaften: Ihr Ausführung hängt nicht vom Distanzwert ab und der Spieler verliert die Kontrolle und erhält sie erst wieder, wenn die Cutscene beendet oder abgebrochen wurde.
+
+[TOPIC MEMBER 'zCCSProps::numLockedBlocks']
+int
+Hier kann die Anzahl der Sync-Blöcke angegeben werden, während denen eine globale (!) Cutscene nicht von Aussen abbrechbar sein soll.
+Ein Wert von 3 würde also das Abbrechen einer globalen Cutscene für die SyncBlöcke 0 bis 2 nicht erlaubt. Dieser Wert wird bei globalen Cutscene ignoriert.
+
+
+[TOPIC MEMBER 'zCCSProps::scriptFuncOnStop']
+string
+Die hier angegebene Scriptfunktion wird vom Cutscenesystem aufgerufen, wenn diese Cutscene beendet wurde. Auch ein Abbruch durch den Benutzer ist solch ein gültiges Ende.
+

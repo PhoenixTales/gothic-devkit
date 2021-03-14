@@ -1,0 +1,79 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 30.1.2001 20:36:12
+user roeske
+END
+objects 6        
+END
+
+[% oCWorld:zCWorld 64513 0]
+	[VobTree % 0 0]
+		childs0=int:1
+		[% zCVob 12289 1]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:-35.742591858 -30.452346802 -658.963867188 36.345493317 110.886764526 -585.459716797 
+			trafoOSToWSRot=raw:d8a47e3f00000000e584d23d000000000000803f00000000e584d2bd00000000d8a47e3f
+			trafoOSToWSPos=vec3:-0.621890962 2.738769531 -622.449829102
+			vobName=string:FIRE
+			visual=string:FIRE_MEDIUM.pfx
+			showVisual=bool:1
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual zCParticleFX 0 2]
+			[]
+			[ai % 0 0]
+			[]
+		[]
+		childs1=int:2
+		[% zCVobLensFlare:zCVob 64704 3]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:0.541682482 0.368286133 -622.498168945 2.650080919 2.368286133 -620.389770508 
+			trafoOSToWSRot=raw:d4997fbf00000000a4a4643d000000000000803f00000000a0a464bd00000000d1997fbf
+			trafoOSToWSPos=vec3:1.595792055 1.368286133 -621.443969727
+			vobName=string:LENSFLARE
+			visual=string:
+			showVisual=bool:0
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual % 0 0]
+			[]
+			[ai % 0 0]
+			[]
+			lensflareFX=string:TORCHFX01
+		[]
+		childs2=int:0
+		[% zCVob 12289 4]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:-62.869010925 -25.522460938 -676.587524414 54.845081329 127.896163940 -571.601013184 
+			trafoOSToWSRot=raw:63fb7d3f00000000945600be000000000000803f000000009256003e0000000061fb7d3f
+			trafoOSToWSPos=vec3:-1.243957758 5.477539063 -622.225585938
+			vobName=string:SMOKE
+			visual=string:FIRE_SMOKE.pfx
+			showVisual=bool:1
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual zCParticleFX 0 5]
+			[]
+			[ai % 0 0]
+			[]
+		[]
+		childs3=int:0
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

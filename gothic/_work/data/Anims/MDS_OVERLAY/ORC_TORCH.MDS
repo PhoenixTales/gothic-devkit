@@ -1,0 +1,150 @@
+Model ("Orc")
+{
+
+	meshAndTree ("Orc_Body.asc" DONT_USE_MESH)
+
+	aniEnum
+	{
+		modelTag	("DEF_HIT_LIMB"		"zs_RightHand")
+
+
+	AniDisable	("t_Warn")
+	AniDisable	("t_perception")
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//
+// Bewegungs-Modi
+//
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ---------------------------------------------------------------------------------------------------------------
+//	RUN-Mode
+			ani			("s_Run"				1	"s_Run"			0.1	0.1	MI	"Orc_Torch_RunAmbient_A01.asc"	F	0	50 FPS:5)
+			ani			("t_Run_2_RunL"			1	"s_RunL"		0.0	0.0	M.	"Orc_Torch_RunLoop+Jumpback_A01.asc"		F	0	11)
+			ani			("s_RunL"				1	"s_RunL"		0.0	0.1	M.	"Orc_Torch_RunLoop+Jumpback_A01.asc"		F	12	31)
+			{
+				*eventSFXGrnd	(12	"Run")
+				*eventSFXGrnd	(21	"Run")
+			}
+
+			ani			("t_RunL_2_Run"			1	"s_Run"			0.0	0.0	M.	"Orc_Torch_RunLoop+Jumpback_A01.asc"		F	33	38)
+			aniBlend	("t_RunR_2_Run"				"s_Run"			0.2	0.2)
+
+			ani			("t_JumpB"				1	"s_Run"			0.0	0.2	M.	"Orc_Torch_RunLoop+Jumpback_A01.asc"			F	40	54)
+			{
+				*eventSFXGrnd  (49 "Run")
+				*eventSFXGrnd  (53 "Run")
+			}
+
+// ---------------------------------------------------------------------------------------------------------------
+//	WALK-Mode
+			ani			("s_Walk"				1	"s_Walk"		0.1	0.1	M	"Orc_Torch_WalkAmbient_A01.asc"	F	0	50)
+			ani			("t_Walk_2_WalkL"		1	"s_WalkL"		0.0	0.0	M.	"Orc_Torch_WalkLoop_A01.asc"		F	1	9)
+			ani			("s_WalkL"				1	"s_WalkL"		0.0	0.1	M.	"Orc_Torch_WalkLoop_A01.asc"		F	10	32)
+			{
+				*eventSFXGrnd	(10	"Run")
+				*eventSFXGrnd	(22	"Run")
+			}
+
+			ani			("t_WalkL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"Orc_Torch_WalkLoop_A01.asc"		F	33	40)
+			{
+				*eventSFXGrnd	(40	"Run")
+			}
+			aniBlend	("t_WalkR_2_Walk"			"s_Walk"		0.0	0.05)
+//	WALKB
+
+			aniAlias	("t_Walk_2_WalkBL"		1	"s_WalkBL"		0.0	0.0	M.	"t_WalkL_2_Walk"	R)
+			aniAlias	("s_WalkBL"				1	"s_WalkBL"		0.0	0.0	M.	"s_WalkL"	R)
+			aniAlias	("t_WalkBL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"t_Walk_2_WalkL"	R)
+			aniBlend	("t_WalkBR_2_Walk"			"s_Walk"		0.0	0.05)
+		
+// ---------------------------------------------------------------------------------------------------------------
+
+//	SNEAK-Mode, Standing
+			ani			("s_Sneak"				1	"s_Sneak"		0.0	0.0	M.	"Orc_Torch_SneakAmbient_A01.asc"		F	0	50	)
+			ani			("t_Sneak_2_SneakL"		1	"s_SneakL"		0.0	0.0	M.	"Orc_Torch_SneakLoop_A01.asc"			F	1	52	)
+
+//	Sneak-Loop
+			ani			("s_SneakL"				1	"s_SneakL"		0.0	0.0	M.	"Orc_Torch_SneakLoop_A01.asc"			F	53	104	)
+			ani			("t_SneakL_2_Sneak"		1	"s_Sneak"		0.0	0.0	M.	"Orc_Torch_SneakLoop_A01.asc"			F	105	149	)
+			aniBlend	("t_SneakR_2_Sneak"			"s_Sneak"		0.2	0.2)
+
+// Sneak B
+
+			aniAlias	("t_Sneak_2_SneakBL"	1	"s_SneakBL"		0.0	0.0	M.	"t_SneakL_2_Sneak"	R)
+			aniAlias	("s_SneakBL"			1	"s_SneakBL"		0.0	0.0	M.	"s_SneakL"	R)
+			aniAlias	("t_SneakBL_2_Sneak"	1	"s_Sneak"		0.0	0.0	M.	"t_Sneak_2_SneakL"	R)
+			aniBlend	("t_SneakBR_2_Sneak"		"s_Sneak"		0.2	0.2)
+
+// ---------------------------------------------------------------------------------------------------------------
+//	TURNING
+
+			ani			("t_RunTurnL"			20	"t_RunTurnL"	0.2	0.2	M.	"Orc_Torch_RunTurnL110_A01.asc"		F	1	24	)
+			{
+				*eventSFXGrnd	(8	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+			ani			("t_RunTurnR"			20	"t_RunTurnR"	0.2	0.2	M.	"Orc_Torch_RunTurnR110_A01.asc"		R	1	24	)
+			{
+				*eventSFXGrnd	(8	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+
+
+			aniAlias	("t_WalkTurnL"			20	"t_WalkTurnL"	0.2	0.2	M.	"t_RunTurnL"		F)
+			
+			aniAlias	("t_WalkTurnR"			20	"t_WalkTurnR"	0.2	0.2	M.	"t_RunTurnR"		F)
+			
+			ani			("t_SneakTurnL"			20	"t_SneakTurnL"	0.2	0.2	M.	"Orc_Torch_SneakTurnL_R_A01.asc"		F	1	59	)
+			ani			("t_SneakTurnR"			20	"t_SneakTurnL"	0.2	0.2	M.	"Orc_Torch_SneakTurnL_R_A01.asc"		F	61	119	)
+
+
+
+// ---------------------------------------------------------------------------------------------------------------
+//	STRAFING
+
+			ani			("t_RunStrafeL"			1	"s_Run"			0.1	0.1	M.	"Orc_Torch_RunStrafeL_R_A01.asc"		F	0	15	)
+			{
+				*eventSFXGrnd	(6	"Run")
+				*eventSFXGrnd	(12	"Run")
+			}
+			ani			("t_RunStrafeR"			1	"s_Run"			0.1	0.1	M.	"Orc_Torch_RunStrafeL_R_A01.asc"		F	15	30	)
+			{
+				*eventSFXGrnd	(6	"Run")
+				*eventSFXGrnd	(12	"Run")
+			}
+
+			aniAlias	("t_WalkStrafeL"		1	"s_Walk"		0.1	0.1	M.	"t_RunStrafeL"		F)
+			aniAlias	("t_WalkStrafeR"		1	"s_Walk"		0.1	0.1	M.	"t_RunStrafeR"		F)
+
+			ani			("t_SneakStrafeL"		1	"s_Sneak"		0.1	0.1	M.	"Orc_Torch_SneakStrafeL_R_A01.asc"	F	1	44	)
+			ani			("t_SneakStrafeR"		1	"s_Sneak"		0.1	0.1	M.	"Orc_Torch_SneakStrafeL_R_A01.asc"	F	46	99	)
+
+// ---------------------------------------------------------------------------------------------------------------
+//	TRANSITIONS
+			
+			ani			("t_Run_2_Walk"			1	"s_Walk"		0.0	0.0	M.	"Orc_Torch_Run2Walk_A01.asc"			F	0	12	)
+			aniAlias	("t_Walk_2_Run"			1	"s_Run"			0.0	0.0	M.	"t_Run_2_Walk"				R)
+
+			ani			("t_Run_2_Sneak"		1	"s_Sneak"		0.0	0.0	M.	"Orc_Torch_Run2Sneak_A01.asc"			F	0	25	)
+			aniAlias	("t_Sneak_2_Run"		1	"s_Run"			0.0	0.0	M.	"t_Run_2_Sneak"				R)
+
+			aniBlend	("t_RunL_2_WalkL"			"s_WalkL"		0.2	0.2)
+			aniBlend	("t_WalkL_2_RunL"			"s_RunL"		0.2	0.2)
+
+			aniBlend	("t_SneakL_2_RunL"			"s_RunL"		0.2	0.2)
+			aniBlend	("t_RunL_2_SneakL"			"s_SneakL"		0.2	0.2)
+
+			aniBlend	("t_Walk_2_Sneak"			"s_Sneak"		0.2	0.2)
+			aniBlend	("t_Sneak_2_Walk"			"s_Walk"		0.2	0.2)
+
+			aniBlend	("t_WalkL_2_SneakL"			"s_SneakL"		0.2	0.2)
+			aniBlend	("t_SneakL_2_WalkL"			"s_WalkL"		0.2	0.2)		
+	}
+}
+	

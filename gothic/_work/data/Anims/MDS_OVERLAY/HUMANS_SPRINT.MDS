@@ -1,0 +1,81 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//	
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Model ("HuS")
+{
+
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+	
+	aniEnum
+	{
+
+//	RUN-Mode
+			ani			("t_Run_2_RunL"			1	"s_RunL"		0.0	0.0	M.	"Hum_Sprint_M01.asc"		F	1	5)
+
+//	Run-Loop
+			ani			("s_RunL"				1	"s_RunL"		0.0	0.1	M.	"Hum_Sprint_M01.asc"		F	6	18)
+			{
+				*eventSFXGrnd	(9	"Run")
+				*eventPFX	(10	 "MFX_SPEED_FOOTSTEPS"	"Bip01 L Foot"	ATTACH	)
+				*eventSFXGrnd	(15	"Run")
+				*eventPFX	(16	 "MFX_SPEED_FOOTSTEPS"	"Bip01 R Foot"	ATTACH	)
+			}
+
+			ani			("t_RunL_2_Run"			1	"s_Run"			0.0	0.0	M.	"Hum_Sprint_M01.asc"		F	19	26)
+			{
+				*eventSFXGrnd	(21	"Run")
+				*eventSFXGrnd	(24	"Run")
+			}
+			aniBlend	("t_RunR_2_Run"				"s_Run"			0.2	0.2)
+
+//	aus dem Rennen direkt Springen
+//			ani			("t_RunL_2_Jump"		1	"s_Jump"		0.0	0.0	MF	"Hum_SprintJump_M01.asc"		F	1	19)
+//			ani			("t_RunR_2_Jump"		1	"s_Jump"		0.0	0.0	MF	"Hum_SprintJump_M01.asc"		F	22	40)
+//			ani			("t_Jump_2_Stand"		1	""				0.0	0.0	M.	"Hum_SprintJump_M01.asc"		F	42	76)
+//			ani			("t_Jump_2_RunL"		1	"s_RunL"		0.0	0.0	M.	"Hum_SprintJump_M01.asc"		F	79	113)
+
+//			ani			("s_Jump"				1	"s_Jump"		0.0	0.0 MF	"Hum_Jump_M01.asc"			F	30	30)
+
+// Magic Run-Loop
+			aniAlias	("t_MagRun_2_MagRunL"	1	"s_MagRunL"		0.1	0.0	M.	"t_Run_2_RunL"				F)
+			aniAlias	("s_MagRunL"			1	"s_MagRunL"		0.0	0.1	M.	"s_RunL"					F)
+			aniAlias	("t_MagRunL_2_MagRun"	1	"s_MagRun"		0.0	0.0	M.	"t_RunL_2_Run"				F)
+			aniBlend	("t_MagRunR_2_MagRun"		"s_MagRun"		0.2	0.2)
+
+// Fist Run-Loop
+			aniAlias	("t_FistRun_2_FistRunL"	1	"s_FistRunL"	0.1	0.0	M.	"t_Run_2_RunL"				F)
+			aniAlias	("s_FistRunL"			1	"s_FistRunL"	0.0	0.1	M.	"s_RunL"					F)
+			aniAlias	("t_FistRunL_2_FistRun"	1	"s_FistRun"		0.0	0.0	M.	"t_RunL_2_Run"				F)
+			aniBlend	("t_FistRunR_2_FistRun"		"s_FistRun"		0.2	0.2)
+
+// 1h Run-Loop
+			aniAlias	("t_1hRun_2_1hRunL"		1	"s_1hRunL"		0.1	0.0	M.	"t_Run_2_RunL"				F)
+			aniAlias	("s_1hRunL"				1	"s_1hRunL"		0.0	0.1	M.	"s_RunL"					F)
+			aniAlias	("t_1hRunL_2_1hRun"		1	"s_1hRun"		0.0	0.0	M.	"t_RunL_2_Run"				F)
+			aniBlend	("t_1hRunR_2_1hRun"			"s_1hRun"		0.2	0.2)
+
+// 2h Run-Loop
+			aniAlias	("t_2hRun_2_2hRunL"		1	"s_2hRunL"		0.1	0.0	M.	"t_Run_2_RunL"				F)
+			aniAlias	("s_2hRunL"				1	"s_2hRunL"		0.0	0.1	M.	"s_RunL"					F)
+			aniAlias	("t_2hRunL_2_2hRun"		1	"s_2hRun"		0.0	0.0	M.	"t_RunL_2_Run"				F)
+			aniBlend	("t_2hRunR_2_2hRun"			"s_2hRun"		0.2	0.2)
+
+// Bow Run-Loop
+			aniAlias	("t_BowRun_2_BowRunL"	1	"s_BowRunL"		0.1	0.0	M.	"t_Run_2_RunL"				F)
+			aniAlias	("s_BowRunL"			1	"s_BowRunL"		0.0	0.1	M.	"s_RunL"					F)
+			aniAlias	("t_BowRunL_2_BowRun"	1	"s_BowRun"		0.0	0.0	M.	"t_RunL_2_Run"				F)
+			aniBlend	("t_BowRunR_2_BowRun"		"s_BowRun"		0.2	0.2)
+
+// CBow Run-Loop
+			aniAlias	("t_CBowRun_2_CBowRunL"	1	"s_CBowRunL"	0.1	0.0	M.	"t_Run_2_RunL"				F)
+			aniAlias	("s_CBowRunL"			1	"s_CBowRunL"	0.0	0.1	M.	"s_RunL"					F)
+			aniAlias	("t_CBowRunL_2_CBowRun"	1	"s_CBowRun"		0.0	0.0	M.	"t_RunL_2_Run"				F)
+			aniBlend	("t_CBowRunR_2_CBowRun"		"s_CBowRun"		0.2	0.2)
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	}
+}
+

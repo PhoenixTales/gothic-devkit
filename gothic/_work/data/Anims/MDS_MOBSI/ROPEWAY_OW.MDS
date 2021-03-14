@@ -1,0 +1,55 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("ROPEWAY_OW")
+{
+
+	meshAndTree ("ROPEWAY_OW.asc")
+
+	aniEnum
+	{
+			ani		("s_S0"				1	"s_S0"	0.0	0.0	M.	"ROPEWAY_OW_USE.asc"	F	3	3)
+			ani		("t_S0_2_S1"		1	"s_S1"	0.0	0.0	M.	"ROPEWAY_OW_USE.asc"	F	4	508)
+			{
+				*eventSFX		(10	"ROPEWAY_START"		)
+				*eventSFX		(50	"ROPEWAY_LOOP"		)
+				*eventSFX		(90	"ROPEWAY_LOOP"		)
+				*eventSFX		(130	"ROPEWAY_LOOP"		)
+				*eventSFX		(145	"ROPEWAY_BARRIER"		)
+				*eventPFX		(150	 1	"BARRIEREWARNING_BOX"	"Bip01 WAGEN"	ATTACH	)
+				*eventSFX		(170	"ROPEWAY_LOOP"		)
+				*eventSFX		(210	"ROPEWAY_LOOP"		)
+				*eventPFXStop	(220	 1	)				
+				*eventSFX		(250	"ROPEWAY_LOOP"		)
+				*eventSFX		(290	"ROPEWAY_LOOP"		)
+				*eventSFX		(330	"ROPEWAY_LOOP"		)
+				*eventSFX		(370	"ROPEWAY_LOOP"		)
+				*eventSFX		(410	"ROPEWAY_LOOP"		)
+				*eventSFX		(450	"ROPEWAY_End"		)
+			}
+			ani		("s_S1"				1	"s_S1"	0.0	0.0	M.	"ROPEWAY_OW_USE.asc"	F	508	508)
+			ani		("t_S1_2_S0"		1	"s_S0"	0.0	0.0	M.	"ROPEWAY_OW_USE.asc"	F	508	997)
+			{
+				*eventSFX		(520	"ROPEWAY_START"		)
+				*eventSFX		(560	"ROPEWAY_LOOP"		)
+				*eventSFX		(600	"ROPEWAY_LOOP"		)
+				*eventSFX		(640	"ROPEWAY_LOOP"		)
+				*eventSFX		(680	"ROPEWAY_LOOP"		)
+				*eventSFX		(720	"ROPEWAY_LOOP"		)
+				*eventSFX		(760	"ROPEWAY_LOOP"		)
+				*eventSFX		(793	"ROPEWAY_BARRIER"		)
+				*eventPFX		(795	 1	"BARRIEREWARNING_BOX"	"Bip01 WAGEN"	ATTACH	)					
+				*eventSFX		(800	"ROPEWAY_LOOP"		)
+				*eventPFXStop	(830	 1	)
+				*eventSFX		(840	"ROPEWAY_LOOP"		)
+				*eventSFX		(880	"ROPEWAY_LOOP"		)
+				*eventSFX		(920	"ROPEWAY_LOOP"		)
+				*eventSFX		(960	"ROPEWAY_End"		)
+			}
+	}
+

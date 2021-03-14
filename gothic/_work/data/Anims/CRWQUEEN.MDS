@@ -1,0 +1,69 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//	Keine JUMPUPs
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+Model ("CrwQueen")
+{
+	MeshAndTree ("CrQ_Body.asc" DONT_USE_MESH)
+
+	registerMesh ("CrQ_Body.ASC")
+
+
+	aniEnum
+	{
+
+//	|	KEYWORD		|	ANI-NAME				|LAYER|	NEXT-ANI	  |	BI | BO |F	|ASC-FILE			|	DIR |FF |LF
+//-----------------------------------------------------------------------------------------------------------------------
+	
+//------------------------------------------------------------------------------------------------------------------------------
+
+	// "MOVE"
+		ani			("s_FistRun"					1	"s_FistRun"		0.2	0.2	M.	"CrQ_Amb_M01.asc"		F	0	74 FPS:12.5)
+		{
+			*eventSFX	(5	"QUE_AMBIENT"	EMPTY_SLOT	)
+			*eventPFX	(14	1	"CRW_Greensmoke"	"BIP01 Mouth-down"	ATTACH	)
+			*eventSFX	(15	"QUE_BREATH"	EMPTY_SLOT	)
+			*eventPFXStop	(50	1	)
+			*eventSFX	(50	"QUE_AMBIENT"	EMPTY_SLOT	)
+		}
+		aniAlias	("s_FistWalk"					1	"s_FistWalk"	0.2	0.2	M.	"s_FistRun"				F)
+		aniBlend	("t_FistRun_2_FistWalk"				"s_FistWalk"	0.2	0.2)
+		aniBlend	("t_FistWalk_2_FistRun"				"s_FistRun"		0.2	0.2)
+
+	// Stumble
+		ani			("t_Stumble"					1	""				0.1	0.1	M.	"CrQ_Stumble_M01.asc"	F	1	24)
+		{
+			*eventSFX	(5	"QUE_BREATH"	EMPTY_SLOT	)
+		}
+		aniAlias	("t_StumbleB"					1	""				0.1	0.1	M.	"t_Stumble"				R)
+
+	// FallDn
+		aniAlias	("s_FallDn"						1	"s_FallDn"		0.2	0.2	MF	"s_FistRun"				F)
+	
+
+	// Die	
+		ani			("t_Dead"						1	"s_Dead"		0.2	0.0	M.	"CrQ_Dead_M01.asc"		F	1	24)
+		{
+			*eventSFX	(1	"QUE_DIE"	EMPTY_SLOT	)
+		}
+		aniAlias	("t_DeadB"						1	"s_Dead"		0.0	0.0	M.	"t_Dead"				F)	
+
+		ani			("s_Dead"						1	"s_Dead"		0.1	0.1	M.	"CrQ_Dead_M01.asc"		F	25	25)
+
+	// Attack
+		ani			("s_FistAttack"					1	"s_FistAttack"	0.0	0.0	M.	"CrQ_Attack_M01.asc"	F	1	24)
+		{
+			*eventTag	(0	"DEF_HIT_LIMB"	"BIP01 L HAND")
+			*eventTag	(0	"DEF_OPT_FRAME"	"13 18")
+			*eventTag	(0	"DEF_HIT_END"	"24")
+			*eventTag	(0	"DEF_WINDOW"	"18	24")
+//			*eventTag	(0	"DEF_DIR"		"OO")
+			*eventSFX	(2	"QUE_ATTACK"	EMPTY_SLOT	)
+		}
+	}
+}

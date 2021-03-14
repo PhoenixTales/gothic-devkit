@@ -1,0 +1,670 @@
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE>Gothic-Documents: Gothic Skriptsprache</TITLE>
+	<META NAME="AUTHOR" CONTENT="Bert Speckels">
+	<link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000099"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Die Skriptsprache "DAEDALUS"
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Ulf Wohlers
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  12.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<hr noshade size=2 width=200 align=left>
+Entworfen von:
+<li>Dieter Hildebrandt<br>
+<li>Bert Speckels<br>
+<li>Ulf Wohlers<br>
+<hr noshade size=2 width=200 align=left>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+		<ol>
+		<li><a href="#01">Einführung</A>
+		<li><a href="#02">Beschreibung der Syntax</A>
+		<li><a href="#03">Kommentare</A>
+		<li><a href="#04">Anweisungen</A>
+		<li><a href="#05">Ausdrücke</A>
+			<ul>
+			<li>Operatoren
+			<li>Ausdruck
+			</ul>
+		<li><a href="#06">Typen, Variablen und Konstanten</a>
+			<ul>
+			<li>Elementare Typen
+			<li>C++ und <i>DAEDALUS</i>
+			<li>Variablen und Konstanten
+			<li>Bezugsrahmen: global, lokal
+			</ul>	
+		<li><a href="#07">Zuweisungen</a>
+		<li><a href="#08">Funktionen</a>
+			<ul>
+			<li>Definition
+			<li>Parameterübergabe
+			<li>Funktionsaufrufe
+			</ul>
+		<li><a href="#09">Klassen, Schablonen und Instanzen</a>
+			<ul>
+			<li>Klassen
+			<li>Prototypen
+			<li>Instanzen
+			</ul>
+		<li><a href="#10">Kontrollstrukturen</a>
+		<li><a href="#11">Dynamische Variablen</a>
+		<li><a href="#12">Wichtige Unterschiede zu C++</a>
+		</ol>
+        </b>
+        <a href="../gothic.htm"><b><i>Zum Index</i></b></A>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+	
+ 
+<a name="01"><H1>1. Einführung</H1></a>
+
+
+<p>Die von uns entworfene Skript-Sprache wird im folgenden Text mit <i>DAEDALUS</i> bezeichnet. Das eigentliche Spielprogramm, das den Skript-Code interpretiert wird in der Regel mit <i>"C++"-Code</i> bezeichnet. </p>
+
+<p>Dieses Kapitel beschreibt die Skriptsprache <i>DAEDALUS</i>. Beim Design inspirierten uns vor allem die Programmiersprache "C", die Skript-Sprache "Quake-C" und zum Teil Pascal. <i>DAEDALUS</i> weicht jedoch in manchen Bereichen weit von diesen ab.</p>
+
+<p>
+Einsatzgebiete von <i>DAEDALUS</i>
+<ul>
+	<li>Dialoge / Informationen
+	<li>NSC - AI
+	<li>Aufträge
+	<li>Text-Pool
+	<li>NPCs (Prototypen und Instanzen)
+	<li>Gegenstände (Prototypen und Instanzen)
+	<li>Implementation von Konzept-Regeln
+	<li>"Event-Programme" (Realisierung komplexer logischer Rätsel)
+	<li>Deklaration von Sound-Resourcen
+	<li>Deklaration von Grafik-Resourcen (auch mit Ani-Information)
+</ul>
+</p>
+
+
+
+
+
+<a name="02"><H1>2. Beschreibung der Syntax</H1></a>
+
+
+<p>
+Es gibt 5 Arten von sogenannten Token: Bezeichner (identifier), Schlüsselwörter (keywords), Literale (literals),
+Operatoren (operators) und andere Trennzeichen. Aus diesen Token ist ein Skript zusammengesetzt.
+Leerzeichen, Zeilenumbrüche, Kommentare etc. werden ignoriert. Die Länge von Bezeichnern ist nicht beschränkt. 
+</p>
+
+
+<p>
+Bezeichner sind Namen für Variablen, Konstanten, Instanzen, Prototypen, Klassen und  Funktionen. Ein Bezeichner ist eine Folge von Buchstaben und  Ziffern. Das erste Zeichen muß ein Buchstabe sein. Danach sind 
+Buchstaben, die Ziffern 0 bis 9, sowie der Unterstrich erlaubt.
+</p>
+
+<p>Schlüsselwörter sind:</p>
+<pre>
+class       const       else        float      func         if
+instance    int         other       prototype  return       self
+string      this        var         void       while
+</pre>
+
+
+<p>
+Literale sind Zeichenketten ("Hallo") und  konstante Werte (453). Operatoren werden weiter unten eingeführt.
+</p>
+
+<p>
+In dieser Referenz beschreibe ich die Skriptsprache formal in Anlehnung an das Buch "Die C++ Programmiersprache" von Bjarne Stroustrup. Syntaktische Bezeichner werden in Kursivschrift dargestellt. 
+<!---
+Sie stellen im Prinzip Platzhalter dar. Ein mit -list bezeichneter syntaktischer Bezeichner stellt eine sequentielle Verkettung von syntaktischen Bezeichnern dar und -block kennzeichnet eine Liste, die mit geschweiften Klammern zu einem Block zusammengefaßt ist. 
+Schlüsselwörter erscheinen in der Schriftart Courier New.
+Alternativen werden in einzelnen Zeilen aufgelistet. Ein optionaler Bezeichner wird mit tiefgestelltem opt markiert. 
+---->
+</p>
+
+<p>
+<font color="#0000FF"><b>Die Skriptsprache ist nicht case-sensitive (anders als in C).</b></font>
+</p>
+
+<p>
+Wir empfehlen aber folgende Konventionen für die Namensgebung von Bezeichnern:
+(Sei "dng" die Kurzkennung für ein Modul  "dungeon.D")
+
+<ul>
+<li>Funktion:	Dng_MoveLift();
+<li>Variable:	dng_buttonsPressed;
+<li>Konstante:	DNG_NUM_TRIES;
+</ul>
+</p>
+
+
+
+
+<a name="03"><H1>3. Kommentare</H1></a>
+
+<p>
+Die Zeichenfolge /* beginnt einen Kommentar, der mit der Zeichenfolge */ beendet wird. Die Zeichenfolge // beginnt einen Kommentar, der bis zum Ende der Zeile geht.
+Innerhalb eines Kommentars haben die Zeichenfolgen  // und /*, sowie */ nach einem Zeilenkommentar keine weitere Bedeutung und werden wie andere Zeichen behandelt.
+</p>
+
+<p>
+<font color="#0000FF">Das Kommentarkonzept wurde aus C++ übernommen</font>
+</p>
+
+
+
+
+
+<a name="04"><H1>4. Anweisungen</H1></a>
+
+
+<p>
+Anweisungen (statements)  sind Deklarationen, Befehle oder auch ein Block von Anweisungen:
+</p>
+
+<pre>
+statement
+  vardecl
+  constdecl
+assignment	
+  if-statement
+  return-statement
+statement-block
+</pre>
+
+<pre>
+Beispiel: 
+statement:        door_open();
+statement-list:   door_open();  opened = TRUE;
+statement-block:  { door_open(); opened = TRUE; }
+</pre>
+
+
+
+
+
+<a name="05"><H1>5. Ausdrücke</H1></a>
+
+
+<H2>Operatoren</H2>
+
+<p>
+Ein Operator "berechnet" aus einem oder zwei Werten den Ergebnis-Wert.  Ein Vergleichsoperator sowie ein boolscher Operator liefert den Integer-Wert 1, falls der Ausdruck wahr ist, sonst 0. Bit-Operatoren manipulieren Variablen auf Bit-Ebene.
+<font color="#0000FF">Die Operatorenpriorität wurde von C++ übernommen.</font>
+</p>
+
+<pre>
+operator:
+  calc-op
+  cmp-op
+  bool-op
+  bit-op
+
+a) Operatoren
+
+calc-op: 
+  +   Addition
+  -   Subtraktion
+  *   Multiplikation
+  /   Division
+  %   Restdivision (Modulo)
+
+
+c) Vergleichsoperatoren
+
+cmp-op: 
+  <   kleiner
+  <=  kleiner gleich
+  >   größer
+  >=  größer gleich
+  ==  Gleichheit
+  !=  Ungleichheit
+
+d) Boolesche Operatoren
+
+bool-op:
+  !   nicht
+  &&  und
+  ||  oder
+
+
+e) Bitweise Operatoren
+
+bit-op:
+  &   and
+  |   or
+
+f) Vorzeichen
+
+vorzeichen:
+  +   positiv
+  -   negativ
+</pre>
+
+
+<H2>Ausdruck</H2>
+
+<p>
+Ausdrücke werden mit den oben dargestellten Operatoren wie in C üblich gebildet. 
+Hier werden nur Beispiele von Ausdrücken gezeigt.
+</p>
+
+
+<pre>
+expression:
+  literal
+  calc-expressoin
+  cmp-expression
+  bool-expression
+  bit-expression
+
+a) Ausdruck
+
+expression:
+  -x1 + x2
+  x1 * (x2 + x3)
+  (x2 % 2) * x3
+
+b) Vergleiche (compares)
+
+cmp- expression: 
+  x1 < x2
+  x1 == x2
+
+c) Boolesche Ausdrücke
+
+bool- expression:
+  x1 && x2
+  x1 || x2
+    (x<y) && (x>0)
+
+Ein numerischer Wert gilt als wahr, falls er nicht gleich Null ist.
+
+d) Bitweise Manipulationen
+
+bit- expression:
+  x1 | 5;
+  x1 & 4;
+</pre>
+
+
+
+
+
+<a name="06"><H1>6. Typen, Variablen und Konstanten</H1></a>
+
+
+<p>Es existieren zwei Arten von Typen: elementare Typen und Klassen. <font color="#0000FF">Es können keine weiteren Typen definiert werden, wie in C/C++ üblich. Klassen haben eine direkte Entsprechung im C-Code der Engine.</font> Variablen einer Klasse sind die sogenannten Instanzen.</p>
+
+
+<H2>Elementare Typen</H2>
+
+<pre>
+float
+int
+string
+</pre>
+
+<p>Entsprechen den Typen in C/C++</p>
+
+<p>Weiterhin können int- und string-arrays gebildet werden:</p>
+
+<pre>
+VAR INT attribute[MAX_ATTRIBUTES];
+VAR STRING names[MAX_NAMES];
+</pre>
+
+<p>
+Es können <font color="#0000FF">nur eindimensionale Arrays</font> erstellt werden. Die einzelnen Elemente der Felder werden wie in C++ gewohnt angesprochen, es können dafür aber <font color="#0000FF">nur Konstanten als Index</font> benutzt werden:
+</p>
+
+<pre>
+attribute[1] = 0;
+</pre>
+
+<p>
+Das erste Element beginnt mit dem Index Null.
+</p>
+
+<H2>C++ und <i>DAEDALUS</i></H2>
+
+<p>Funktionen, Variablen und Konstanten, auf die sowohl im C++-Code als auch in <i>DAEDALUS</i> zugegriffen werden muß, werden mindestens in <i>DAEDALUS</i> deklariert. Dazu dient das Schlüsselwort <u>extern</u>. Variablen und Konstanten werden zusätzlich auch definiert, d.h. ihnen werden Werte zugewiesen.</p>
+
+<H2>Variablen und Konstanten</H2>
+
+<p>
+Eine Variablendeklaration muß durch das Schlüsselwort var eingeleitet werden. Dies gilt für jede einzelne Deklaration, nicht, wie in PASCAL, für einen ganzen Block. Auflistungen von Variablen aber (wie in C) möglich:
+</p>
+
+<pre>
+vardecl:
+  var  type  identifier [,identifier]opt  [...]opt;
+
+Beispiel:
+
+korrekt:
+  var int wert1, wert2, wert3;
+  var string frage, antwort;
+  var int wert;
+
+falsch:
+  int value;
+</pre>
+
+<p>
+Eine Konstantendefinition muß durch das Schlüsselwort const eingeleitet werden:
+
+<pre>
+constsdef:
+  const type  identifier = expression;
+</pre>
+
+<pre>
+Beispiel:
+  const type identifier[x] = { expression, expression, expression };
+</pre>
+
+</p>
+
+
+
+<H2>Bezugsrahmen: global, lokal</H2>
+
+
+<p>Es existieren zwei verschiedene Bezugsrahmen für Variablen und Konstanten:</p>
+
+<ul>
+<li>Eine außerhalb jedes Blockes deklarierte Variable oder Konstante ist <u>global</u> verfügbar: Sie ist nach ihrer Deklaration im gesamten folgenden Skriptteil gültig.
+<li>Eine innerhalb eines Blockes deklarierte Variable/Konstante ist lokal im Bezug auf den äußersten Block.
+</ul>
+
+<pre>
+Beispiele:
+
+var int count;
+
+func void Test()
+{ var int x; var int y; }
+</pre>
+
+<p>
+Die variable count ist im Skript global verfügbar. Die Variablen x und y haben wie in C/C++ - den gleichen lokalen Bezugsrahmen: die Funktion Test().
+</p>
+
+
+
+
+
+
+<a name="07"><H1>7. Zuweisungen</H1></a>
+
+
+<pre>
+assignment:
+  identifier = expression; // einfache Zuweisung
+
+Beispiel:
+  var int x1;
+  x1 = 40;	
+  x1 = x1 / 2;
+  x1 = x1* 3;	
+</pre>
+
+
+
+
+
+<a name="08"><H1>8. Funktionen</H1></a>
+
+
+<H2>Definition</H2>
+
+<p>Funktionsdefinitionen werden mit dem Schlüsselwort func eingeleitet.</p>
+
+<pre>
+func-def:
+  func type identifier ( vardecl1opt , ... , vardecl8opt ) statement-block
+
+Beispiel:
+
+  func int UsingSchild(var int x1, var string s1)
+  {
+    [...]
+  };
+</pre>
+
+<H2>Parameterübergabe</H2>
+
+<p>Die Länge der Parameterliste ist unbegrenzt, sollte allerdings aus Speicherplatzgründen möglichst gering gehalten werden. <font color="#0000FF">Parameter werden call-by-value übergeben, liefern also keinen Wert zurück. Arrays sind als Übergabeparameter nicht erlaubt.</font></p>
+
+<H2>Funktionsaufrufe</H2>
+
+<p>Funktionen werden wie in C++ üblich aufgerufen. Also mit ihrem Bezeichner sowie einer zwingend notwendigen Parameterklammer.</p>
+
+
+<a name="09"><H1>9. Klassen, Schablonen und Instanzen</H1></a>
+
+
+<H2>Klassen</H2>
+
+<p>Die Klassendeklarationen beschreiben exakt die Datenstrukturen der Engine.  Sie sind also nicht beliebig im Skript erweiterbar, sondern direkt mit der Engine verknüpft.</p>
+
+<pre>
+classdecl:
+  class  classname  (base-classname)opt  declaration-block
+
+Beispiel:
+
+class Creature (Vob)
+{
+  // attributes
+  var string  name;
+  var int     hitpoints;
+  var int     hp_max;
+  // actions
+  var funcref birth;
+  var funcref death;
+};
+</pre>
+
+<p>
+Die Attribute erhalten Standardwerte:
+<ul>
+<li>Variablen vom Typ int enthalten den Wert 0
+<li>Strings den leeren String ""
+<li>Pointertypen referenzieren NULL. 
+</uL>
+</p>
+
+
+<H2>Prototypen</H2>
+
+<p>Mit dem Schlüsselwort <u>prototype</u> ist es möglich, sogenannte Prototypen zu erzeugen, die andere Standardwerte haben:</p>
+
+<pre>
+prototype-def:
+	prototype class-identifier  identifier  statement-block
+</pre>
+
+<p>Ein Prototyp kann man als eine "abgeleitete" Klasse ansehen, bei der NUR die Standardwerte geändert wurden. Oder als eine Instanz der Klasse, die nur als Vorlage für weitere Instanzen dient. Die Definition der Standardwerte findet im statement-block satt.</p>
+
+<p>
+<font color="#0000FF">Es findet eine Trennung  zwischen Klassendeklaration (class), welche die exakte Struktur der Engine-internen Klasse widerspiegelt, und der Klassendefinition (prototype)statt.</font>
+</p>
+
+
+<H2>Instanzen</H2>
+
+<p>Instanzen von Klassen oder Prototypen stellen deren konkrete Repräsentationen dar. Die Instanz einer Klasse Material ist ein bestimmtes Material mit all seinen Eigenschaften. </p>
+
+<pre>
+instance-def:
+	instance class-identifier  identifier  statement-block
+	instance instance-identifier prototype-identifier statement-block
+</pre>
+
+<p> Der statement-block einer Instanz-Definition dient zur Definition der Variablen, die zu der Klasse gehören. Dabei behalten nicht definierte Attribute oder Aktionen ihren Standardwert. Es sind aber auch alle weiteren Anweisungen erlaubt, soweit sie in irgendeiner Weise Sinn machen. </p>
+
+<pre>
+Kleines (fiktives) Beispiel für Item/Schild/Holzschild
+
+class Item(Vob)
+{
+  // attributes
+  var int damage;
+  var int attack;
+  var string description;
+  // actions
+  var funcref use;
+};
+  
+
+prototype SchildProtoType (Item)
+{
+  damage = 0;
+  attack = 0;
+  descriptions = "";
+  // actions
+  use = UsingSchild();
+};
+
+instance HolzSchild1 (SchildProtoType)
+{
+  // attributes
+  description = "Ein recht erbärmliches Holzschild";
+};
+</pre>
+
+
+
+
+
+
+<a name="10"><H1>10. Kontrollstrukturen</H1></a>
+
+
+<H2>Verzweigung: if-then-else</H2>
+
+<p>
+<font color="#0000FF">Die if-Abfrage wurde aus C++ übernommen. Zu beachten sind nur die eingeschränkten Möglichkeiten von Ausdrücken. Außerdem wird immer ein statement-block erwartet.</font>
+</p>
+
+<pre>
+if-statement:
+  if ( expression ) statement-block
+  if ( expression ) statement-block else statement-block
+
+falsch:   if (x<4) SoundPlay(ID_sound_roar);
+richtig:  if (x<4) { SoundPlay(ID_sound_roar); };
+</pre>
+
+
+<H2>Funktionswert-Rückgabe: return</H2>
+
+<p>In Funktionen, die einen Wert zurückliefern, wird wie in C++ die return-Anweisung verwendet:</p>
+
+<pre>
+return-statement:
+    return ( expression );
+</pre>
+
+
+
+
+<a name="11"><H1>11. Dynamische Variablen</H1></a>
+
+<p>Einige Variablen werden beim Aufruf einer Funktion dynamisch gesetzt und verweisen dann z.B. in einem Dialog auf die Instanz des NPCs (self) und seinen Gesprächspartner(other). Weiterhin wird es Build-In-Funktionen geben, die einen Zugriff auf andere VOBs ermöglicht.</p>
+
+<p>Zur Unterstützung dieses Konzeptes werden einige globale Variablen deklariert und im Spielverlauf dynamisch gesetzt, so daß diese in Funktionen abgefragt werden können. Die Variablen sind momentan folgende:</p>
+
+<pre>
+VAR C_NPC self;
+VAR C_NPC other;
+VAR C_NPC victim;
+VAR C_NPC hero;
+VAR C_NPC item;
+</pre>
+ 
+
+
+
+
+
+<a name="12"><H1>12. Wichtige Unterschiede zu C++</H1></a>
+
+
+
+<p>Hier sollen nur in Stichworten einige Fallstricke aufgezeigt werden, die aus den Unterschieden zu C++ entstehen. Wo C++ auch einzelne Anweisungen erlaubt, muß in <i>DAEDALUS</i> ein Anweisungsblock stehen. Dies betrifft if-Statement.</p>
+
+<pre>
+Beispiel:
+
+if (x<4) { SoundPlay(); };
+</pre>
+
+
+
+
+<br>
+
+</td>
+</tr>
+</table> 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

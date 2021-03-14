@@ -1,0 +1,6 @@
+Model ("BENCH_1_OC")
+{
+
+	meshAndTree ("BENCH_1_OC.asc")
+
+}

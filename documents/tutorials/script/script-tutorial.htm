@@ -1,0 +1,829 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Skript Tutorial</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../../style.css">
+</HEAD>
+
+
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Tutorial: Gothic-Skripte
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Jochen Peketz
+        </b></td>
+        <td width=50% align=right><b>
+                Version:  19.Juli 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhaltsverzeichnis
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEFF" border=0>
+<tr>
+<td>
+        <b>Inhalt:</b>
+        <ul>
+        <li><a href="#01"><b>1. Einleitung</b></a>
+        <li><a href="#02"><b>2. Der Autraggeber</b></a>
+        <li><a href="#03"><b>3. Der Bursche kriegt eine Aufgabe</b></a>
+        <li><a href="#04"><b>4. Der Auftrag</b></a>
+        <li><a href="#05"><b>5. Den Gegenstand der Begierde erstellen</b></a>
+        <li><a href="#06"><b>6. Den "Auftrag erfüllt"-Dialog erstellen</b></a>
+        </ul>
+        </b>
+        <a href="../../gothic.htm"><b><i>Zum Index</i></b></A>
+        <br><br>
+</td>
+</tr>
+</table>
+<br>
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+
+<!---- History
+19.07.01: NEU
+----->
+<a name="01"><H1>1. Einleitung</H1></a>
+<p>Das Tutorial ist so aufgebaut, dass am Ende eine kleine Mission steht, die den Spieler ein Schwert für einen Nsc holen lässt, im Verlauf wird, an den entsprechenden Stellen erklärt, wie eine Teilaufgabe umzusetzen ist. Z.B. wird für eine hol mir ein Schwert Mission  natürlich ein tolles Schwert benötigt, also wird zu diesem Zeitpunkt die Item-Klasse erklärt und dann mit Inhalt gefüllt, bis ein entsprechendes Schwert vorliegt, das dann ins Spiel eingefügt und dort benutzt werden kann.</p>
+
+<a name="02"><H1>2. Der Auftraggeber</H1></a>
+<p>Um einen neuen Nsc im Spiel zur Verfügung zu haben muß eine Instanz der Klasse <b>C_Npc</b> erstellt werden. Im folgenden wird erst kurz ein allgemeiner Abriss der Klasse gegeben und diese dann mit Inhalt gefüllt.</p>
+
+<p>Die Klasse</p>
+
+<pre>
+CLASS C_NPC
+{
+ VAR INT     id;  // absolute ID des NPCs
+</pre>
+
+<p>Die Id ist ein eindeutiger Indentifier, mit dem der Nsc im Programm referenziert werden kann und wird zum Beispiel benutzt um Tagesabläufe mit dem Nsc zu verknüpfen.</p>
+
+<pre> VAR STRING name [5];  // Namen des NPC</pre>
+
+<p>Der Name ist ein String und taucht z.B. auf wenn man im Spiel einen Nsc im Focus hat.</p>
+
+<pre> VAR STRING  slot;</pre>
+
+<p>Unbenutzt, aber vorhanden, lässt sich also für spezielle Zwecke als Membervariable, die einen String neben dem Namen speichern kann benutzen.</p>
+
+<pre> VAR INT  npcType;</pre>
+
+<p>Integer, mit dem in Gothic der Charakter bestimmten Gruppen zugeordnet wird. Npc_TypeMain ist z.B. einer der Hauptcharaktere (z.B. Diego).</p>
+
+<pre> VAR INT     flags;</pre>
+
+<p>Hier lässt sich der Nsc auf Immortal setzen flags = NPC_FLAG_IMMORTAL;</p>
+
+<pre> VAR INT     attribute  [ATR_INDEX_MAX] ;</pre>
+
+<p>Die Attributwerte des Nsc werden in ein Array gespeichert, die Benutzung wird an Hand des Beispielcharakters, der weiter unten erstellt wird klarer.</p>
+
+<pre> VAR INT protection  [PROT_INDEX_MAX];</pre>
+
+<p>Die Protection wird genauso gehandelt wie die Attribute, hier kann man dem Nsc einen natürlichen Rüstschutz gegen bestimmte Schadenstypen verpassen, Z.B. gegen  Feuer</p>
+
+<pre> VAR INT damage   [DAM_INDEX_MAX] ;</pre>
+
+<p>Gibt die Möglichkeit mehrere Arten von Nahkampfschäden an, den einen Nsc zuzuweisen, die er mit den bloßen Fäusten verursacht, ist aber nicht unbedingt sinnvoll, weil Nsc die meiste Zeit eine Waffe in der Hand haben sollten, zum rumexperimentieren Damagetypes, die das Array akzeptiert sind :</p>
+<ul>
+<li>DAM_INDEX_BLUNT
+<li>DAM_INDEX_EDGE
+<li>DAM_INDEX_POINT
+<li>DAM_INDEX_FIRE
+<li>DAM_INDEX_FLY
+<li>DAM_INDEX_MAGIC
+</ul>
+
+<pre> VAR INT damagetype;</pre>
+
+<p>Gibt den Nahkampfschaden an, den ein Nsc mit den bloßen Fäusten macht, ist aber nicht unbedingt sinnvoll, weil Nsc die meiste Zeit eine Waffe in der Hand haben sollten.</p>
+
+<pre> VAR INT guild,level;</pre>
+
+<p>Mit Gilde gibt man dem Nsc eine entsprechende Gilde, wie z.B. GIL_NONE für gildenlos.Mit Level wird dem Nsc ein entsprechender Level verpasst.</p>
+
+<pre> VAR FUNC mission [MAX_MISSIONS];</pre>
+
+<p>Obsolet</p>
+
+<pre> var INT fight_tactic;</pre>
+
+<p>Hier wird dem Nsc seine Taktik, die er in Kämpfen anwendet zugeordnet. à Wird aber später noch genauer erklärt, wie die FAI´s funktionieren</p>
+
+<pre> VAR INT weapon;</pre>
+
+<p>Obsolet</p>
+
+<pre> VAR INT voice;</pre>
+
+<p>Stimmnr. des  Charakters à wichtig für Standardausgaben in Zuständen</p>
+
+<pre> VAR INT voicePitch;</pre>
+
+<p>Gibt die Möglichkeit die Stimme des Nsc zu pitchen.</p>
+
+<pre> VAR INT bodymass;</pre>
+
+<p>Obsolet</p>
+
+<pre> VAR FUNC daily_routine;  // Tagesablauf</pre>
+
+<p>Hier wird der Tagesablauf den ein Nsc hat angemeldet, exklusiv zu start_aistate.</p>
+
+<pre> VAR FUNC start_aistate;  // Zustandsgesteuert</pre>
+
+<p>Hier kann ein Zustand angegeben werden, in dem sich ein Nsc beim einsetzen  befindet. Darf nur exklusiv zu daily_routine benutzt werden.</p>
+
+<pre>
+// **********************
+// Spawn
+// **********************
+VAR STRING spawnPoint;  // Beim Tod, wo respawnen ?</pre>
+
+<p>Erfordert einen gültigen  Waypoint aus dem zen, wenn leer ist ein toter Nsc für immer tot.</p>
+
+<pre>VAR INT spawnDelay;  // Mit Delay in (Echtzeit)-Sekunden</pre>
+
+<p>Verzögerung, mit der der Spawnvorgang begonnen wird Spawnzeitpunkt = Todeszeitpunkt +spawnDelay.</p>
+
+<pre>
+ // **********************
+ // SENSES
+ // **********************
+ VAR INT  senses;  // Sinne
+</pre>
+
+<p>Den Nscs stehen drei Sinne zur Verfügung :</p>
+<ul>
+<li><b>SENSE_SEE</b> Sichtkegel gibt Wahrnehmungsbegrenzung an, ist echte Sicht, d.h. Hindernisse "stören" beim sehen.
+
+<li><b>SENSE_HEAR</b> Wände etc blockieren, Sichthindernisse wie z.B. ein Baum nicht oder hinter einem Nsc kann damit auch etwas wahrgenommen werden, obwohl es außerhalb des Sichtkegels liegt.
+
+<li><b>SENSE_SMELL </b> ist die mächtigste Wahrnehmung und einzige Begrenzung ist die Range, d.h. alles was innerhalb der senses_Range liegt wird wahrgenommen.
+</ul>
+<pre> VAR INT senses_range;</pre>
+
+<p> Reichweite der Sinne in cm.</p>
+
+<pre>
+// **********************
+// Feel free to use
+// **********************
+
+ VAR INT  aivar[50];
+</pre>
+
+<p>Array von 50 variablen, die ein Nsc speichern kann à Achtung werden von der AI-Logik verwendet (siehe AI_constants).</p>
+
+<pre> VAR STRING wp;</pre>
+
+<p>C++-Code (Gothic-exe) speichert hier den aktuellen W(ay)P(oint) des Nsc, damit er für Abfragen zur Verfügung steht, d.h. ein T(ages)A(blauf) übergibt einen WP und dieser ist dann der aktuelle self.wp.</p>
+<pre>
+ // **********************
+ // Experience dependant
+ // **********************
+ VAR INT  exp;  // EXerience Points
+ VAR INT  exp_next;  // EXerience Points needed to advance to next level
+ VAR INT  lp;       // Learn Points
+};
+</pre>
+<p>Diese drei Variablen speichern ExperiencePoints, die Anzahl der benötigten Experience Points für den nächsten level und die Anzahl von Lp des Charakters.Wird aber nur für den Spieler benötigt.</p>
+</ul>
+
+<p>So jetzt soll es auch schon losgehen der ganzen Sache mal ein wenig Fleisch zu geben und einen NSc zu kreieren, der auch wirklich in der Welt rumläuft.</p>
+
+<p>Der Nsc soll Gunther heißen, keiner Gilde angehören und ein Ambient Nsc sein. Er wird einen Level von 17 haben, Stärke ist 100, Ausdauer auch, er hat kein Mana und 200 H(it)P(oints). Zu Übungzwecken ist der Nsc leider taub und hat eine WN Reichweite von 20m, dafür ist er ein guter Kämpfer, mit dem Talent 1_Hand der Stufe zwei.Dafür benötigt er natürlich eine Waffe, die seinem Talent entspricht und sich in seinem Inventory befindet.</p>
+<pre>
+instance None_999_Gunther (Npc_Default)  // Klasse von der der Nsc abgeleitet ist kann auch
+                                         // direkt von C_Npc abgeleitet werden
+{
+  //-------- primary data --------
+  name      = "Gunther";
+  guild      = GIL_NONE;
+  npctype      = NPCTYPE_AMBIENT;
+  level      = 17;
+  voice      = 8;
+  id       = 999;
+
+  // ----- attributes --------
+  attribute[ATR_STRENGTH]  = 100;
+  attribute[ATR_DEXTERITY]  = 100;
+  attribute[ATR_MANA_MAX]  = 0;
+  attribute[ATR_MANA]   = 0;
+  attribute[ATR_HITPOINTS_MAX]= 200;
+  attribute[ATR_HITPOINTS]  = 200;
+
+  //-------- visuals --------
+  Mdl_SetVisual   (self, "humans.mds");   // basic animation file - Bei Menschen immer Humans.mds,
+                                          // so lange keine selbsterstellten Daten vorliegen, sondern nur
+                                          // auf Animantionsdaten von Gothic gearbeitet wird.
+
+  Mdl_ApplyOverlayMds  (self, "humans_militia.mds"); // overlay animation file ß Bewegungtyp: Militär
+  Mdl_SetVisualBody  (self, "hum_body_naked0",  // body mesh
+         0,      // body texture variant
+         1,      // skin color
+         "hum_head_fighter",  // head mesh
+         51,      // head texture variant
+         2,      // teeth texture variant
+         GRD_ARMOR_M);   // armor instance
+
+  B_Scale     (self);       // body width according to strength of character
+
+  Mdl_SetModelFatness  (self, 0);      // limb fatness
+
+  //-------- talents --------
+  Npc_SetTalentSkill  (self, NPC_TALENT_1H,2);
+
+  //-------- inventory --------
+  EquipItem    (self, ItMw_1H_Mace_War_03);
+  // Zehn Heiltränke falls der Bursche mal verletzt wird:
+  CreateInvItems (self, ITFO_Potion_Health_01, 10);
+
+  //--------senses-------------
+
+  senses  = SENSE_SEE | SENSE_SMELL;
+  senses_range = 2000;
+
+  //------------- ai -------------
+  fight_tactic    = FAI_HUMAN_STRONG;
+
+  // Anmeldung des Tagesablaufs, wird aber später noch genauer erklärt:
+  daily_routine    = Rtn_start_999;
+};
+</pre>
+
+<p> Auch wenn es erst später erkärt wird muß hier diese Funktion schon angelegt sein, damit der Nsc auch "klappt".</p>
+<pre>
+func void Rtn_Start_999 ()
+{
+};
+</pre>
+<p>Kopiert man diesen Nsc jetzt per Texteditor in ein vorhandenes File und hat das Parameter <b>-zreparse</b> in den <b>GothicStarter</b> eingetragen, kann man im Spiel über die Konsole per <b>insert [instance]</b>, hier <b>None_999_Gunther</b> den Nsc schon mal einfügen und betrachten, auch wenn er jetzt noch nicht so viel tut. Im <b>GothicStarter</b> MUSS der Parameter <b>-devmode</b> angegeben sein, um die Konsole öffnen zu können.</p>
+<p>Um aber die Übersicht bei vielen Nscs nicht zu verlieren ist es ganz nützlich die schon in Gothic verwendeten Strukturen zu benutzen. Nscs sind im Ordner <b>/_work/data/skripts/content/story/Npc</b> abgelegt. Wenn ein File mit der Dateierweiterung <b>.d</b> erstellt wird und in diesem Ordner abgelegt wird, wird es automatisch mit geparst und steht dann im Spiel zur Verfügung.</p>
+
+
+<a name="03"><H1>3.Der Bursche kriegt eine Aufgabe</H1></a>
+
+<p>Damit er was zu tun hat, während er auf Euch wartet, muß der Charakter entweder einen TA oder einen StartState haben, hier wird jetzt der etwas komplexere Teil eine TA zu erstellen erklärt, weil darin auch das erstellen eines Z(u)S(tands) enthalten ist, der für StartState nötig ist.
+In diesem Zustand wird nicht viel passieren, außer das der Nsc sich auf den zugewiesenen Wegpunkt begibt um hier auf den Spieler zu warten und  sich von Zeit zu Zeit mal von diesem WP wegzubegeben um zu pinkeln.</p>
+<p>Damit das W(ahr)N(ehmungs)-System etwas deutlicher wird, bekommt der Nsc erst mal nur zwei WN, d.h. aber auch, dass er erst mal nur auf die Annäherung und Ansprechen des Spielers reagiert und ihm alles andere egal ist, wie Schaden nehmen angesprochen werden etc.</p>
+<pre>
+func void ZS_GuntherWait ()
+{
+  PrintDebugNpc (PD_TA_FRAME, "ZS_GuntherWait");
+                // Debugausgaben, die man sich im Spy anzeigen lassen kann
+
+  Npc_PercEnable(self, PERC_ASSESSPLAYER,  B_AssessSC);
+                // führt unter anderem dazu, dass der Nsc bei Annäherung des Spielers
+                // kontrolliert ob er eine Info hat, die ihm zum Ansprechen des Spielers
+                // veranlasst (Info wird später erstellt)
+  Npc_PercEnable(self, PERC_ASSESSTALK, B_AssessTalk);
+                // macht den Nsc ansprechbar, damit der Spieler auch den Auftrag beenden kann
+
+  AI_StandUp  (self);
+  AI_SetWalkmode  (self, NPC_WALK);   // Walkmode für den Zustand, in diesem Fall gehen
+  AI_GotoWP  (self, self.wp);   // Gehe zum Tagesablaufstart
+  AI_AlignToWP (self);   // Ausrichten am WP (Pfeilrichtung im Spacer)
+};
+
+func void ZS_GuntherWait_Loop ()
+{
+  PrintDebugNpc (PD_TA_LOOP, "ZS_GuntherWait_Loop"); // s.o.
+  AI_GotoWP (self, self.wp);   // Gehe zum Tagesablaufstart
+  AI_Wait   (self, 100); // 100 Sekunden warten, bis die Wp gewechselt wird
+  AI_GotoWP (self, Npc_GetNearestWP (Self));
+            // Anderen WP in der Nähe suchen, damit er nicht dahin pinkelt wo er steht
+
+  AI_PlayAni(self,  "T_PEE");
+  AI_Wait   (self, 100); // 100 Sekunden warten, bis die Loop beendet wird
+};
+
+func void ZS_GuntherWait_End ()
+{
+  PrintDebugNpc (PD_TA_FRAME,"ZS_GuntherWait_End"); // s.o.
+};
+</pre>
+<p>So jetzt ist es schon fast fertig, damit aber dieser ZS auch als TA verwendet werden kann muss er angemeldet werden. Dafür muss in der <b>/_work/data/skripts/content/story/ZS/TA.d</b> folgende Zeile auftauchen:</p>
+<pre>
+func void TA_GuntherWait (  var int start_h,
+                            var int start_m,
+                            var int stop_h,
+                            var int stop_m,
+                            VAR string waypoint)
+{
+   TA_Min (self,  start_h,start_m, stop_h, stop_m, ZS_GuntherWait, waypoint);
+};
+</pre>
+<p><b>Anmerkung:</b>In der <b>TA.d</b> findet man auch eine Übersicht über die möglichen bereits vorhandenen Tagesabläufe für NSCs.</p>
+<p>und die </p>
+<pre>
+func void Rtn_Start_999 ()
+{
+   TA_GuntherWait (0,00,13,00, "OC1");
+   TA_GuntherWait (13,00,0,00, "OC1");
+};
+</pre>
+<p>führt in dieser Form dazu, dass sich der Nsc nach dem Einfügen 24h am Eingang des Oldcamps rumtreibt.</p>
+<p><b>HINWEIS: TAs müssen mindesten zweimal in den Routinen auftauchen, auch wenn die Nscs 24h lang das gleiche tun, das hat was damit zu tun, dass der C++-Code die TAs von ZS nur so unterscheiden kann .</b></p>
+
+<p>Zustände sind <b>/_work/data/skripts/content/story/ZS</b> zu finden und es empfiehlt sich auch hier wieder, wie schon beim Npc, ein eigenes File mit einem Texteditor zu erstellen und mit der Dateierweiterung <b>.d</b> ( dieses ist zwingend) zu speichern. Auch hier wird wieder mit einer Wildcard geparst, so dass es reicht das File im entsprechenden Pfad abzulegen.</p>
+
+<p>Ein letzter Schritt und Gunther ist dauerhaft im Spiel :</p>
+<p>Anmeldung in der <b>/_work/data/skripts/content/story/Startup.d</b></p>
+<pre>Wld_InsertNpc(None_999_Gunther,"OC1"); in den Oldcamp-Block, schließlich steht Gunther ja da rum.</pre>
+<a name="04"><H1>4. Der Auftrag</H1></a>
+
+<p>Aufträge werden in Gothic über ein Dialogsystem implementiert, deshalb kommt jetzt erst mal ein leerer Dialog an Hand dessen die Grundfunktionalität erklärt wird und der später mit Inhalt gefüllt wird, bis es zu einem Auftrag mit hol mir das Schwert und werde dafür belohnt führt.</p>
+
+<pre>
+instance Instanz_Name (C_INFO)
+{
+    npc         = NPC_Name;
+
+    Diesem Nsc "gehört" der Dialog
+
+    condition       = Instanz_Name_Condition;
+
+    // Hier gehört der Funktionsname, der Funktion rein, 
+    // die die Bedingungen, das der Dialog gültig ist überprüft.
+    information     = Instanz_Name_Info;
+
+    Diese Funktion steuert den eigentlichen Dialog
+
+    important       = 1;
+</pre>
+
+<p>Ist ein Dialog Important spricht der Nsc den Sc von sich aus an, sobald er ihn entdeckt (deshalb WN AssessPlayer in ZS_GuntherWait aktiviert s.o.)</p>
+
+<pre>
+    permanent       = 0;
+};
+</pre>
+
+<p>Ist ein Dialog Permanent wird er, so lange seine Condition True ist immer angeboten</p>
+
+
+<pre>
+ FUNC int  Instanz_Name_Condition()
+ {
+    return 1;
+ };
+</pre>
+<p>Hier sollten per Abfrage Bedingungen erfragt werden, damit der Dialog gestartet werden kann. Gibt die Funktion einfach TRUE zurück wird der Dialog immer angeboten.</p>
+
+<pre>
+ func void  Instanz_Name_Info()
+ {
+    // Wie hier der Inhalt reinkommt wird beim Auftrag "basteln" erklärt.
+ };
+</pre>
+
+<p>Da es sich beim Exit auch um einen Dialog handelt wird hier nicht mehr Schritt für Schritt erklärt wofür dieser ist, nur soviel, die Exit-Funktion sorgt dafür, das es immer eine Auswahl im Dialogscreen gibt, mit der der Spieler den Dialog verlassen kann.</p>
+<pre>
+// ************************ EXIT **************************
+
+instance  Instanz_Name_Exit (C_INFO)
+{
+   npc         =  NPC_Name;
+   condition   =  Instanz_Name_Exit_Condition;
+   information =  Instanz_Name_Exit_Info;
+   important   = 0;
+   permanent   = 1;
+   description = "ENDE";
+};
+
+FUNC int  Instanz_Name_Exit_Condition()
+{
+   return 1;
+};
+
+FUNC VOID  Instanz_Name_Exit_Info()
+{
+   AI_StopProcessInfos (self);
+};
+</pre>
+
+<p>Durch geschicktes Verschachteln von Dialogen und Dialogbedingungen wird dann ein Auftrag gebaut.</p>
+
+<p>Lets Go:
+Notwendige Globale variablen, ist so nicht sauber und sollte in einem eigenen File gepflegt werden, aber für die Tutorial Zwecke reicht es so erst mal à In Gothic sind sie aber in  <b>_work/data/skripts/content/story/Storyglobals.d</b> abgelegt, es ist also ganz sinnvoll hier einen neuen Teil einzufügen, der neu erstellte GlobaleVariablen aufnimmt.</p>
+
+<pre>
+const string GunthersSword  = " Bringe Gunthers Schwert zurück";
+var int int_GotSword;
+
+instance None_999_Gunther_AskForSword (C_INFO)
+{
+  npc         = None_999_Gunther;
+  condition       = None_999_Gunther_AskForSword_Condition;
+  information     = None_999_Gunther_AskForSword_Info;
+  important       = TRUE;   // Gunther soll den Spieler selbsttätig ansprechen
+
+  permanent       = FALSE;  // Es reicht aber wenn er einmal den Auftrag vergibt
+
+  description     = ""; // Bleibt hier leer, weil es eine Importantinfo ist, die
+                        // direkt abgefeuert wird und somit gar nicht im Dialogscreen auftaucht
+};
+
+FUNC int  None_999_Gunther_AskForSword_Condition()
+{
+  if (hero.level >= 0) // Nur Helden, die "schon" auf Level null sind,
+                       // haben die Ehre Gunther sein Schwert bringen zu dürfen
+  {
+     return TRUE;
+  };
+  return FALSE;
+};
+
+func void  None_999_Gunther_AskForSword_Info()
+{
+  AI_Output   ( self, other, "None_999_Gunther_AskForSword_Info_8_01"); // Hey Du, Heute schon was vor?
+  // Achtung: In dem String, der die Outputunit verschlüsselt,
+  // ist die erste Zahl die Stimmnummer und die zweite eine laufende Nummer,
+  // die nur einmal pro vorangestelltem String verwendet werden darf
+
+  Info_ClearChoices(None_999_Gunther_AskForSword);
+  
+  Info_AddChoice(None_999_Gunther_AskForSword, 
+                "Auf jedenfall genug", None_999_Gunther_AskForSword_Yes);
+                    
+  Info_AddChoice(None_999_Gunther_AskForSword, 
+                "Nichts spezielles",   None_999_Gunther_AskForSword_No);
+};
+
+// Der Spieler will nicht
+func void None_999_Gunther_AskForSword_Yes ()
+{                                                                              
+     AI_Output(other,self,
+               "None_999_Gunther_AskForSword_Info_8_02");  // Es geht Dich zwar nichts an, [...]
+     AI_Output(self,other,
+               "None_999_Gunther_AskForSword_Info_8_03");  // Na gut dann scheidest Du wohl aus:
+
+     AI_StopProcessInfos (self);
+};
+
+// Der Spieler bekundet Interesse
+func void None_999_Gunther_AskForSword_No ()
+{                                                                               
+     AI_Output(other,self,"None_999_Gunther_AskForSword_Info_8_04");  // Bisher noch nichts spezielles.
+          
+     AI_Output(self,other,"None_999_Gunther_AskForSword_Info_8_05");  // Das ist gut, denn Du mußt [...]
+
+     Log_CreateTopic (GunthersSword,LOG_MISSION);
+     Log_SetTopicStatus  (GunthersSword,LOG_RUNNING);
+     B_LogEntry(GunthersSword, "Gunther hat mich gebeten sein Milhouseschwert für Ihn aufzutreiben");
+     AI_StopProcessInfos (self);
+};
+</pre>
+
+<p>So das ist erst mal der Dialog, mit dem Gunther den Auftrag vergibt, wenn man sagt man hat noch nix vor wird der Auftrag direkt vergeben, damit der Dialog erst mal etwas kleiner und übersichtlicher bleibt.
+Die Add_Choice Befehle bauen im Dialogscreen den angegeben String ein und wenn man ihm im Dialog aufruft wird auf die Funktion verwiesen, die hinter dem entsprechenden String angegeben ist. Hier z.B.: None_999_Gunther_AskForSword_No.</p>
+
+<p>
+Dialog, gehören in den Ordner /_work/data/skripts/content/story/Missions und müssen mit dem Kürzel Dia_ beginnen, damit sie automatisch gelesen werden.
+
+!!! Damit die neu angelegten O(utput)U(nits) auch als Text im Spiel auftauchen muss nun der Spacer gestartet werden. Im Spacer ist auf der Leiste mit den Tool-Buttons ein Symbol, dass aussieht wie ein beschriebenes Blatt, dieses anklicken und der OU-Dialog erscheint.
+Mit Update werden alle Skripte geparst und nach neuen O-Us durchsucht, mit einem darauf folgen Safe werden alle neu angelegten Ous gespeichert und sind dann im Spiel verfügbar.</p>
+
+<p>Wenn man jetzt das Spiel startet und zu Gunther geht spricht er den Hero an und man kann sich für oder gegen das Holen des Schwertes entscheiden.</p>
+<p><b>Anmerkung:</b> Bitte daran denken in der <b>Mod.ini</b> das Parameter <b>enableSubtitles</b> zu setzen, sonst gibt es keine Textausgaben, weil keine Soundfiles zu den Ausgaben existieren.</p>
+
+<a name="05"><H1>5. Den Gegenstand der Begierde erstellen</H1></a>
+
+Gunther will ein Schwert haben, das es so in Gothic nicht gibt, also muss es erstellt werden.
+</p>
+<p>Die Klasse</p>
+<pre>
+CLASS C_Item
+{
+ // Für alle Items
+ VAR INT  id;
+</pre>
+<p>Id wie bei der <b>C_Npc</b> Klasse (s.o.) </p>
+<pre>
+ VAR STRING  name,nameID;
+</pre>
+<p>    Synonym zu <b>C_Npc</b></p>
+<pre>
+ VAR INT  hp,hp_max;
+</pre>
+<p>Synonym zu <b>C_Npc</b></p>
+<pre>
+ VAR INT  mainflag,flags;  // Hauptflag und weitere Flags
+ VAR INT  weight,value;
+</pre>
+<p>Gewicht und Wert lassen sich als integer angeben.</p>
+<pre>
+  // Für Waffen
+  VAR INT  damageType;  // Welche Schadensarten
+</pre>
+<p>Synonym zu <b>C_Npc</b>.</p>
+<pre>
+  VAR INT  damageTotal;
+</pre>
+<p>Synonym zu <b>C_Npc</b></p>
+<pre>
+  VAR INT damage [DAM_INDEX_MAX];
+</pre>
+<p>Synonym zu <b>C_Npc</b></p>
+
+<pre>
+  // Für Rüstungen
+  VAR INT  wear;
+</pre>
+<p>Hier ist eigentlich nur <b>WEAR_TORSO</b> interessant, weil keine Helme im Spiel sind.</p>
+<pre>
+  VAR INT  protection  [PROT_INDEX_MAX];
+</pre>
+<p>Dies ist ein Array in dem für jede Schadensklasse ein eigener Rüstschutz angegeben werden kann.</p>
+
+<pre>
+  // Für Nahrung
+  VAR INT  nutrition      ;  // HP-Steigerung bei Nahrung
+</pre>
+<p>Obsolet</p>
+<pre>
+  // Benötigte Attribute zum Benutzen des Items
+  VAR INT  cond_atr  [3]    ;
+  VAR INT  cond_value  [3]    ;
+</pre>
+<p>Ein Array von zweimal drei Integer, in dem angegeben werde kann welche Stärke (z.B. 10) etc. nötig ist um diese Item anzulegen oder zu Benutzen.</p>
+<pre>
+  // Attribute, die bei anlegen des Items verändert werden
+  VAR INT  change_atr  [3]    ;
+  VAR INT  change_value [3]    ;
+</pre>
+<p>Obsolet</p>
+<pre>
+  // Parserfunktionen
+  VAR FUNC magic;       // Parserfunktion zum "Magie Header"
+  VAR FUNC on_equip;    // Parserfunktion, wenn Item equipped wird.
+  VAR FUNC on_unequip;  // Parserfunktion, wenn Item unequipped wird.
+  VAR FUNC on_state  [4];
+
+  // Besitzer
+  VAR FUNC owner;
+
+  // Besitzer : Instanz-Name
+
+  VAR INT  ownerGuild;
+
+  // Besitzer : Gilde
+
+  VAR INT  disguiseGuild;
+
+  // Zur Schau getragene Gilde durch Verkleidung à Obsolet
+
+  // Die 3DS-Datei
+
+  VAR STRING visual;
+</pre>
+<p>Gibt's an welche Datei als Darstellung für das Item geladen wird.</p>
+<pre>
+     // Veränderung des NSC-Meshes beim Anlegen dieses Gegenstandes
+
+     VAR STRING  visual_change     ;  // ASC - File
+</pre>
+
+<p>Wird zum Anlegen einer Rüstung benutzt, weil dann ein anderes ASC.File als visual geladen wird.</p>
+<pre>
+  VAR INT  visual_skin;
+</pre>
+
+<p>Texturvariation für das betreffende Rüstungsmesh.</p>
+<pre>
+  VAR STRING  scemeName;
+</pre>
+
+<p>Interner Name für das Benutzen von Items.</p>
+<pre>
+  VAR INT  material;
+</pre>
+
+<p>Mit dem Material sind z.B. die "Klangeigenschaften" eines Items festgelegt.</p>
+<pre>
+  // VAR STRING pfx;  // Magic Weapon PFX
+</pre>
+
+<p>Obsolet</p>
+<pre>
+  VAR INT  munition;  // Instance of Munition
+</pre>
+
+<p>Bei Bögen wird hier angegeben mit welcher Munition sie schießen (Arrow V Bolt).</p>
+<pre>
+  VAR INT  spell;
+</pre>
+
+<p>Gibt an welchen Spell magische Items ausführen.</p>
+<pre>
+  VAR INT  range;
+</pre>
+
+<p>Gibt den Radius an, in dem eine Nahkampfwaffe trifft.</p>
+
+<pre>
+  VAR INT  mag_circle;
+</pre>
+
+<p>Welchem Magischen Zirkel ist dieses Item zugeordnet.</p>
+<pre>
+  VAR STRING description;
+</pre>
+
+<p>Die Beschreibung, die beim Betrachten eines Items auftaucht.</p>
+<pre>
+  VAR STRING text[ITM_TEXT_MAX];
+  VAR INT  count[ITM_TEXT_MAX];
+};
+</pre>
+<p>Vars mit denen sich die Werte der Items in den Statusscreen transportieren lassen.</p>
+
+<p>So dann soll jetzt mal ein schönes Schwert entstehen, nach dem Gunther suchen lassen kann.
+Damit den Spieler das Schwert auch interessiert sollte es natürlich ein paar nette Werte haben, also soll es 1000 Erz wert sein und einen Schaden von 300 machen, das Visual wird aus den Gothicdaten geklaut, weil visuals erstellen an einer andern Stelle erklärt wird
+Ansonsten muss das Schwert natürlich eine Nahkampfwaffe und ein Schwert  sein, sollte aus Metall bestehen und vielleicht noch ein bisschen von sich preisgeben à Deskription.</p>
+<pre>
+INSTANCE ItMw_1H_GuntherWantedSword (C_Item)
+{
+   name          = Milhouse´ Schwert";
+
+   mainflag      =   ITEM_KAT_NF;    // Nahkampfwaffe
+   flags         =   ITEM_SWD;       // Schwert
+   material      =   MAT_METAL;  // besteht aus Metall
+
+   value         =   1000;           // Wert von 1000
+
+   damageTotal   =   300;
+   damagetype    =   DAM_EDGE;       // Verursacht Klingenschaden
+   range         =   200;            // Hat einen Radisu von 2m
+
+   cond_atr[2]   =   ATR_STRENGTH;   // Was muß man haben, damit man es führen darf
+   cond_value[2] =   5;              // Wie hoch muß man das (s.o.) haben
+   visual        =   "ItMw_1H_Sword_Old_01.3DS";     // Visual aus den Gothicdaten "gemopst"
+
+   description   =   name;
+   TEXT[2]       =   "Damage";                 COUNT[2]    = 300;
+   TEXT[3]       =   "Benötigte Stärke";       COUNT[3]    = cond_value[2];
+   TEXT[4]       =   "einhand Schwert";
+   TEXT[5]       =   "Wert";                   COUNT[5]    = value;
+};
+</pre>
+
+<p>Das Item lässt sich jetzt genauso wie Gunther per Konsole im Spiel einfügen.</p>
+
+<p>Bei den Waffen empfiehlt es sich ein eigenes File (*.d) anzulegen, das dann im Ordner <b>/_work/data/skripts/content/Items</b> abgelegt wird. Hier muss dann allerdings auch dafür gesorgt werden, dass das Programm das neue File liest.</p>
+<p>Dafür öffnet man das File <b>/_work/data/skripts/content/gothic.src</b> in diesem File sind alle Pfade angegeben, aus denen Contentskripte geladen werden. Diese Pfade sind relativ zum Pfad <b>/_work/data/skripts/</b></p>
+<p>Hier fügt man für das neue File den Pfad <b>ITEMS\FILENAME.D</b> ein und schon werden die Daten aus dem File gelesen. </p>
+
+<p><b>Achtung!</b> Diese Datei erfordert zwingend Großbuchstaben. Falls es mal Probleme geben sollte beim Gamestart kann es sein, das eine Datei Daten aus einer anderen Datei referenziert und deshalb diese vor einer anderen geparst werden muß. Lösungshinweise gigt es zwei, einmal: keine Wildcards verwenden, sondern die Files einzeln per Namen parsen und zum anderen ein wenig mit der Reihenfolge rumspielen, aber nur der Daten, die neu erstellt wurden, weil sonst das ganze File kaputt gehen kann.</p>
+
+<p>Natürlich lassen sich so auch neue Ordner referenzieren, aber das ist dann doch eine Sache zum Ausprobieren und rumspielen.</p>
+
+<a name="06"><H1>6. Den "Auftrag erfüllt"-Dialog erstellen</H1></a>
+
+<p>Hier wird wieder ein Dialog angelegt, in dem bestimmte Bedingungen erfüllt sein müssen und an Hand dieser werde noch Belohnungen verteilt, in diesem Fall Experience Points und LearnPoints erhöhen.Da Dialoge oben schon genauer erklärt wurden hier nur noch der Dialog, der zum Auftrag erfüllen vorhanden sein muß.</p>
+
+<p><b>Achtung!</b> Wenn er per Cut-Copy-Paste übernommen wird dran denken die OU im Spacer neu zu erstellen.</p>
+
+<pre>
+// ************************ EXIT **************************
+instance  None_999_Gunther_AskForSword_Exit (C_INFO)
+{
+  npc         =  None_999_Gunther;
+  condition   =  None_999_Gunther_AskForSword_Exit_Condition;
+  information =  None_999_Gunther_AskForSword_Exit_Info;
+  important   = 0;
+  permanent   = 1;
+  description = "ENDE";
+};
+
+FUNC int  None_999_Gunther_AskForSword_Exit_Condition()
+{
+   return 1;   // Dem Spieler dauerhaft die Möglichkeit geben den Dialog zu verlassen
+};
+
+FUNC VOID  None_999_Gunther_AskForSword_Exit_Info()
+{
+   AI_StopProcessInfos ( self );
+};
+
+
+instance None_999_Gunther_BringSword (C_INFO)
+{
+   npc          = None_999_Gunther;
+   condition   = None_999_Gunther_bringSword_Condition;
+   information = None_999_Gunther_bringSword_Info;
+   important   = FALSE;
+   permanent   = TRUE;  // So lange der Auftrag nicht erfüllt ist muß der
+                        // Nsc den Dialog immer wieder bringen, alles
+                        // andere wird in der Bedingung für den Dialog geregelt
+
+   description = "Hast Du das Schwert ?";
+};
+
+FUNC int  None_999_Gunther_bringSword_Condition()
+{
+   // 1.Nur wenn der Held den Auftrag hat kann er ihn auch beenden
+   // 2.Nur wenn der Auftrag nicht als erfüllt gilt wird der Dialog angeboten
+   // 3.Schwert instanz abfragen, nur dann macht Auftraglösen Sinn
+   if (Npc_KnowsInfo ( hero, None_999_Gunther_AskForSword)   // (siehe 1)
+   &! int_GotSword                                           // (siehe 2)
+   && Npc_HasItems (other, ItMw_1H_GuntherWantedSword) >= 1) // (siehe 3)
+   {
+       return TRUE;
+   };
+   return FALSE;
+};
+
+func void  None_999_Gunther_bringSword_Info()
+{
+   Info_ClearChoices (None_999_Gunther_bringSword);
+
+   Info_AddChoice    (None_999_Gunther_bringSword,
+                      "Ich hab Dein Schwert gebs dir aber nicht",
+                      None_999_Gunther_bringSword_Yes);
+
+   Info_AddChoice    (None_999_Gunther_bringSword,
+                      "Ich hab Dein Schwert hier ist es",
+                      None_999_Gunther_bringSword_No);
+};
+
+// Der Spieler will das Schwert nicht übergeben
+func void None_999_Gunther_bringSword_Yes ()
+{
+   AI_Output( other, self, "None_999_Gunther_bringSword_Info_8_06"); // Ich habs, aber gebs Dir nicht
+   AI_Output( self, other, "None_999_Gunther_bringSword_Info_8_07"); // Du hast sie ja wohl nicht alle
+
+   AI_StopProcessInfos (self);
+
+   AI_StartState( self, ZS_Attack, 0, ""); // Gunther ist jetzt ein wenig sauer und greift an
+};
+
+// Der Spieler bekundet Interesse
+func void None_999_Gunther_bringSword_No ()
+{
+   AI_Output   ( other, self, "None_999_Gunther_bringSword_Info_8_08"); // Hier Dein Schwert, [...]
+   AI_Output   ( self, other, "None_999_Gunther_bringSword_Info_8_09"); // Kein Problem [...]
+
+   B_LogEntry      (GunthersSword, "Ich habe Gunther sein Schwert gebracht");
+
+   other.exp   = other.exp + 100;  // Dem Spieler 100 Experience Points geben
+   other.lp    = other.lp + 10;    // Und weil er so nett war auch gleich no ein paar lp
+
+   //Npc_GiveItem ( other, MilhouseSchwert, self); // Gunther will ja auch sein Schwert haben
+   AI_StopProcessInfos (self);
+};
+</pre>
+
+<p>Der Dialog wird dann natürlich genau so an- und abgelegt wie der vorherige.</p>
+
+<br>&nbsp;</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

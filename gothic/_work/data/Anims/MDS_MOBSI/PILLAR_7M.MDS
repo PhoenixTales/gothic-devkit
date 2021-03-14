@@ -1,0 +1,24 @@
+Model ("PILLAR_7M")
+{
+
+	meshAndTree ("PILLAR_7M.asc")
+
+
+	aniEnum
+	{
+
+			ani			("s_S0"					1	"s_S0"	0.0	0.0	M.	"PILLAR_7M_USE.asc"		F	5	5)
+
+			ani			("t_S0_2_S1"			1	"s_S1"	0.0	0.0	M.	"PILLAR_7M_USE.asc"		F	6	174)
+			{
+				*eventSFX	(25	"Pillar_move")
+				*eventSFX	(107	"Pillar_Crash")
+			}
+			}
+			ani			("s_S1"					1	"s_S1"	0.0	0.0	M.	"PILLAR_7M_USE.asc"		F	175	175)
+			ani			("t_S1_2_S0"			1	"s_S0"	0.0	0.0	M.	"PILLAR_7M_USE.asc"		R	6	25)
+			{
+				*eventSFX	(25	"Pillar_move")
+			}
+	}
+}

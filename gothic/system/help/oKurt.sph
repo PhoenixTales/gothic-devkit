@@ -1,0 +1,38 @@
+// ============================================================================================
+
+[TOPIC CLASS 'oCZoneMusic']
+Mit Objekten dieser Klasse werden in der Welt Volumina angelegt, in denen sich die Wiedergabe eines Musikthemas steuern laesst. Die Volumen werden über die BoundingBox der Objekte angegeben und koennen beliebige Formen haben. Es koennen sich auch mehrere Musik-Zonen durchdringen. Beim Rendern einer Szene werden alle Musik-Zonen ermitteln, in denen sich die Kamera befindet, und die Musik-Zone mit der hoechsten Priorität erhält die Kontrolle.
+Falls sich die Kamera in keiner Musik-Zone befindet, werden die Werte einer evtl. in der Welt vorhandenen oCZoneMusicDefault benutzt.
+
+[TOPIC MEMBER 'oCZoneMusic::enabled']
+BOOL		enabled
+Der Aktivierungszustand einer Musikzone beim Start des Spiels kann mit dieser Variable bestimmt werden. FALSE bewirkt, dass die Zone beim Betreten keine Kontrolle über das Musikthema erhaelt.
+
+[TOPIC MEMBER 'oCZoneMusic::priority']
+INT		priority
+Hiermit kann man die Vorrangstufe einer Musik-Zone bestimmen. 0 ist die niedrigste. Bei Ueberlagerung mehrerer Zonen erhaelt die Zone mit der hoechsten Prioritaet die Kontrolle. 
+
+[TOPIC MEMBER 'oCZoneMusic::ellipsoid']
+BOOL		ellipsoid
+Hiermit laesst sich die Grundform der Zone auswaehlen: Eine Box oder ein Ellipsoid in der Box.
+
+[TOPIC MEMBER 'oCZoneMusic::reverbLevel']
+FLOAT		reverbLevel
+Zur Zeit ohne Wirkung. Koennte mal verwendet werden um Reverbwerte pro Zone zu setzen.
+
+[TOPIC MEMBER 'oCZoneMusic::volumeLevel']
+FLOAT		volumeLevel
+Zur Zeit ohne Wirkung. Koennte mal verwendet werden um Volumewerte pro Zone zu setzen.
+
+[TOPIC MEMBER 'oCZoneMusic::loop']
+BOOL		loop
+Zur Zeit ohne Wirkung. Koennte mal verwendet werden um die einmalige Themenwiedergabe bei jedem Betreten einer Zone zu setzen (loop=FALSE).
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCZoneMusicDefault']
+Dieses Objekt bezieht sich auf die Klasse oCZoneMusic und setzt den levelweiten Defaultwert. Falls sich die Kamera nicht in einem Objekt der Klasse oCZoneMusic befindet, werden die Werte aus einem Objekt dieser Klasse entnommen. Die BBox von Objekten dieser Klasse ist irrelevant, es kann nur ein solches Objekt pro Level geben.
+
+[TOPIC MEMBER 'oCZoneMusic::priority']
+FLOAT		priority
+Default-Musikzonen besitzen die niedrigste Vorrangstufe: 0.

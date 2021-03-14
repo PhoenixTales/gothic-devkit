@@ -1,0 +1,31 @@
+Hier ist nun endlich das lang erwartete MOD-Kit für GOTHIC!
+
+Ursprünglich war nicht geplant ein solches MOD-Kit zu veröffentlichen.
+Wir haben uns entschlossen es doch zu tun, weil die GOTHIC-Fangemeinde es eindringlich erfordert hat. Wir haben auch noch Zeit investiert um Tools und Dokumentation zu erstellen bzw. zu aktualisieren.
+
+Trotzdem ist das Erstellen eigener GOTHIC-MODs nichts für Anfänger. Programmierkenntnisse sind sehr hilfreich, denn die Erstellung von MODs ist sehr stark scriptbasiert. Es kann auch nicht schaden, wenn ihr schon mal MODs für andere Spiele erstellt habt.
+
+Sobald die ersten MODs von GOTHIC-Fans veröffentlicht werden, kommen auch diejenigen auf ihre Kosten, die keine eigenen MODs machen, aber gerne welche spielen wollen. Mit dem Programm GothicStarter.exe haben wir euch das Spielen von MODs so einfach wie möglich gemacht.
+
+Das MOD-KIT ist ein kostenloser Bonus für alle Käufer von GOTHIC.
+Bitte wendet euch mit Fragen/Problemen dazu nicht an den Piranha-Bytes Support!
+Es wird keinen offiziellen Support von Piranha-Bytes zum MOD-KIT geben.
+Fragen zum MOD-KIT können in den extra dafür eingerichteten Foren der 
+GOTHIC-Fanpages gestellt werden.
+
+http://gothic.gOmp.net
+http://www.worldofgothic.de
+
+Natürlich wird auch das GOTHIC-Team ab und zu dort reinschauen und versuchen euch bei Problemen zu helfen.
+
+Das MOD-Kit ist auch mit der Unterstützung von engagierten GOTHIC-Fans entstanden, die eigene Tools entwickeln. Besonderen Dank hierfür an Nico Bendlin für nicoVDFS!
+Wenn sich Leute finden, die ebenso engagiert an MODs arbeiten, dürfen wir auf die Ergebnisse gespannt sein.
+
+PIRANHA BYTES arbeitet schon wieder mit Vollgas an neuen Projekten. Dazu später mehr.
+Was ihr mit dem MOD-Kit macht, liegt nun in eurer Hand.
+
+Viel Spaß
+
+Alex Brüggemann
+Creative Director
+PIRANHA BYTES

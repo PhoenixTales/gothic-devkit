@@ -1,0 +1,57 @@
+// Overlay-MDS für Akrobatik-Talent
+
+// neue Jumps und Fall/Fallen Anis (eleganter)
+
+Model ("HuS")
+{
+
+
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+
+	aniEnum
+	{
+
+
+/////////////////
+// JUMP
+/////////////////
+	// Sprung aus Stand
+			ani			("t_Stand_2_Jump"			1	"s_Jump"		0.1	0.0	MF	"Hum_Acrobatic_M02.asc"			F	1	16)
+	// Sprung aus Rennen
+			ani			("t_RunL_2_Jump"			1	"s_Jump"		0.1	0.1	MF	"Hum_Acrobatic_M02.asc"			F	180	195)
+			ani			("s_Jump"					1	"s_Jump"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	17	17)
+	// Landung
+			ani			("t_Jump_2_Stand"			1	""				0.0	0.4	M.	"Hum_Acrobatic_M02.asc"			F	18	35)
+	// Landung und weiterrennen
+			ani			("t_Jump_2_RunL"			1	"s_RunL"		0.0	0.1	M.	"Hum_Acrobatic_M02.asc"			F	198	213)
+	
+			ani			("t_Jump_2_FallDn"			1	"s_FallDn"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	81	86)
+	// Herunterfallen
+			ani			("s_FallDn"					1	"s_FallDn"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	36	36)	
+	// sauber landen
+			ani			("t_FallDn_2_Stand"			1	""				0.0	0.2	M.	"Hum_Acrobatic_M02.asc"			F	112	129)
+	// direkt weiterlaufen
+			ani			("t_FallDn_2_RunL"			1	"s_RunL"		0.0	0.1	M.	"Hum_Acrobatic_M02.asc"			F	37	60)
+		
+			ani			("t_FallDn_2_Fall"			1	"s_Fall"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	71	75)
+			ani			("s_Fall"					1	"s_Fall"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	75	75)
+			ani			("t_Fall_2_Fallen"			1	"s_Fallen"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	75	80)
+
+			ani			("t_FallDn_2_FallB"			1	"s_Fall"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	61	65)
+			ani			("s_FallB"					1	"s_FallB"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	65	65)
+			ani			("t_FallB_2_FallenB"		1	"s_FallenB"		0.0	0.0	MF	"Hum_Acrobatic_M02.asc"			F	65	70)
+			ani			("s_FallenB"				1	"s_FallenB"		0.0 0.0 M.	"Hum_FallenB_A_M01.asc"			F	 0	0)
+			ani			("t_FallenB_2_Stand"		1	""				0.0 0.2 M.	"Hum_FallenB_A_M01.asc"			F	 1	45)
+			{
+				*eventSFXGrnd	(26	"Run")
+				*eventSFXGrnd	(27	"Run")
+				*eventSFXGrnd	(39	"Run")
+				*eventSFXGrnd	(44	"Run")
+			}
+		
+			ani			("t_FallDn_2_Dive"			1	"s_Dive"		0.0	0.0	MF	"Hum_Acrobatic_M01.asc"			F	88	109)	
+			ani			("t_Fall_2_Dive"			1	"s_Dive"		0.0	0.0	MF	"Hum_Acrobatic_M01.asc"			F	156	177)
+			ani			("t_FallB_2_Dive"			1	"s_Dive"		0.0	0.0	MF	"Hum_Acrobatic_M01.asc"			F	132	153)
+
+	}
+}

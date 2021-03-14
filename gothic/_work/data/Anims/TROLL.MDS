@@ -1,0 +1,321 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//	14.09.00 Andre	Keine JumpUps
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("Troll")
+{
+	MeshAndTree ("Tro_Body.asc" DONT_USE_MESH)
+
+	registerMesh ("Tro_Body.ASC")
+
+	aniEnum
+	{
+
+//	|	KEYWORD		|	ANI-NAME				|LAYER|	NEXT-ANI	  |	BI | BO |F	|ASC-FILE		|	DIR |FF |LF
+//-----------------------------------------------------------------------------------------------------------------------
+
+			modelTag	("DEF_HIT_LIMB"	"BIP01 R HAND")
+
+
+//////////////////
+//	FIST MOVEMENT
+//////////////////
+
+//	Fist-RUN
+			ani			("s_FistRun"				1	"s_FistRun"		0.0	0.0	M.	"Tro_Ambient_M01.asc"	F	0	74	FPS:12.5)
+			{
+				*eventSFX	(25	"TRO_AMBIENT"	EMPTY_SLOT	)
+			}
+			aniBlend	("t_FistRun_2_FistRunL"			"s_FistRunL")
+//	Fist-Run-Loop
+			ani			("s_FistRunL"				1	"s_FistRunL"	0.0	0.0	M.	"Tro_RunLoop_M01.asc"	F	0	24)
+			{
+				*eventSFX	(14	"TRO_STEPBOOM"		EMPTY_SLOT	)
+				*eventPFX	(14	"GolemDust"	"BIP01 R Foot"	ATTACH	)
+				*eventCamTremor (14 1000	700	  2  5 )
+				
+				*eventPFX	(17	"GolemDust"	"BIP01 L Foot"	ATTACH	)
+				*eventSFX	(17	"TRO_STEPBOOM"		EMPTY_SLOT	)
+				
+				
+			}
+
+			aniBlend	("t_FistRunL_2_FistRun"			"s_FistRun")
+			aniBlend	("t_FistRunR_2_FistRun"			"s_FistRun")
+//	Fist-Run Backwards Movement
+			aniAlias	("t_FistJumpB"				1	"s_FistRun"		0.0	0.0	M.	"s_FistRunL"			R)
+
+//	Fist-WALK
+			aniAlias	("s_FistWalk"				1	"s_FistWalk"	0.0	0.0	M.	"s_FistRun"				F)
+			ani			("t_FistWalk_2_FistWalkL"	1	"s_FistWalkL"	0.0	0.0	M.	"Tro_WalkLoop_M01.asc"	F	1	12)
+
+//	Fist-Walk-Loop
+			ani			("s_FistWalkL"				1	"s_FistWalkL"	0.0	0.1	M.	"Tro_WalkLoop_M01.asc"	F	13	62)
+			{
+				*eventSFX	(20	"TRO_STEPLIGHT"			EMPTY_SLOT	)
+				*eventPFX	(20	"GolemDust"	"BIP01 R Foot"	ATTACH	)
+				*eventSFX	(44	"TRO_STEPLIGHT"			EMPTY_SLOT	)
+				*eventPFX	(44	"GolemDust"	"BIP01 L Foot"	ATTACH	)
+			}
+
+			ani			("t_FistWalkL_2_FistWalk"	1	"s_FistWalk"	0.0	0.0	M.	"Tro_WalkLoop_M01.asc"		F	63	74)
+			aniBlend	("t_FistWalkR_2_FistWalk"		"s_FistWalk"	0.3	0.3)
+
+//	Fist-Walk Backwards Movement
+			aniAlias   	("t_FistWalk_2_FistWalkBL"	1	"s_FistWalkBL"	0.0	0.0	M.	"t_FistWalkL_2_FistWalk"	R)
+
+			aniAlias	("s_FistWalkBL"				1	"s_FistWalkBL"	0.0	0.0	M.	"s_FistWalkL"				R)
+
+			aniAlias	("t_FistWalkBL_2_FistWalk"	1	"s_FistWalk"	0.0	0.0	M.	"t_FistWalk_2_FistWalkL"	R)
+			aniBlend	("t_FistWalkBR_2_FistWalk"		"s_FistWalk"	0.3	0.3)
+
+
+/////////////////////
+//	FIST TURNING
+/////////////////////
+			ani			("t_FistRunTurnL"			20	"t_FistRunTurnL"	0.2	0.0	M.	"Tro_TurnL_M01.asc"		F	1	34)
+			{
+
+				*eventSFX	(8	"TRO_STEPLIGHT"	EMPTY_SLOT	)
+			}
+			ani			("t_FistRunTurnR"			20	"t_FistRunTurnR"	0.2	0.0	M.	"Tro_TurnR_M01.asc"		F	1	34)
+			{
+
+				*eventSFX	(8	"TRO_STEPLIGHT"	EMPTY_SLOT	)
+			}
+
+			aniAlias	("t_FistWalkTurnL"			20	"t_FistWalkTurnL"	0.2	0.0	M.	"t_FistRunTurnL"		F)
+			aniAlias	("t_FistWalkTurnR"			20	"t_FistWalkTurnR"	0.2	0.0	M.	"t_FistRunTurnL"		R)
+
+
+/////////////////////
+//	FIST STRAFING
+/////////////////////
+			ani			("t_FistRunStrafeL"			1	"t_FistRunStrafeL"	0.0	0.0	M.	"Tro_StrafeL_M01.asc"	F	1	34)
+			{
+//				*eventSFX	(18	"TRO_STEPBOOM"	EMPTY_SLOT	)
+				*eventSFX	(25	"TRO_STEPLIGHT"	EMPTY_SLOT	)
+			}
+			//
+			aniAlias	("t_FistRunStrafeR"			1	"t_FistRunStrafeR"	0.0	0.0	M.	"t_FistRunStrafeL"		R)
+
+			aniAlias	("t_FistWalkStrafeL"		1	"t_FistWalkStrafeL"	0.0	0.0	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_FistWalkStrafeR"		1	"t_FistWalkStrafeR"	0.0	0.0	M.	"t_FistRunStrafeL"		R)
+
+
+/////////////////////
+//	FIST TRANSITIONS
+/////////////////////
+//	Movement-Modes
+			aniBlend	("t_FistRun_2_FistWalk"			"s_FistWalk"	0.0	0.0)
+			aniBlend	("t_FistWalk_2_FistRun"			"s_FistRun"		0.0	0.0)
+
+			aniBlend	("t_FistRunL_2_FistWalkL"		"s_FistWalkL"	0.0	0.0)
+			aniBlend	("t_FistWalkL_2_FistRunL"		"s_FistRunL"	0.0	0.0)
+
+//////////////////////////
+// FALL
+//////////////////////////
+
+//	FallDn
+			ani			("s_FallDn"					1	"s_FallDn"		0.0	0.0	MF	"Tro_FallDn_M01.asc"	F	0	0)
+			ani			("t_FallDn_2_Stand"			1	""				0.0	0.2	M.	"Tro_FallDn_M01.asc"	F	1	44	FPS:12.5)
+			{
+				*eventSFX	(1	"TRO_GROWL"	EMPTY_SLOT	)
+				*eventSFX	(3	"TRO_STEPBOOM"	EMPTY_SLOT	)
+				*eventSFX	(8	"TRO_STEPLIGHT"	EMPTY_SLOT	)
+			}
+
+//	wenn Falltiefe zu tief um unbeschadet auf den Füßen zu landen
+			aniBlend	("t_FallDn_2_Fall"				"s_Fall"		0.1	0.2)
+			aniBlend	("t_FallDn_2_FallB"				"s_FallB"		0.1	0.2)
+
+			aniAlias	("s_Fall"					1	"s_Fall"		0.0 0.0 MF	"s_FallDn"				F)
+			ani			("t_Fall_2_Fallen"			1	"s_Fallen"		0.0 0.0 M.	"Tro_FallDn_M01.asc"	F	1	19)
+			{
+				*eventSFX	(1	"TRO_STEPBOOM"	EMPTY_SLOT	)
+				*eventSFX	(10	"TRO_STEPLIGHT"	EMPTY_SLOT	)
+			}
+			ani			("s_Fallen"					1	"s_Fallen"		0.0 0.0 M.	"Tro_FallDn_M01.asc"	F	20	20)
+			ani			("t_Fallen_2_Stand"			1	""				0.0 0.0 M.	"Tro_FallDn_M01.asc"	F	21	44)
+			{
+				*eventSFX	(21	"TRO_GROWL"	EMPTY_SLOT	)
+			}
+
+			aniAlias	("s_FallB"					1	"s_FallB"		0.0 0.0 MF	"s_FallDn"				F)
+			aniAlias	("t_FallB_2_FallenB"		1	"s_FallenB"		0.0 0.0 M.	"t_Fall_2_Fallen"		F)
+			aniAlias	("s_FallenB"				1	"s_FallenB"		0.0 0.0 M.	"s_Fallen"				F)
+			aniAlias	("t_FallenB_2_Stand"		1	""				0.0 0.0 M.	"t_Fallen_2_Stand"		F)
+
+
+// -------------------------------------------------------------------------------------------------------------------------------------
+///////////////////
+// STUMBLE
+///////////////////
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Vorwärts Stolpern
+			ani			("t_Stumble"				1	""				0.1 0.1	M.	"Tro_StumbleB_A01.asc"	F	0	20)
+			{
+				*eventSFX	(1	"TRO_HURT"	EMPTY_SLOT	)
+			}
+
+		// -----------------------------------------------------------------------------------------------------------------------------
+		// Rückwärts Stolpern
+			ani			("t_StumbleB"				1	""				0.1 0.1	M.	"Tro_Stumble_A01.asc"	F	0	20)
+			{
+				*eventSFX	(1	"TRO_HURT"	EMPTY_SLOT	)
+			}
+
+
+//////////////////////////
+// DIE
+//////////////////////////
+
+//	hier werden später noch einige "spezielle" Todesanims dazukommen
+			ani			("t_Dead"					1	"s_Dead"		0.4 0.0 M.	"Tro_Dead_M01.asc"		F	1	214	FPS:12.5)
+			{
+				*eventSFX	(1	"TRO_DIE"				EMPTY_SLOT	)
+//				*eventSFX	(140	"TRO_Stepboom"		EMPTY_SLOT	)
+				//*eventPFX	(145	1	"GolemDust"	)
+				*eventSFX	(200	"M_FALL_HUGE"	EMPTY_SLOT	)
+			}
+			ani			("s_Dead"					1	"s_Dead"		0.0 0.0 M.	"Tro_Dead_M01.asc"		F	215	215)
+			ani			("t_DeadB"					1	"s_DeadB"		0.2 0.0 M.	"Tro_Dead2_A02.asc"		F	1	130	FPS:12.5)
+			{
+				*eventSFX	(1	"TRO_DIE"				EMPTY_SLOT	)
+//				*eventSFX	(140	"TRO_Stepboom"		EMPTY_SLOT	)
+				//*eventPFX	(145	1	"GolemDust"	)
+				*eventSFX	(75	"M_FALL_HUGE"	EMPTY_SLOT	)
+			}			
+			ani			("s_DeadB"					1	"s_DeadB"		0.0 0.0 M.	"Tro_Dead2_A02.asc"		F	131	131)
+
+//  DROWN
+
+			ani			("t_Dive_2_Drowned"			1	"s_Drowned"		0.2	0.0	M.	"Tro_Drown_A01.asc"		F	1	30	FPS:12.5)
+
+			ani			("s_Drowned"				1	"s_Drowned"		0.0	0.0	M.	"Tro_Drown_A01.asc"		F	30	30)
+
+
+//////////////////////////
+// Kampf FIST
+//////////////////////////
+
+// FIST Kampfanims
+
+//	Attacks
+			ani			("s_FistAttack"				1	"s_FistAttack"	0.0 0.0 M.	"Tro_Attack_M01.asc"	F	1	49)
+			{
+				*eventTag	(0	"DEF_HIT_LIMB"		"BIP01 R HAND")
+				*eventTag	(0	"DEF_OPT_FRAME"		"32")
+				*eventTag	(0	"DEF_HIT_END"		"48")
+				*eventTag	(0	"DEF_WINDOW"		"32	48")
+//				*eventTag	(0	"DEF_DIR"			"O")
+				*eventSFX	(15	"TRO_FISTWOOSH"	EMPTY_SLOT	)
+				*eventSFX	(25	"TRO_ATTACK"	EMPTY_SLOT	)
+			}
+
+			ani			("t_FistAttackMove"			2	""				0.2	0.2	M.	"Tro_AttackMove_A01.asc"	F	1	29)
+
+			aniAlias	("t_FistParadeJumpB"		1	""				0.0	0.0	M.	"s_FistRunL"				R)
+			aniAlias	("t_FistParade_O"			1	""				0.0	0.0	M.	"s_FistRunL"				R)
+
+
+// Stein werfen
+// Fixme: kann das noch benutzt werden?
+//			ani			("t_StoneThrow"				1	"s_FistRun"		0.0	0.0	M.	"Tro_StoneThrow_M01.asc"	F	1	159	FPS:12.5)
+			// Bei 20f Insert Item ItAmTrollStone
+			// Bei 122f Stein fliegen lassen
+
+
+//////////////////////////
+// LOOK
+//////////////////////////
+// LOOK Autoaiming
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	0	0)
+			ani			("c_look_2"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	1	1)
+			ani			("c_look_3"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	2	2)
+			ani			("c_look_4"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	3	3)
+			ani			("c_look_5"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	4	4)
+			ani			("c_look_6"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	5	5)
+			ani			("c_look_7"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	6	6)
+			ani			("c_look_8"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	7	7)
+			ani			("c_look_9"				9	""				0.0	0.0	.	"Tro_Look_M01.asc"	F	8	8)
+
+			aniComb		("t_look"				9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+
+///////////////
+// SCRIPT-ANIS
+///////////////
+
+// Schlafen
+			ani			("t_Stand_2_Sleep"			1	"s_Sleep"		0.1	0.0	M.	"Tro_Sleep_M01.asc"			F	1	64	FPS:12.5)
+			ani			("s_Sleep"					1	"s_Sleep"		0.0	0.0	M.	"Tro_Sleep_M01.asc"			F	65	124	FPS:5)
+			{
+				*eventSFX	(70	"TRO_SNORE"	EMPTY_SLOT	)
+			}
+			aniAlias	("t_Sleep_2_Stand"			1	""				0.0	0.1	M.	"t_Stand_2_Sleep"			R)
+
+// Warn & Perception
+			ani			("t_Warn"					1	""				0.0 0.0 M.	"Tro_Angry_M01.asc"			F	0	85	FPS:12.5)
+			{
+				*eventSFX	(1	"TRO_WARN"	EMPTY_SLOT	)
+			}
+
+			ani			("t_Perception"				2	""				0.0	0.0	M.	"Tro_Perception_M01.asc"	F	0	160	FPS:12.5)
+			{
+				*eventSFX	(1	"TRO_PERCEPTION"	EMPTY_SLOT	)
+			}
+
+// Randoms
+			ani			("r_ScratchBelly"			2	""				0.0	0.0	M.	"Tro_Random_M01.asc"		F	0	80	FPS:12.5)
+			{
+				*eventSFX	(1	"TRO_AMBIENT"	EMPTY_SLOT	)
+				*eventSFX	(33	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(15	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(44	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(53	"SCRATCH"	EMPTY_SLOT	)
+			}
+			ani			("r_ScratchLeg"				2	""				0.0	0.0	M.	"Tro_Random_M01.asc"		F	80	140	FPS:12.5)
+			{
+				*eventSFX	(81	"TRO_AMBIENT"	EMPTY_SLOT	)
+				*eventSFX	(97	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(106	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(116	"SCRATCH"	EMPTY_SLOT	)
+			}
+
+// ***************************************************************************************
+// MM DAYCYCLE
+// ***************************************************************************************
+			aniAlias	("r_Roam1"			2	""			0.1 0.1 M.	"r_ScratchBelly"	F)	
+			aniAlias	("r_Roam2"			2	""			0.1 0.1 M.	"r_ScratchLeg"		F)	
+			aniAlias	("r_Roam3"			2	""			0.1 0.1 M.	"t_Perception"		F)
+
+///////////////////////
+// MAGIC VICTIMS
+///////////////////////
+
+// Feuerschaden allgemein, z.B. Fireball, Pyrokinesis, ...
+			aniAlias	("s_Fire_Victim"			1	"s_Fire_Victim"			0.0	0.0	M.	"s_Lightning_Victim"		F)
+
+// Lightning, Chainlightning, Thunderbolt, Thunderball
+			ani			("t_Stand_2_Lightning_Victim"	1	"s_Lightning_Victim"	0.0	0.0	M.	"Tro_VicLightning_M01.asc"	F	0	5)
+			ani			("s_Lightning_Victim"		1	"s_Lightning_Victim"		0.0	0.0	M.	"Tro_VicLightning_M01.asc"	F	5	150	FPS:10)
+
+// IceCube, IceWave
+// Troll ist Immun!
+		
+// Sleep Victim
+			aniAlias	("t_Stand_2_Victim_Sle"		1	"s_Victim_Sle"			0.1	0.0	M.	"t_Stand_2_Sleep"	F)
+			aniAlias	("s_Victim_Sle"				1	"s_Victim_Sle"			0.0	0.0	M.	"s_Sleep"			F)
+			aniAlias	("t_Victim_Sle_2_Stand"		1	""						0.0	0.2	M.	"t_Stand_2_Sleep"	R)
+
+
+	}
+//	FIST FIGHTING

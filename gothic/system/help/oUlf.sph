@@ -1,0 +1,86 @@
+// 
+// Spacer Help File
+// MOB-Klassen (zCWaynet.cpp) 
+// 
+
+// 'moveSpeed'		FLOAT		[0;~]cm/sec		0.3
+// VAR_NAME			TYPE		WERTEBEREICH/EINHEIT	BEISPIEL
+// - (s.o.) immer 2 Tabs zwischen den Feldern !!
+// - Fliesstext ohne Returns (nur bei gewollten Absaetzen)
+// - Hochkommata im erklaerenden Text nicht erlaubt
+// - "class" und Hochkommata "'" sind Schluesselwoerter
+// - Zeilen, die der Spacer nicht anzeigen soll, werden mit "//" eingeleitet
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMOB']
+Ein oCMOB ist ein Objekt, das optional bewegt und/oder getragen werden kann. 
+
+[TOPIC MEMBER 'oCMOB::focusName']
+Der Objektname, wie er im Spielerfokus erscheint ( nicht zu verwechseln mit dem Vobnamen ! )
+
+[TOPIC MEMBER 'oCMOB::hitPoints']
+Anzahl der Hitpoints
+
+[TOPIC MEMBER 'oCMOB::moveable']
+Kann dieses Objekt vom Spieler bewegt werden ?
+
+[TOPIC MEMBER 'oCMOB::takeable']
+Kann dieses Objekt vom Spieler aufgenommen und getragen werden ?
+
+[TOPIC MEMBER 'oCMOB::soundMaterial']
+Welches Soundmaterial soll für dieses Objekt benutzt werden ?
+
+[TOPIC MEMBER 'oCMOB::visualDestroyed']
+Name des Visuals, das benutzt werden soll, wenn das Objekt zerstört wurde.
+
+[TOPIC MEMBER 'oCMOB::owner']
+persönlicher Besitz von welchen NSC ( Skript-Instanznme des NSCs )
+
+[TOPIC MEMBER 'oCMOB::ownerGuild']
+Gildenbesitz welcher Gilde ( Gildenkonstante aus Skript : GIL_  )
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMobInter']
+Ein Objekt mit dem (N)SCs nach dem Interaktionsschema interagieren können.
+
+[TOPIC MEMBER 'oCMobInter::triggerTarget']
+Bei einem Statewechsel von "0" nach "1" wird die Nachricht "Trigger" an alle Vobs mit diesem Vobnamen verschickt. Bei einem StateWechsel von "1" nach "0" entsprechend ein "Untrigger".
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMobContainer']
+Objekte, die Items beinhalten
+
+[TOPIC MEMBER 'oCMobContainer::contains']
+Auflistung der Gegenstände, die sich in diesem Container befinden. Dazu werden die einzelnen Skript-Instanznamen der C_ITEMs benutzt. Sollen sich mehrere Items in dem Container befinden, werden die einzelnen Instanznamen durch Kommata getrennt. Soll eine bestimmte Anzahl eines Items erzeugt werden, wird nach dem Instanznamen ein Doppelpunkt benutzt, danach folgt dann die gewünschte Anzahl.
+
+[TOPIC MEMBER 'oCMobContainer::locked']
+Gibt an, ob das Objekt verschlossen ist.
+
+[TOPIC MEMBER 'oCMobContainer::keyInstance']
+Wenn das Objekt verschlossen ist, sollte hier der Instanzname des Schlüssels 					angegeben werden, der das Objekt öffnet. Ansonsten kann dieses Objekt nur mit dem Talent "Schlösser öffnen" und einem Dietrich geöffnet werden.
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMobBed']
+Ein Bett
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMobSwitch']
+Ein Schalter mit zwei Zuständen ( an/aus )
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMobWheel']
+Ein Drehrad mit 4 Zuständen
+
+// ============================================================================================
+
+[TOPIC CLASS 'oCMobLadder']
+Eine Leiter
+
+// ============================================================================================
+

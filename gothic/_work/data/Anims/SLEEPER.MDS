@@ -1,0 +1,78 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Model ("Sleeper")
+{
+
+	meshAndTree ("Sle_Body.asc" DONT_USE_MESH)
+
+	registerMesh ("Sle_Body.ASC")
+	
+	aniEnum
+	{
+
+//	|	KEYWORD		|	ANI-NAME					|LAYER|	NEXT-ANI	  |	BI | BO |F	|ASC-FILE				|	DIR |FF |LF
+//----------------------------------------------------------------------------------------------------------------------------
+// Sleeping
+			aniAlias	("s_FistWalk"				1	"s_FistWalk"		0.0	0.0	M.	"t_Sleep"			F)
+
+// get up
+			aniAlias	("t_FistWalk_2_FistRun"		1	"s_FistRun"			0.0	0.0	M.	"t_WakeUp"			F)
+
+// lie down
+			aniAlias	("t_FistRun_2_FistWalk"		1	"s_FistWalk"		0.0	0.0	M.	"t_WakeUp"			R)
+
+// Standing
+			ani			("s_FistRun"				1	"s_FistRun"			0.0	0.0	M.	"Sle_Amb_M01.asc"	F	0	150	FPS:10)
+			{
+				*eventSFX	(5	"SLE_AMBIENT"	EMPTY_SLOT	)
+			}
+
+
+			ani			("t_FistRunTurnL"			20	"t_FistRunTurnL"	0.0	0.0	M.	"Sle_Turn_M01.asc"	F	0	50)
+			aniAlias	("t_FistRunTurnR"			20	"t_FistRunTurnR"	0.0	0.0	M.	"t_FistRunTurnL"	R)
+			
+			ani			("s_FallDn"					1	"s_FallDn"			0.1	0.0	MF	"Sle_WakeUp_M01.asc"	F	0	0)
+			aniAlias	("t_FallDn_2_Stand"			1	""					0.2	0.2 M.	"t_WakeUp"			F)
+
+
+
+//////////////////
+			ani			("t_WakeUp"					1	"s_FistRun"		0.0	0.1	M.	"Sle_WakeUp_M01.asc"	F	0	108	FPS:10)
+			{
+				*eventSFX	(5	"SLE_AMBIENT"	EMPTY_SLOT	)
+			}
+
+			aniAlias	("t_LieDown"				1	"t_Sleep"		0.0	0.0	M.	"t_WakeUp"				R)
+
+			ani			("t_Sleep"					1	"t_Sleep"		0.1	0.0	M.	"Sle_WakeUp_M01.asc"	F	0	0)
+			{
+				*eventSFX	(0	"SLE_SNORE"	EMPTY_SLOT	)
+			}
+
+	// Mobsi-Herz getroffen
+			ani			("t_Hurt"					2	""				0.1	0.1	M.	"Sle_Stumble_M01.asc"	F	0	125	FPS:15)
+			{
+				*eventSFX	(1	"SLE_HURT"	EMPTY_SLOT	)
+			}
+
+// LOOK Autoaiming
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	0	0)
+			ani			("c_look_2"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	1	1)
+			ani			("c_look_3"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	2	2)
+			ani			("c_look_4"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	3	3)
+			ani			("c_look_5"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	4	4)
+			ani			("c_look_6"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	5	5)
+			ani			("c_look_7"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	6	6)
+			ani			("c_look_8"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	7	7)
+			ani			("c_look_9"					9	""				0.0	0.0	.	"Sle_Look_M01.asc"		F	8	8)
+
+			aniComb		("t_look"				9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	}
+

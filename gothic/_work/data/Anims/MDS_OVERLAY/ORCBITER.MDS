@@ -1,0 +1,182 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("Scavenger")
+{
+	MeshAndTree ("Sca_Body.asc" DONT_USE_MESH)
+
+	aniEnum
+	{
+			modelTag	("DEF_HIT_LIMB"		"BIP01 PONYTAIL1")
+
+//////////////////////////
+// BEWEGUNGEN
+//////////////////////////
+	
+//////////////////
+// RUN
+//////////////////
+
+	// Ambient
+			ani			("s_FistRun"				1	"s_FistRun"			0.0	0.0	M.	"Sca_Ambient_KS_01.asc"		F	0	30)
+			{
+				*eventSFX	(2	"LUR_AMBIENT_SHORT"	EMPTY_SLOT	)
+			}
+	// Start Running
+			ani			("t_FistRun_2_FistRunL"		1	"s_FistRunL"		0.2	0.1	M.	"Sc2_Run_M01.asc"		F	0	7)
+
+	// Cycle
+			ani			("s_FistRunL"				1	"s_FistRunL"		0.0	0.0	M.	"Sc2_Run_M01.asc"		F	7	27)
+			{
+				*eventSFX	(8	"LUR_AMBIENT_SHORT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(12	"Run"	)
+				*eventSFXGrnd	(22	"Run"	)
+			}
+
+	// End Running
+			ani	("t_FistRunL_2_FistRun"				1	"s_FistRun"			0.0	0.0	M.	"Sc2_Run_M01.asc"		F	27	37)
+			{
+				*eventSFXGrnd	(32	"Run"	)
+				*eventSFXGrnd	(35	"Sneak"	)
+			}
+			ani	("t_FistRunR_2_FistRun"				1	"s_FistRun"			0.0	0.0	M.	"Sc2_Run_M01.asc"		F	38	48)
+			{
+				*eventSFXGrnd	(43	"Run"	)
+				*eventSFXGrnd	(45	"Run"	)
+			}
+
+	// Backwards
+			ani			("t_FistJumpB"				1	"s_FistRun"			0.1	0.1	M.	"sca_jumpB_hor_01.asc"	F	0	18)
+			{
+				*eventSFXGrnd	(10	"Run"	)
+				*eventSFXGrnd	(15	"Sneak"	)
+			}
+
+	// Turning
+			ani			("t_FistRunTurnR"			20	"t_FistRunTurnR"	0.1	0.1	M.	"Sca_Turn_Jue00.ASC"	F	0	24)
+			{
+				*eventSFXGrnd	(6	"Turn"	)
+				*eventSFXGrnd	(18	"Turn"	)
+			}
+			ani			("t_FistRunTurnL"			20	"t_FistRunTurnL"	0.1	0.1	M.	"Sca_Turn_Jue00.ASC"	F	25	49)
+			{
+				*eventSFXGrnd	(30	"Turn"	)
+				*eventSFXGrnd	(42	"Turn"	)
+			}
+
+
+	// Strafing
+			ani			("t_FistRunStrafeL"			1	"t_FistRunStrafeL"	0.0	0.1	M.	"sca_strafel_hor.ASC"	F	0	19)
+			{
+				*eventSFXGrnd	(14	"Turn"	)
+				*eventSFXGrnd	(16	"Turn"	)
+			}
+			ani			("t_FistRunStrafeR"			1	"t_FistRunStrafeR"	0.0	0.1	M.	"sca_strafer_hor.ASC"	F	0	19)
+			{
+				*eventSFXGrnd	(14	"Turn"	)
+				*eventSFXGrnd	(16	"Turn"	)
+			}
+			
+			aniAlias	("t_FistWalkStrafeL"		1	"t_FistWalkStrafeL"		0.0	0.1	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_FistWalkStrafeR"		1	"t_FistWalkStrafeR"		0.0	0.1	M.	"t_FistRunStrafeR"		F)
+			
+			aniAlias	("t_WalkWStrafeL"			1	"t_WalkWStrafeL"		0.0	0.1	M.	"t_FistRunStrafeL"		F)
+			aniAlias	("t_WalkWStrafeR"			1	"t_WalkWStrafeR"		0.0	0.1	M.	"t_FistRunStrafeR"		F)
+			
+
+//////////////////////////
+// STUMBLE / SLIDE / FALL 
+//////////////////////////
+	// Stumble
+			ani			("t_StumbleB"			1	""				0.1 0.1	M.	"Sca_StumbleB_KS01.asc"		F	1	11)
+			{
+				*eventSFX	(1	"SNA_HURT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(8	"Run"	)
+				*eventSFXGrnd	(10	"Sneak"	)
+			}
+			ani			("t_Stumble"			1	""				0.1 0.1	M.	"Sca_Stumbleforeward_KS_01.asc"	F	0	15)
+			{
+				*eventSFX	(1	"SNA_HURT"	EMPTY_SLOT	)
+				*eventSFXGrnd	(9	"Run"	)
+				*eventSFXGrnd	(11	"Sneak"	)
+			}
+
+		
+	
+//////////////////////////
+// DIE / DIE_B / DROWN
+//////////////////////////
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DEAD
+			ani			("t_Dead"					1	"s_Dead"	0.1	0.0	M.	"Sca_dieback_KS_01.asc"			F	1	39)
+			{
+				*eventSFX	(1	"LUR_DIE"	EMPTY_SLOT	)
+				*eventPFX	(5	1	"BFX_Scavenger_Dead"	"BIP01"		ATTACH	)
+				*eventSFX	(20	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+			ani			("s_Dead"					1	"s_Dead"	0.0	0.0	M.	"Sca_dieback_KS_01.asc"			F	40	40)
+	
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	//	DEADB
+			ani			("t_DeadB"					1	"s_DeadB"	0.1	0.0	M.	"Sca_DeadB_M03.asc"				F	1	32)
+			{
+				*eventSFX	(1	"LUR_DIE"	EMPTY_SLOT	)
+				*eventPFX	(5	1	"BFX_Scavenger_Dead"	"BIP01"		ATTACH	)
+				*eventSFX	(23	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+
+			ani			("s_DeadB"					1	"s_DeadB"	0.0	0.0	M.	"Sca_DeadB_M03.asc"				F	33	33)
+
+
+//////////////////////////
+// Kampf / Zuschnappen
+//////////////////////////
+			ani			("s_FistAttack"				1	"s_FistAttack"	0.0	0.0	M.	"Sc2_Attack01.asc"	F	0	18)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"Bip01 PONYTAIL1")
+				*eventTag		(0 "DEF_OPT_FRAME"	"7")
+				*eventTag		(0 "DEF_HIT_END"	"17")
+				*eventTag		(0 "DEF_WINDOW"		"7 17")
+				*eventSFX	(2	"LUR_ATTACK"	EMPTY_SLOT	)
+			}
+	// während des Laufens zuschlagen
+			ani			("t_FistAttackMove"			2	""				0.2	0.2	M.	"Sc2_AttackMove.asc"	F	0	18)		
+			{
+				*eventTag	(0 "DEF_HIT_LIMB"	"Bip01 PONYTAIL1")
+				*eventTag	(0 "DEF_OPT_FRAME"	"7")
+				*eventSFX	(2	"LUR_ATTACK"	EMPTY_SLOT	)
+			}
+
+
+//////////////////////////
+// SCRIPT / RANDOM
+//////////////////////////
+			ani			("t_Perception"			2	""					0.0	0.0	M.	"Sca_Perception_M01.asc"	F	1	74	FPS:15)
+			{
+//				*eventSFX	(5	"SCA_SHAKEHEAD"	EMPTY_SLOT	)
+				*eventSFXGrnd	(18	"Sneak"	)
+				*eventSFXGrnd	(73	"Sneak"	)
+			}
+			ani			("t_Warn"				2	""					0.1	0.1	M.	"Sca_Warn_M01.asc"	F	0	50	FPS:15)
+			{
+				*eventSFX	(1	"LUR_WARN"	EMPTY_SLOT	)
+			}
+
+//---------------------------------------------------------------------------------------------------------------------------------
+
+// ***************************************************************************************
+// MM DAYCYCLE
+// ***************************************************************************************
+			ani			("r_Roam1"			2	""					0.2	0.3	M.	"Sca_attackstandrandom_KS_01.asc"	F	0	30)
+			ani			("r_Roam2"			2	""					0.2	0.2	M.	"Sca_Scratch_KS_01.asc"				F	1	33)
+			{
+				*eventSFX	(9	"SCRATCH"	EMPTY_SLOT	)
+				*eventSFX	(22	"SCRATCH"	EMPTY_SLOT	)
+			}
+// ***************************************************************************************
+
+}

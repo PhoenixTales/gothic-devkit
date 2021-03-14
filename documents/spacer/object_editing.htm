@@ -1,0 +1,238 @@
+<HTML>
+<HEAD>
+    <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+    <TITLE>Gothic-Documents: Mit Objekten (Vobs) arbeiten</TITLE>
+    <META NAME="AUTHOR" CONTENT="Bert Speckels">
+    <link rel=stylesheet type="text/css" href="../style.css">
+</HEAD>
+<BODY bgcolor="#ffffff" text="#000000" link="000099" vlink="000099" >
+
+<!---
+ Kopfzeile
+ --->
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#FFFFDD" border=2>
+<!--- Art des Dokuments und Name des Projekts --->
+<tr>
+        <td width=50% align=left>
+                <font color="#000000"><b>
+                Dokumentation
+                </b></font>
+        </td>
+        <td width=50% align=right>
+                <font color="#000066"><b>
+                GOTHIC
+                </b></font>
+        </td>
+</tr>
+<!--- Titel des Dokuments --->
+<tr>
+        <td colspan=2 align=center>
+                <font color="#660000"><b>
+                Mit Objekten (Vobs) arbeiten
+                </b></font>
+        </td>
+</tr>
+<!--- Name des Autors und Datum der letzten Aktualisierung --->
+<tr>
+        <td width=50% align=left><b>
+                Autor: Bert Speckels
+        </b></td>
+        <td width=50% align=right><b>
+                Version: 14.August 2001
+        </b></td>
+</tr>
+</table>
+<br>
+
+
+<!---
+ Inhalt
+ --->
+
+<table width="500" cellpadding=4 cellspacing=0 bgcolor="#EEEEEE" border=0>
+<tr>
+<td>
+<font size=2 face="Verdana,Arial, Helv, Helvetica, SanSerif">
+
+<ul>
+<li>1 Vobs erzeugen
+    <ul>
+    <li>1.1 Einfache Vobs
+    <li>1.2 Das Visual einstellen
+    <li>1.3 Vob-Hierarchien erzeugen
+    </ul>
+<li>2 Vob-Eigenschaften ändern
+<li>3 Spezielle Vobs
+    <ul>
+    <li>3.1 Das Wegnetz
+    </ul>
+</ul>
+
+<hr noshade size=2>
+
+<H1>1 Vobs erzeugen</H1>
+
+<H2>1.1 Einfache Vobs</H2>
+
+Nun wollen wir einmal ein Vob in die geladene Welt einfügen. Dazu wählen wir
+im Objekt-Dialog (siehe <a href="pics/spacer_shot.jpg">Bild</a>) die Dialogseite CREATE.
+Sollte diese nicht aktiv sein, reicht dann ein Klick auf den Button "ACTIVATE".
+<br><br>
+Nun wählen wir uns eine Vobklasse aus. Für unseren Zweck reicht die fundamentale Klasse zCVob,
+da unser Vob keine speziellen Fähigkeiten besitzen soll, außer sich darzustellen. Wir selektieren also
+den Eintrag "zCVob". Die weiteren Vobklassen werden zumeist im Hilfefenster des Spacer erläutert, wenn man diese
+im Objektklassen-Baum selektiert. Ansonsten findet Ihr auch <a href="vobtypes.htm">hier</a> ein paar Informationen.
+<br><br>
+Nun, nachdem wir unsere VobKlasse gewählt haben, können wir ein solches Objekt in die Welt
+einfügen. Bei einem Rechtsklick in die Welt erscheint ein Menü mit dem ersten Menüpunkt "Insert [zCVob]".
+Achtung: Ein Linksklick würde die CREATE-Seite im Objekt-Dialog wieder deaktivieren und daher
+die Auswahl zunichte machen. Alternativ zu dem Weg über das Menü kann man auch den Shortcut STRG+I verwenden.
+Dies sollte allerdings nur in Einzelfällen geschehen (dazu beim Thema Wegpunkte mehr).
+<br><br>
+Nachdem wir den Menüpunkt "INSERT ..." gewählt haben, geschehen drei Dinge:
+<ol>
+
+<img src="pics/vob_simple.jpg" align=right>
+<li>In der Welt erscheint ein zCVob-Objekt mit einem Koordinatenkreuz.
+    Das Objekt besitzt noch kein Visual, es ist daher nicht
+    wirklich sichtbar. Das Visual wird in den Eigenschaften auf der
+    MODIFY-Seite des Objekt-Dialog eingestellt. Dazu gleich mehr.
+
+<li>Die CREATE-Seite im Objekt-Dialog wird durch die entsprechende
+    MODIFY-Seite mit den Eigenschaften unseres neuen Vobs ersetzt.
+    Hier können nun direkt die Einstellungen des neu erzeugten
+    Vobs geändert werden (siehe nächster Abschnitt).
+
+<img src="pics/object_list.jpg" align=right>
+<li>Im Objekt-Baum (die Objektliste) erscheint ein neuer mit einem grünen Punkt
+    versehener Eintrag. In diesem Fenster werden alle Vobs in der Welt
+    anzeigt. Dabei werden die Vobs in einzelne Ordner (sortiert nach VobKlassen) verteilt,
+    wobei jedoch die Vob-Hierarchie in der Darstellung erhalten bleibt.
+    Lest dazu auch die Informationen zur Vob-Hierarchie in der Welt
+    aus dem Abschnitt <a href="objects.htm">"Vobs in der Welt"</a>.
+
+</ol>
+
+<H2>1.2 Das Visual einstellen</H2>
+
+<img src="pics/modify_visual.jpg" align=right>
+Nun soll unser Vob noch ein Visual erhalten. Dazu selektieren wir auf der
+MODIFY-Seite im Objekt-Dialog den Eintrag <i>visual</i>. Diesen Wert können wir nun
+im unteren Teil des Dialogs ändern. Ein Klick auf den "FILE"-Button bietet uns
+einen Datei-Dialog an, um das gewünschte Mesh auszuwählen. Nach den Änderungen auf
+der MODIFY-Seite betätigen wir noch den APPLY-Button, um die Einstellungen auf das Objekt
+zu übertragen.
+<br><br>
+In einigen Fällen reicht auch ein Doppelklick auf einen Eintrag in dem Dialog, um ein
+spezielles Auswahlfenster (z.B. einen Dateidialog oder einen Farbdialog) zu öffnen.
+Dazu gleich mehr.
+
+<H2>1.3 Vob-Hierarchien erzeugen</H2>
+
+Die Objekte in der Welt werden in einer Hierarchie gespeichert.
+Die meisten Vobs werden wohl als einzelnes Objekt in der Welt "liegen".
+Doch einige Vobs sollte man als "Kind" anderer Vobs einfügen.
+Auch hier der Hinweis auf den Abschnitt <a href="objects.htm">"Vobs in der Welt"</a>,
+der unter anderem die Hierarchie von Vobs erläutert.
+<br><br>
+Um nun eine solche Hierarchie zu erstellen, muss man nur folgendes wissen: Klickt man
+beim Einfügen eines Vobs mit der rechten Maustaste auf das Weltmesh, so wird das
+neue Objekt als Kind der Welt eingefügt (wie das FeuerstellenVob), klickt man dagegen auf
+ein andere Objekt, z.B. unser bereits vorhandenes FeuerstellenVob, so wird das neue Vob
+als Kind das angeklickten Vob eingefügt.
+<br><br>
+Zur Kontrolle ist (ab Spacer-Version 1.5) beim Einfügen eines neuen Vobs im Popupmenü
+(rechte Maustaste) folgender Text zu lesen:
+<ul>
+<li>"INSERT [VobKlasse]": Der neue Vob wird nicht als Kind eines anderen Vobs eingesetzt.
+<li>"INSERT [VobKlasse] as child of VobName": Der neue Vob wird als Kind des Vobs mit dem Namen "VobName" eingesetzt.
+</ul>
+
+Allgemein gesprochen werden neue Vobs immer als Kind des gerade selektierten Vobs eingefügt.
+Denn auch die rechte Maustaste selektiert automatisch beim Aufruf des Popup-Menüs.
+
+
+<H1>2 Vob-Eigenschaften ändern</H1>
+
+Die Eigenschaften der Vobs werden auf der MODIFY-Seite des Objekt-Dialog
+geändert. Wählt einen der Eigenschaften aus und editiert ihren Werte
+in dem unten erscheinenden Control (Edit-Feld, Checkbox etc).
+<br><br>
+In einigen Fällen führt auch ein Doppelklick auf den entsprechenden Wert
+bereits zu einer Aktion:
+<ul>
+<li>Bei Dateinamen öffnet sich ein Dialogfenster zur Auswahl einer anderen Datei
+<li>Bei Farben öffnet sich ein Dialog zur Auswahl der Farbe
+<li>Bei booleschen Werten (TRUE/FALSE) und Aufzählungstypen wechselt der Wert zwischen den möglichen Werten
+</ul>
+
+Man darf nach dem Ändern eines Wertes jedoch nicht vergessen, den APPLY-Button zu wählen.
+Ansonsten werden die Änderungen nicht an den Vob übertragen.
+
+<H1>3 Spezielle Vobs</H1>
+
+Zum Einfügen einiger spezieller Vobs gibt es in der Object-Toolbar
+den Button <img src="pics/icon_special.gif">. Folgende VobKlassen kann man hiermit in
+die Welt einfügen:
+<ul>
+<li>Wegpunkte, die miteinanderverbunden ein Wegnetz bilden auf dem sich die NPCs und Monster bewegen können.
+<li>Freepoints (auch VobSpots genannt), die als Ziel für NPC-Bewegungen angegeben werden können. Es sind somit Wegpunkte, die nicht an das Wegenetz angeschlossen sein müssen (und auch nicht können).
+<li>DECALs: Quasi frei positionierbare Texturen (intern werden sie auf ein 2D-Mesh gemappt) zur Visualisierung von Spinnweben, Bannern etc.
+<li>Partikeleffekte
+</ul>
+Aktiviert eines der entsprechend beschrifteten Buttons und fügt diese speziellen Vobs wie gewohnt über das Menü der
+rechten Maustaste in die Welt ein.
+
+<H2>3.1 Das Wegnetz</H2>
+
+Um ein Wegenetz zu erstellen, muss man Wegpunkte (Waypoints) in die Welt einfügen und verbinden.
+In der Welt sollte es immer nur ein zusammenhängendes Wegenetz geben. Auch alleinstehende Wegpunkte
+machen keinen Sinn (Wegpunkte sind sehr gesellige Vobs :).
+<br><br>
+Seid nicht zu geizig beim Erstellen des Wegenetzes und achtet darauf, dass
+die Wege zwischen den Wegpunkten begehbar sind und nicht quer durch einen Stein, Baum oder über eine Schlucht
+ohne Brücke führen. Beim Benutzen des Wegnetzes schalten die NSCs in der Regel ihr "Gehirn" ab :-)
+<br><br>
+Um zwei Wegpunkte zu verbinden, müssen beide markiert sein:
+<ul>
+<li>Den ersten Wegpunkt klickt Ihr ganz einfach an,
+    dann erscheint ein Koordinatenkreuz an dem Wegpunkt (damit ist es markiert)
+<li>Den zweiten Wegpunkt klickt ihr bei gedrückter SHIFT-Taste an.
+    Das Koordinatenkreuz des zweiten Wegpunktes blinkt und der zweite Wegpunkt ist dann markiert.
+</ul>
+Nun kann man in der Action-Toolbar
+den entsprechenden Button <img src="pics/action_way.gif"> anklicken, um eine Wegstrecke zwischen den
+ausgewählten Wegpunkten zu erstellen bzw. zu löschen.
+
+<br><br>
+
+<b>Nun gibt es aber auch einen Automatismus:</b>
+<br>
+Beim Einfügen über das Menü der rechte Maustaste werden keine Verbindungswege zu anderen
+Wegpunkten hergestellt. Doch es gibt einen allgemeinen Shortcut für das Einfügen von Vobs: STRG+I.
+Damit wird die gewählte Vobklasse in die Welt eingefügt. Bei Wegpunkten gibt es dabei nun
+eine Besonderheit: Wenn Ihr die Wegpunkte über STRG+I in die Welt einfügt,
+dann wird die Verbindung vom letzten Wegpunkt (der blinkt)
+zum neu eingefügten Wegpunkt gezogen. So könnt ihr also nur durch das Einfügen
+von Wegpunkten mit STRG+I eine lange Wegstrecken "ziehen".
+
+
+
+
+<div class="ende">
+<hr noshade size=2 width=50%>
+Ende.
+<br>
+Machs gut und danke für den Fisch
+</div>
+
+<br>
+
+</td>
+</tr>
+</table>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</BODY>
+</HTML>

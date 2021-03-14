@@ -1,0 +1,93 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 30.1.2001 20:35:21
+user roeske
+END
+objects 6        
+END
+
+[% oCWorld:zCWorld 64513 0]
+	[VobTree % 0 0]
+		childs0=int:1
+		[% zCVob 12289 1]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:-36.338180542 -36.201240540 -131.385147095 36.435214996 105.101692200 -57.725860596 
+			trafoOSToWSRot=raw:d8a47e3f00000000e584d23d000000000000803f00000000e584d2bd00000000d8a47e3f
+			trafoOSToWSPos=vec3:0.000000000 0.000000000 -94.660522461
+			vobName=string:FIRE
+			visual=string:FIRE_MEDIUM.pfx
+			showVisual=bool:1
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual zCParticleFX 0 2]
+			[]
+			[ai % 0 0]
+			[]
+		[]
+		childs1=int:2
+		[% zCVobLight:zCVob 46080 3]
+			pack=int:0
+			presetName=string:LIGHT
+			bbox3DWS=rawFloat:-1000.783996582 -976.334716797 -1092.254638672 999.216003418 1023.665283203 907.745361328 
+			trafoOSToWSRot=raw:984226bf00000000a9a9423f000000000000803f00000000a7a942bf00000000974226bf
+			trafoOSToWSPos=vec3:-0.784000874 23.665283203 -92.254676819
+			vobName=string:LIGHT
+			visual=string:
+			showVisual=bool:0
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual % 0 0]
+			[]
+			[ai % 0 0]
+			[]
+			lightPresetInUse=string:LIGHT
+			lightType=enum:0
+			range=float:800.000000000
+			color=color:223 173 117 255
+			spotConeAngle=float:0.000000000
+			lightStatic=bool:0
+			lightQuality=enum:2
+			lensflareFX=string:TORCHFX01
+			turnedOn=bool:1
+			rangeAniScale=string:
+			rangeAniFPS=float:0.000000000
+			rangeAniSmooth=bool:1
+			colorAniList=string:(211 147 107) (223 173 117) (211 147 107) (223 173 117) (225 197 100) (223 173 117) (227 209 106) (223 173 117) (211 147 107) (223 173 117) (225 197 100) (227 209 106) (223 173 117) (211 147 107) (225 197 100) (223 173 117) (225 197 100) (211 147 107) (223 173 117) (227 209 106) (225 197 100) (211 147 107) (225 197 100) (223 173 117) (225 197 100) (227 209 106) (223 173 117) (211 147 107) (223 173 117) (211 147 107) (225 197 100) (227 209 106) (223 173 117) 
+			colorAniFPS=float:11.000014305
+			colorAniSmooth=bool:0
+		[]
+		childs2=int:0
+		[% zCVob 12289 4]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:-54.545402527 -28.261230469 -142.479522705 53.659545898 122.114349365 -38.866531372 
+			trafoOSToWSRot=raw:62fb7d3f00000000945600be000000000000803f000000009256003e0000000060fb7d3f
+			trafoOSToWSPos=vec3:-0.621890962 2.738769531 -94.434356689
+			vobName=string:SMOKE
+			visual=string:FIRE_SMOKE.pfx
+			showVisual=bool:1
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual zCParticleFX 0 5]
+			[]
+			[ai % 0 0]
+			[]
+		[]
+		childs3=int:0
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

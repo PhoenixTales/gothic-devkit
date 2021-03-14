@@ -1,0 +1,92 @@
+
+gothic1_<type>-<version>_<language>[(<publisher>)].csv
+
+  Listing in the following format:
+
+    "<filepath(UTF-8)>","<filesize>","<filetime(UTC+0:00)>","<md5sum>"
+
+  The file listings don't include:
+
+    InstallShield Uninstall files (*.isu)
+
+------------------------------------------------------------------------------
+
+Official Gothic I - Demos:
+
+  1.04d       First Gothic I Demo (german)
+  Gothic.exe, 18552320 Bytes, MD5: ee8a865bc74cbc1a21c6f760b2529449
+
+  1.07c       Second Gothic I Demo (german)
+  Gothic.exe, 8517568 Bytes, MD5: 588bef5848a2e81a016469e5b904f975
+
+  1.08j       Gothic I Demo (english)
+  Gothic.exe, 8555836 Bytes, MD5: e65ab7ba85ab867fdb4f2407c0791c61
+
+Official Gothic I - Releases:
+
+  1.06l       Gothic I - Goldmaster (german)
+  Gothic.exe, 2448594 Bytes, MD5: 978fa669f9ddbd48e425a80b41094c77
+
+  1.07c       Gothic I - First Patch (german)
+  Gothic.exe, 2654810 Bytes, MD5: c7b9a2ff6a142f92acca38e8fee05e4c
+
+  1.08h       Gothic I - Second Patch (german)
+  Gothic.exe, 2665742 Bytes, MD5: 0e3c0a9b57dd77f3c1bb635ec6e69302
+
+  1.08j       Gothic I - Kyro II Patch (german)
+  Gothic.exe, 2666686 Bytes, MD5: 449717c02c4a766716d7fdadb85ae224
+
+  1.08j       Gothic I - Release (english/italian/spanish)
+              Gothic I - Gold-Edition (german)
+  Gothic.exe, 8555996 Bytes, MD5: ecc01566ecd3290ab88a2cf2cd1c13ee
+  
+  1.08j       Gothic I - Release (chinese)
+  Gothic.bin, 8555996 Bytes, MD5: 849a208cbb49af250f40675738d95348
+
+  1.08k       Gothic I - ATI-Patch (english/german)
+  Gothic.exe, 8580524 Bytes, MD5: d912c18d44c0e2994ff90778fa6ec068
+
+  1.08k       Gothic I - Release (polish)
+  Gothic.exe, 8580524 Bytes, MD5: 9c907748982b7611c4fd78d467eacb62
+
+  1.08k       Gothic I - Release (russian snowball)
+  Gothic.exe, 8580524 Bytes, MD5: 1d80b958e861f7d64cd3bb4f0398ef76
+
+  1.08k_mod      Gothic I - Release (russian russobit)
+  GothicMod.exe, 8518352 Bytes, MD5: 25e30d7f6f8cc7e0e34c0be5169ff672
+               (with FPS-Patch) MD5: b8d6e80f5326436c3bd3715e59da253d
+
+Official Gothic I - Player-Kits:
+
+  1.08mod        Gothic I Player-Kit - 1.08h (german)
+  GothicMod.exe, 2674586 Bytes, MD5: 98accfc9348f8ab39f220f4f301bb2e1
+
+  1.08k          Gothic I Player-Kit - 1.08k (bug!) (german)
+  GothicMod.exe, 8580524 Bytes, MD5: d912c18d44c0e2994ff90778fa6ec068
+
+  1.08k_mod      Gothic I Player-Kit - 1.08k (english/german)
+  GothicMod.exe, 8518352 Bytes, MD5: aff73a93a00bb0f350b8ebeef0cd6244
+               (with FPS-Patch) MD5: b4520bf56711484dc4f04d154e9bd05b
+
+------------------------------------------------------------------------------
+
+Unofficial Gothic I - Fan-Patches:
+
+  1.08k       "GIRussobit"-Patch (russian Killer-XXX)
+  Gothic.exe, 1766912 Bytes, MD5: 1a96603a5ac1398f37bac67d4731d640
+
+------------------------------------------------------------------------------
+
+Unofficial Gothic I - Cracks:
+(there's no need to crack the game, but they happen to exist...)
+
+  1.06l       (german)
+  Gothic.exe, 4804096 Bytes, MD5: 40b9499d65ac4f816eb933042db00c8d
+              (with PatchFX) MD5: b3571567fa34a1dc29b25d4c85faf9ad
+
+  1.08h       (german)
+  Gothic.exe, 6905856 Bytes, MD5: 8ee628762418d4be1e8d2a50de8b3e65
+
+  1.08j       (german)
+  Gothic.exe, 6909952 Bytes, MD5: ca0c065a8fdb43961eb0610a03651fb5
+

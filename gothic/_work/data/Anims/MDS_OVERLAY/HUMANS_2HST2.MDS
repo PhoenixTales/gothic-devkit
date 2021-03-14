@@ -1,0 +1,193 @@
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// HUMAN OVERLAY	2h-SCHWERTKAMPF TALENT 3
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Model ("HuS")
+{
+
+
+	meshAndTree ("Hum_Body_Naked0.ASC" DONT_USE_MESH)
+
+	aniEnum
+	{
+		modelTag	("DEF_HIT_LIMB"		"zs_RightHand")
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// 2h - WEAPON READY
+			ani			("t_Run_2_2h"			1	"s_2h"			0.2 0.0 M.	"Hum_2hDrawT3.asc"			F	1	3)
+			ani			("s_2h"					1	"s_2h"			0.0 0.0 M.	"Hum_2hDrawT3.asc"			F	4	4)
+			ani			("t_2h_2_2hRun"			1	"s_2hRun"		0.0 0.2 M.	"Hum_2hDrawT3.asc"			F   5	19)
+			{
+				*eventTag		(6 "DEF_FIGHTMODE"	"2h")
+				*eventTag		(6	"DEF_DRAWSOUND")
+			}
+			
+			ani			("t_2hRun_2_2h"			1	"s_2h"			0.1 0.0 M.	"Hum_2hDrawT3.asc"			R   6	19)
+			{
+				*eventTag		(6 "DEF_FIGHTMODE"	"")
+				*eventTag		(6	"DEF_UNDRAWSOUND")
+			}
+			aniAlias	("t_2h_2_Run"			1	"s_Run"			0.0 0.1 M.	"t_Run_2_2h"				R)
+
+
+///////////////////////
+// 2h MOVEMENT
+///////////////////////
+
+//	2h-RUN
+			ani			("s_2hRun"					1	"s_2hRun"		0.1 0.1 MI	"Hum_Amb_2hRunT3_M01.asc"	F	0	50	FPS:10)
+			ani			("t_2hRun_2_2hRunL"			1	"s_2hRunL"		0.0	0.1	M.	"Hum_2hRunT3.asc"			F	1	11)
+			ani			("s_2hRunL"					1	"s_2hRunL"		0.0	0.0	M.	"Hum_2hRunT3.asc"			F	12	31)
+			{
+				*eventSFXGrnd	(12	"Run")
+				*eventSFXGrnd	(22	"Run")
+			}
+			ani			("t_2hRunL_2_2hRun"			1	"s_2hRun"		0.0	0.1	M.	"Hum_2hRunT3.asc"			F	32	38)
+			{
+				*eventSFXGrnd	(32	"Run")
+				*eventSFXGrnd	(37	"Run")
+			}
+			aniBlend	("t_2hRunR_2_2hRun"				"s_2hRun"		0.2	0.2)
+
+//	2h-Run Backwards Movement
+
+//	2h-WALK
+			ani			("s_2hWalk"					1	"s_2hWalk"		0.1	0.1	MI	"Hum_2hWalkT3.asc"			F	0	0)
+			ani			("t_2hWalk_2_2hWalkL"		1	"s_2hWalkL"		0.0	0.0	M.	"Hum_2hWalkT3.asc"			F	1	18)
+			{
+				*eventSFXGrnd	(15	"Run")
+			}
+			ani			("s_2hWalkL"				1	"s_2hWalkL"		0.0	0.0	M.	"Hum_2hWalkT3.asc"			F	19	38)
+			{
+				*eventSFXGrnd	(27	"Run")
+				*eventSFXGrnd	(36	"Run")
+			}
+			ani			("t_2hWalkL_2_2hWalk"		1	"s_2hWalk"		0.0	0.1	M.	"Hum_2hWalkT3.asc"			F	39	49)
+			{
+				*eventSFXGrnd	(47	"Run")
+				*eventSFXGrnd	(49	"Run")
+			}
+			aniBlend	("t_2hWalkR_2_2hWalk"			"s_2hWalk"		0.2	0.2)
+
+//	2h-Walk Backwards Movement
+			aniAlias	("t_2hWalk_2_2hWalkBL"		1	"s_2hWalkBL"	0.1	0.0	M.	"t_2hWalkL_2_2hWalk"		R)
+			aniAlias	("s_2hWalkBL"				1	"s_2hWalkBL"	0.0	0.0	M.	"s_2hWalkL"					R)
+
+			aniAlias	("t_2hWalkBL_2_2hWalk"		1	"s_2hWalk"		0.0	0.1	M.	"t_2hWalk_2_2hWalkL"		R)
+			aniBlend	("t_2hWalkBR_2_2hWalk"			"s_2hWalk"		0.2	0.2)
+			{
+				*eventSFXGrnd	(22	"Run")
+			}
+
+///////////////////////
+// 2h TURNING
+///////////////////////
+
+			ani			("t_2hRunTurnL"				20	"t_2hRunTurnL"		0.1	0.2	M.	"Hum_2hTurnT3.asc"		F	0	24)
+			{
+				*eventSFXGrnd	(5	"Turn")
+				*eventSFXGrnd	(13	"Turn")
+				*eventSFXGrnd	(19	"Turn")
+			}
+			aniAlias	("t_2hRunTurnR"				20	"t_2hRunTurnR"		0.1	0.2	M.	"t_2hRunTurnL"			R)
+
+			aniAlias	("t_2hWalkTurnL"			20	"t_2hWalkTurnL"		0.1	0.2	M.	"t_2hRunTurnL"			F)
+			aniAlias	("t_2hWalkTurnR"			20	"t_2hWalkTurnR"		0.1	0.2	M.	"t_2hRunTurnL"			R)
+
+
+///////////////////////
+// 2h STRAFING
+///////////////////////
+
+			ani			("t_2hRunStrafeL"			1	"t_2hRunStrafeL"	0.1	0.1	M.	"Hum_2hStrafeLT3_M01.asc"	F	0	18)
+			{
+				*eventSFXGrnd	(0	"Run")
+				*eventSFXGrnd	(9	"Run")
+			}
+			ani			("t_2hRunStrafeR"			1	"t_2hRunStrafeR"	0.1	0.1	M.	"Hum_2hStrafeRT3_M01.asc"	F	0	18)
+			{
+				*eventSFXGrnd	(0	"Run")
+				*eventSFXGrnd	(9	"Run")
+			}
+
+			aniAlias	("t_2hWalkStrafeL"			1	"t_2hWalkStrafeL"	0.1	0.1	M.	"t_2hRunStrafeL"			F)
+			aniAlias	("t_2hWalkStrafeR"			1	"t_2hWalkStrafeR"	0.1	0.1	M.	"t_2hRunStrafeR"			F)
+
+///////////////////////
+// 2h TRANSITIONS
+///////////////////////
+//	Movement-Modes
+			aniBlend	("t_2hRun_2_2hWalk"				"s_2hWalk"		0.0	0.2)
+			aniBlend	("t_2hWalk_2_2hRun"				"s_2hRun"		0.0	0.2)
+
+			ani			("t_2hRun_2_2hSneak"		1	"s_2hSneak"		0.1	0.1	M.	"Hum_2hRunT3Sneak.asc"		F	1	9)
+			aniAlias	("t_2hSneak_2_2hRun"		1	"s_2hRun"		0.1	0.1	M.	"t_2hRun_2_2hSneak"			R)
+
+			aniBlend	("t_2hRunL_2_2hWalkL"			"s_2hWalkL"		0.2	0.2)
+			aniBlend	("t_2hWalkL_2_2hRunL"			"s_2hRunL"		0.2	0.2)
+
+			aniBlend	("t_2hSneakL_2_2hRunL"			"s_2hRunL"		0.2	0.2)
+			aniBlend	("t_2hRunL_2_2hSneakL"			"s_2hSneakL"	0.2	0.2)
+
+///////////////////////
+// 2H FIGHTING
+///////////////////////
+// Kampf ohne Talent
+
+//	Attacks
+			ani			("s_2hAttack"				1	"s_2hAttack"	0.0 0.2 M.	"Hum_2hAttackComboT3_M02.asc"	F	1	150)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"5 45 90 138")
+				*eventTag		(0 "DEF_HIT_END"	"39 79 124 149")
+				*eventTag		(0 "DEF_WINDOW"		"13 41 53 81 98 126 146 149")
+//				*eventTag		(0 "DEF_DIR"		"LORO")
+				
+				*eventSFX		(5	"Whoosh"	EMPTY_SLOT	)
+				*eventSFX	(50	"BACK"	EMPTY_SLOT	)
+				*eventSFX	(90	"WHOOSH"	EMPTY_SLOT	)
+				*eventSFX	(137	"BACK"	EMPTY_SLOT	)
+			}
+
+	// Drehschläge L/R				
+			ani			("t_2hAttackL"				1	""				0.0	0.1	M.	"Hum_2hAttackT2_M03.asc"		F	1	30)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"5")
+				*eventTag		(0 "DEF_HIT_END"	"29")
+				*eventTag		(0 "DEF_WINDOW"		"14 29")
+
+				*eventSFX		(5	"Whoosh"	EMPTY_SLOT	)
+			}
+			ani			("t_2hAttackR"				1	""				0.0	0.1	M.	"Hum_2hAttackT2_M03.asc"		F	31	60)
+			{
+				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")
+				*eventTag		(0 "DEF_OPT_FRAME"	"5")
+				*eventTag		(0 "DEF_HIT_END"	"29")
+				*eventTag		(0 "DEF_WINDOW"		"14 29")
+
+				*eventSFX		(5	"Whoosh"	EMPTY_SLOT	)
+			}
+
+	// Parade
+			ani			("t_2hParade_O"				1	""				0.0	0.0	M.	"Hum_2hParadeT3_M02.asc"	F	1	29)
+			{
+				*eventTag		(0 "DEF_WINDOW"		"1 27")
+				*eventSFX		(2	"D_PARADE"	EMPTY_SLOT	)
+			}
+
+//			ani			("t_2hParade_U"				1	""		0.0	0.0	MR	"Hum_2hParadeT3_M02.asc"	F	14	27)
+//			ani			("t_2hParade_L"				1	""		0.0	0.0	MR	"Hum_2hParadeT3_M01.asc"	F	0	13)
+//			ani			("t_2hParade_R"				1	""		0.0	0.0	MR	"Hum_2hParadeT3_M01.asc"	F	14	27)
+
+			ani			("t_2hParadeJumpB"			1	""		0.0	0.0	M.	"Hum_2hParadeT3_M02.asc"	F	1	29)
+			{
+				*eventTag		(0 "DEF_WINDOW"		"1 27")
+				*eventSFX		(2	"D_PARADE"	EMPTY_SLOT	)
+			}
+	
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		}
+}

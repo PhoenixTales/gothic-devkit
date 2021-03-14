@@ -1,0 +1,119 @@
+//////////////////////////
+GOTHIC MOD DEVELOPMENT-KIT
+//////////////////////////
+
+
+
+//////////////////////////
+v1.2 // 29.02.20 // Flosha
+//////////////////////////
+
+Version 1.2 integriert primär diverse Tools, 
+die innerhalb der Community entwickelt wurden.
+
+* GothicVDFS aktualisiert (v1.5 -> v1.6.2)
+
+* VDFS-Tool/ umbenannt in tools/ 
+  (Hierarchie von Nico übernommen) 
+
+* 3DS MAX Stuff/ verschoben in tools/
+* Milkshape 3D Stuff/ angelegt in tools/
+* Blender Stuff/ angelegt in tools/
+
+* Neue Tools integriert     
+  * GoMan 0.93 
+  * GothicZTEX Decompressor 1.2.1 
+  * ZTEX Tools 1.0
+  * GothicVdfsOpt 1.0                                
+  * Sprachausgabenhelfer 2.1
+  * ZEN Convert
+  * GothicSourcer 3.14 
+  * Output-Commander 2.0
+  * VDFManager 1.02 
+  * Farbeimer
+  * GVE (Gothic Variablen Editor)
+  * Stampfer 
+  * Redefix 2.1 
+  * FNTEdit 1.07
+  * NPC-Viewer 1.0.0.0
+  * Font2Targa 1.1
+  * zSlang
+  * Spacer Hotkeys
+  * ZenVis 1.8.2
+
+* Neue Plugins:
+  * MilkShape 3D Import/Export PlugIn for GOTHIC 3DS (Nico)
+  * Kerrax Imp/Exp 3DSMax5 & 3DSMAX 6-8 (3DS Max Stuff/Plugins)
+  * Unrecorded List Exporter Plugin für den Output-Commander
+  * Gothic MaT-Blender 1.3 (Blender Stuff)
+  * KerraxImpExp. Blender 2.78 (fix)
+
+* Rechtschreibfehler in der Dokumentation gefixt
+* ZTEX Dokumentation (misc/ZTEX File Reference)    
+* Gothic Versionsdokumentation (misc/GothicVersions) 
+
+* Rüstungen im Format .asc hinzugefügt 
+  (_work/data/Anims/asc_bodies/armor)
+
+* Daedalus Syntax Highlighting (misc/)
+  CodeEdit
+  CrimsonEditor
+  Notepad++
+  SourceEdit
+  UltraEdit
+  VSCode
+
+* Spacer Fix 1.51:
+  Das in 1.50 eingeführte Signal beim Abschluss von 
+  Operationen ist jetzt weniger schrill (system/ready.wav)
+  (Wenn ihr euch ein anderes Signal wünscht (default ist 
+  _work/data/sound/sfx/inv_open.wav), einfach ready.wav 
+  unter system/ durch euer gewünschtes Signal ersetzen)
+
+* Releases.txt angelegt (dokumentiert die Release 
+  Dates diverser Komponenten des DevKits unter /tools) 
+
+* WorldofGothicLinks.txt angelegt (Linkliste zu den 
+  Releasethreads der Tools im World of Gothic Forum)  
+
+
+//////////////////////////
+v1.1 // 19.02.20 // Flosha
+//////////////////////////
+
+Version 1.1 integriert alle offiziellen Updates.
+
+* Spacer Update 1.50 hinzugefügt (spacer.exe und 
+  ready.wav in [GOTHIC]system); dieses Update verbessert 
+  die Benutzerführung im Spacer. Hier die Fixes:
+     - "Division By Zero" abgefangen
+     - Positionierung der Kamera bei Doppelklick 
+       auf Objekt im Objektbaum gefixt
+     - Die Tastatur hat sich oft "verhakt", wenn man mit 
+         SHIFT+ZIFFERNBLOCK durch die Level raste. 
+         Die Ursache ist, dass bei gedrückter SHIFT-Taste sich der 
+         Ziffernblock komplett dämlich verhält: 
+         Es kommen pro Tastendruck immer zwei KeyDowns beim 
+         Tastaturhandler an. Deshalb folgende Maßnahmen:
+         - Bewegen mit Ziffernblocktasten entfernt. 
+           Ebenso die ALT-Taste (Sidestep)
+         - STRG-Taste in Kombination mit Cursortasten führt nun zu 
+           LINK/RECHTS-Bewegungen (Sidestep)
+         - Außerdem: Die Bewegungsgeschwindigkeit kann mit PAD_UP 
+           / PAD_DOWN geändert werden.
+     - Der Spacer "versteckt" sich bei längeren Operationen wie 
+       Laden, Speichern und Kompilieren weitgehend bis er fertig 
+       ist. Beim Abschluss gibt er ein Ton-Signal. ("ready.wav")
+     - Maximieren des Spacerfensters ist nun nicht mehr möglich 
+       (auch bei Doppelklick auf die Titelleiste), dafür kann man 
+       jetzt das Fenster Minimieren. Die Berechnung der 
+       Fenstergröße bei Auflösungsänderung wurde auch gefixt
+     - Fehlermeldungen erscheinen in jedem Fall im Vordergrund 
+       (TOPMOST), so dass sie nicht mehr übersehen werden können
+     - Zusatz "as child" im Menü beim Einfügen eines neuen Vobs 
+       als Kind eines anderen Vobs
+
+* Dokumentation um Spacer Tutorial erweitert (c)BertSpeckels
+
+* MATLIB (Materialbibliothek für den Spacer) integriert
+

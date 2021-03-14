@@ -1,0 +1,517 @@
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Last Changes:
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Model ("Bab")
+{
+	meshAndTree ("Bab_Body_Naked0.ASC" DONT_USE_MESH)
+
+	registerMesh ("Bab_Body_Naked0.ASC")
+	registerMesh ("Bab_Armor.ASC")
+
+	aniEnum
+	{
+
+//////////////////////////
+// NORMAL MOVEMENT
+//////////////////////////
+//	RUN-Mode
+			ani			("s_Run"				1	"s_Run"			0.1	0.1	MI	"Bab_RunAmbient_A01.asc"	F	1	29)
+
+			ani			("t_Run_2_RunL"			1	"s_RunL"		0.0	0.0	M.	"bab_runloop_max01.ASC"		F	0	6)
+
+//	Run-Loop
+			ani			("s_RunL"				1	"s_RunL"		0.0	0.0	M.	"bab_runloop_max01.ASC"		F	6	29)
+			{
+				*eventSFXGrnd	(7	"Run")
+				*eventSFXGrnd	(19	"Run")
+			}
+
+			ani			("t_RunL_2_Run"			1	"s_Run"			0.0	0.0	M.	"bab_runloop_max01.ASC"		F	29	38)
+			{
+				*eventSFXGrnd	(33	"Run"	)
+			}
+			aniBlend	("t_RunR_2_Run"				"s_Run"			0.2	0.2)
+//	Run Backwards Movement
+			ani			("t_JumpB"				1	"s_Run"			0.0	0.1	M.	"Bab_JumpB_M01.asc"			F	1	14)
+			{
+				*eventSFXGrnd  (6 "Run")
+				*eventSFXGrnd  (9 "Run")
+			}
+
+//	Walk
+			ani			("s_Walk"				1	"s_Walk"		0.1	0.1	MI	"Bab_WalkAmbient_A01.asc"	F	1	49)
+			ani			("t_Walk_2_WalkL"		1	"s_WalkL"		0.0	0.0	M.	"bab_wakloop_max01.ASC"		F	0	10)
+			{
+				*eventSFXGrnd  (8 "Run")
+			}
+//	Walk-Loop
+			ani			("s_WalkL"				1	"s_WalkL"		0.0	0.1	M.	"bab_wakloop_max01.ASC"		F	10	41)
+			{
+				*eventSFXGrnd	(15	"Run")
+				*eventSFXGrnd	(30	"Run")
+			}
+			ani			("t_WalkL_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"bab_wakloop_max01.ASC"		F	41	50)
+			{
+				*eventSFXGrnd  (48 "Run")
+			}
+			aniBlend	("t_WalkR_2_Walk"			"s_Walk"		0.2	0.2)
+
+//	Walk Backwards Movement
+			aniBlend	("t_Walk_2_WalkBL"			"s_WalkBL"		0.3	0.3)
+
+//	WalkB-Loop
+			aniAlias	("s_WalkBL"				1	"s_WalkBL"		0.0	0.0	M.	"s_WalkL"					R)
+
+			aniBlend	("t_WalkBL_2_Walk"			"s_Walk"		0.3	0.3)
+			aniAlias	("t_WalkBR_2_Walk"		1	"s_Walk"		0.0	0.0	M.	"t_Walk_2_WalkL"			R)
+
+
+/////////////////////
+//	NORMAL TURNING
+/////////////////////
+			ani			("t_RunTurnL"			20	"t_RunTurnL"	0.2	0.2	M.	"Bab_TurnL_M01.asc"			F	1	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+			ani			("t_RunTurnR"			20	"t_RunTurnR"	0.2	0.2	M.	"Bab_TurnR_M01.asc"			F	1	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+			ani			("t_WalkTurnL"			20	"t_WalkTurnL"	0.2	0.2	M.	"Bab_TurnL_M01.asc"			F	1	24)
+			{
+				*eventSFXGrnd   (6  "Turn")
+				*eventSFXGrnd   (18 "Turn")
+			}
+			ani			("t_WalkTurnR"			20	"t_WalkTurnR"	0.2	0.2	M.	"Bab_TurnR_M01.asc"			F	1	24)
+			{
+				*eventSFXGrnd	(6	"Turn")
+				*eventSFXGrnd	(18	"Turn")
+			}
+
+
+/////////////////////
+//	STRAFING
+/////////////////////
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	// RUN
+			ani			("t_RunStrafeL"			1	"s_run"				0.1	0.1	M.	"Bab_StrafeL_A01.asc"	F	1	19)
+			{
+				*eventSFXGrnd	(12	"Run"	)
+			}
+			ani			("t_RunStrafeR"			1	"s_run"				0.1	0.1	M.	"Bab_StrafeR_A01.asc"	F	1	19)
+			{
+				*eventSFXGrnd	(10	"Run"	)
+			}
+			
+	// ---------------------------------------------------------------------------------------------------------------------------------
+	// WALK
+			ani			("t_WalkStrafeL"		1	"s_walk"			0.1	0.1	M.	"Bab_WalkStrafeL_A01.asc"	F	1	19)
+			{
+				*eventSFXGrnd	(12	"Run"	)
+			}
+			ani			("t_WalkStrafeR"		1	"s_Walk"			0.1	0.1	M.	"Bab_WalkStrafeR_A01.asc"	F	1	19)
+			{
+				*eventSFXGrnd	(10	"Run"	)
+			}
+	
+
+///////////////////
+//	TRANSITIONS
+///////////////////
+			aniBlend	("t_Run_2_Walk"				"s_Walk"		0.1	0.1)
+			aniBlend	("t_Walk_2_Run"				"s_Run"			0.1	0.1)
+
+			aniBlend	("t_RunL_2_WalkL"			"s_WalkL"		0.1	0.1)
+			aniBlend	("t_WalkL_2_RunL"			"s_RunL"		0.1	0.1)
+
+//////////////////////////
+// LOOK Autoaiming
+//////////////////////////
+
+// Seitenwinkel: +/- 60°	Höhenwinkel: +/- 45°
+			ani			("c_look_1"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	0	0)
+			ani			("c_look_2"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	1	1)
+			ani			("c_look_3"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	2	2)
+			ani			("c_look_4"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	3	3)
+			ani			("c_look_5"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	4	4)
+			ani			("c_look_6"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	5	5)
+			ani			("c_look_7"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	6	6)
+			ani			("c_look_8"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	7	7)
+			ani			("c_look_9"				9	""				0.0	0.0	.	"Bab_Look_M01.asc"	F	8	8)
+
+			aniComb		("t_look"				9	"t_look"		0.3	0.3	M.	"c_look_"	9)
+
+//////////////////////////
+// FALL
+//////////////////////////
+
+			aniBlend	("t_JumpUp_2_FallDn"		"s_FallDn"		0.0	0.2)
+			aniBlend	("t_Jump_2_FallDn"			"s_FallDn"		0.0	0.2)
+
+//	FallDn
+			ani			("s_FallDn"				1	"s_FallDn"		0.1	0.1	MF	"Bab_FallDn_max01.asc"		F	0	0)
+
+// Landen und stehenbleiben
+			ani			("t_FallDn_2_Stand"		1	""				0.0	0.1	M.	"Bab_FallDn_max01.asc"		F	1	46)
+			{
+				*eventSFX	(5	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+			
+// Hinfallen (s.o.)
+			aniBlend	("t_FallDn_2_Fall"			"s_Fall"		0.1	0.1)
+			aniBlend	("t_FallDn_2_FallB"			"s_FallB"		0.1	0.1)
+
+			aniAlias	("s_Fall"				1	"s_Fall"		0.0	0.0	MF	"s_FallDn"					F)
+			ani			("t_Fall_2_Fallen"		1	"s_Fallen"		0.0	0.0	M.	"Bab_FallDn_max01.ASC"		F	1	17)
+			{
+				*eventSFX	(5	"M_FALL_SMALL"	EMPTY_SLOT	)
+			}
+			ani			("s_Fallen"				1	"s_Fallen"		0.0	0.0	M.	"Bab_FallDn_max01.ASC"		F	18	18)
+			ani			("t_Fallen_2_Stand"		1	""				0.0	0.1	M.	"Bab_FallDn_max01.ASC"		F	19	46)
+
+			aniAlias	("s_FallB"				1	"s_FallB"		0.0	0.0	MF	"s_FallDn"					F)
+			aniAlias	("t_FallB_2_FallenB"	1	"s_FallenB"		0.0	0.0	M.	"t_Fall_2_Fallen"			F)
+			aniAlias	("s_FallenB"			1	"s_FallenB"		0.0	0.0	M.	"s_Fallen"					F)
+			aniAlias	("t_FallenB_2_Stand"	1	""				0.0	0.1	M.	"t_Fallen_2_Stand"			F)
+
+
+///////////////////////////
+// STUMBLE / DIE / DROWN
+///////////////////////////
+			ani			("t_Stumble"			1	""				0.2	0.2	M.	"Bab_Stumble_M01.asc"		F	1	19)
+			{
+				*eventSFX	(1	"BAB_HURT"	EMPTY_SLOT	)
+			}
+			ani			("t_StumbleB"			1	""				0.2	0.2	M.	"Bab_StumbleB_M01.asc"		F	1	19)
+			{
+				*eventSFX	(2	"BAB_HURT"	EMPTY_SLOT	)
+			}
+			
+			ani			("t_DeadB"				1	"s_DeadB"		0.1	0.0	M.	"Bab_Dead_A01.asc"			F	1	69)
+			{
+				*eventSFX	(2	"BAB_DIE"	EMPTY_SLOT	)
+			}
+			
+			ani			("s_DeadB"				1	"s_DeadB"		0.0	0.0	M.	"Bab_Dead_A01.asc"			F	70	70)
+			
+			ani			("t_Dead"				1	"s_Dead"		0.1	0.0	M.	"Bab_Dead_M01.asc"			F	1	64)
+			{
+				*eventSFX	(2	"BAB_DIE"	EMPTY_SLOT	)
+			}
+			
+			ani			("s_Dead"				1	"s_Dead"		0.0	0.0	M.	"Bab_Dead_M01.asc"			F	65	65)
+			
+	
+			aniBlend	("t_FallDn_2_Dive"			"s_Dive"		0.5	0.5)
+			aniBlend	("t_Fall_2_Dive"			"s_Dive"		0.5	0.5)
+			aniBlend	("t_FallB_2_Dive"			"s_Dive"		0.5	0.5)	
+	
+			ani			("s_Dive"				1	"s_Dive"		0.0	0.0	M.	"Bab_Drown_A01.asc"			F	0	0)
+			
+			ani			("t_Dive_2_Drowned"		1	"s_Drowned"		0.1	0.0	MF	"Bab_Drown_A01.asc"			F	0	24)
+			{
+				*eventSFX		(0	"Drown")
+			}
+
+			ani			("s_Drowned"			1	"s_Drowned"		0.0	0.0	M.	"Bab_Drown_A01.asc"			F	25	25)
+
+			
+///////////////////////////
+// Item Interaktion
+///////////////////////////
+
+// BRUSH - Boden schrubben
+			ani			("t_BRUSH_Stand_2_S0"	1	"s_BRUSH_S0"	0.1	0.0	M.	"Bab_Sweep_M01.asc"			F	0	2)
+			{
+				*eventTag	(1	"DEF_INSERT_ITEM"	"ZS_RIGHTHAND")
+			}
+			ani			("s_BRUSH_S0"			1	"s_BRUSH_S0"	0.0	0.0	M.	"Bab_Sweep_M01.asc"			F	3	3)
+			ani			("t_BRUSH_S0_2_Stand"	1	""				0.0	0.1	M.	"Bab_Sweep_M01.asc"			R	0	2)
+			{
+				*eventTag	(1	"DEF_REMOVE_ITEM")
+			}
+
+			ani			("t_BRUSH_S0_2_S1"		1	"s_BRUSH_S1"	0.0	0.0	M.	"Bab_Sweep_M01.asc"			F	4	39)
+			ani			("s_BRUSH_S1"			1	"s_BRUSH_S1"	0.0	0.0	M.	"Bab_Sweep_M01.asc"			F	40	120	FPS:12.5)
+			{
+				*eventPFX	(43	1	"SOAPFOAM"	"BIP01 L Finger0"	ATTACH	)
+				*eventPFX	(46	2	"SOAPFOAM"	"BIP01 R Finger0"	ATTACH	)
+				*eventPFXStop	(112	1	)
+				*eventPFXStop	(115	2	)
+				*eventSFX	(50	"BAB_SIGH")				
+			}
+			aniAlias	("t_BRUSH_S1_2_S0"		1	"s_BRUSH_S0"	0.0	0.0	M.	"t_BRUSH_S0_2_S1"			R)
+
+
+/////////////////////
+// COOLAIR
+//
+// Mit Palmenwedel Luft zufächern...
+
+
+			
+			ani			("t_COOLAIR_Stand_2_S0"	1	"s_COOLAIR_S0"	0.1	0.0	M.	"Bab_CoolAir_Jue01.asc"		F	0	2)
+			{
+							*eventTag	(1	"DEF_INSERT_ITEM"	"ZS_RIGHTHAND")
+			}
+			ani			("s_COOLAIR_S0"			1	"s_COOLAIR_S0"	0.0	0.0	M.	"Bab_CoolAir_Jue01.asc"		F	3	3)
+			ani			("t_COOLAIR_S0_2_Stand"	1	""				0.0	0.1	M.	"Bab_CoolAir_Jue01.asc"		R	0	2)
+			{
+				*eventTag	(1	"DEF_REMOVE_ITEM")
+			}
+
+			ani			("t_COOLAIR_S0_2_S1"	1	"s_COOLAIR_S1"	0.0	0.0	M.	"Bab_CoolAir_Jue01.asc"		F	4	24)
+			ani			("s_COOLAIR_S1"			1	"s_COOLAIR_S1"	0.0	0.0	M.	"Bab_CoolAir_Jue01.asc"		F	25	64)
+		
+			ani			("t_COOLAIR_RANDOM_1"	2	""				0.1	0.1	M.	"Bab_CoolAir_RandomVerschnauf_Jue01.asc"	F	1	84	FPS:12.5)		
+		
+			aniAlias	("t_COOLAIR_S1_2_S0"	1	"s_COOLAIR_S0"	0.0	0.0	M.	"t_COOLAIR_S0_2_S1"			R)
+			
+			
+			
+
+///////////////////////////
+// Mobsi
+///////////////////////////
+// BabeBed
+			ani			("t_BABEBED_Stand_2_S0"	1	"s_BABEBED_S0"	0.0	0.0	M.	"Bab_goBed.asc"				F	1	6)
+			ani			("s_BABEBED_S0"			1	"s_BABEBED_S0"	0.0	0.0	M.	"Bab_goBed.asc"				F	7	7)
+			aniAlias	("t_BABEBED_S0_2_Stand"	1	""				0.0	0.0	M.	"t_BABEBED_Stand_2_S0"		R)
+			ani			("t_BABEBED_S0_2_S1"	1	"s_BABEBED_S1"	0.0	0.0	M.	"Bab_goBed.asc"				F	8	159	FPS:12.5)
+			ani			("s_BABEBED_S1"			1	"s_BABEBED_S1"	0.0	0.0	M.	"Bab_goBed.asc"				F	160	259	FPS:5)
+			aniAlias	("t_BABEBED_S1_2_S0"	1	"s_BABEBED_S0"	0.0	0.0	M.	"t_BABEBED_S0_2_S1"			R)
+
+// Auf Stuhl setzen
+			aniAlias	("t_Chair_Stand_2_S0"	1	"s_Chair_S0"	0.2	0.0	M.	"t_Bench_Stand_2_S0"		F)
+			aniAlias	("s_Chair_S0"			1	"s_Chair_S0"	0.0	0.0	M.	"s_Bench_S0"				F)
+			aniAlias	("t_Chair_S0_2_Stand"	1	""				0.0	0.2	M.	"t_Bench_Stand_2_S0"		R)
+
+			aniAlias	("t_Chair_S0_2_S1"		1	"s_Chair_S1"	0.0	0.0	M.	"t_Bench_S0_2_S1"			F)
+			aniAlias	("s_Chair_S1"			1	"s_Chair_S1"	0.0	0.0	M.	"s_Bench_S1"				F)
+			aniAlias	("t_Chair_S1_2_S0"		1	"s_Chair_S0"	0.0	0.1	M.	"t_Bench_S0_2_S1"			R)
+
+// Auf Bank setzen
+			ani			("t_Bench_Stand_2_S0"	1	"s_Bench_S0"	0.2	0.0	M.	"bab_sit_on_Bench.asc"		F	0	4)
+			ani			("s_Bench_S0"			1	"s_Bench_S0"	0.0	0.0	M.	"bab_sit_on_Bench.asc"		F	5	5)
+			aniAlias	("t_Bench_S0_2_Stand"	1	""				0.0	0.2	M.	"t_Bench_Stand_2_S0"		R)
+
+			ani			("t_Bench_S0_2_S1"		1	"s_Bench_S1"	0.0	0.0	M.	"bab_sit_on_Bench.asc"		F	6	87)
+			ani			("s_Bench_S1"			1	"s_Bench_S1"	0.0	0.0	M.	"bab_sit_on_Bench.asc"		F	88	88)
+			aniAlias	("t_Bench_S1_2_S0"		1	"s_Bench_S0"	0.0	0.0	M.	"t_Bench_S0_2_S1"			R)
+
+// Leiter hochklettern 
+			ani			("t_Ladder_Stand_2_S0"	1	"s_Ladder_S0"	0.1	0.0	M.	"bab_LadderClimb.asc"		F	1	14)
+			ani			("s_Ladder_S0"			1	"s_Ladder_S0"	0.0	0.0	MF	"bab_LadderClimb.asc"		F	14	14)
+			aniAlias	("t_Ladder_S0_2_Stand"	1	""				0.0	0.0	MF	"t_Ladder_Stand_2_S0"		R)
+			ani			("t_Ladder_S0_2_S1"		1	"s_Ladder_S1"	0.0	0.0	MF	"bab_LadderClimb.asc"		F	15	45)
+			{
+				*eventSFX	(16	"Ladder_Step"	EMTPY_SLOT	)
+				*eventSFX	(31	"Ladder_Step"	EMTPY_SLOT	)
+			}
+			// 2m Leiter
+			aniAlias	("s_Ladder_S1"			1	"s_Ladder_S1"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			ani			("t_Ladder_S1_2_Stand"	1	""				0.0	0.2	MF	"bab_LadderClimb.asc"		F	46	64)
+			{
+				*eventSFXGrnd	(57	"Sneak"		)
+				*eventSFXGrnd	(63	"Sneak"		)
+			}
+			ani			("t_Ladder_Stand_2_S1"	1	"s_Ladder_S1"	0.2	0.0	MF	"bab_LadderClimb.asc"		F	67	99)
+			{
+				*eventSFX	(85	"Ladder_Step"	EMTPY_SLOT	)
+				*eventSFX	(90	"Ladder_Step"	EMTPY_SLOT	)
+			}
+			aniAlias	("t_Ladder_S1_2_S0"		1	"s_Ladder_S0"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S1_2_S2"		1	"s_Ladder_S2"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 3m Leiter
+			aniAlias	("s_Ladder_S2"			1	"s_Ladder_S2"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S2_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S2"	1	"s_Ladder_S2"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S2_2_S1"		1	"s_Ladder_S1"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S2_2_S3"		1	"s_Ladder_S3"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 4m Leiter
+			aniAlias	("s_Ladder_S3"			1	"s_Ladder_S3"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S3_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S3"	1	"s_Ladder_S3"	0.1	0.0	MF	"t_Ladder_S1_2_Stand"		R)
+			aniAlias	("t_Ladder_S3_2_S2"		1	"s_Ladder_S2"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S3_2_S4"		1	"s_Ladder_S4"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 5m Leiter
+			aniAlias	("s_Ladder_S4"			1	"s_Ladder_S4"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S4_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S4"	1	"s_Ladder_S4"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S4_2_S3"		1	"s_Ladder_S3"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S4_2_S5"		1	"s_Ladder_S5"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 6m Leiter
+			aniAlias	("s_Ladder_S5"			1	"s_Ladder_S5"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S5_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S5"	1	"s_Ladder_S5"	0.2	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S5_2_S4"		1	"s_Ladder_S4"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S5_2_S6"		1	"s_Ladder_S6"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 7m Leiter
+			aniAlias	("s_Ladder_S6"			1	"s_Ladder_S6"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S6_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S6"	1	"s_Ladder_S6"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S6_2_S5"		1	"s_Ladder_S5"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S6_2_S7"		1	"s_Ladder_S7"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 8m Leiter
+			aniAlias	("s_Ladder_S7"			1	"s_Ladder_S7"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S7_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S7"	1	"s_Ladder_S7"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S7_2_S6"		1	"s_Ladder_S6"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S7_2_S8"		1	"s_Ladder_S8"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 9m Leiter
+			aniAlias	("s_Ladder_S8"			1	"s_Ladder_S8"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S8_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S8"	1	"s_Ladder_S8"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S8_2_S7"		1	"s_Ladder_S7"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+			aniAlias	("t_Ladder_S8_2_S9"		1	"s_Ladder_S9"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			F)
+			// 10m Leiter
+			aniAlias	("s_Ladder_S9"			1	"s_Ladder_S9"	0.0	0.0	MF	"s_Ladder_S0"				F)
+			aniAlias	("t_Ladder_S9_2_Stand"	1	""				0.0	0.1	MF	"t_Ladder_S1_2_Stand"		F)
+			aniAlias	("t_Ladder_Stand_2_S9"	1	"s_Ladder_S9"	0.1	0.0	MF	"t_Ladder_Stand_2_S1"		F)
+			aniAlias	("t_Ladder_S9_2_S8"		1	"s_Ladder_S8"	0.0	0.0	MF	"t_Ladder_S0_2_S1"			R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Tür aufstossen
+			ani			("t_Door_Front_Stand_2_S0"	1	"s_Door_Front_S0"	0.0	0.0	M.	"bab_DoorFront.asc"		F	0	4)
+			ani			("s_Door_Front_S0"			1	"s_Door_Front_S0"	0.0	0.0	M.	"bab_DoorFront.asc"		F	5	5)
+			aniAlias	("t_Door_Front_S0_2_Stand"	1	""					0.0	0.2	M.	"t_Door_Front_Stand_2_S0"	R)
+
+			ani			("t_Door_Front_S0_2_S1"		1	"s_Door_Front_S1"	0.0	0.1	M.	"bab_DoorFront.asc"		F	36	76)
+			ani			("s_Door_Front_S1"			1	"s_Door_Front_S1"	0.0	0.0	M.	"bab_DoorFront.asc"		F	77	77)
+			ani			("t_Door_Front_S1_2_S0"		1	"s_Door_Front_S0"	0.1	0.0	M.	"bab_DoorFront.asc"		F	85	135)
+			
+			ani			("t_Door_Front_S1_2_Stand"	1	""					0.0	0.2	M.	"bab_DoorFront.asc"		F	78	82)
+			aniAlias	("t_Door_Front_Stand_2_S1"	1	"s_Door_Front_S1"	0.2	0.0	M.	"t_Door_Front_S1_2_Stand"	R)
+
+
+			ani			("t_Door_Back_Stand_2_S0"	1	"s_Door_Back_S0"	0.0	0.0	M.	"Bab_DoorBack.asc"		F	0	4)
+			ani			("s_Door_Back_S0"			1	"s_Door_Back_S0"	0.0	0.0	M.	"Bab_DoorBack.asc"		F	5	5)
+			aniAlias	("t_Door_Back_S0_2_Stand"	1	""					0.0	0.2	M.	"t_Door_Back_Stand_2_S0"	R)
+			
+			ani			("t_Door_Back_S0_2_S1"		1	"s_Door_Back_S1"	0.0	0.1	M.	"Bab_DoorBack.asc"		F	36	76)
+			ani			("s_Door_Back_S1"			1	"s_Door_Back_S1"	0.0	0.0	M.	"Bab_DoorBack.asc"		F	77	77)
+			ani			("t_Door_Back_S1_2_S0"		1	"s_Door_Back_S0"	0.1	0.0	M.	"Bab_DoorBack.asc"		F	85	135)
+
+			ani			("t_Door_Back_S1_2_Stand"	1	""					0.0	0.2	M.	"Bab_DoorBack.asc"		F	78	82)
+			aniAlias	("t_Door_Back_Stand_2_S1"	1	"s_Door_Back_S1"	0.2	0.0	M.	"t_Door_Back_S1_2_Stand"	R)
+
+// ---------------------------------------------------------------------------------------------------------------
+// Badewanne
+			ani			("t_Bathtub_Stand_2_S0"		1	"s_Bathtub_S0"		0.1	0.0	M.	"Bab_Bathtub_M01.asc"	F	0	2)
+			ani			("s_Bathtub_S0"				1	"s_Bathtub_S0"		0.0	0.0	M.	"Bab_Bathtub_M01.asc"	F	2	2)
+			aniAlias	("t_Bathtub_S0_2_Stand"		1	""					0.0	0.1	M.	"t_Bathtub_Stand_2_S0"	R)
+			
+			ani			("t_Bathtub_S0_2_S1"		1	"s_Bathtub_S1"		0.0	0.0	M.	"Bab_Bathtub_M01.asc"	F	2	110	FPS:12.5)
+			{
+				*eventMMStartAni (90	"S_EYESCLOSED")
+			}
+			ani			("s_Bathtub_S1"				1	"s_Bathtub_S1"		0.0	0.0	M.	"Bab_Bathtub_M01.asc"	F	110	210	FPS:5)
+			ani			("t_Bathtub_S1_2_Stand"		1	""					0.0	0.2	M.	"Bab_Bathtub_M01.asc"	F	210	275	FPS:12.5)
+			{
+				*eventMMStartAni (215	"S_NEUTRAL")
+			}
+
+			aniAlias	("t_Bathtub_Stand_2_S1"		1	"s_BathTub_S1"		0.2	0.0	M.	"t_Bathtub_S0_2_S1"		F)
+
+			ani			("t_Bathtub_Random1"		1	"s_Bathtub_S1"		0.0	0.0	M.	"Bab_Bathtub_Random1_M01.asc"	F	0	300	FPS:12.5)
+			{
+				*eventMMStartAni (10	"S_NEUTRAL")
+
+				*eventPFX	(46		1	"SOAPFOAM"	"BIP01 R CALF"	ATTACH	)
+				*eventPFXStop	(70	1)
+
+				*eventMMStartAni (130	"S_EYESCLOSED")
+				
+				*eventMMStartAni (190	"S_MOUTHOPEN")
+
+				*eventPFX	(198	2	"SOAPFOAM"	"BIP01 L THIGH"	ATTACH	)
+				*eventPFX	(205	3	"SOAPFOAM"	"BIP01 R THIGH"	ATTACH	)
+			
+				*eventPFXStop	(220	2)
+				*eventPFXStop	(235	3)
+
+				*eventMMStartAni (280	"S_NEUTRAL")
+				*eventMMStartAni (290	"S_EYESCLOSED")
+			}
+			ani			("t_Bathtub_Random2"		1	"s_Bathtub_S1"		0.0	0.0	M.	"Bab_Bathtub_Random2_M01.asc"	F	0	440	FPS:12.5)
+			{
+				*eventMMStartAni (6	"S_NEUTRAL")
+
+				*eventPFX	(86		1	"SOAPFOAM"	"BIP01 SPINE1"	ATTACH	)
+				*eventPFX	(130	2	"SOAPFOAM"	"BIP01 SPINE"	ATTACH	)
+	
+				*eventPFXStop	(120	1)
+
+				*eventMMStartAni (134	"S_MOUTHOPEN")
+
+				*eventPFXStop	(160	2)
+				
+				*eventMMStartAni (220	"S_NEUTRAL")
+
+				*eventMMStartAni (250	"S_EYESCLOSED")
+
+				*eventMMStartAni (300	"S_MOUTHOPEN")
+
+				*eventMMStartAni (327	"S_NEUTRAL")
+
+				*eventPFX	(360	3	"WATERSPLASH"	"BIP01 SPINE")
+				*eventPFXStop	(370	3)
+				*eventPFX	(382	4	"WATERSPLASH"	"BIP01 R FOOT")
+				*eventPFXStop	(382	4)
+
+				*eventMMStartAni (428	"S_EYESCLOSED")
+			}
+					
+
+
+///////////////////////////
+// Tanzen
+///////////////////////////
+			ani			("s_Dance1"				2	""				0.2	0.2	M.	"Bab_Dance_1_M01.asc"		F	1	275	FPS:12.5)
+			ani			("s_Dance2"				2	""				0.2	0.2	M.	"Bab_Dance_2_M01.asc"		F	1	529	FPS:12.5)
+			ani			("s_Dance3"				2	""				0.2	0.2	M.	"Bab_Dance_3_M01.asc"		F	1	499	FPS:12.5)
+			ani			("s_Dance4"				2	""				0.2	0.2	M.	"Bab_Dance_4_M01.asc"		F	1	319	FPS:12.5)
+			ani			("s_Dance5"				2	""				0.2	0.2	M.	"Bab_Dance_5_M01.asc"		F	1	349	FPS:12.5)
+			ani			("s_Dance6"				2	""				0.2	0.2	M.	"Bab_Dance_6_M01.asc"		F	1	539	FPS:12.5)
+			ani			("s_Dance7"				2	""				0.2	0.2	M.	"Bab_Dance_7_M01.asc"		F	1	209	FPS:12.5)
+			ani			("s_Dance8"				2	""				0.2	0.2	M.	"Bab_Dance_8_M01.asc"		F	1	459	FPS:12.5)
+			ani			("s_Dance9"				2	""				0.2	0.2	M.	"Bab_Dance_9_M01.asc"		F	1	619	FPS:12.5)
+	
+////////////////////////
+// REFUSE TALK
+// ------------------------------------------------------------------------------------------------------------------------
+			ani			("t_RefuseTalk"			2	""				0.1	0.1	M.	"Bab_RefuseTalk_A01.asc"	F	1	49)
+
+
+///////////////////////
+// MAGIC VICTIMS
+///////////////////////
+
+// Feuerschaden allgemein, z.B. Fireball ...
+//			aniAlias	("s_Fire_Victim"			1	"s_Fire_Victim"			0.0	0.0	M.	"s_FallDn"			F)
+
+// Lightning, Chainlightning, Thunderbolt, Thunderball
+			aniAlias	("t_Stand_2_Lightning_Victim"	1	"s_Lightning_Victim"	0.0	0.0	M.	"s_FallDn"		F)
+			aniAlias	("s_Lightning_Victim"		1	"s_Lightning_Victim"	0.0	0.0	M.	"s_FallDn"			F)
+
+// IceCube, IceWave
+			ani			("t_Stand_2_Freeze_Victim"	1	"s_Freeze_Victim"		0.1	0.0	M.	"Bab_StumbleB_M01.asc"		F	1	3)
+			ani			("s_Freeze_Victim"			1	"s_Freeze_Victim"		0.0	0.0	M.	"Bab_StumbleB_M01.asc"		F	4	4)
+		
+// Sleep Victim (fehlt noch!)
+//			aniAlias	("t_Stand_2_Victim_Sle"		1	"s_Victim_Sle"			0.1	0.0	M.	"t_Stand_2_Sleep"	F)
+//			{
+//				*eventPFX	(2	 1	"MFX_SLEEP_TARGET"	"Bip01"	)
+//			}
+//			aniAlias	("s_Victim_Sle"				1	"s_Victim_Sle"			0.1	0.1	M.	"s_Sleep"			F)
+//			aniAlias	("t_Victim_Sle_2_Stand"		1	""						0.0	0.2	M.	"t_Sleep_2_Stand"	F)
+
+	}
+

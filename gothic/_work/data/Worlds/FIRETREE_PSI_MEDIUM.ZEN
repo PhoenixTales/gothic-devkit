@@ -1,0 +1,74 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 30.1.2001 20:36:29
+user roeske
+END
+objects 3        
+END
+
+[% oCWorld:zCWorld 64513 0]
+	[VobTree % 0 0]
+		childs0=int:1
+		[% zCVobLight:zCVob 46080 1]
+			pack=int:0
+			presetName=string:BLUE
+			bbox3DWS=rawFloat:-1200.621948242 -1197.261230469 -1822.449829102 1199.378051758 1202.738769531 577.550170898 
+			trafoOSToWSRot=raw:0000803f0000000000000000000000000000803f0000000000000000000000000000803f
+			trafoOSToWSPos=vec3:-0.621890962 2.738769531 -622.449829102
+			vobName=string:
+			visual=string:
+			showVisual=bool:0
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual % 0 0]
+			[]
+			[ai % 0 0]
+			[]
+			lightPresetInUse=string:BLUE
+			lightType=enum:0
+			range=float:900.000000000
+			color=color:0 255 255 255
+			spotConeAngle=float:0.000000000
+			lightStatic=bool:0
+			lightQuality=enum:1
+			lensflareFX=string:
+			turnedOn=bool:1
+			rangeAniScale=string:
+			rangeAniFPS=float:0.000000000
+			rangeAniSmooth=bool:0
+			colorAniList=string:
+			colorAniFPS=float:0.000000000
+			colorAniSmooth=bool:0
+		[]
+		childs1=int:1
+		[% zCVobLensFlare:zCVob 64704 2]
+			pack=int:0
+			presetName=string:
+			bbox3DWS=rawFloat:-2.930484772 -1.199951172 -624.495727539 -0.930484772 0.800048828 -622.495727539 
+			trafoOSToWSRot=raw:0000803f0000000000000000000000000000803f0000000000000000000000000000803f
+			trafoOSToWSPos=vec3:-1.930484772 -0.199951172 -623.495727539
+			vobName=string:
+			visual=string:
+			showVisual=bool:0
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual % 0 0]
+			[]
+			[ai % 0 0]
+			[]
+			lensflareFX=string:TEMPLEFX01
+		[]
+		childs2=int:0
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

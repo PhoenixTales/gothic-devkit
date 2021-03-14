@@ -1,0 +1,53 @@
+ZenGin Archive
+ver 1
+zCArchiverGeneric
+ASCII
+saveGame 0
+date 30.1.2001 20:35:48
+user roeske
+END
+objects 2        
+END
+
+[% oCWorld:zCWorld 64513 0]
+	[VobTree % 0 0]
+		childs0=int:1
+		[% zCVobLight:zCVob 46080 1]
+			pack=int:0
+			presetName=string:LIGHT
+			bbox3DWS=rawFloat:-2000.621948242 -1997.261230469 -2199.773925781 1999.378051758 2002.738769531 1800.226196289 
+			trafoOSToWSRot=raw:9a5e11bf00000000cbb8523f000000000000803f00000000cbb852bf000000009a5e11bf
+			trafoOSToWSPos=vec3:-0.621890962 2.738769531 -199.773834229
+			vobName=string:LIGHT
+			visual=string:
+			showVisual=bool:0
+			visualCamAlign=enum:0
+			cdStatic=bool:0
+			cdDyn=bool:0
+			staticVob=bool:0
+			dynShadow=enum:0
+			[visual % 0 0]
+			[]
+			[ai % 0 0]
+			[]
+			lightPresetInUse=string:
+			lightType=enum:0
+			range=float:2000.000000000
+			color=color:223 173 117 255
+			spotConeAngle=float:0.000000000
+			lightStatic=bool:0
+			lightQuality=enum:2
+			lensflareFX=string:
+			turnedOn=bool:1
+			rangeAniScale=string:
+			rangeAniFPS=float:0.000000000
+			rangeAniSmooth=bool:1
+			colorAniList=string:(211 147 107) (223 173 117) (211 147 107) (223 173 117) (225 197 100) (223 173 117) (227 209 106) (223 173 117) (211 147 107) (223 173 117) (225 197 100) (227 209 106) (223 173 117) (211 147 107) (225 197 100) (223 173 117) (225 197 100) (211 147 107) (223 173 117) (227 209 106) (225 197 100) (211 147 107) (225 197 100) (223 173 117) (225 197 100) (227 209 106) (223 173 117) (211 147 107) (223 173 117) (211 147 107) (225 197 100) (227 209 106) (223 173 117) 
+			colorAniFPS=float:11.000016212
+			colorAniSmooth=bool:0
+		[]
+		childs1=int:0
+	[]
+	[EndMarker % 0 0]
+	[]
+[]

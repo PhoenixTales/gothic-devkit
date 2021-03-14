@@ -31,7 +31,7 @@ These files can serve as a base for making modifications to GOTHIC. They should 
   
 PhoenixTales' Update des offiziellen GOTHIC Mod Development Kits zur Nutzung im Rahmen von nicht-kommerziellen Modifikationen. Die erste Version (1.0) wurde 2001 von Piranha Bytes veröffentlicht. Die genauen Änderungen findet ihr im [Changelog](https://github.com/PhoenixTales/gothic-devkit/blob/main/Changelog.txt).  
 
-### Anleitung zum Extrahieren der Texturen aus einer lokalen GOTHIC Installation
+### Extrahieren der Texturen aus der lokalen GOTHIC Installation
 Meshes, Skripte und einige Welten wurden bereits in dekompilierter Form im offiziellen `gothic_mod_developmentkit.zip` (v1.0) integriert.  
 Manche Weltenteile waren nicht Teil des offiziell veröffentlichten Development Kits und wurden mithilfe von GothicVDFS extrahiert.
 Animationen wurden mit dem Gothic Sourcer 3.14 aus GOTHIC dekompiliert.

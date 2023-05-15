@@ -127,7 +127,7 @@ Model ("HuS")
 			aniBlend	("t_1hRun_2_1hWalk"				"s_1hWalk"		0.0	0.2)
 			aniBlend	("t_1hWalk_2_1hRun"				"s_1hRun"		0.0	0.2)
 
-			ani			("t_1hRun_2_1hSneak"		1	"s_1hSneak"		0.1	0.1	M.	"Hum_1hRun_2_Sneak.asc"		F	25	30)
+			ani			("t_1hRun_2_1hSneak"		1	"s_1hSneak"		0.1	0.1	M.	"Hum_1hRun_2_Sneak_T1.asc"		F	25	30)
 			aniAlias	("t_1hSneak_2_1hRun"		1	"s_1hRun"		0.1	0.1	M.	"t_1hRun_2_1hSneak"			R)
 
 			aniBlend	("t_1hRunL_2_1hWalkL"			"s_1hWalkL"		0.2	0.2)
@@ -152,7 +152,7 @@ Model ("HuS")
 			}
 
 
-		// Auf Höhen schlagen
+		// Auf Hï¿½hen schlagen
 //			ani			("c_1hAttack_1"				1	""				0.0	0.0	.	"Hum_1hAttackUpT2.asc"	F	0	19)
 //			ani			("c_1hAttack_2"				1	""				0.0	0.0	.	"Hum_1hAttackMidT2.asc"	F	0	19)
 //			ani			("c_1hAttack_3"				1	""				0.0	0.0	.	"Hum_1hAttackDnT2.asc"	F	0	19)
@@ -162,7 +162,7 @@ Model ("HuS")
 //				*eventTag	(0 "DEF_OPT_FRAME"	"8")
 //			}
 
-		// Drehschläge L/R				
+		// Drehschlï¿½ge L/R				
 			ani			("t_1hAttackL"				1	""				0.0	0.2	M.	"Hum_1hAttackT2_M05.asc"	F	1	25)
 			{
 				*eventTag		(0 "DEF_HIT_LIMB"	"ZS_RIGHTHAND")

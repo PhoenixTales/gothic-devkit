@@ -127,7 +127,7 @@ Model ("HuS")
 			aniBlend	("t_1hRun_2_1hWalk"				"s_1hWalk"		0.0	0.2)
 			aniBlend	("t_1hWalk_2_1hRun"				"s_1hRun"		0.0	0.2)
 
-			ani			("t_1hRun_2_1hSneak"		1	"s_1hSneak"		0.1	0.1	M.	"Hum_1hRun_2_Sneak.asc"		F	17	23)
+			ani			("t_1hRun_2_1hSneak"		1	"s_1hSneak"		0.1	0.1	M.	"Hum_1hRun_2_Sneak_T2.asc"		F	17	23)
 			aniAlias	("t_1hSneak_2_1hRun"		1	"s_1hRun"		0.1	0.1	M.	"t_1hRun_2_1hSneak"			R)
 
 			aniBlend	("t_1hRunL_2_1hWalkL"			"s_1hWalkL"		0.2	0.2)
@@ -151,7 +151,7 @@ Model ("HuS")
 				*eventSFX		(72	"BACK"	EMPTY_SLOT	)
 			}
 
-	// Auf Höhen schlagen ????
+	// Auf Hï¿½hen schlagen ????
 //			ani			("c_1hAttack_1"				1	""		0.0	0.0	.	"Hum_1hAttackUpT3.asc"	F	0	19)
 //			ani			("c_1hAttack_2"				1	""		0.0	0.0	.	"Hum_1hAttackMidT3.asc"	F	0	19)
 //			ani			("c_1hAttack_3"				1	""		0.0	0.0	.	"Hum_1hAttackDnT3.asc"	F	0	19)
